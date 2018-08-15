@@ -9,7 +9,7 @@ return [
 		'protocols' => [		'title' => 'Protocols',		'fields' => [			'protocol' => 'Protocol',			'real-name' => 'Real Name',		],	],
 		'channels' => [		'title' => 'Channels',		'fields' => [			'channelid' => 'ChannelID',			'type' => 'Type',		],	],
 		'csi' => [		'title' => 'Channel Server Inputs',		'fields' => [			'channel-server' => 'Channel server',			'channel' => 'ChannelID',			'protocol' => 'Protocol',			'ssm' => 'Source Specific Mulitcast (SSM)',			'imc' => 'Input Mulicast Group (IMC)',			'ip' => 'IP',			'pid' => 'Service ID (PID)',		],	],
-		'channel-server' => [		'title' => 'Channel Server',		'fields' => [			'name' => 'Name',		],	],
+		'channel-server' => [		'title' => 'Channel Server',		'fields' => [			'name' => 'Name',			'cs-host' => 'CS Host',		],	],
 		'cso' => [		'title' => 'Channel Server Outputs',		'fields' => [			'channel-server' => 'Channel Server',			'cid' => 'Channel ID',			'ocloud-a' => 'OCloud A',			'ocp-a' => 'Port A',			'ocloud-b' => 'OCloud B',			'ocp-b' => 'Port B',		],	],
 		'channel-servers-area' => [		'title' => 'Channel Servers Area',		'fields' => [		],	],
 		'sync-server-area' => [		'title' => 'Sync Server Area',		'fields' => [		],	],
@@ -24,6 +24,7 @@ return [
 		'report-settings' => [		'title' => 'Report settings',		'fields' => [			'millisecond-precision' => 'Millisecond precision',			'show-channel-button' => 'Show channel button',			'show-clip-button' => 'Show clip button',			'show-group-button' => 'Show group button',			'show-live-button' => 'Show live button',			'enable-evt' => 'Enable evt',			'enable-excel' => 'Enable excel',			'enable-evt-timing' => 'Enable evt timing',			'timezone' => 'Timezone',			'country' => 'Country',			'synce-server' => 'Synce server',			'filters' => 'Filters',		],	],
 		'country' => [		'title' => 'Country',		'fields' => [			'shortcode' => 'Shortcode',			'title' => 'Title',		],	],
 		'filters' => [		'title' => 'Filters',		'fields' => [			'name' => 'Name',		],	],
+		'cs-channel-list' => [		'title' => 'CS Channel List',		'fields' => [			'channel-server' => 'Channel server',			'channel-name' => 'Channel name',			'channel-type' => 'Channel type',		],	],
 	'app_create' => 'Create',
 	'app_save' => 'Save',
 	'app_edit' => 'Edit',
@@ -268,5 +269,5 @@ return [
 	'app_deselect_all' => 'Deselect all',
 	'app_team-management' => 'Teams',
 	'app_team-management-singular' => 'Team',
-	'global_title' => 'caipi',
+	'global_title' => 'Caipy Manager',
 ];

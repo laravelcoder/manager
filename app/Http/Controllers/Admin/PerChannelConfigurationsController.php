@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StorePerChannelConfigurationsRequest;
 use App\Http\Requests\Admin\UpdatePerChannelConfigurationsRequest;
+use Yajra\DataTables\DataTables;
 
 class PerChannelConfigurationsController extends Controller
 {
@@ -23,16 +24,75 @@ class PerChannelConfigurationsController extends Controller
         }
 
 
-        if (request('show_deleted') == 1) {
-            if (! Gate::allows('per_channel_configuration_delete')) {
-                return abort(401);
+        
+        if (request()->ajax()) {
+            $query = PerChannelConfiguration::query();
+            $query->with("rtn");
+            $query->with("sync_server");
+            $template = 'actionsTemplate';
+            if(request('show_deleted') == 1) {
+                
+        if (! Gate::allows('per_channel_configuration_delete')) {
+            return abort(401);
+        }
+                $query->onlyTrashed();
+                $template = 'restoreTemplate';
             }
-            $per_channel_configurations = PerChannelConfiguration::onlyTrashed()->get();
-        } else {
-            $per_channel_configurations = PerChannelConfiguration::all();
+            $query->select([
+                'per_channel_configurations.id',
+                'per_channel_configurations.cid',
+                'per_channel_configurations.active',
+                'per_channel_configurations.notify_channel_id',
+                'per_channel_configurations.offset',
+                'per_channel_configurations.ad_lengths',
+                'per_channel_configurations.ad_spacing',
+                'per_channel_configurations.rtn_id',
+                'per_channel_configurations.sync_server_id',
+            ]);
+            $table = Datatables::of($query);
+
+            $table->setRowAttr([
+                'data-entry-id' => '{{$id}}',
+            ]);
+            $table->addColumn('massDelete', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+            $table->editColumn('actions', function ($row) use ($template) {
+                $gateKey  = 'per_channel_configuration_';
+                $routeKey = 'admin.per_channel_configurations';
+
+                return view($template, compact('row', 'gateKey', 'routeKey'));
+            });
+            $table->editColumn('cid', function ($row) {
+                return $row->cid ? $row->cid : '';
+            });
+            $table->editColumn('active', function ($row) {
+                return \Form::checkbox("active", 1, $row->active == 1, ["disabled"]);
+            });
+            $table->editColumn('notify_channel_id', function ($row) {
+                return $row->notify_channel_id ? $row->notify_channel_id : '';
+            });
+            $table->editColumn('offset', function ($row) {
+                return $row->offset ? $row->offset : '';
+            });
+            $table->editColumn('ad_lengths', function ($row) {
+                return $row->ad_lengths ? $row->ad_lengths : '';
+            });
+            $table->editColumn('ad_spacing', function ($row) {
+                return $row->ad_spacing ? $row->ad_spacing : '';
+            });
+            $table->editColumn('rtn.server_type', function ($row) {
+                return $row->rtn ? $row->rtn->server_type : '';
+            });
+            $table->editColumn('sync_server.name', function ($row) {
+                return $row->sync_server ? $row->sync_server->name : '';
+            });
+
+            $table->rawColumns(['actions','massDelete','active']);
+
+            return $table->make(true);
         }
 
-        return view('admin.per_channel_configurations.index', compact('per_channel_configurations'));
+        return view('admin.per_channel_configurations.index');
     }
 
     /**

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreCsisRequest;
 use App\Http\Requests\Admin\UpdateCsisRequest;
+use Yajra\DataTables\DataTables;
 
 class CsisController extends Controller
 {
@@ -23,16 +24,72 @@ class CsisController extends Controller
         }
 
 
-        if (request('show_deleted') == 1) {
-            if (! Gate::allows('csi_delete')) {
-                return abort(401);
+        
+        if (request()->ajax()) {
+            $query = Csi::query();
+            $query->with("channel_server");
+            $query->with("channel");
+            $query->with("protocol");
+            $template = 'actionsTemplate';
+            if(request('show_deleted') == 1) {
+                
+        if (! Gate::allows('csi_delete')) {
+            return abort(401);
+        }
+                $query->onlyTrashed();
+                $template = 'restoreTemplate';
             }
-            $csis = Csi::onlyTrashed()->get();
-        } else {
-            $csis = Csi::all();
+            $query->select([
+                'csis.id',
+                'csis.channel_server_id',
+                'csis.channel_id',
+                'csis.protocol_id',
+                'csis.ssm',
+                'csis.imc',
+                'csis.ip',
+                'csis.pid',
+            ]);
+            $table = Datatables::of($query);
+
+            $table->setRowAttr([
+                'data-entry-id' => '{{$id}}',
+            ]);
+            $table->addColumn('massDelete', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+            $table->editColumn('actions', function ($row) use ($template) {
+                $gateKey  = 'csi_';
+                $routeKey = 'admin.csis';
+
+                return view($template, compact('row', 'gateKey', 'routeKey'));
+            });
+            $table->editColumn('channel_server.name', function ($row) {
+                return $row->channel_server ? $row->channel_server->name : '';
+            });
+            $table->editColumn('channel.channel_name', function ($row) {
+                return $row->channel ? $row->channel->channel_name : '';
+            });
+            $table->editColumn('protocol.protocol', function ($row) {
+                return $row->protocol ? $row->protocol->protocol : '';
+            });
+            $table->editColumn('ssm', function ($row) {
+                return $row->ssm ? $row->ssm : '';
+            });
+            $table->editColumn('imc', function ($row) {
+                return $row->imc ? $row->imc : '';
+            });
+            $table->editColumn('ip', function ($row) {
+                return $row->ip ? $row->ip : '';
+            });
+            $table->editColumn('pid', function ($row) {
+                return $row->pid ? $row->pid : '';
+            });
+
+            $table->rawColumns(['actions','massDelete']);
+
+            return $table->make(true);
         }
 
-        return view('admin.csis.index', compact('csis'));
+        return view('admin.csis.index');
     }
 
     /**
@@ -47,7 +104,7 @@ class CsisController extends Controller
         }
         
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
-        $channels = \App\Channel::get()->pluck('channelid', 'id')->prepend(trans('global.app_please_select'), '');
+        $channels = \App\CsChannelList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
         $protocols = \App\Protocol::get()->pluck('protocol', 'id')->prepend(trans('global.app_please_select'), '');
 
         return view('admin.csis.create', compact('channel_servers', 'channels', 'protocols'));
@@ -85,7 +142,7 @@ class CsisController extends Controller
         }
         
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
-        $channels = \App\Channel::get()->pluck('channelid', 'id')->prepend(trans('global.app_please_select'), '');
+        $channels = \App\CsChannelList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
         $protocols = \App\Protocol::get()->pluck('protocol', 'id')->prepend(trans('global.app_please_select'), '');
 
         $csi = Csi::findOrFail($id);

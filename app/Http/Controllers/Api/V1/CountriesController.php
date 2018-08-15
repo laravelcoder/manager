@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreCountriesRequest;
 use App\Http\Requests\Admin\UpdateCountriesRequest;
+use Yajra\DataTables\DataTables;
 
 class CountriesController extends Controller
 {

@@ -24,7 +24,6 @@ class UpdateChannelServersRequest extends FormRequest
     {
         return [
             
-            'csos.*.ocp_a' => 'max:2147483647|nullable|numeric',
         ];
     }
 }

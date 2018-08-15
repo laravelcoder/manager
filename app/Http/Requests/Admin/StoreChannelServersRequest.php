@@ -23,7 +23,6 @@ class StoreChannelServersRequest extends FormRequest
     public function rules()
     {
         return [
-            'csos.*.ocp_a' => 'max:2147483647|nullable|numeric',
         ];
     }
 }

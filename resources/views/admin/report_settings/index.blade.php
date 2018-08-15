@@ -24,7 +24,7 @@
         </div>
 
         <div class="panel-body table-responsive">
-            <table class="table table-bordered table-striped {{ count($report_settings) > 0 ? 'datatable' : '' }} @can('report_setting_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
+            <table class="table table-bordered table-striped ajaxTable @can('report_setting_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
                 <thead>
                     <tr>
                         @can('report_setting_delete')
@@ -47,68 +47,6 @@
                         @endif
                     </tr>
                 </thead>
-                
-                <tbody>
-                    @if (count($report_settings) > 0)
-                        @foreach ($report_settings as $report_setting)
-                            <tr data-entry-id="{{ $report_setting->id }}">
-                                @can('report_setting_delete')
-                                    @if ( request('show_deleted') != 1 )<td></td>@endif
-                                @endcan
-
-                                <td field-key='millisecond_precision'>{{ Form::checkbox("millisecond_precision", 1, $report_setting->millisecond_precision == 1 ? true : false, ["disabled"]) }}</td>
-                                <td field-key='show_channel_button'>{{ Form::checkbox("show_channel_button", 1, $report_setting->show_channel_button == 1 ? true : false, ["disabled"]) }}</td>
-                                <td field-key='show_clip_button'>{{ Form::checkbox("show_clip_button", 1, $report_setting->show_clip_button == 1 ? true : false, ["disabled"]) }}</td>
-                                <td field-key='show_group_button'>{{ Form::checkbox("show_group_button", 1, $report_setting->show_group_button == 1 ? true : false, ["disabled"]) }}</td>
-                                <td field-key='show_live_button'>{{ Form::checkbox("show_live_button", 1, $report_setting->show_live_button == 1 ? true : false, ["disabled"]) }}</td>
-                                <td field-key='enable_evt'>{{ Form::checkbox("enable_evt", 1, $report_setting->enable_evt == 1 ? true : false, ["disabled"]) }}</td>
-                                <td field-key='enable_excel'>{{ Form::checkbox("enable_excel", 1, $report_setting->enable_excel == 1 ? true : false, ["disabled"]) }}</td>
-                                <td field-key='enable_evt_timing'>{{ Form::checkbox("enable_evt_timing", 1, $report_setting->enable_evt_timing == 1 ? true : false, ["disabled"]) }}</td>
-                                <td field-key='timezone'>{{ $report_setting->timezone }}</td>
-                                @if( request('show_deleted') == 1 )
-                                <td>
-                                    {!! Form::open(array(
-                                        'style' => 'display: inline-block;',
-                                        'method' => 'POST',
-                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
-                                        'route' => ['admin.report_settings.restore', $report_setting->id])) !!}
-                                    {!! Form::submit(trans('global.app_restore'), array('class' => 'btn btn-xs btn-success')) !!}
-                                    {!! Form::close() !!}
-                                                                    {!! Form::open(array(
-                                        'style' => 'display: inline-block;',
-                                        'method' => 'DELETE',
-                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
-                                        'route' => ['admin.report_settings.perma_del', $report_setting->id])) !!}
-                                    {!! Form::submit(trans('global.app_permadel'), array('class' => 'btn btn-xs btn-danger')) !!}
-                                    {!! Form::close() !!}
-                                                                </td>
-                                @else
-                                <td>
-                                    @can('report_setting_view')
-                                    <a href="{{ route('admin.report_settings.show',[$report_setting->id]) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
-                                    @endcan
-                                    @can('report_setting_edit')
-                                    <a href="{{ route('admin.report_settings.edit',[$report_setting->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
-                                    @endcan
-                                    @can('report_setting_delete')
-{!! Form::open(array(
-                                        'style' => 'display: inline-block;',
-                                        'method' => 'DELETE',
-                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
-                                        'route' => ['admin.report_settings.destroy', $report_setting->id])) !!}
-                                    {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
-                                    {!! Form::close() !!}
-                                    @endcan
-                                </td>
-                                @endif
-                            </tr>
-                        @endforeach
-                    @else
-                        <tr>
-                            <td colspan="17">@lang('global.app_no_entries_in_table')</td>
-                        </tr>
-                    @endif
-                </tbody>
             </table>
         </div>
     </div>
@@ -119,6 +57,25 @@
         @can('report_setting_delete')
             @if ( request('show_deleted') != 1 ) window.route_mass_crud_entries_destroy = '{{ route('admin.report_settings.mass_destroy') }}'; @endif
         @endcan
-
+        $(document).ready(function () {
+            window.dtDefaultOptions.ajax = '{!! route('admin.report_settings.index') !!}?show_deleted={{ request('show_deleted') }}';
+            window.dtDefaultOptions.columns = [@can('report_setting_delete')
+                @if ( request('show_deleted') != 1 )
+                    {data: 'massDelete', name: 'id', searchable: false, sortable: false},
+                @endif
+                @endcan{data: 'millisecond_precision', name: 'millisecond_precision'},
+                {data: 'show_channel_button', name: 'show_channel_button'},
+                {data: 'show_clip_button', name: 'show_clip_button'},
+                {data: 'show_group_button', name: 'show_group_button'},
+                {data: 'show_live_button', name: 'show_live_button'},
+                {data: 'enable_evt', name: 'enable_evt'},
+                {data: 'enable_excel', name: 'enable_excel'},
+                {data: 'enable_evt_timing', name: 'enable_evt_timing'},
+                {data: 'timezone', name: 'timezone'},
+                
+                {data: 'actions', name: 'actions', searchable: false, sortable: false}
+            ];
+            processAjaxTables();
+        });
     </script>
 @endsection

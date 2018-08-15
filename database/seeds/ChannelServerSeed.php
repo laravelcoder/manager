@@ -13,7 +13,7 @@ class ChannelServerSeed extends Seeder
     {
         $items = [
             
-            ['id' => 1, 'name' => 'cs0-1',],
+            ['id' => 1, 'name' => 'cs0-1', 'cs_host' => 'http://d-gp2-caipyascs0-1.imovetv.com',],
 
         ];
 

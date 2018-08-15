@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreGeneralSettingsRequest;
 use App\Http\Requests\Admin\UpdateGeneralSettingsRequest;
+use Yajra\DataTables\DataTables;
 
 class GeneralSettingsController extends Controller
 {
@@ -23,16 +24,50 @@ class GeneralSettingsController extends Controller
         }
 
 
-        if (request('show_deleted') == 1) {
-            if (! Gate::allows('general_setting_delete')) {
-                return abort(401);
+        
+        if (request()->ajax()) {
+            $query = GeneralSetting::query();
+            $query->with("sync_server");
+            $template = 'actionsTemplate';
+            if(request('show_deleted') == 1) {
+                
+        if (! Gate::allows('general_setting_delete')) {
+            return abort(401);
+        }
+                $query->onlyTrashed();
+                $template = 'restoreTemplate';
             }
-            $general_settings = GeneralSetting::onlyTrashed()->get();
-        } else {
-            $general_settings = GeneralSetting::all();
+            $query->select([
+                'general_settings.id',
+                'general_settings.transcoding_server',
+                'general_settings.sync_server_id',
+            ]);
+            $table = Datatables::of($query);
+
+            $table->setRowAttr([
+                'data-entry-id' => '{{$id}}',
+            ]);
+            $table->addColumn('massDelete', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+            $table->editColumn('actions', function ($row) use ($template) {
+                $gateKey  = 'general_setting_';
+                $routeKey = 'admin.general_settings';
+
+                return view($template, compact('row', 'gateKey', 'routeKey'));
+            });
+            $table->editColumn('transcoding_server', function ($row) {
+                return $row->transcoding_server ? $row->transcoding_server : '';
+            });
+            $table->editColumn('sync_server.name', function ($row) {
+                return $row->sync_server ? $row->sync_server->name : '';
+            });
+
+            $table->rawColumns(['actions','massDelete']);
+
+            return $table->make(true);
         }
 
-        return view('admin.general_settings.index', compact('general_settings'));
+        return view('admin.general_settings.index');
     }
 
     /**

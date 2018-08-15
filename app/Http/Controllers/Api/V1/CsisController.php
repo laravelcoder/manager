@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreCsisRequest;
 use App\Http\Requests\Admin\UpdateCsisRequest;
+use Yajra\DataTables\DataTables;
 
 class CsisController extends Controller
 {

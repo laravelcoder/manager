@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreChannelServersRequest;
 use App\Http\Requests\Admin\UpdateChannelServersRequest;
+use Yajra\DataTables\DataTables;
 
 class ChannelServersController extends Controller
 {
@@ -25,19 +26,19 @@ class ChannelServersController extends Controller
         $channel_server = ChannelServer::findOrFail($id);
         $channel_server->update($request->all());
         
-        $csos           = $channel_server->csos;
-        $currentCsoData = [];
-        foreach ($request->input('csos', []) as $index => $data) {
+        $csChannelLists           = $channel_server->cs_channel_lists;
+        $currentCsChannelListData = [];
+        foreach ($request->input('cs_channel_lists', []) as $index => $data) {
             if (is_integer($index)) {
-                $channel_server->csos()->create($data);
+                $channel_server->cs_channel_lists()->create($data);
             } else {
                 $id                          = explode('-', $index)[1];
-                $currentCsoData[$id] = $data;
+                $currentCsChannelListData[$id] = $data;
             }
         }
-        foreach ($csos as $item) {
-            if (isset($currentCsoData[$item->id])) {
-                $item->update($currentCsoData[$item->id]);
+        foreach ($csChannelLists as $item) {
+            if (isset($currentCsChannelListData[$item->id])) {
+                $item->update($currentCsChannelListData[$item->id]);
             } else {
                 $item->delete();
             }
@@ -50,8 +51,8 @@ class ChannelServersController extends Controller
     {
         $channel_server = ChannelServer::create($request->all());
         
-        foreach ($request->input('csos', []) as $data) {
-            $channel_server->csos()->create($data);
+        foreach ($request->input('cs_channel_lists', []) as $data) {
+            $channel_server->cs_channel_lists()->create($data);
         }
 
         return $channel_server;

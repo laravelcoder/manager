@@ -24,7 +24,7 @@
         </div>
 
         <div class="panel-body table-responsive">
-            <table class="table table-bordered table-striped {{ count($per_channel_configurations) > 0 ? 'datatable' : '' }} @can('per_channel_configuration_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
+            <table class="table table-bordered table-striped ajaxTable @can('per_channel_configuration_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
                 <thead>
                     <tr>
                         @can('per_channel_configuration_delete')
@@ -46,67 +46,6 @@
                         @endif
                     </tr>
                 </thead>
-                
-                <tbody>
-                    @if (count($per_channel_configurations) > 0)
-                        @foreach ($per_channel_configurations as $per_channel_configuration)
-                            <tr data-entry-id="{{ $per_channel_configuration->id }}">
-                                @can('per_channel_configuration_delete')
-                                    @if ( request('show_deleted') != 1 )<td></td>@endif
-                                @endcan
-
-                                <td field-key='cid'>{{ $per_channel_configuration->cid }}</td>
-                                <td field-key='active'>{{ Form::checkbox("active", 1, $per_channel_configuration->active == 1 ? true : false, ["disabled"]) }}</td>
-                                <td field-key='notify_channel_id'>{{ $per_channel_configuration->notify_channel_id }}</td>
-                                <td field-key='offset'>{{ $per_channel_configuration->offset }}</td>
-                                <td field-key='ad_lengths'>{{ $per_channel_configuration->ad_lengths }}</td>
-                                <td field-key='ad_spacing'>{{ $per_channel_configuration->ad_spacing }}</td>
-                                <td field-key='rtn'>{{ $per_channel_configuration->rtn->server_type or '' }}</td>
-<td field-key='r_urltn'>{{ isset($per_channel_configuration->rtn) ? $per_channel_configuration->rtn->r_urltn : '' }}</td>
-                                @if( request('show_deleted') == 1 )
-                                <td>
-                                    {!! Form::open(array(
-                                        'style' => 'display: inline-block;',
-                                        'method' => 'POST',
-                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
-                                        'route' => ['admin.per_channel_configurations.restore', $per_channel_configuration->id])) !!}
-                                    {!! Form::submit(trans('global.app_restore'), array('class' => 'btn btn-xs btn-success')) !!}
-                                    {!! Form::close() !!}
-                                                                    {!! Form::open(array(
-                                        'style' => 'display: inline-block;',
-                                        'method' => 'DELETE',
-                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
-                                        'route' => ['admin.per_channel_configurations.perma_del', $per_channel_configuration->id])) !!}
-                                    {!! Form::submit(trans('global.app_permadel'), array('class' => 'btn btn-xs btn-danger')) !!}
-                                    {!! Form::close() !!}
-                                                                </td>
-                                @else
-                                <td>
-                                    @can('per_channel_configuration_view')
-                                    <a href="{{ route('admin.per_channel_configurations.show',[$per_channel_configuration->id]) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
-                                    @endcan
-                                    @can('per_channel_configuration_edit')
-                                    <a href="{{ route('admin.per_channel_configurations.edit',[$per_channel_configuration->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
-                                    @endcan
-                                    @can('per_channel_configuration_delete')
-{!! Form::open(array(
-                                        'style' => 'display: inline-block;',
-                                        'method' => 'DELETE',
-                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
-                                        'route' => ['admin.per_channel_configurations.destroy', $per_channel_configuration->id])) !!}
-                                    {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
-                                    {!! Form::close() !!}
-                                    @endcan
-                                </td>
-                                @endif
-                            </tr>
-                        @endforeach
-                    @else
-                        <tr>
-                            <td colspan="13">@lang('global.app_no_entries_in_table')</td>
-                        </tr>
-                    @endif
-                </tbody>
             </table>
         </div>
     </div>
@@ -117,6 +56,24 @@
         @can('per_channel_configuration_delete')
             @if ( request('show_deleted') != 1 ) window.route_mass_crud_entries_destroy = '{{ route('admin.per_channel_configurations.mass_destroy') }}'; @endif
         @endcan
-
+        $(document).ready(function () {
+            window.dtDefaultOptions.ajax = '{!! route('admin.per_channel_configurations.index') !!}?show_deleted={{ request('show_deleted') }}';
+            window.dtDefaultOptions.columns = [@can('per_channel_configuration_delete')
+                @if ( request('show_deleted') != 1 )
+                    {data: 'massDelete', name: 'id', searchable: false, sortable: false},
+                @endif
+                @endcan{data: 'cid', name: 'cid'},
+                {data: 'active', name: 'active'},
+                {data: 'notify_channel_id', name: 'notify_channel_id'},
+                {data: 'offset', name: 'offset'},
+                {data: 'ad_lengths', name: 'ad_lengths'},
+                {data: 'ad_spacing', name: 'ad_spacing'},
+                {data: 'rtn.server_type', name: 'rtn.server_type'},
+                {data: 'rtn.r_urltn', name: 'rtn.r_urltn'},
+                
+                {data: 'actions', name: 'actions', searchable: false, sortable: false}
+            ];
+            processAjaxTables();
+        });
     </script>
 @endsection

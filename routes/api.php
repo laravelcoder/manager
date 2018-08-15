@@ -4,9 +4,9 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], funct
 
         Route::resource('channel_servers', 'ChannelServersController', ['except' => ['create', 'edit']]);
 
-        Route::resource('csis', 'CsisController', ['except' => ['create', 'edit']]);
+        Route::resource('cs_channel_lists', 'CsChannelListsController', ['except' => ['create', 'edit']]);
 
-        Route::resource('channels', 'ChannelsController', ['except' => ['create', 'edit']]);
+        Route::resource('csis', 'CsisController', ['except' => ['create', 'edit']]);
 
         Route::resource('per_channel_configurations', 'PerChannelConfigurationsController', ['except' => ['create', 'edit']]);
 

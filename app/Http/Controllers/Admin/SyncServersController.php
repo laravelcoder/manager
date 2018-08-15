@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreSyncServersRequest;
 use App\Http\Requests\Admin\UpdateSyncServersRequest;
+use Yajra\DataTables\DataTables;
 
 class SyncServersController extends Controller
 {
@@ -23,16 +24,45 @@ class SyncServersController extends Controller
         }
 
 
-        if (request('show_deleted') == 1) {
-            if (! Gate::allows('sync_server_delete')) {
-                return abort(401);
+        
+        if (request()->ajax()) {
+            $query = SyncServer::query();
+            $template = 'actionsTemplate';
+            if(request('show_deleted') == 1) {
+                
+        if (! Gate::allows('sync_server_delete')) {
+            return abort(401);
+        }
+                $query->onlyTrashed();
+                $template = 'restoreTemplate';
             }
-            $sync_servers = SyncServer::onlyTrashed()->get();
-        } else {
-            $sync_servers = SyncServer::all();
+            $query->select([
+                'sync_servers.id',
+                'sync_servers.name',
+            ]);
+            $table = Datatables::of($query);
+
+            $table->setRowAttr([
+                'data-entry-id' => '{{$id}}',
+            ]);
+            $table->addColumn('massDelete', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+            $table->editColumn('actions', function ($row) use ($template) {
+                $gateKey  = 'sync_server_';
+                $routeKey = 'admin.sync_servers';
+
+                return view($template, compact('row', 'gateKey', 'routeKey'));
+            });
+            $table->editColumn('name', function ($row) {
+                return $row->name ? $row->name : '';
+            });
+
+            $table->rawColumns(['actions','massDelete']);
+
+            return $table->make(true);
         }
 
-        return view('admin.sync_servers.index', compact('sync_servers'));
+        return view('admin.sync_servers.index');
     }
 
     /**

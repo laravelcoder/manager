@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreUsersRequest;
 use App\Http\Requests\Admin\UpdateUsersRequest;
+use Yajra\DataTables\DataTables;
 
 class UsersController extends Controller
 {
@@ -23,9 +24,53 @@ class UsersController extends Controller
         }
 
 
-                $users = User::all();
+        
+        if (request()->ajax()) {
+            $query = User::query();
+            $query->with("role");
+            $template = 'actionsTemplate';
+            
+            $query->select([
+                'users.id',
+                'users.name',
+                'users.email',
+                'users.password',
+                'users.remember_token',
+            ]);
+            $table = Datatables::of($query);
 
-        return view('admin.users.index', compact('users'));
+            $table->setRowAttr([
+                'data-entry-id' => '{{$id}}',
+            ]);
+            $table->addColumn('massDelete', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+            $table->editColumn('actions', function ($row) use ($template) {
+                $gateKey  = 'user_';
+                $routeKey = 'admin.users';
+
+                return view($template, compact('row', 'gateKey', 'routeKey'));
+            });
+            $table->editColumn('password', function ($row) {
+                return '---';
+            });
+            $table->editColumn('role.title', function ($row) {
+                if(count($row->role) == 0) {
+                    return '';
+                }
+
+                return '<span class="label label-info label-many">' . implode('</span><span class="label label-info label-many"> ',
+                        $row->role->pluck('title')->toArray()) . '</span>';
+            });
+            $table->editColumn('remember_token', function ($row) {
+                return $row->remember_token ? $row->remember_token : '';
+            });
+
+            $table->rawColumns(['actions','massDelete','role.title']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.users.index');
     }
 
     /**

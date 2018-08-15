@@ -38,3 +38,23 @@
         </div>
     </div>
 @stop
+
+@section('javascript')
+    @parent
+
+    <script src="{{ url('adminlte/plugins/datetimepicker/moment-with-locales.min.js') }}"></script>
+    <script src="{{ url('adminlte/plugins/datetimepicker/bootstrap-datetimepicker.min.js') }}"></script>
+    <script>
+        $(function(){
+            moment.updateLocale('{{ App::getLocale() }}', {
+                week: { dow: 1 } // Monday is the first day of the week
+            });
+            
+            $('.timepicker').datetimepicker({
+                format: "{{ config('app.time_format_moment') }}",
+            });
+            
+        });
+    </script>
+            
+@stop

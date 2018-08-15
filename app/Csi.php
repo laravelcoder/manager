@@ -59,7 +59,7 @@ class Csi extends Model
     
     public function channel()
     {
-        return $this->belongsTo(Channel::class, 'channel_id')->withTrashed();
+        return $this->belongsTo(CsChannelList::class, 'channel_id')->withTrashed();
     }
     
     public function protocol()

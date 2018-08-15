@@ -32,6 +32,14 @@
                         </a>
                     </li>@endcan
                     
+                    @can('cs_channel_list_access')
+                    <li>
+                        <a href="{{ route('admin.cs_channel_lists.index') }}">
+                            <i class="fa fa-gears"></i>
+                            <span>@lang('global.cs-channel-list.title')</span>
+                        </a>
+                    </li>@endcan
+                    
                     @can('csi_access')
                     <li>
                         <a href="{{ route('admin.csis.index') }}">
@@ -223,8 +231,9 @@
                 </a>
             </li>
         </ul>
+ 
+
         <img src="{{ asset('images/sling_n_dish.png') }}" />
     </section>
 
 </aside>
-

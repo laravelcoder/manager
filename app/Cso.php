@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @package App
  * @property string $channel_server
- * @property string $cid
+ * @property string $channel
  * @property string $ocloud_a
  * @property integer $ocp_a
  * @property string $ocloud_b
@@ -19,7 +19,7 @@ class Cso extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['ocloud_a', 'ocp_a', 'ocloud_b', 'ocp_b', 'channel_server_id', 'cid_id'];
+    protected $fillable = ['ocloud_a', 'ocp_a', 'ocloud_b', 'ocp_b', 'channel_server_id', 'channel_id'];
     protected $hidden = [];
     
     
@@ -37,9 +37,9 @@ class Cso extends Model
      * Set to null if empty
      * @param $input
      */
-    public function setCidIdAttribute($input)
+    public function setChannelIdAttribute($input)
     {
-        $this->attributes['cid_id'] = $input ? $input : null;
+        $this->attributes['channel_id'] = $input ? $input : null;
     }
 
     /**
@@ -56,9 +56,9 @@ class Cso extends Model
         return $this->belongsTo(ChannelServer::class, 'channel_server_id')->withTrashed();
     }
     
-    public function cid()
+    public function channel()
     {
-        return $this->belongsTo(Channel::class, 'cid_id')->withTrashed();
+        return $this->belongsTo(CsChannelList::class, 'channel_id')->withTrashed();
     }
     
 }

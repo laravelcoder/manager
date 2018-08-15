@@ -20,7 +20,4 @@ class Protocol extends Model
     
     
     
-    public function csis() {
-        return $this->hasMany(Csi::class, 'protocol_id');
-    }
 }

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreFiltersRequest;
 use App\Http\Requests\Admin\UpdateFiltersRequest;
+use Yajra\DataTables\DataTables;
 
 class FiltersController extends Controller
 {
@@ -23,16 +24,45 @@ class FiltersController extends Controller
         }
 
 
-        if (request('show_deleted') == 1) {
-            if (! Gate::allows('filter_delete')) {
-                return abort(401);
+        
+        if (request()->ajax()) {
+            $query = Filter::query();
+            $template = 'actionsTemplate';
+            if(request('show_deleted') == 1) {
+                
+        if (! Gate::allows('filter_delete')) {
+            return abort(401);
+        }
+                $query->onlyTrashed();
+                $template = 'restoreTemplate';
             }
-            $filters = Filter::onlyTrashed()->get();
-        } else {
-            $filters = Filter::all();
+            $query->select([
+                'filters.id',
+                'filters.name',
+            ]);
+            $table = Datatables::of($query);
+
+            $table->setRowAttr([
+                'data-entry-id' => '{{$id}}',
+            ]);
+            $table->addColumn('massDelete', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+            $table->editColumn('actions', function ($row) use ($template) {
+                $gateKey  = 'filter_';
+                $routeKey = 'admin.filters';
+
+                return view($template, compact('row', 'gateKey', 'routeKey'));
+            });
+            $table->editColumn('name', function ($row) {
+                return $row->name ? $row->name : '';
+            });
+
+            $table->rawColumns(['actions','massDelete']);
+
+            return $table->make(true);
         }
 
-        return view('admin.filters.index', compact('filters'));
+        return view('admin.filters.index');
     }
 
     /**

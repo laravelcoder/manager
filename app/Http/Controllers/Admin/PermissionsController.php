@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StorePermissionsRequest;
 use App\Http\Requests\Admin\UpdatePermissionsRequest;
+use Yajra\DataTables\DataTables;
 
 class PermissionsController extends Controller
 {
@@ -23,9 +24,35 @@ class PermissionsController extends Controller
         }
 
 
-                $permissions = Permission::all();
+        
+        if (request()->ajax()) {
+            $query = Permission::query();
+            $template = 'actionsTemplate';
+            
+            $query->select([
+                'permissions.id',
+                'permissions.title',
+            ]);
+            $table = Datatables::of($query);
 
-        return view('admin.permissions.index', compact('permissions'));
+            $table->setRowAttr([
+                'data-entry-id' => '{{$id}}',
+            ]);
+            $table->addColumn('massDelete', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+            $table->editColumn('actions', function ($row) use ($template) {
+                $gateKey  = 'permission_';
+                $routeKey = 'admin.permissions';
+
+                return view($template, compact('row', 'gateKey', 'routeKey'));
+            });
+
+            $table->rawColumns(['actions','massDelete']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.permissions.index');
     }
 
     /**

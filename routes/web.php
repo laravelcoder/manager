@@ -1,4 +1,5 @@
 <?php
+
 // Route::middleware('auth')->group(function () {
     Route::get('/r', function () {
         function philsroutes()
@@ -31,8 +32,10 @@
 // });
 
 
-Route::get('/', function () { return redirect('/admin/home'); });
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
+Route::get('/', function () { return redirect('/admin/home'); });
+Route::get('/writer', function () { return redirect('/writer'); });
 // Authentication Routes...
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
 $this->post('login', 'Auth\LoginController@login')->name('auth.login');
@@ -55,6 +58,10 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('channel_servers_mass_destroy', ['uses' => 'Admin\ChannelServersController@massDestroy', 'as' => 'channel_servers.mass_destroy']);
     Route::post('channel_servers_restore/{id}', ['uses' => 'Admin\ChannelServersController@restore', 'as' => 'channel_servers.restore']);
     Route::delete('channel_servers_perma_del/{id}', ['uses' => 'Admin\ChannelServersController@perma_del', 'as' => 'channel_servers.perma_del']);
+    Route::resource('cs_channel_lists', 'Admin\CsChannelListsController');
+    Route::post('cs_channel_lists_mass_destroy', ['uses' => 'Admin\CsChannelListsController@massDestroy', 'as' => 'cs_channel_lists.mass_destroy']);
+    Route::post('cs_channel_lists_restore/{id}', ['uses' => 'Admin\CsChannelListsController@restore', 'as' => 'cs_channel_lists.restore']);
+    Route::delete('cs_channel_lists_perma_del/{id}', ['uses' => 'Admin\CsChannelListsController@perma_del', 'as' => 'cs_channel_lists.perma_del']);
     Route::resource('csis', 'Admin\CsisController');
     Route::post('csis_mass_destroy', ['uses' => 'Admin\CsisController@massDestroy', 'as' => 'csis.mass_destroy']);
     Route::post('csis_restore/{id}', ['uses' => 'Admin\CsisController@restore', 'as' => 'csis.restore']);
@@ -67,10 +74,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('protocols_mass_destroy', ['uses' => 'Admin\ProtocolsController@massDestroy', 'as' => 'protocols.mass_destroy']);
     Route::post('protocols_restore/{id}', ['uses' => 'Admin\ProtocolsController@restore', 'as' => 'protocols.restore']);
     Route::delete('protocols_perma_del/{id}', ['uses' => 'Admin\ProtocolsController@perma_del', 'as' => 'protocols.perma_del']);
-    Route::resource('channels', 'Admin\ChannelsController');
-    Route::post('channels_mass_destroy', ['uses' => 'Admin\ChannelsController@massDestroy', 'as' => 'channels.mass_destroy']);
-    Route::post('channels_restore/{id}', ['uses' => 'Admin\ChannelsController@restore', 'as' => 'channels.restore']);
-    Route::delete('channels_perma_del/{id}', ['uses' => 'Admin\ChannelsController@perma_del', 'as' => 'channels.perma_del']);
+ 
     Route::resource('permissions', 'Admin\PermissionsController');
     Route::post('permissions_mass_destroy', ['uses' => 'Admin\PermissionsController@massDestroy', 'as' => 'permissions.mass_destroy']);
     Route::resource('roles', 'Admin\RolesController');
@@ -105,14 +109,14 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('report_settings_mass_destroy', ['uses' => 'Admin\ReportSettingsController@massDestroy', 'as' => 'report_settings.mass_destroy']);
     Route::post('report_settings_restore/{id}', ['uses' => 'Admin\ReportSettingsController@restore', 'as' => 'report_settings.restore']);
     Route::delete('report_settings_perma_del/{id}', ['uses' => 'Admin\ReportSettingsController@perma_del', 'as' => 'report_settings.perma_del']);
-    Route::resource('countries', 'Admin\CountriesController');
-    Route::post('countries_mass_destroy', ['uses' => 'Admin\CountriesController@massDestroy', 'as' => 'countries.mass_destroy']);
-    Route::post('countries_restore/{id}', ['uses' => 'Admin\CountriesController@restore', 'as' => 'countries.restore']);
-    Route::delete('countries_perma_del/{id}', ['uses' => 'Admin\CountriesController@perma_del', 'as' => 'countries.perma_del']);
     Route::resource('filters', 'Admin\FiltersController');
     Route::post('filters_mass_destroy', ['uses' => 'Admin\FiltersController@massDestroy', 'as' => 'filters.mass_destroy']);
     Route::post('filters_restore/{id}', ['uses' => 'Admin\FiltersController@restore', 'as' => 'filters.restore']);
     Route::delete('filters_perma_del/{id}', ['uses' => 'Admin\FiltersController@perma_del', 'as' => 'filters.perma_del']);
+    Route::resource('countries', 'Admin\CountriesController');
+    Route::post('countries_mass_destroy', ['uses' => 'Admin\CountriesController@massDestroy', 'as' => 'countries.mass_destroy']);
+    Route::post('countries_restore/{id}', ['uses' => 'Admin\CountriesController@restore', 'as' => 'countries.restore']);
+    Route::delete('countries_perma_del/{id}', ['uses' => 'Admin\CountriesController@perma_del', 'as' => 'countries.perma_del']);
 
 
 

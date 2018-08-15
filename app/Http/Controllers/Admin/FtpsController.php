@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreFtpsRequest;
 use App\Http\Requests\Admin\UpdateFtpsRequest;
+use Yajra\DataTables\DataTables;
 
 class FtpsController extends Controller
 {
@@ -23,16 +24,66 @@ class FtpsController extends Controller
         }
 
 
-        if (request('show_deleted') == 1) {
-            if (! Gate::allows('ftp_delete')) {
-                return abort(401);
+        
+        if (request()->ajax()) {
+            $query = Ftp::query();
+            $query->with("sync_server");
+            $template = 'actionsTemplate';
+            if(request('show_deleted') == 1) {
+                
+        if (! Gate::allows('ftp_delete')) {
+            return abort(401);
+        }
+                $query->onlyTrashed();
+                $template = 'restoreTemplate';
             }
-            $ftps = Ftp::onlyTrashed()->get();
-        } else {
-            $ftps = Ftp::all();
+            $query->select([
+                'ftps.id',
+                'ftps.ftp_server',
+                'ftps.ftp_directory',
+                'ftps.ftp_username',
+                'ftps.ftp_password',
+                'ftps.grab_time',
+                'ftps.sync_server_id',
+            ]);
+            $table = Datatables::of($query);
+
+            $table->setRowAttr([
+                'data-entry-id' => '{{$id}}',
+            ]);
+            $table->addColumn('massDelete', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+            $table->editColumn('actions', function ($row) use ($template) {
+                $gateKey  = 'ftp_';
+                $routeKey = 'admin.ftps';
+
+                return view($template, compact('row', 'gateKey', 'routeKey'));
+            });
+            $table->editColumn('ftp_server', function ($row) {
+                return $row->ftp_server ? $row->ftp_server : '';
+            });
+            $table->editColumn('ftp_directory', function ($row) {
+                return $row->ftp_directory ? $row->ftp_directory : '';
+            });
+            $table->editColumn('ftp_username', function ($row) {
+                return $row->ftp_username ? $row->ftp_username : '';
+            });
+            $table->editColumn('ftp_password', function ($row) {
+                return '---';
+            });
+            $table->editColumn('grab_time', function ($row) {
+                return $row->grab_time ? $row->grab_time : '';
+            });
+            $table->editColumn('sync_server.name', function ($row) {
+                return $row->sync_server ? $row->sync_server->name : '';
+            });
+
+            $table->rawColumns(['actions','massDelete']);
+
+            return $table->make(true);
         }
 
-        return view('admin.ftps.index', compact('ftps'));
+        return view('admin.ftps.index');
     }
 
     /**

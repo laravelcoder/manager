@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Caipi',
+    'name' => 'Caipy Manager',
 
     /*
     |--------------------------------------------------------------------------
@@ -185,6 +185,7 @@ return [
         Laravel\Tinker\TinkerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
         
         /*
          * Application Service Providers...

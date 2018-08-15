@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreProtocolsRequest;
 use App\Http\Requests\Admin\UpdateProtocolsRequest;
+use Yajra\DataTables\DataTables;
 
 class ProtocolsController extends Controller
 {
@@ -23,16 +24,49 @@ class ProtocolsController extends Controller
         }
 
 
-        if (request('show_deleted') == 1) {
-            if (! Gate::allows('protocol_delete')) {
-                return abort(401);
+        
+        if (request()->ajax()) {
+            $query = Protocol::query();
+            $template = 'actionsTemplate';
+            if(request('show_deleted') == 1) {
+                
+        if (! Gate::allows('protocol_delete')) {
+            return abort(401);
+        }
+                $query->onlyTrashed();
+                $template = 'restoreTemplate';
             }
-            $protocols = Protocol::onlyTrashed()->get();
-        } else {
-            $protocols = Protocol::all();
+            $query->select([
+                'protocols.id',
+                'protocols.protocol',
+                'protocols.real_name',
+            ]);
+            $table = Datatables::of($query);
+
+            $table->setRowAttr([
+                'data-entry-id' => '{{$id}}',
+            ]);
+            $table->addColumn('massDelete', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+            $table->editColumn('actions', function ($row) use ($template) {
+                $gateKey  = 'protocol_';
+                $routeKey = 'admin.protocols';
+
+                return view($template, compact('row', 'gateKey', 'routeKey'));
+            });
+            $table->editColumn('protocol', function ($row) {
+                return $row->protocol ? $row->protocol : '';
+            });
+            $table->editColumn('real_name', function ($row) {
+                return $row->real_name ? $row->real_name : '';
+            });
+
+            $table->rawColumns(['actions','massDelete']);
+
+            return $table->make(true);
         }
 
-        return view('admin.protocols.index', compact('protocols'));
+        return view('admin.protocols.index');
     }
 
     /**

@@ -13,16 +13,20 @@
                 <div class="col-md-6">
                     <table class="table table-bordered table-striped">
                         <tr>
-                            <th>@lang('global.csi.fields.channel-server')</th>
-                            <td field-key='channel_server'>{{ $csi->channel_server->name or '' }}</td>
+                            <th>@lang('global.csi.fields.channel')</th>
+                            <td field-key='channel'>{{ $csi->channel->channel_name or '' }}</td>
                         </tr>
                         <tr>
-                            <th>@lang('global.csi.fields.channel')</th>
-                            <td field-key='channel'>{{ $csi->channel->channelid or '' }}</td>
+                            <th>@lang('global.cs-channel-list.fields.channel-type')</th>
+                            <td field-key='channel_type'>{{ isset($csi->channel) ? $csi->channel->channel_type : '' }}</td>
                         </tr>
                         <tr>
                             <th>@lang('global.csi.fields.protocol')</th>
                             <td field-key='protocol'>{{ $csi->protocol->protocol or '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>@lang('global.protocols.fields.real-name')</th>
+                            <td field-key='real_name'>{{ isset($csi->protocol) ? $csi->protocol->real_name : '' }}</td>
                         </tr>
                         <tr>
                             <th>@lang('global.csi.fields.ssm')</th>
@@ -50,3 +54,5 @@
         </div>
     </div>
 @stop
+
+

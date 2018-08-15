@@ -23,33 +23,43 @@
                     @endif
                 </div>
             </div>
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    {!! Form::label('cs_host', trans('global.channel-server.fields.cs-host').'', ['class' => 'control-label']) !!}
+                    {!! Form::text('cs_host', old('cs_host'), ['class' => 'form-control', 'placeholder' => 'Enter the server / url host address for this channel server']) !!}
+                    <p class="help-block">Enter the server / url host address for this channel server</p>
+                    @if($errors->has('cs_host'))
+                        <p class="help-block">
+                            {{ $errors->first('cs_host') }}
+                        </p>
+                    @endif
+                </div>
+            </div>
             
         </div>
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">
-            Channel Server Outputs
+            CS Channel List
         </div>
         <div class="panel-body">
             <table class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                    <th>@lang('global.cso.fields.ocloud-a')</th>
-                        <th>@lang('global.cso.fields.ocp-a')</th>
-                        <th>@lang('global.cso.fields.ocloud-b')</th>
-                        <th>@lang('global.cso.fields.ocp-b')</th>
+                    <th>@lang('global.cs-channel-list.fields.channel-name')</th>
+                        <th>@lang('global.cs-channel-list.fields.channel-type')</th>
                         
                     <th>Actions</th>
                 </tr>
                 </thead>
-                <tbody id="channel-server-outputs">
-                    @forelse(old('csos', []) as $index => $data)
-                        @include('admin.channel_servers.csos_row', [
+                <tbody id="cs-channel-list">
+                    @forelse(old('cs_channel_lists', []) as $index => $data)
+                        @include('admin.channel_servers.cs_channel_lists_row', [
                             'index' => $index
                         ])
                     @empty
-                        @foreach($channel_server->csos as $item)
-                            @include('admin.channel_servers.csos_row', [
+                        @foreach($channel_server->cs_channel_lists as $item)
+                            @include('admin.channel_servers.cs_channel_lists_row', [
                                 'index' => 'id-' . $item->id,
                                 'field' => $item
                             ])
@@ -68,8 +78,8 @@
 @section('javascript')
     @parent
 
-    <script type="text/html" id="channel-server-outputs-template">
-        @include('admin.channel_servers.csos_row',
+    <script type="text/html" id="cs-channel-list-template">
+        @include('admin.channel_servers.cs_channel_lists_row',
                 [
                     'index' => '_INDEX_',
                 ])

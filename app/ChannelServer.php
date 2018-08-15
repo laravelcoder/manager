@@ -9,17 +9,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @package App
  * @property string $name
+ * @property string $cs_host
 */
 class ChannelServer extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'cs_host'];
     protected $hidden = [];
     
     
     
-    public function csos() {
-        return $this->hasMany(Cso::class, 'channel_server_id');
+    public function cs_channel_lists() {
+        return $this->hasMany(CsChannelList::class, 'channel_server_id');
     }
 }

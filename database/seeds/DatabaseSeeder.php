@@ -12,18 +12,19 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         
-        $this->call(ChannelSeed::class);
         $this->call(ChannelServerSeed::class);
         $this->call(CountrySeed::class);
         $this->call(ProtocolSeed::class);
-        $this->call(CsiSeed::class);
-        $this->call(CsoSeed::class);
+        
+        $this->call(FilterSeed::class);
         $this->call(PermissionSeed::class);
         $this->call(RoleSeed::class);
         $this->call(SyncServerSeed::class);
         $this->call(UserSeed::class);
         $this->call(RoleSeedPivot::class);
         $this->call(UserSeedPivot::class);
+        $this->call(CsiSeed::class);
+        $this->call(CsoSeed::class);
 
     }
 }

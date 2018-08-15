@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreCsosRequest;
 use App\Http\Requests\Admin\UpdateCsosRequest;
+use Yajra\DataTables\DataTables;
 
 class CsosController extends Controller
 {
@@ -23,16 +24,67 @@ class CsosController extends Controller
         }
 
 
-        if (request('show_deleted') == 1) {
-            if (! Gate::allows('cso_delete')) {
-                return abort(401);
+        
+        if (request()->ajax()) {
+            $query = Cso::query();
+            $query->with("channel_server");
+            $query->with("channel");
+            $template = 'actionsTemplate';
+            if(request('show_deleted') == 1) {
+                
+        if (! Gate::allows('cso_delete')) {
+            return abort(401);
+        }
+                $query->onlyTrashed();
+                $template = 'restoreTemplate';
             }
-            $csos = Cso::onlyTrashed()->get();
-        } else {
-            $csos = Cso::all();
+            $query->select([
+                'csos.id',
+                'csos.channel_server_id',
+                'csos.channel_id',
+                'csos.ocloud_a',
+                'csos.ocp_a',
+                'csos.ocloud_b',
+                'csos.ocp_b',
+            ]);
+            $table = Datatables::of($query);
+
+            $table->setRowAttr([
+                'data-entry-id' => '{{$id}}',
+            ]);
+            $table->addColumn('massDelete', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+            $table->editColumn('actions', function ($row) use ($template) {
+                $gateKey  = 'cso_';
+                $routeKey = 'admin.csos';
+
+                return view($template, compact('row', 'gateKey', 'routeKey'));
+            });
+            $table->editColumn('channel_server.name', function ($row) {
+                return $row->channel_server ? $row->channel_server->name : '';
+            });
+            $table->editColumn('channel.channel_name', function ($row) {
+                return $row->channel ? $row->channel->channel_name : '';
+            });
+            $table->editColumn('ocloud_a', function ($row) {
+                return $row->ocloud_a ? $row->ocloud_a : '';
+            });
+            $table->editColumn('ocp_a', function ($row) {
+                return $row->ocp_a ? $row->ocp_a : '';
+            });
+            $table->editColumn('ocloud_b', function ($row) {
+                return $row->ocloud_b ? $row->ocloud_b : '';
+            });
+            $table->editColumn('ocp_b', function ($row) {
+                return $row->ocp_b ? $row->ocp_b : '';
+            });
+
+            $table->rawColumns(['actions','massDelete']);
+
+            return $table->make(true);
         }
 
-        return view('admin.csos.index', compact('csos'));
+        return view('admin.csos.index');
     }
 
     /**
@@ -47,9 +99,9 @@ class CsosController extends Controller
         }
         
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
-        $cids = \App\Channel::get()->pluck('channelid', 'id')->prepend(trans('global.app_please_select'), '');
+        $channels = \App\CsChannelList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
 
-        return view('admin.csos.create', compact('channel_servers', 'cids'));
+        return view('admin.csos.create', compact('channel_servers', 'channels'));
     }
 
     /**
@@ -84,11 +136,11 @@ class CsosController extends Controller
         }
         
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
-        $cids = \App\Channel::get()->pluck('channelid', 'id')->prepend(trans('global.app_please_select'), '');
+        $channels = \App\CsChannelList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
 
         $cso = Cso::findOrFail($id);
 
-        return view('admin.csos.edit', compact('cso', 'channel_servers', 'cids'));
+        return view('admin.csos.edit', compact('cso', 'channel_servers', 'channels'));
     }
 
     /**

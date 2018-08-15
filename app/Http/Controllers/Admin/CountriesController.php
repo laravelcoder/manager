@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreCountriesRequest;
 use App\Http\Requests\Admin\UpdateCountriesRequest;
+use Yajra\DataTables\DataTables;
 
 class CountriesController extends Controller
 {
@@ -23,16 +24,49 @@ class CountriesController extends Controller
         }
 
 
-        if (request('show_deleted') == 1) {
-            if (! Gate::allows('country_delete')) {
-                return abort(401);
+        
+        if (request()->ajax()) {
+            $query = Country::query();
+            $template = 'actionsTemplate';
+            if(request('show_deleted') == 1) {
+                
+        if (! Gate::allows('country_delete')) {
+            return abort(401);
+        }
+                $query->onlyTrashed();
+                $template = 'restoreTemplate';
             }
-            $countries = Country::onlyTrashed()->get();
-        } else {
-            $countries = Country::all();
+            $query->select([
+                'countries.id',
+                'countries.shortcode',
+                'countries.title',
+            ]);
+            $table = Datatables::of($query);
+
+            $table->setRowAttr([
+                'data-entry-id' => '{{$id}}',
+            ]);
+            $table->addColumn('massDelete', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+            $table->editColumn('actions', function ($row) use ($template) {
+                $gateKey  = 'country_';
+                $routeKey = 'admin.countries';
+
+                return view($template, compact('row', 'gateKey', 'routeKey'));
+            });
+            $table->editColumn('shortcode', function ($row) {
+                return $row->shortcode ? $row->shortcode : '';
+            });
+            $table->editColumn('title', function ($row) {
+                return $row->title ? $row->title : '';
+            });
+
+            $table->rawColumns(['actions','massDelete']);
+
+            return $table->make(true);
         }
 
-        return view('admin.countries.index', compact('countries'));
+        return view('admin.countries.index');
     }
 
     /**

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StorePerChannelConfigurationsRequest;
 use App\Http\Requests\Admin\UpdatePerChannelConfigurationsRequest;
+use Yajra\DataTables\DataTables;
 
 class PerChannelConfigurationsController extends Controller
 {

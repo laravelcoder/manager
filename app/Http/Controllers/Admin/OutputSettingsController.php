@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreOutputSettingsRequest;
 use App\Http\Requests\Admin\UpdateOutputSettingsRequest;
+use Yajra\DataTables\DataTables;
 
 class OutputSettingsController extends Controller
 {
@@ -23,16 +24,55 @@ class OutputSettingsController extends Controller
         }
 
 
-        if (request('show_deleted') == 1) {
-            if (! Gate::allows('output_setting_delete')) {
-                return abort(401);
+        
+        if (request()->ajax()) {
+            $query = OutputSetting::query();
+            $query->with("email");
+            $query->with("sync_server");
+            $template = 'actionsTemplate';
+            if(request('show_deleted') == 1) {
+                
+        if (! Gate::allows('output_setting_delete')) {
+            return abort(401);
+        }
+                $query->onlyTrashed();
+                $template = 'restoreTemplate';
             }
-            $output_settings = OutputSetting::onlyTrashed()->get();
-        } else {
-            $output_settings = OutputSetting::all();
+            $query->select([
+                'output_settings.id',
+                'output_settings.report_time',
+                'output_settings.email_id',
+                'output_settings.sync_server_id',
+            ]);
+            $table = Datatables::of($query);
+
+            $table->setRowAttr([
+                'data-entry-id' => '{{$id}}',
+            ]);
+            $table->addColumn('massDelete', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+            $table->editColumn('actions', function ($row) use ($template) {
+                $gateKey  = 'output_setting_';
+                $routeKey = 'admin.output_settings';
+
+                return view($template, compact('row', 'gateKey', 'routeKey'));
+            });
+            $table->editColumn('report_time', function ($row) {
+                return $row->report_time ? $row->report_time : '';
+            });
+            $table->editColumn('email.email', function ($row) {
+                return $row->email ? $row->email->email : '';
+            });
+            $table->editColumn('sync_server.name', function ($row) {
+                return $row->sync_server ? $row->sync_server->name : '';
+            });
+
+            $table->rawColumns(['actions','massDelete']);
+
+            return $table->make(true);
         }
 
-        return view('admin.output_settings.index', compact('output_settings'));
+        return view('admin.output_settings.index');
     }
 
     /**

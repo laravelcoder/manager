@@ -34,11 +34,6 @@ class PermissionSeed extends Seeder
             ['id' => 24, 'title' => 'protocol_edit',],
             ['id' => 25, 'title' => 'protocol_view',],
             ['id' => 26, 'title' => 'protocol_delete',],
-            ['id' => 27, 'title' => 'channel_access',],
-            ['id' => 28, 'title' => 'channel_create',],
-            ['id' => 29, 'title' => 'channel_edit',],
-            ['id' => 30, 'title' => 'channel_view',],
-            ['id' => 31, 'title' => 'channel_delete',],
             ['id' => 32, 'title' => 'csi_access',],
             ['id' => 33, 'title' => 'csi_create',],
             ['id' => 34, 'title' => 'csi_edit',],
@@ -102,6 +97,11 @@ class PermissionSeed extends Seeder
             ['id' => 97, 'title' => 'filter_edit',],
             ['id' => 98, 'title' => 'filter_view',],
             ['id' => 99, 'title' => 'filter_delete',],
+            ['id' => 100, 'title' => 'cs_channel_list_access',],
+            ['id' => 101, 'title' => 'cs_channel_list_create',],
+            ['id' => 102, 'title' => 'cs_channel_list_edit',],
+            ['id' => 103, 'title' => 'cs_channel_list_view',],
+            ['id' => 104, 'title' => 'cs_channel_list_delete',],
 
         ];
 
