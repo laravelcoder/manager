@@ -31,11 +31,11 @@
     });
 // });
 
-
+Route::get('writer', 'Admin\ConfWriterController@index');
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 Route::get('/', function () { return redirect('/admin/home'); });
-Route::get('/writer', function () { return redirect('/writer'); });
+
 // Authentication Routes...
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
 $this->post('login', 'Auth\LoginController@login')->name('auth.login');
@@ -120,5 +120,5 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
 
 
 
- 
+    
 });
