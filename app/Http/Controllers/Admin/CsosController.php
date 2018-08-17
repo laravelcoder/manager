@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Cso;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreCsosRequest;
 use App\Http\Requests\Admin\UpdateCsosRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\DataTables;
 
 class CsosController extends Controller
@@ -19,22 +19,19 @@ class CsosController extends Controller
      */
     public function index()
     {
-        if (! Gate::allows('cso_access')) {
+        if (!Gate::allows('cso_access')) {
             return abort(401);
         }
 
-
-        
         if (request()->ajax()) {
             $query = Cso::query();
-            $query->with("channel_server");
-            $query->with("channel");
+            $query->with('channel_server');
+            $query->with('channel');
             $template = 'actionsTemplate';
-            if(request('show_deleted') == 1) {
-                
-        if (! Gate::allows('cso_delete')) {
-            return abort(401);
-        }
+            if (request('show_deleted') == 1) {
+                if (!Gate::allows('cso_delete')) {
+                    return abort(401);
+                }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -55,7 +52,7 @@ class CsosController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey  = 'cso_';
+                $gateKey = 'cso_';
                 $routeKey = 'admin.csos';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -79,7 +76,7 @@ class CsosController extends Controller
                 return $row->ocp_b ? $row->ocp_b : '';
             });
 
-            $table->rawColumns(['actions','massDelete']);
+            $table->rawColumns(['actions', 'massDelete']);
 
             return $table->make(true);
         }
@@ -94,10 +91,10 @@ class CsosController extends Controller
      */
     public function create()
     {
-        if (! Gate::allows('cso_create')) {
+        if (!Gate::allows('cso_create')) {
             return abort(401);
         }
-        
+
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
         $channels = \App\CsChannelList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
 
@@ -107,34 +104,33 @@ class CsosController extends Controller
     /**
      * Store a newly created Cso in storage.
      *
-     * @param  \App\Http\Requests\StoreCsosRequest  $request
+     * @param \App\Http\Requests\StoreCsosRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(StoreCsosRequest $request)
     {
-        if (! Gate::allows('cso_create')) {
+        if (!Gate::allows('cso_create')) {
             return abort(401);
         }
         $cso = Cso::create($request->all());
 
-
-
         return redirect()->route('admin.csos.index');
     }
-
 
     /**
      * Show the form for editing Cso.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        if (! Gate::allows('cso_edit')) {
+        if (!Gate::allows('cso_edit')) {
             return abort(401);
         }
-        
+
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
         $channels = \App\CsChannelList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
 
@@ -146,33 +142,32 @@ class CsosController extends Controller
     /**
      * Update Cso in storage.
      *
-     * @param  \App\Http\Requests\UpdateCsosRequest  $request
-     * @param  int  $id
+     * @param \App\Http\Requests\UpdateCsosRequest $request
+     * @param int                                  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateCsosRequest $request, $id)
     {
-        if (! Gate::allows('cso_edit')) {
+        if (!Gate::allows('cso_edit')) {
             return abort(401);
         }
         $cso = Cso::findOrFail($id);
         $cso->update($request->all());
 
-
-
         return redirect()->route('admin.csos.index');
     }
-
 
     /**
      * Display Cso.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        if (! Gate::allows('cso_view')) {
+        if (!Gate::allows('cso_view')) {
             return abort(401);
         }
         $cso = Cso::findOrFail($id);
@@ -180,16 +175,16 @@ class CsosController extends Controller
         return view('admin.csos.show', compact('cso'));
     }
 
-
     /**
      * Remove Cso from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        if (! Gate::allows('cso_delete')) {
+        if (!Gate::allows('cso_delete')) {
             return abort(401);
         }
         $cso = Cso::findOrFail($id);
@@ -205,7 +200,7 @@ class CsosController extends Controller
      */
     public function massDestroy(Request $request)
     {
-        if (! Gate::allows('cso_delete')) {
+        if (!Gate::allows('cso_delete')) {
             return abort(401);
         }
         if ($request->input('ids')) {
@@ -217,16 +212,16 @@ class CsosController extends Controller
         }
     }
 
-
     /**
      * Restore Cso from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function restore($id)
     {
-        if (! Gate::allows('cso_delete')) {
+        if (!Gate::allows('cso_delete')) {
             return abort(401);
         }
         $cso = Cso::onlyTrashed()->findOrFail($id);
@@ -238,12 +233,13 @@ class CsosController extends Controller
     /**
      * Permanently delete Cso from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function perma_del($id)
     {
-        if (! Gate::allows('cso_delete')) {
+        if (!Gate::allows('cso_delete')) {
             return abort(401);
         }
         $cso = Cso::onlyTrashed()->findOrFail($id);

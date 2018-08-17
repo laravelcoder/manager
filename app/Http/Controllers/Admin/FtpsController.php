@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Ftp;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreFtpsRequest;
 use App\Http\Requests\Admin\UpdateFtpsRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\DataTables;
 
 class FtpsController extends Controller
@@ -19,21 +19,18 @@ class FtpsController extends Controller
      */
     public function index()
     {
-        if (! Gate::allows('ftp_access')) {
+        if (!Gate::allows('ftp_access')) {
             return abort(401);
         }
 
-
-        
         if (request()->ajax()) {
             $query = Ftp::query();
-            $query->with("sync_server");
+            $query->with('sync_server');
             $template = 'actionsTemplate';
-            if(request('show_deleted') == 1) {
-                
-        if (! Gate::allows('ftp_delete')) {
-            return abort(401);
-        }
+            if (request('show_deleted') == 1) {
+                if (!Gate::allows('ftp_delete')) {
+                    return abort(401);
+                }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -54,7 +51,7 @@ class FtpsController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey  = 'ftp_';
+                $gateKey = 'ftp_';
                 $routeKey = 'admin.ftps';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -78,7 +75,7 @@ class FtpsController extends Controller
                 return $row->sync_server ? $row->sync_server->name : '';
             });
 
-            $table->rawColumns(['actions','massDelete']);
+            $table->rawColumns(['actions', 'massDelete']);
 
             return $table->make(true);
         }
@@ -93,10 +90,10 @@ class FtpsController extends Controller
      */
     public function create()
     {
-        if (! Gate::allows('ftp_create')) {
+        if (!Gate::allows('ftp_create')) {
             return abort(401);
         }
-        
+
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
         return view('admin.ftps.create', compact('sync_servers'));
@@ -105,34 +102,33 @@ class FtpsController extends Controller
     /**
      * Store a newly created Ftp in storage.
      *
-     * @param  \App\Http\Requests\StoreFtpsRequest  $request
+     * @param \App\Http\Requests\StoreFtpsRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(StoreFtpsRequest $request)
     {
-        if (! Gate::allows('ftp_create')) {
+        if (!Gate::allows('ftp_create')) {
             return abort(401);
         }
         $ftp = Ftp::create($request->all());
 
-
-
         return redirect()->route('admin.ftps.index');
     }
-
 
     /**
      * Show the form for editing Ftp.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        if (! Gate::allows('ftp_edit')) {
+        if (!Gate::allows('ftp_edit')) {
             return abort(401);
         }
-        
+
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
         $ftp = Ftp::findOrFail($id);
@@ -143,33 +139,32 @@ class FtpsController extends Controller
     /**
      * Update Ftp in storage.
      *
-     * @param  \App\Http\Requests\UpdateFtpsRequest  $request
-     * @param  int  $id
+     * @param \App\Http\Requests\UpdateFtpsRequest $request
+     * @param int                                  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateFtpsRequest $request, $id)
     {
-        if (! Gate::allows('ftp_edit')) {
+        if (!Gate::allows('ftp_edit')) {
             return abort(401);
         }
         $ftp = Ftp::findOrFail($id);
         $ftp->update($request->all());
 
-
-
         return redirect()->route('admin.ftps.index');
     }
-
 
     /**
      * Display Ftp.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        if (! Gate::allows('ftp_view')) {
+        if (!Gate::allows('ftp_view')) {
             return abort(401);
         }
         $ftp = Ftp::findOrFail($id);
@@ -177,16 +172,16 @@ class FtpsController extends Controller
         return view('admin.ftps.show', compact('ftp'));
     }
 
-
     /**
      * Remove Ftp from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        if (! Gate::allows('ftp_delete')) {
+        if (!Gate::allows('ftp_delete')) {
             return abort(401);
         }
         $ftp = Ftp::findOrFail($id);
@@ -202,7 +197,7 @@ class FtpsController extends Controller
      */
     public function massDestroy(Request $request)
     {
-        if (! Gate::allows('ftp_delete')) {
+        if (!Gate::allows('ftp_delete')) {
             return abort(401);
         }
         if ($request->input('ids')) {
@@ -214,16 +209,16 @@ class FtpsController extends Controller
         }
     }
 
-
     /**
      * Restore Ftp from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function restore($id)
     {
-        if (! Gate::allows('ftp_delete')) {
+        if (!Gate::allows('ftp_delete')) {
             return abort(401);
         }
         $ftp = Ftp::onlyTrashed()->findOrFail($id);
@@ -235,12 +230,13 @@ class FtpsController extends Controller
     /**
      * Permanently delete Ftp from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function perma_del($id)
     {
-        if (! Gate::allows('ftp_delete')) {
+        if (!Gate::allows('ftp_delete')) {
             return abort(401);
         }
         $ftp = Ftp::onlyTrashed()->findOrFail($id);

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -23,7 +24,7 @@ class StorePerChannelConfigurationsRequest extends FormRequest
     public function rules()
     {
         return [
-            'ad_lengths' => 'max:2147483647|nullable|numeric',
+            'ad_lengths'     => 'max:2147483647|nullable|numeric',
             'sync_server_id' => 'required',
         ];
     }

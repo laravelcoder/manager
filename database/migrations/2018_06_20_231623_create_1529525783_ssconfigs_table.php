@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class Create1529525783SsconfigsTable extends Migration
 {
@@ -12,11 +12,11 @@ class Create1529525783SsconfigsTable extends Migration
      */
     public function up()
     {
-        if(! Schema::hasTable('ssconfigs')) {
+        if (!Schema::hasTable('ssconfigs')) {
             Schema::create('ssconfigs', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('stuff')->nullable();
-                
+
                 $table->timestamps();
                 $table->softDeletes();
 

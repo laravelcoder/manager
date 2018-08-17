@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateCombined1534275149CsChannelListsTable extends Migration
 {
@@ -12,12 +12,12 @@ class CreateCombined1534275149CsChannelListsTable extends Migration
      */
     public function up()
     {
-        if(! Schema::hasTable('cs_channel_lists')) {
+        if (!Schema::hasTable('cs_channel_lists')) {
             Schema::create('cs_channel_lists', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('channel_name')->nullable();
                 $table->string('channel_type')->nullable();
-                
+
                 $table->timestamps();
                 $table->softDeletes();
 

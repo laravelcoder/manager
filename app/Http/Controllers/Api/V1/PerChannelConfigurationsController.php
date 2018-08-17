@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\PerChannelConfiguration;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StorePerChannelConfigurationsRequest;
 use App\Http\Requests\Admin\UpdatePerChannelConfigurationsRequest;
-use Yajra\DataTables\DataTables;
+use App\PerChannelConfiguration;
 
 class PerChannelConfigurationsController extends Controller
 {
@@ -25,7 +23,6 @@ class PerChannelConfigurationsController extends Controller
     {
         $per_channel_configuration = PerChannelConfiguration::findOrFail($id);
         $per_channel_configuration->update($request->all());
-        
 
         return $per_channel_configuration;
     }
@@ -33,7 +30,6 @@ class PerChannelConfigurationsController extends Controller
     public function store(StorePerChannelConfigurationsRequest $request)
     {
         $per_channel_configuration = PerChannelConfiguration::create($request->all());
-        
 
         return $per_channel_configuration;
     }
@@ -42,6 +38,7 @@ class PerChannelConfigurationsController extends Controller
     {
         $per_channel_configuration = PerChannelConfiguration::findOrFail($id);
         $per_channel_configuration->delete();
+
         return '';
     }
 }

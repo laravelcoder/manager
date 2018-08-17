@@ -11,7 +11,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        
         $this->call(ChannelServerSeed::class);
         $this->call(CountrySeed::class);
         $this->call(ProtocolSeed::class);
@@ -26,6 +25,5 @@ class DatabaseSeeder extends Seeder
         $this->call(VideoServerTypeSeed::class);
         $this->call(RoleSeedPivot::class);
         $this->call(UserSeedPivot::class);
-
     }
 }

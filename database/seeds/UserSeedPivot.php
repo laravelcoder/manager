@@ -12,7 +12,7 @@ class UserSeedPivot extends Seeder
     public function run()
     {
         $items = [
-            
+
             1 => [
                 'role' => [1],
             ],

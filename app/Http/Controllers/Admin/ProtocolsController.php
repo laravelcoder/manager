@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Protocol;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreProtocolsRequest;
 use App\Http\Requests\Admin\UpdateProtocolsRequest;
+use App\Protocol;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\DataTables;
 
 class ProtocolsController extends Controller
@@ -19,20 +19,17 @@ class ProtocolsController extends Controller
      */
     public function index()
     {
-        if (! Gate::allows('protocol_access')) {
+        if (!Gate::allows('protocol_access')) {
             return abort(401);
         }
 
-
-        
         if (request()->ajax()) {
             $query = Protocol::query();
             $template = 'actionsTemplate';
-            if(request('show_deleted') == 1) {
-                
-        if (! Gate::allows('protocol_delete')) {
-            return abort(401);
-        }
+            if (request('show_deleted') == 1) {
+                if (!Gate::allows('protocol_delete')) {
+                    return abort(401);
+                }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -49,7 +46,7 @@ class ProtocolsController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey  = 'protocol_';
+                $gateKey = 'protocol_';
                 $routeKey = 'admin.protocols';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -61,7 +58,7 @@ class ProtocolsController extends Controller
                 return $row->real_name ? $row->real_name : '';
             });
 
-            $table->rawColumns(['actions','massDelete']);
+            $table->rawColumns(['actions', 'massDelete']);
 
             return $table->make(true);
         }
@@ -76,40 +73,40 @@ class ProtocolsController extends Controller
      */
     public function create()
     {
-        if (! Gate::allows('protocol_create')) {
+        if (!Gate::allows('protocol_create')) {
             return abort(401);
         }
+
         return view('admin.protocols.create');
     }
 
     /**
      * Store a newly created Protocol in storage.
      *
-     * @param  \App\Http\Requests\StoreProtocolsRequest  $request
+     * @param \App\Http\Requests\StoreProtocolsRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(StoreProtocolsRequest $request)
     {
-        if (! Gate::allows('protocol_create')) {
+        if (!Gate::allows('protocol_create')) {
             return abort(401);
         }
         $protocol = Protocol::create($request->all());
 
-
-
         return redirect()->route('admin.protocols.index');
     }
-
 
     /**
      * Show the form for editing Protocol.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        if (! Gate::allows('protocol_edit')) {
+        if (!Gate::allows('protocol_edit')) {
             return abort(401);
         }
         $protocol = Protocol::findOrFail($id);
@@ -120,33 +117,32 @@ class ProtocolsController extends Controller
     /**
      * Update Protocol in storage.
      *
-     * @param  \App\Http\Requests\UpdateProtocolsRequest  $request
-     * @param  int  $id
+     * @param \App\Http\Requests\UpdateProtocolsRequest $request
+     * @param int                                       $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateProtocolsRequest $request, $id)
     {
-        if (! Gate::allows('protocol_edit')) {
+        if (!Gate::allows('protocol_edit')) {
             return abort(401);
         }
         $protocol = Protocol::findOrFail($id);
         $protocol->update($request->all());
 
-
-
         return redirect()->route('admin.protocols.index');
     }
-
 
     /**
      * Display Protocol.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        if (! Gate::allows('protocol_view')) {
+        if (!Gate::allows('protocol_view')) {
             return abort(401);
         }
         $csis = \App\Csi::where('protocol_id', $id)->get();
@@ -156,16 +152,16 @@ class ProtocolsController extends Controller
         return view('admin.protocols.show', compact('protocol', 'csis'));
     }
 
-
     /**
      * Remove Protocol from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        if (! Gate::allows('protocol_delete')) {
+        if (!Gate::allows('protocol_delete')) {
             return abort(401);
         }
         $protocol = Protocol::findOrFail($id);
@@ -181,7 +177,7 @@ class ProtocolsController extends Controller
      */
     public function massDestroy(Request $request)
     {
-        if (! Gate::allows('protocol_delete')) {
+        if (!Gate::allows('protocol_delete')) {
             return abort(401);
         }
         if ($request->input('ids')) {
@@ -193,16 +189,16 @@ class ProtocolsController extends Controller
         }
     }
 
-
     /**
      * Restore Protocol from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function restore($id)
     {
-        if (! Gate::allows('protocol_delete')) {
+        if (!Gate::allows('protocol_delete')) {
             return abort(401);
         }
         $protocol = Protocol::onlyTrashed()->findOrFail($id);
@@ -214,12 +210,13 @@ class ProtocolsController extends Controller
     /**
      * Permanently delete Protocol from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function perma_del($id)
     {
-        if (! Gate::allows('protocol_delete')) {
+        if (!Gate::allows('protocol_delete')) {
             return abort(401);
         }
         $protocol = Protocol::onlyTrashed()->findOrFail($id);

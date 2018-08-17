@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Csi;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreCsisRequest;
 use App\Http\Requests\Admin\UpdateCsisRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\DataTables;
 
 class CsisController extends Controller
@@ -19,23 +19,20 @@ class CsisController extends Controller
      */
     public function index()
     {
-        if (! Gate::allows('csi_access')) {
+        if (!Gate::allows('csi_access')) {
             return abort(401);
         }
 
-
-        
         if (request()->ajax()) {
             $query = Csi::query();
-            $query->with("channel_server");
-            $query->with("channel");
-            $query->with("protocol");
+            $query->with('channel_server');
+            $query->with('channel');
+            $query->with('protocol');
             $template = 'actionsTemplate';
-            if(request('show_deleted') == 1) {
-                
-        if (! Gate::allows('csi_delete')) {
-            return abort(401);
-        }
+            if (request('show_deleted') == 1) {
+                if (!Gate::allows('csi_delete')) {
+                    return abort(401);
+                }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -57,7 +54,7 @@ class CsisController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey  = 'csi_';
+                $gateKey = 'csi_';
                 $routeKey = 'admin.csis';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -84,7 +81,7 @@ class CsisController extends Controller
                 return $row->pid ? $row->pid : '';
             });
 
-            $table->rawColumns(['actions','massDelete']);
+            $table->rawColumns(['actions', 'massDelete']);
 
             return $table->make(true);
         }
@@ -99,10 +96,10 @@ class CsisController extends Controller
      */
     public function create()
     {
-        if (! Gate::allows('csi_create')) {
+        if (!Gate::allows('csi_create')) {
             return abort(401);
         }
-        
+
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
         $channels = \App\CsChannelList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
         $protocols = \App\Protocol::get()->pluck('protocol', 'id')->prepend(trans('global.app_please_select'), '');
@@ -113,34 +110,33 @@ class CsisController extends Controller
     /**
      * Store a newly created Csi in storage.
      *
-     * @param  \App\Http\Requests\StoreCsisRequest  $request
+     * @param \App\Http\Requests\StoreCsisRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(StoreCsisRequest $request)
     {
-        if (! Gate::allows('csi_create')) {
+        if (!Gate::allows('csi_create')) {
             return abort(401);
         }
         $csi = Csi::create($request->all());
 
-
-
         return redirect()->route('admin.csis.index');
     }
-
 
     /**
      * Show the form for editing Csi.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        if (! Gate::allows('csi_edit')) {
+        if (!Gate::allows('csi_edit')) {
             return abort(401);
         }
-        
+
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
         $channels = \App\CsChannelList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
         $protocols = \App\Protocol::get()->pluck('protocol', 'id')->prepend(trans('global.app_please_select'), '');
@@ -153,33 +149,32 @@ class CsisController extends Controller
     /**
      * Update Csi in storage.
      *
-     * @param  \App\Http\Requests\UpdateCsisRequest  $request
-     * @param  int  $id
+     * @param \App\Http\Requests\UpdateCsisRequest $request
+     * @param int                                  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateCsisRequest $request, $id)
     {
-        if (! Gate::allows('csi_edit')) {
+        if (!Gate::allows('csi_edit')) {
             return abort(401);
         }
         $csi = Csi::findOrFail($id);
         $csi->update($request->all());
 
-
-
         return redirect()->route('admin.csis.index');
     }
-
 
     /**
      * Display Csi.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        if (! Gate::allows('csi_view')) {
+        if (!Gate::allows('csi_view')) {
             return abort(401);
         }
         $csi = Csi::findOrFail($id);
@@ -187,16 +182,16 @@ class CsisController extends Controller
         return view('admin.csis.show', compact('csi'));
     }
 
-
     /**
      * Remove Csi from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        if (! Gate::allows('csi_delete')) {
+        if (!Gate::allows('csi_delete')) {
             return abort(401);
         }
         $csi = Csi::findOrFail($id);
@@ -212,7 +207,7 @@ class CsisController extends Controller
      */
     public function massDestroy(Request $request)
     {
-        if (! Gate::allows('csi_delete')) {
+        if (!Gate::allows('csi_delete')) {
             return abort(401);
         }
         if ($request->input('ids')) {
@@ -224,16 +219,16 @@ class CsisController extends Controller
         }
     }
 
-
     /**
      * Restore Csi from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function restore($id)
     {
-        if (! Gate::allows('csi_delete')) {
+        if (!Gate::allows('csi_delete')) {
             return abort(401);
         }
         $csi = Csi::onlyTrashed()->findOrFail($id);
@@ -245,12 +240,13 @@ class CsisController extends Controller
     /**
      * Permanently delete Csi from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function perma_del($id)
     {
-        if (! Gate::allows('csi_delete')) {
+        if (!Gate::allows('csi_delete')) {
             return abort(401);
         }
         $csi = Csi::onlyTrashed()->findOrFail($id);

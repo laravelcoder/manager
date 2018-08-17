@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class Create1529432049ChannelsTable extends Migration
 {
@@ -12,11 +12,11 @@ class Create1529432049ChannelsTable extends Migration
      */
     public function up()
     {
-        if(! Schema::hasTable('channels')) {
+        if (!Schema::hasTable('channels')) {
             Schema::create('channels', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('channelid')->nullable();
-                
+
                 $table->timestamps();
                 $table->softDeletes();
 
