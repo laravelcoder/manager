@@ -1,11 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
-/*
- * updated code from styleci
- */
-
 Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], function (): void {
     Route::resource('channel_servers', 'ChannelServersController', ['except' => ['create', 'edit']]);
 
@@ -34,4 +29,8 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], funct
     Route::resource('countries', 'CountriesController', ['except' => ['create', 'edit']]);
 
     Route::resource('timezones', 'TimezonesController', ['except' => ['create', 'edit']]);
+
+    Route::resource('video_settings', 'VideoSettingsController', ['except' => ['create', 'edit']]);
+
+    Route::resource('aggregation_servers', 'AggregationServersController', ['except' => ['create', 'edit']]);
 });

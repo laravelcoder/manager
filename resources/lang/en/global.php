@@ -2,10 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * updated code from styleci
- */
-
 return [
         'user-management' => [        'title' => 'User management',        'fields' => [        ]],
         'permissions' => [        'title' => 'Permissions',        'fields' => [            'title' => 'Title']],
@@ -35,6 +31,14 @@ return [
         'ss-config-defaults' => [        'title' => 'SS Config Defaults',        'fields' => [        ]],
         'config-defaults' => [        'title' => 'Config defaults',        'fields' => [        ]],
         'timezone' => [        'title' => 'Timezone',        'fields' => [            'timezone' => 'Timezone']],
+        'video-settings' => [        'title' => 'Video Settings',        'fields' => [            'server-url' => 'Server URL',            'server-redirect' => 'Server Redirect',            'hls' => 'Time-Shift']],
+        'aggregation-server-settings' => [        'title' => 'Aggregation Server Settings',        'fields' => [        ]],
+        'aggregation-server-settings' => [        'title' => ' Aggregation Server Settings',        'fields' => [        ]],
+        'aggregation-server-settings' => [        'title' => 'Aggregation Servers',        'fields' => [        ]],
+        'aggregation-server' => [        'title' => 'Aggregation Server',        'fields' => [            'server-name' => 'Server name',            'server-host' => 'Server Host']],
+        'baby-sync-servers' => [        'title' => 'Baby Sync Servers',        'fields' => [            'baby-sync-server' => 'Baby Sync Server',            'parent-aggregation-server' => 'Parent Aggregation Server']],
+        'video-servers' => [        'title' => 'Video Servers',        'fields' => [        ]],
+        'clipdb-settings' => [        'title' => 'Clip DB Settings',        'fields' => [            'clip-db-url' => 'Clip db url']],
     'app_create' => 'Create',
     'app_save' => 'Save',
     'app_edit' => 'Edit',

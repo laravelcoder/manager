@@ -1,11 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
-/*
- * updated code from styleci
- */
-
 use Illuminate\Database\Seeder;
 
 class SyncServerSeed extends Seeder
@@ -19,7 +14,7 @@ class SyncServerSeed extends Seeder
     {
         $items = [
 
-            ['id' => 1, 'name' => 'SS0-1'],
+            ['id' => 1, 'name' => 'SS0-1', 'ss_host' => null],
 
         ];
 

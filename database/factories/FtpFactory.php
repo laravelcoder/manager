@@ -1,11 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
-/*
- * updated code from styleci
- */
-
 $factory->define(App\Ftp::class, function (Faker\Generator $faker) {
     return [
         'ftp_server' => $faker->name,

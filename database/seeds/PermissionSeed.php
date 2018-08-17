@@ -1,11 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
-/*
- * updated code from styleci
- */
-
 use Illuminate\Database\Seeder;
 
 class PermissionSeed extends Seeder
@@ -119,6 +114,28 @@ class PermissionSeed extends Seeder
             ['id' => 114, 'title' => 'timezone_edit'],
             ['id' => 115, 'title' => 'timezone_view'],
             ['id' => 116, 'title' => 'timezone_delete'],
+            ['id' => 117, 'title' => 'video_setting_access'],
+            ['id' => 118, 'title' => 'video_setting_create'],
+            ['id' => 119, 'title' => 'video_setting_edit'],
+            ['id' => 120, 'title' => 'video_setting_view'],
+            ['id' => 121, 'title' => 'video_setting_delete'],
+            ['id' => 128, 'title' => 'aggregation_server_setting_access'],
+            ['id' => 129, 'title' => 'aggregation_server_access'],
+            ['id' => 130, 'title' => 'aggregation_server_create'],
+            ['id' => 131, 'title' => 'aggregation_server_edit'],
+            ['id' => 132, 'title' => 'aggregation_server_view'],
+            ['id' => 133, 'title' => 'aggregation_server_delete'],
+            ['id' => 134, 'title' => 'baby_sync_server_access'],
+            ['id' => 135, 'title' => 'baby_sync_server_create'],
+            ['id' => 136, 'title' => 'baby_sync_server_edit'],
+            ['id' => 137, 'title' => 'baby_sync_server_view'],
+            ['id' => 138, 'title' => 'baby_sync_server_delete'],
+            ['id' => 139, 'title' => 'video_server_access'],
+            ['id' => 140, 'title' => 'clipdb_setting_access'],
+            ['id' => 141, 'title' => 'clipdb_setting_create'],
+            ['id' => 142, 'title' => 'clipdb_setting_edit'],
+            ['id' => 143, 'title' => 'clipdb_setting_view'],
+            ['id' => 144, 'title' => 'clipdb_setting_delete'],
 
         ];
 

@@ -1,11 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
-/*
- * updated code from styleci
- */
-
 $factory->define(App\Csi::class, function (Faker\Generator $faker) {
     return [
         'channel_server_id' => factory('App\ChannelServer')->create(),

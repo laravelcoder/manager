@@ -1,11 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
-/*
- * updated code from styleci
- */
-
 $factory->define(App\ReportSetting::class, function (Faker\Generator $faker) {
     return [
         'millisecond_precision' => 1,
