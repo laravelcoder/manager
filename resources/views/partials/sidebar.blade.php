@@ -67,14 +67,6 @@
                 </a>
             </li>@endcan
             
-            @can('channel_access')
-            <li>
-                <a href="{{ route('admin.channels.index') }}">
-                    <i class="fa fa-gears"></i>
-                    <span>@lang('global.channels.title')</span>
-                </a>
-            </li>@endcan
-            
             @can('user_management_access')
             <li class="treeview">
                 <a href="#">
@@ -202,12 +194,41 @@
                 </ul>
             </li>@endcan
             
-            @can('country_access')
-            <li>
-                <a href="{{ route('admin.countries.index') }}">
+            @can('config_default_access')
+            <li class="treeview">
+                <a href="#">
                     <i class="fa fa-gears"></i>
-                    <span>@lang('global.country.title')</span>
+                    <span>@lang('global.config-defaults.title')</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
                 </a>
+                <ul class="treeview-menu">
+                    @can('country_access')
+                    <li>
+                        <a href="{{ route('admin.countries.index') }}">
+                            <i class="fa fa-gears"></i>
+                            <span>@lang('global.country.title')</span>
+                        </a>
+                    </li>@endcan
+                    
+                    @can('video_server_type_access')
+                    <li>
+                        <a href="{{ route('admin.video_server_types.index') }}">
+                            <i class="fa fa-gears"></i>
+                            <span>@lang('global.video-server-type.title')</span>
+                        </a>
+                    </li>@endcan
+                    
+                    @can('timezone_access')
+                    <li>
+                        <a href="{{ route('admin.timezones.index') }}">
+                            <i class="fa fa-clock-o"></i>
+                            <span>@lang('global.timezone.title')</span>
+                        </a>
+                    </li>@endcan
+                    
+                </ul>
             </li>@endcan
             
 
@@ -231,9 +252,6 @@
                 </a>
             </li>
         </ul>
- 
-
-        <img src="{{ asset('images/sling_n_dish.png') }}" />
     </section>
-
 </aside>
+

@@ -8,7 +8,6 @@ use Laravel\Dusk\Browser;
 
 class UserTest extends DuskTestCase
 {
-    use DatabaseMigrations;
 
     public function testCreateUser()
     {
@@ -34,7 +33,8 @@ class UserTest extends DuskTestCase
                 ->assertSeeIn("tr:last-child td[field-key='name']", $user->name)
                 ->assertSeeIn("tr:last-child td[field-key='email']", $user->email)
                 ->assertSeeIn("tr:last-child td[field-key='role'] span:first-child", $relations[0]->title)
-                ->assertSeeIn("tr:last-child td[field-key='role'] span:last-child", $relations[1]->title);
+                ->assertSeeIn("tr:last-child td[field-key='role'] span:last-child", $relations[1]->title)
+                ->logout();
         });
     }
 
@@ -63,7 +63,8 @@ class UserTest extends DuskTestCase
                 ->assertSeeIn("tr:last-child td[field-key='name']", $user2->name)
                 ->assertSeeIn("tr:last-child td[field-key='email']", $user2->email)
                 ->assertSeeIn("tr:last-child td[field-key='role'] span:first-child", $relations[0]->title)
-                ->assertSeeIn("tr:last-child td[field-key='role'] span:last-child", $relations[1]->title);
+                ->assertSeeIn("tr:last-child td[field-key='role'] span:last-child", $relations[1]->title)
+                ->logout();
         });
     }
 
@@ -86,7 +87,8 @@ class UserTest extends DuskTestCase
                 ->assertSeeIn("td[field-key='name']", $user->name)
                 ->assertSeeIn("td[field-key='email']", $user->email)
                 ->assertSeeIn("tr:last-child td[field-key='role'] span:first-child", $relations[0]->title)
-                ->assertSeeIn("tr:last-child td[field-key='role'] span:last-child", $relations[1]->title);
+                ->assertSeeIn("tr:last-child td[field-key='role'] span:last-child", $relations[1]->title)
+                ->logout();
         });
     }
 

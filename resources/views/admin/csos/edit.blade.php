@@ -25,12 +25,12 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    {!! Form::label('cid_id', trans('global.cso.fields.cid').'', ['class' => 'control-label']) !!}
-                    {!! Form::select('cid_id', $cids, old('cid_id'), ['class' => 'form-control select2']) !!}
+                    {!! Form::label('channel_id', trans('global.cso.fields.channel').'', ['class' => 'control-label']) !!}
+                    {!! Form::select('channel_id', $channels, old('channel_id'), ['class' => 'form-control select2']) !!}
                     <p class="help-block"></p>
-                    @if($errors->has('cid_id'))
+                    @if($errors->has('channel_id'))
                         <p class="help-block">
-                            {{ $errors->first('cid_id') }}
+                            {{ $errors->first('channel_id') }}
                         </p>
                     @endif
                 </div>

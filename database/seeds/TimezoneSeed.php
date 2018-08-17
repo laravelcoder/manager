@@ -12,7 +12,7 @@ class TimezoneSeed extends Seeder
     public function run()
     {
         $items = [
-            
+             
                 [ 'id' => 1, 'timezone' => 'Africa/Abidjan',],
                 [ 'id' => 2, 'timezone' => 'Africa/Accra',],
                 [ 'id' => 3, 'timezone' => 'Africa/Addis_Ababa',],
@@ -439,10 +439,13 @@ class TimezoneSeed extends Seeder
                 [ 'id' => 424, 'timezone' => 'Pacific/Wallis',],
                 [ 'id' => 425, 'timezone' => 'UTC',],
 
+
         ];
 
         foreach ($items as $item) {
             \App\Timezone::create($item);
         }
     }
+
 }
+

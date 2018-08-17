@@ -8,7 +8,6 @@ use Laravel\Dusk\Browser;
 
 class OutputSettingTest extends DuskTestCase
 {
-    use DatabaseMigrations;
 
     public function testCreateOutputSetting()
     {
@@ -27,7 +26,8 @@ class OutputSettingTest extends DuskTestCase
                 ->press('Save')
                 ->assertRouteIs('admin.output_settings.index')
                 ->assertSeeIn("tr:last-child td[field-key='report_time']", $output_setting->report_time)
-                ->assertSeeIn("tr:last-child td[field-key='email']", $output_setting->email->email);
+                ->assertSeeIn("tr:last-child td[field-key='email']", $output_setting->email->email)
+                ->logout();
         });
     }
 
@@ -49,7 +49,8 @@ class OutputSettingTest extends DuskTestCase
                 ->press('Update')
                 ->assertRouteIs('admin.output_settings.index')
                 ->assertSeeIn("tr:last-child td[field-key='report_time']", $output_setting2->report_time)
-                ->assertSeeIn("tr:last-child td[field-key='email']", $output_setting2->email->email);
+                ->assertSeeIn("tr:last-child td[field-key='email']", $output_setting2->email->email)
+                ->logout();
         });
     }
 
@@ -67,7 +68,8 @@ class OutputSettingTest extends DuskTestCase
                 ->click('tr[data-entry-id="' . $output_setting->id . '"] .btn-primary')
                 ->assertSeeIn("td[field-key='report_time']", $output_setting->report_time)
                 ->assertSeeIn("td[field-key='email']", $output_setting->email->email)
-                ->assertSeeIn("td[field-key='sync_server']", $output_setting->sync_server->name);
+                ->assertSeeIn("td[field-key='sync_server']", $output_setting->sync_server->name)
+                ->logout();
         });
     }
 

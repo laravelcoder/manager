@@ -16,6 +16,10 @@
                             <th>@lang('global.sync-servers.fields.name')</th>
                             <td field-key='name'>{{ $sync_server->name }}</td>
                         </tr>
+                        <tr>
+                            <th>@lang('global.sync-servers.fields.ss-host')</th>
+                            <td field-key='ss_host'>{{ $sync_server->ss_host }}</td>
+                        </tr>
                     </table>
                 </div>
             </div><!-- Nav tabs -->

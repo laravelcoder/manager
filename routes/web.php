@@ -1,4 +1,5 @@
 <?php
+ 
 
 // Route::middleware('auth')->group(function () {
     Route::get('/r', function () {
@@ -34,6 +35,7 @@
 Route::get('writer', 'Admin\ConfWriterController@index');
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
+ 
 Route::get('/', function () { return redirect('/admin/home'); });
 
 // Authentication Routes...
@@ -74,7 +76,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('protocols_mass_destroy', ['uses' => 'Admin\ProtocolsController@massDestroy', 'as' => 'protocols.mass_destroy']);
     Route::post('protocols_restore/{id}', ['uses' => 'Admin\ProtocolsController@restore', 'as' => 'protocols.restore']);
     Route::delete('protocols_perma_del/{id}', ['uses' => 'Admin\ProtocolsController@perma_del', 'as' => 'protocols.perma_del']);
- 
     Route::resource('permissions', 'Admin\PermissionsController');
     Route::post('permissions_mass_destroy', ['uses' => 'Admin\PermissionsController@massDestroy', 'as' => 'permissions.mass_destroy']);
     Route::resource('roles', 'Admin\RolesController');
@@ -117,6 +118,12 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('countries_mass_destroy', ['uses' => 'Admin\CountriesController@massDestroy', 'as' => 'countries.mass_destroy']);
     Route::post('countries_restore/{id}', ['uses' => 'Admin\CountriesController@restore', 'as' => 'countries.restore']);
     Route::delete('countries_perma_del/{id}', ['uses' => 'Admin\CountriesController@perma_del', 'as' => 'countries.perma_del']);
+    Route::resource('video_server_types', 'Admin\VideoServerTypesController');
+    Route::post('video_server_types_mass_destroy', ['uses' => 'Admin\VideoServerTypesController@massDestroy', 'as' => 'video_server_types.mass_destroy']);
+    Route::post('video_server_types_restore/{id}', ['uses' => 'Admin\VideoServerTypesController@restore', 'as' => 'video_server_types.restore']);
+    Route::delete('video_server_types_perma_del/{id}', ['uses' => 'Admin\VideoServerTypesController@perma_del', 'as' => 'video_server_types.perma_del']);
+    Route::resource('timezones', 'Admin\TimezonesController');
+    Route::post('timezones_mass_destroy', ['uses' => 'Admin\TimezonesController@massDestroy', 'as' => 'timezones.mass_destroy']);
 
 
 

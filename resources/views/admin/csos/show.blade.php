@@ -13,12 +13,12 @@
                 <div class="col-md-6">
                     <table class="table table-bordered table-striped">
                         <tr>
-                            <th>@lang('global.cso.fields.cid')</th>
-                            <td field-key='cid'>{{ $cso->cid->channel_name or '' }}</td>
+                            <th>@lang('global.cso.fields.channel')</th>
+                            <td field-key='channel'>{{ $cso->channel->channel_name or '' }}</td>
                         </tr>
                         <tr>
                             <th>@lang('global.cs-channel-list.fields.channel-type')</th>
-                            <td field-key='channel_type'>{{ isset($cso->cid) ? $cso->cid->channel_type : '' }}</td>
+                            <td field-key='channel_type'>{{ isset($cso->channel) ? $cso->channel->channel_type : '' }}</td>
                         </tr>
                         <tr>
                             <th>@lang('global.cso.fields.ocloud-a')</th>

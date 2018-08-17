@@ -8,7 +8,6 @@ use Laravel\Dusk\Browser;
 
 class ProtocolTest extends DuskTestCase
 {
-    use DatabaseMigrations;
 
     public function testCreateProtocol()
     {
@@ -26,7 +25,8 @@ class ProtocolTest extends DuskTestCase
                 ->press('Save')
                 ->assertRouteIs('admin.protocols.index')
                 ->assertSeeIn("tr:last-child td[field-key='protocol']", $protocol->protocol)
-                ->assertSeeIn("tr:last-child td[field-key='real_name']", $protocol->real_name);
+                ->assertSeeIn("tr:last-child td[field-key='real_name']", $protocol->real_name)
+                ->logout();
         });
     }
 
@@ -47,7 +47,8 @@ class ProtocolTest extends DuskTestCase
                 ->press('Update')
                 ->assertRouteIs('admin.protocols.index')
                 ->assertSeeIn("tr:last-child td[field-key='protocol']", $protocol2->protocol)
-                ->assertSeeIn("tr:last-child td[field-key='real_name']", $protocol2->real_name);
+                ->assertSeeIn("tr:last-child td[field-key='real_name']", $protocol2->real_name)
+                ->logout();
         });
     }
 
@@ -64,7 +65,8 @@ class ProtocolTest extends DuskTestCase
                 ->visit(route('admin.protocols.index'))
                 ->click('tr[data-entry-id="' . $protocol->id . '"] .btn-primary')
                 ->assertSeeIn("td[field-key='protocol']", $protocol->protocol)
-                ->assertSeeIn("td[field-key='real_name']", $protocol->real_name);
+                ->assertSeeIn("td[field-key='real_name']", $protocol->real_name)
+                ->logout();
         });
     }
 

@@ -8,7 +8,6 @@ use Laravel\Dusk\Browser;
 
 class FilterTest extends DuskTestCase
 {
-    use DatabaseMigrations;
 
     public function testCreateFilter()
     {
@@ -24,7 +23,8 @@ class FilterTest extends DuskTestCase
                 ->type("name", $filter->name)
                 ->press('Save')
                 ->assertRouteIs('admin.filters.index')
-                ->assertSeeIn("tr:last-child td[field-key='name']", $filter->name);
+                ->assertSeeIn("tr:last-child td[field-key='name']", $filter->name)
+                ->logout();
         });
     }
 
@@ -43,7 +43,8 @@ class FilterTest extends DuskTestCase
                 ->type("name", $filter2->name)
                 ->press('Update')
                 ->assertRouteIs('admin.filters.index')
-                ->assertSeeIn("tr:last-child td[field-key='name']", $filter2->name);
+                ->assertSeeIn("tr:last-child td[field-key='name']", $filter2->name)
+                ->logout();
         });
     }
 
@@ -59,7 +60,8 @@ class FilterTest extends DuskTestCase
             $browser->loginAs($admin)
                 ->visit(route('admin.filters.index'))
                 ->click('tr[data-entry-id="' . $filter->id . '"] .btn-primary')
-                ->assertSeeIn("td[field-key='name']", $filter->name);
+                ->assertSeeIn("td[field-key='name']", $filter->name)
+                ->logout();
         });
     }
 

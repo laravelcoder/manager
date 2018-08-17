@@ -8,7 +8,6 @@ use Laravel\Dusk\Browser;
 
 class PerChannelConfigurationTest extends DuskTestCase
 {
-    use DatabaseMigrations;
 
     public function testCreatePerChannelConfiguration()
     {
@@ -37,7 +36,8 @@ class PerChannelConfigurationTest extends DuskTestCase
                 ->assertSeeIn("tr:last-child td[field-key='offset']", $per_channel_configuration->offset)
                 ->assertSeeIn("tr:last-child td[field-key='ad_lengths']", $per_channel_configuration->ad_lengths)
                 ->assertSeeIn("tr:last-child td[field-key='ad_spacing']", $per_channel_configuration->ad_spacing)
-                ->assertSeeIn("tr:last-child td[field-key='rtn']", $per_channel_configuration->rtn->server_type);
+                ->assertSeeIn("tr:last-child td[field-key='rtn']", $per_channel_configuration->rtn->server_type)
+                ->logout();
         });
     }
 
@@ -69,7 +69,8 @@ class PerChannelConfigurationTest extends DuskTestCase
                 ->assertSeeIn("tr:last-child td[field-key='offset']", $per_channel_configuration2->offset)
                 ->assertSeeIn("tr:last-child td[field-key='ad_lengths']", $per_channel_configuration2->ad_lengths)
                 ->assertSeeIn("tr:last-child td[field-key='ad_spacing']", $per_channel_configuration2->ad_spacing)
-                ->assertSeeIn("tr:last-child td[field-key='rtn']", $per_channel_configuration2->rtn->server_type);
+                ->assertSeeIn("tr:last-child td[field-key='rtn']", $per_channel_configuration2->rtn->server_type)
+                ->logout();
         });
     }
 
@@ -92,7 +93,8 @@ class PerChannelConfigurationTest extends DuskTestCase
                 ->assertSeeIn("td[field-key='ad_lengths']", $per_channel_configuration->ad_lengths)
                 ->assertSeeIn("td[field-key='ad_spacing']", $per_channel_configuration->ad_spacing)
                 ->assertSeeIn("td[field-key='rtn']", $per_channel_configuration->rtn->server_type)
-                ->assertSeeIn("td[field-key='sync_server']", $per_channel_configuration->sync_server->name);
+                ->assertSeeIn("td[field-key='sync_server']", $per_channel_configuration->sync_server->name)
+                ->logout();
         });
     }
 

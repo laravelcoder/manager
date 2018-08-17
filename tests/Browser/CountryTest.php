@@ -8,7 +8,6 @@ use Laravel\Dusk\Browser;
 
 class CountryTest extends DuskTestCase
 {
-    use DatabaseMigrations;
 
     public function testCreateCountry()
     {
@@ -26,7 +25,8 @@ class CountryTest extends DuskTestCase
                 ->press('Save')
                 ->assertRouteIs('admin.countries.index')
                 ->assertSeeIn("tr:last-child td[field-key='shortcode']", $country->shortcode)
-                ->assertSeeIn("tr:last-child td[field-key='title']", $country->title);
+                ->assertSeeIn("tr:last-child td[field-key='title']", $country->title)
+                ->logout();
         });
     }
 
@@ -47,7 +47,8 @@ class CountryTest extends DuskTestCase
                 ->press('Update')
                 ->assertRouteIs('admin.countries.index')
                 ->assertSeeIn("tr:last-child td[field-key='shortcode']", $country2->shortcode)
-                ->assertSeeIn("tr:last-child td[field-key='title']", $country2->title);
+                ->assertSeeIn("tr:last-child td[field-key='title']", $country2->title)
+                ->logout();
         });
     }
 
@@ -64,7 +65,8 @@ class CountryTest extends DuskTestCase
                 ->visit(route('admin.countries.index'))
                 ->click('tr[data-entry-id="' . $country->id . '"] .btn-primary')
                 ->assertSeeIn("td[field-key='shortcode']", $country->shortcode)
-                ->assertSeeIn("td[field-key='title']", $country->title);
+                ->assertSeeIn("td[field-key='title']", $country->title)
+                ->logout();
         });
     }
 

@@ -39,6 +39,7 @@ class SyncServersController extends Controller
             $query->select([
                 'sync_servers.id',
                 'sync_servers.name',
+                'sync_servers.ss_host',
             ]);
             $table = Datatables::of($query);
 
@@ -55,6 +56,9 @@ class SyncServersController extends Controller
             });
             $table->editColumn('name', function ($row) {
                 return $row->name ? $row->name : '';
+            });
+            $table->editColumn('ss_host', function ($row) {
+                return $row->ss_host ? $row->ss_host : '';
             });
 
             $table->rawColumns(['actions','massDelete']);
