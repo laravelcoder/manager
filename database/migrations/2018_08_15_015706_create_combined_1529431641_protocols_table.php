@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -10,14 +11,14 @@ class CreateCombined1529431641ProtocolsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        if(! Schema::hasTable('protocols')) {
-            Schema::create('protocols', function (Blueprint $table) {
+        if (! Schema::hasTable('protocols')) {
+            Schema::create('protocols', function (Blueprint $table): void {
                 $table->increments('id');
                 $table->string('protocol')->nullable();
                 $table->string('real_name')->nullable();
-                
+
                 $table->timestamps();
                 $table->softDeletes();
 
@@ -31,7 +32,7 @@ class CreateCombined1529431641ProtocolsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('protocols');
     }

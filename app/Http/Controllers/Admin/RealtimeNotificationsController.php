@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
-use App\RealtimeNotification;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
+use App\RealtimeNotification;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Admin\StoreRealtimeNotificationsRequest;
 use App\Http\Requests\Admin\UpdateRealtimeNotificationsRequest;
 
@@ -22,8 +24,7 @@ class RealtimeNotificationsController extends Controller
             return abort(401);
         }
 
-
-        if (request('show_deleted') == 1) {
+        if (request('show_deleted') === 1) {
             if (! Gate::allows('realtime_notification_delete')) {
                 return abort(401);
             }
@@ -45,10 +46,10 @@ class RealtimeNotificationsController extends Controller
         if (! Gate::allows('realtime_notification_create')) {
             return abort(401);
         }
-        
+
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
         $enum_server_type = RealtimeNotification::$enum_server_type;
-            
+
         return view('admin.realtime_notifications.create', compact('enum_server_type', 'sync_servers'));
     }
 
@@ -65,11 +66,8 @@ class RealtimeNotificationsController extends Controller
         }
         $realtime_notification = RealtimeNotification::create($request->all());
 
-
-
         return redirect()->route('admin.realtime_notifications.index');
     }
-
 
     /**
      * Show the form for editing RealtimeNotification.
@@ -82,10 +80,10 @@ class RealtimeNotificationsController extends Controller
         if (! Gate::allows('realtime_notification_edit')) {
             return abort(401);
         }
-        
+
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
         $enum_server_type = RealtimeNotification::$enum_server_type;
-            
+
         $realtime_notification = RealtimeNotification::findOrFail($id);
 
         return view('admin.realtime_notifications.edit', compact('realtime_notification', 'enum_server_type', 'sync_servers'));
@@ -106,11 +104,8 @@ class RealtimeNotificationsController extends Controller
         $realtime_notification = RealtimeNotification::findOrFail($id);
         $realtime_notification->update($request->all());
 
-
-
         return redirect()->route('admin.realtime_notifications.index');
     }
-
 
     /**
      * Display RealtimeNotification.
@@ -123,14 +118,14 @@ class RealtimeNotificationsController extends Controller
         if (! Gate::allows('realtime_notification_view')) {
             return abort(401);
         }
-        
-        $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');$per_channel_configurations = \App\PerChannelConfiguration::where('rtn_id', $id)->get();
+
+        $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
+        $per_channel_configurations = \App\PerChannelConfiguration::where('rtn_id', $id)->get();
 
         $realtime_notification = RealtimeNotification::findOrFail($id);
 
         return view('admin.realtime_notifications.show', compact('realtime_notification', 'per_channel_configurations'));
     }
-
 
     /**
      * Remove RealtimeNotification from storage.
@@ -167,7 +162,6 @@ class RealtimeNotificationsController extends Controller
             }
         }
     }
-
 
     /**
      * Restore RealtimeNotification from storage.
