@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -23,7 +26,7 @@ class UpdateRealtimeNotificationsRequest extends FormRequest
     public function rules()
     {
         return [
-            
+
             'sync_server_id' => 'required',
         ];
     }

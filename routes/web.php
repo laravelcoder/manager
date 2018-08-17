@@ -1,5 +1,9 @@
 <?php
-Route::get('/', function () { return redirect('/admin/home'); });
+
+declare(strict_types=1);
+Route::get('/', function () {
+    return redirect('/admin/home');
+});
 
 // Authentication Routes...
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -16,9 +20,9 @@ $this->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 $this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 $this->post('password/reset', 'Auth\ResetPasswordController@reset')->name('auth.password.reset');
 
-Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
+Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function (): void {
     Route::get('/home', 'HomeController@index');
-    
+
     Route::resource('channel_servers', 'Admin\ChannelServersController');
     Route::post('channel_servers_mass_destroy', ['uses' => 'Admin\ChannelServersController@massDestroy', 'as' => 'channel_servers.mass_destroy']);
     Route::post('channel_servers_restore/{id}', ['uses' => 'Admin\ChannelServersController@restore', 'as' => 'channel_servers.restore']);
@@ -101,8 +105,4 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('clipdb_settings_mass_destroy', ['uses' => 'Admin\ClipdbSettingsController@massDestroy', 'as' => 'clipdb_settings.mass_destroy']);
     Route::post('clipdb_settings_restore/{id}', ['uses' => 'Admin\ClipdbSettingsController@restore', 'as' => 'clipdb_settings.restore']);
     Route::delete('clipdb_settings_perma_del/{id}', ['uses' => 'Admin\ClipdbSettingsController@perma_del', 'as' => 'clipdb_settings.perma_del']);
-
-
-
- 
 });

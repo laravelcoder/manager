@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\AggregationServer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
+use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Admin\StoreAggregationServersRequest;
 use App\Http\Requests\Admin\UpdateAggregationServersRequest;
-use Yajra\DataTables\DataTables;
 
 class AggregationServersController extends Controller
 {
@@ -23,16 +25,13 @@ class AggregationServersController extends Controller
             return abort(401);
         }
 
-
-        
         if (request()->ajax()) {
             $query = AggregationServer::query();
             $template = 'actionsTemplate';
-            if(request('show_deleted') == 1) {
-                
-        if (! Gate::allows('aggregation_server_delete')) {
-            return abort(401);
-        }
+            if (request('show_deleted') === 1) {
+                if (! Gate::allows('aggregation_server_delete')) {
+                    return abort(401);
+                }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -49,7 +48,7 @@ class AggregationServersController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey  = 'aggregation_server_';
+                $gateKey = 'aggregation_server_';
                 $routeKey = 'admin.aggregation_servers';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -61,7 +60,7 @@ class AggregationServersController extends Controller
                 return $row->server_host ? $row->server_host : '';
             });
 
-            $table->rawColumns(['actions','massDelete']);
+            $table->rawColumns(['actions', 'massDelete']);
 
             return $table->make(true);
         }
@@ -79,6 +78,7 @@ class AggregationServersController extends Controller
         if (! Gate::allows('aggregation_server_create')) {
             return abort(401);
         }
+
         return view('admin.aggregation_servers.create');
     }
 
@@ -99,10 +99,8 @@ class AggregationServersController extends Controller
             $aggregation_server->baby_sync_servers()->create($data);
         }
 
-
         return redirect()->route('admin.aggregation_servers.index');
     }
-
 
     /**
      * Show the form for editing AggregationServer.
@@ -135,13 +133,13 @@ class AggregationServersController extends Controller
         $aggregation_server = AggregationServer::findOrFail($id);
         $aggregation_server->update($request->all());
 
-        $babySyncServers           = $aggregation_server->baby_sync_servers;
+        $babySyncServers = $aggregation_server->baby_sync_servers;
         $currentBabySyncServerData = [];
         foreach ($request->input('baby_sync_servers', []) as $index => $data) {
-            if (is_integer($index)) {
+            if (is_int($index)) {
                 $aggregation_server->baby_sync_servers()->create($data);
             } else {
-                $id                          = explode('-', $index)[1];
+                $id = explode('-', $index)[1];
                 $currentBabySyncServerData[$id] = $data;
             }
         }
@@ -153,10 +151,8 @@ class AggregationServersController extends Controller
             }
         }
 
-
         return redirect()->route('admin.aggregation_servers.index');
     }
-
 
     /**
      * Display AggregationServer.
@@ -175,7 +171,6 @@ class AggregationServersController extends Controller
 
         return view('admin.aggregation_servers.show', compact('aggregation_server', 'baby_sync_servers'));
     }
-
 
     /**
      * Remove AggregationServer from storage.
@@ -212,7 +207,6 @@ class AggregationServersController extends Controller
             }
         }
     }
-
 
     /**
      * Restore AggregationServer from storage.
