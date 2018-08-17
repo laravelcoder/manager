@@ -7,7 +7,7 @@ return [
 		'users' => [		'title' => 'Users',		'fields' => [			'name' => 'Name',			'email' => 'Email',			'password' => 'Password',			'role' => 'Role',			'remember-token' => 'Remember token',		],	],
 		'channel-server' => [		'title' => 'Channel Server',		'fields' => [		],	],
 		'protocols' => [		'title' => 'Protocols',		'fields' => [			'protocol' => 'Protocol',			'real-name' => 'Real Name',		],	],
-		'channels' => [		'title' => 'Channels',		'fields' => [			'channelid' => 'ChannelID',			'type' => 'Type',		],	],
+		'channels' => [		'title' => 'Channels',		'fields' => [		],	],
 		'csi' => [		'title' => 'Channel Server Inputs',		'fields' => [			'channel-server' => 'Channel server',			'channel' => 'ChannelID',			'protocol' => 'Protocol',			'ssm' => 'Source Specific Mulitcast (SSM)',			'imc' => 'Input Mulicast Group (IMC)',			'ip' => 'IP',			'pid' => 'Service ID (PID)',		],	],
 		'channel-server' => [		'title' => 'Channel Server',		'fields' => [			'name' => 'Name',			'cs-host' => 'CS Host',		],	],
 		'cso' => [		'title' => 'Channel Server Outputs',		'fields' => [			'channel-server' => 'Channel Server',			'channel' => 'Channel',			'ocloud-a' => 'OCloud A',			'ocp-a' => 'Port A',			'ocloud-b' => 'OCloud B',			'ocp-b' => 'Port B',		],	],
