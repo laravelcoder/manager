@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 use Illuminate\Database\Seeder;
 
 class FilterSeed extends Seeder
@@ -9,11 +10,11 @@ class FilterSeed extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $items = [
-            
-            ['id' => 1, 'name' => 'test',],
+
+            ['id' => 1, 'name' => 'test'],
 
         ];
 
