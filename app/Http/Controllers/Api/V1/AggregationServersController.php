@@ -1,13 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api\V1;
 
 use App\AggregationServer;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreAggregationServersRequest;
 use App\Http\Requests\Admin\UpdateAggregationServersRequest;
-use Yajra\DataTables\DataTables;
 
 class AggregationServersController extends Controller
 {
@@ -25,7 +25,6 @@ class AggregationServersController extends Controller
     {
         $aggregation_server = AggregationServer::findOrFail($id);
         $aggregation_server->update($request->all());
-        
 
         return $aggregation_server;
     }
@@ -33,7 +32,6 @@ class AggregationServersController extends Controller
     public function store(StoreAggregationServersRequest $request)
     {
         $aggregation_server = AggregationServer::create($request->all());
-        
 
         return $aggregation_server;
     }
@@ -42,6 +40,7 @@ class AggregationServersController extends Controller
     {
         $aggregation_server = AggregationServer::findOrFail($id);
         $aggregation_server->delete();
+
         return '';
     }
 }
