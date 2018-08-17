@@ -1,11 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * updated code from styleci
- */
-
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Route;
@@ -27,7 +21,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(): void
+    public function boot()
     {
         //
 
@@ -39,7 +33,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function map(): void
+    public function map()
     {
         $this->mapApiRoutes();
 
@@ -55,7 +49,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapWebRoutes(): void
+    protected function mapWebRoutes()
     {
         Route::middleware('web')
              ->namespace($this->namespace)
@@ -69,7 +63,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapApiRoutes(): void
+    protected function mapApiRoutes()
     {
         Route::prefix('api')
              ->middleware('api')

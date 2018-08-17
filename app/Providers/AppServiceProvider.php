@@ -1,16 +1,11 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * updated code from styleci
- */
-
 namespace App\Providers;
 
-use Laravel\Dusk\DuskServiceProvider;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
+use Laravel\Dusk\DuskServiceProvider;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,9 +14,10 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(): void
+    public function boot()
     {
         Schema::defaultStringLength(191);
+
     }
 
     /**
@@ -29,12 +25,13 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register(): void
+    public function register()
     {
         //
-
+        
         if ($this->app->environment('local', 'testing')) {
             $this->app->register(DuskServiceProvider::class);
         }
+
     }
 }

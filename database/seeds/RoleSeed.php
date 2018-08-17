@@ -1,11 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * updated code from styleci
- */
-
 use Illuminate\Database\Seeder;
 
 class RoleSeed extends Seeder
@@ -15,12 +9,12 @@ class RoleSeed extends Seeder
      *
      * @return void
      */
-    public function run(): void
+    public function run()
     {
         $items = [
-
-            ['id' => 1, 'title' => 'Administrator (can create other users)'],
-            ['id' => 3, 'title' => 'Manager'],
+            
+            ['id' => 1, 'title' => 'Administrator (can create other users)',],
+            ['id' => 3, 'title' => 'Manager',],
 
         ];
 

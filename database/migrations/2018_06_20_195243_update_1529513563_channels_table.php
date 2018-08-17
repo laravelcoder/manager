@@ -1,11 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * updated code from styleci
- */
-
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -16,20 +10,23 @@ class Update1529513563ChannelsTable extends Migration
      *
      * @return void
      */
-    public function up(): void
+    public function up()
     {
-        Schema::table('channels', function (Blueprint $table): void {
-            if (Schema::hasColumn('channels', 'cid_id')) {
+        Schema::table('channels', function (Blueprint $table) {
+            if(Schema::hasColumn('channels', 'cid_id')) {
                 $table->dropForeign('174144_5b2948c60bc3f');
                 $table->dropIndex('174144_5b2948c60bc3f');
                 $table->dropColumn('cid_id');
             }
+            
         });
-        Schema::table('channels', function (Blueprint $table): void {
-            if (! Schema::hasColumn('channels', 'type')) {
-                $table->enum('type', ['prod', 'dev'])->nullable();
-            }
+Schema::table('channels', function (Blueprint $table) {
+            
+if (!Schema::hasColumn('channels', 'type')) {
+                $table->enum('type', array('prod', 'dev'))->nullable();
+                }
         });
+
     }
 
     /**
@@ -37,12 +34,15 @@ class Update1529513563ChannelsTable extends Migration
      *
      * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::table('channels', function (Blueprint $table): void {
+        Schema::table('channels', function (Blueprint $table) {
             $table->dropColumn('type');
+            
         });
-        Schema::table('channels', function (Blueprint $table): void {
+Schema::table('channels', function (Blueprint $table) {
+                        
         });
+
     }
 }

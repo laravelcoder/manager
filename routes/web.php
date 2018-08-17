@@ -1,47 +1,5 @@
 <?php
-
-declare(strict_types=1);
-
-/*
- * updated code from styleci
- */
-
-Route::get('/r', function () {
-    function philsroutes(): void
-    {
-        $routeCollection = Route::getRoutes();
-        echo '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">';
-        echo "<div class='container'><div class='col-md-12'><table class='table table-striped' style='width:100%'>";
-        echo '<tr>';
-        echo "<td width='10%'><h4>HTTP Method</h4></td>";
-        echo "<td width='30%'><h4>URL</h4></td>";
-        echo "<td width='30%'><h4>Route</h4></td>";
-        echo "<td width='30%'><h4>Corresponding Action</h4></td>";
-        echo '</tr>';
-
-        foreach ($routeCollection as $value) {
-            echo '<tr>';
-            echo '<td>'.$value->methods()[0].'</td>';
-            echo "<td><a href='".$value->uri()."' target='_blank'>".$value->uri().'</a> </td>';
-            echo '<td>'.$value->getName().'</td>';
-            echo '<td>'.$value->getActionName().'</td>';
-            echo '</tr>';
-        }
-
-        echo '</table></div></div>';
-        echo '<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>';
-    }
-
-    return philsroutes();
-});
-// });
-
-Route::get('writer', 'Admin\ConfWriterController@index');
-Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
-
-Route::get('/', function () {
-    return redirect('/admin/home');
-});
+Route::get('/', function () { return redirect('/admin/home'); });
 
 // Authentication Routes...
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -58,9 +16,9 @@ $this->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 $this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 $this->post('password/reset', 'Auth\ResetPasswordController@reset')->name('auth.password.reset');
 
-Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function (): void {
+Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/home', 'HomeController@index');
-
+    
     Route::resource('channel_servers', 'Admin\ChannelServersController');
     Route::post('channel_servers_mass_destroy', ['uses' => 'Admin\ChannelServersController@massDestroy', 'as' => 'channel_servers.mass_destroy']);
     Route::post('channel_servers_restore/{id}', ['uses' => 'Admin\ChannelServersController@restore', 'as' => 'channel_servers.restore']);
@@ -129,4 +87,22 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::delete('video_server_types_perma_del/{id}', ['uses' => 'Admin\VideoServerTypesController@perma_del', 'as' => 'video_server_types.perma_del']);
     Route::resource('timezones', 'Admin\TimezonesController');
     Route::post('timezones_mass_destroy', ['uses' => 'Admin\TimezonesController@massDestroy', 'as' => 'timezones.mass_destroy']);
+    Route::resource('video_settings', 'Admin\VideoSettingsController');
+    Route::post('video_settings_mass_destroy', ['uses' => 'Admin\VideoSettingsController@massDestroy', 'as' => 'video_settings.mass_destroy']);
+    Route::resource('aggregation_servers', 'Admin\AggregationServersController');
+    Route::post('aggregation_servers_mass_destroy', ['uses' => 'Admin\AggregationServersController@massDestroy', 'as' => 'aggregation_servers.mass_destroy']);
+    Route::post('aggregation_servers_restore/{id}', ['uses' => 'Admin\AggregationServersController@restore', 'as' => 'aggregation_servers.restore']);
+    Route::delete('aggregation_servers_perma_del/{id}', ['uses' => 'Admin\AggregationServersController@perma_del', 'as' => 'aggregation_servers.perma_del']);
+    Route::resource('baby_sync_servers', 'Admin\BabySyncServersController');
+    Route::post('baby_sync_servers_mass_destroy', ['uses' => 'Admin\BabySyncServersController@massDestroy', 'as' => 'baby_sync_servers.mass_destroy']);
+    Route::post('baby_sync_servers_restore/{id}', ['uses' => 'Admin\BabySyncServersController@restore', 'as' => 'baby_sync_servers.restore']);
+    Route::delete('baby_sync_servers_perma_del/{id}', ['uses' => 'Admin\BabySyncServersController@perma_del', 'as' => 'baby_sync_servers.perma_del']);
+    Route::resource('clipdb_settings', 'Admin\ClipdbSettingsController');
+    Route::post('clipdb_settings_mass_destroy', ['uses' => 'Admin\ClipdbSettingsController@massDestroy', 'as' => 'clipdb_settings.mass_destroy']);
+    Route::post('clipdb_settings_restore/{id}', ['uses' => 'Admin\ClipdbSettingsController@restore', 'as' => 'clipdb_settings.restore']);
+    Route::delete('clipdb_settings_perma_del/{id}', ['uses' => 'Admin\ClipdbSettingsController@perma_del', 'as' => 'clipdb_settings.perma_del']);
+
+
+
+ 
 });

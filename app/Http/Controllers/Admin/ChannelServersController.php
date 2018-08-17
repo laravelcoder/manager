@@ -1,20 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * updated code from styleci
- */
-
 namespace App\Http\Controllers\Admin;
 
 use App\ChannelServer;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreChannelServersRequest;
 use App\Http\Requests\Admin\UpdateChannelServersRequest;
+use Yajra\DataTables\DataTables;
 
 class ChannelServersController extends Controller
 {
@@ -29,13 +23,16 @@ class ChannelServersController extends Controller
             return abort(401);
         }
 
+
+        
         if (request()->ajax()) {
             $query = ChannelServer::query();
             $template = 'actionsTemplate';
-            if (request('show_deleted') === 1) {
-                if (! Gate::allows('channel_server_delete')) {
-                    return abort(401);
-                }
+            if(request('show_deleted') == 1) {
+                
+        if (! Gate::allows('channel_server_delete')) {
+            return abort(401);
+        }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -52,7 +49,7 @@ class ChannelServersController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey = 'channel_server_';
+                $gateKey  = 'channel_server_';
                 $routeKey = 'admin.channel_servers';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -64,7 +61,7 @@ class ChannelServersController extends Controller
                 return $row->cs_host ? $row->cs_host : '';
             });
 
-            $table->rawColumns(['actions', 'massDelete']);
+            $table->rawColumns(['actions','massDelete']);
 
             return $table->make(true);
         }
@@ -82,7 +79,6 @@ class ChannelServersController extends Controller
         if (! Gate::allows('channel_server_create')) {
             return abort(401);
         }
-
         return view('admin.channel_servers.create');
     }
 
@@ -103,8 +99,10 @@ class ChannelServersController extends Controller
             $channel_server->cs_channel_lists()->create($data);
         }
 
+
         return redirect()->route('admin.channel_servers.index');
     }
+
 
     /**
      * Show the form for editing ChannelServer.
@@ -137,13 +135,13 @@ class ChannelServersController extends Controller
         $channel_server = ChannelServer::findOrFail($id);
         $channel_server->update($request->all());
 
-        $csChannelLists = $channel_server->cs_channel_lists;
+        $csChannelLists           = $channel_server->cs_channel_lists;
         $currentCsChannelListData = [];
         foreach ($request->input('cs_channel_lists', []) as $index => $data) {
-            if (is_int($index)) {
+            if (is_integer($index)) {
                 $channel_server->cs_channel_lists()->create($data);
             } else {
-                $id = explode('-', $index)[1];
+                $id                          = explode('-', $index)[1];
                 $currentCsChannelListData[$id] = $data;
             }
         }
@@ -155,8 +153,10 @@ class ChannelServersController extends Controller
             }
         }
 
+
         return redirect()->route('admin.channel_servers.index');
     }
+
 
     /**
      * Display ChannelServer.
@@ -169,14 +169,13 @@ class ChannelServersController extends Controller
         if (! Gate::allows('channel_server_view')) {
             return abort(401);
         }
-        $cs_channel_lists = \App\CsChannelList::where('channel_server_id', $id)->get();
-        $csis = \App\Csi::where('channel_server_id', $id)->get();
-        $csos = \App\Cso::where('channel_server_id', $id)->get();
+        $cs_channel_lists = \App\CsChannelList::where('channel_server_id', $id)->get();$csis = \App\Csi::where('channel_server_id', $id)->get();$csos = \App\Cso::where('channel_server_id', $id)->get();
 
         $channel_server = ChannelServer::findOrFail($id);
 
         return view('admin.channel_servers.show', compact('channel_server', 'cs_channel_lists', 'csis', 'csos'));
     }
+
 
     /**
      * Remove ChannelServer from storage.
@@ -213,6 +212,7 @@ class ChannelServersController extends Controller
             }
         }
     }
+
 
     /**
      * Restore ChannelServer from storage.

@@ -1,11 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * updated code from styleci
- */
-
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -16,17 +10,18 @@ class Create1529430809UsersTable extends Migration
      *
      * @return void
      */
-    public function up(): void
+    public function up()
     {
-        if (! Schema::hasTable('users')) {
-            Schema::create('users', function (Blueprint $table): void {
+        if(! Schema::hasTable('users')) {
+            Schema::create('users', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('name');
                 $table->string('email');
                 $table->string('password');
                 $table->string('remember_token')->nullable();
-
+                
                 $table->timestamps();
+                
             });
         }
     }
@@ -36,7 +31,7 @@ class Create1529430809UsersTable extends Migration
      *
      * @return void
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('users');
     }

@@ -1,17 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * updated code from styleci
- */
-
 namespace App\Http\Controllers\Api\V1;
 
 use App\OutputSetting;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreOutputSettingsRequest;
 use App\Http\Requests\Admin\UpdateOutputSettingsRequest;
+use Yajra\DataTables\DataTables;
 
 class OutputSettingsController extends Controller
 {
@@ -29,6 +25,7 @@ class OutputSettingsController extends Controller
     {
         $output_setting = OutputSetting::findOrFail($id);
         $output_setting->update($request->all());
+        
 
         return $output_setting;
     }
@@ -36,6 +33,7 @@ class OutputSettingsController extends Controller
     public function store(StoreOutputSettingsRequest $request)
     {
         $output_setting = OutputSetting::create($request->all());
+        
 
         return $output_setting;
     }
@@ -44,7 +42,6 @@ class OutputSettingsController extends Controller
     {
         $output_setting = OutputSetting::findOrFail($id);
         $output_setting->delete();
-
         return '';
     }
 }

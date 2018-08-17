@@ -1,11 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * updated code from styleci
- */
-
 namespace App\Providers;
 
 use App\Role;
@@ -29,12 +23,13 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(): void
+    public function boot()
     {
         $this->registerPolicies();
 
         $user = \Auth::user();
 
+        
         if (! app()->runningInConsole()) {
             $roles = Role::with('permission')->get();
 

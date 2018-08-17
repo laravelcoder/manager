@@ -1,11 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * updated code from styleci
- */
-
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,10 +9,12 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run(): void
+    public function run()
     {
+        
         $this->call(ChannelServerSeed::class);
         $this->call(CountrySeed::class);
+        $this->call(CsChannelListSeed::class);
         $this->call(ProtocolSeed::class);
         $this->call(CsiSeed::class);
         $this->call(CsoSeed::class);
@@ -31,5 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(VideoServerTypeSeed::class);
         $this->call(RoleSeedPivot::class);
         $this->call(UserSeedPivot::class);
+
     }
 }

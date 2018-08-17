@@ -1,11 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * updated code from styleci
- */
-
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -16,13 +10,13 @@ class Create1529525166SyncServersTable extends Migration
      *
      * @return void
      */
-    public function up(): void
+    public function up()
     {
-        if (! Schema::hasTable('sync_servers')) {
-            Schema::create('sync_servers', function (Blueprint $table): void {
+        if(! Schema::hasTable('sync_servers')) {
+            Schema::create('sync_servers', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('name')->nullable();
-
+                
                 $table->timestamps();
                 $table->softDeletes();
 
@@ -36,7 +30,7 @@ class Create1529525166SyncServersTable extends Migration
      *
      * @return void
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('sync_servers');
     }

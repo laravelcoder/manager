@@ -1,28 +1,26 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * updated code from styleci
- */
-
 namespace Tests\Browser;
 
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 
 class FilterTest extends DuskTestCase
 {
-    public function testCreateFilter(): void
+
+    public function testCreateFilter()
     {
         $admin = \App\User::find(1);
         $filter = factory('App\Filter')->make();
 
-        $this->browse(function (Browser $browser) use ($admin, $filter): void {
+        
+
+        $this->browse(function (Browser $browser) use ($admin, $filter) {
             $browser->loginAs($admin)
                 ->visit(route('admin.filters.index'))
                 ->clickLink('Add new')
-                ->type('name', $filter->name)
+                ->type("name", $filter->name)
                 ->press('Save')
                 ->assertRouteIs('admin.filters.index')
                 ->assertSeeIn("tr:last-child td[field-key='name']", $filter->name)
@@ -30,17 +28,19 @@ class FilterTest extends DuskTestCase
         });
     }
 
-    public function testEditFilter(): void
+    public function testEditFilter()
     {
         $admin = \App\User::find(1);
         $filter = factory('App\Filter')->create();
         $filter2 = factory('App\Filter')->make();
 
-        $this->browse(function (Browser $browser) use ($admin, $filter, $filter2): void {
+        
+
+        $this->browse(function (Browser $browser) use ($admin, $filter, $filter2) {
             $browser->loginAs($admin)
                 ->visit(route('admin.filters.index'))
-                ->click('tr[data-entry-id="'.$filter->id.'"] .btn-info')
-                ->type('name', $filter2->name)
+                ->click('tr[data-entry-id="' . $filter->id . '"] .btn-info')
+                ->type("name", $filter2->name)
                 ->press('Update')
                 ->assertRouteIs('admin.filters.index')
                 ->assertSeeIn("tr:last-child td[field-key='name']", $filter2->name)
@@ -48,17 +48,21 @@ class FilterTest extends DuskTestCase
         });
     }
 
-    public function testShowFilter(): void
+    public function testShowFilter()
     {
         $admin = \App\User::find(1);
         $filter = factory('App\Filter')->create();
 
-        $this->browse(function (Browser $browser) use ($admin, $filter): void {
+        
+
+
+        $this->browse(function (Browser $browser) use ($admin, $filter) {
             $browser->loginAs($admin)
                 ->visit(route('admin.filters.index'))
-                ->click('tr[data-entry-id="'.$filter->id.'"] .btn-primary')
+                ->click('tr[data-entry-id="' . $filter->id . '"] .btn-primary')
                 ->assertSeeIn("td[field-key='name']", $filter->name)
                 ->logout();
         });
     }
+
 }

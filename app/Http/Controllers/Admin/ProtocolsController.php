@@ -1,20 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * updated code from styleci
- */
-
 namespace App\Http\Controllers\Admin;
 
 use App\Protocol;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreProtocolsRequest;
 use App\Http\Requests\Admin\UpdateProtocolsRequest;
+use Yajra\DataTables\DataTables;
 
 class ProtocolsController extends Controller
 {
@@ -29,13 +23,16 @@ class ProtocolsController extends Controller
             return abort(401);
         }
 
+
+        
         if (request()->ajax()) {
             $query = Protocol::query();
             $template = 'actionsTemplate';
-            if (request('show_deleted') === 1) {
-                if (! Gate::allows('protocol_delete')) {
-                    return abort(401);
-                }
+            if(request('show_deleted') == 1) {
+                
+        if (! Gate::allows('protocol_delete')) {
+            return abort(401);
+        }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -52,7 +49,7 @@ class ProtocolsController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey = 'protocol_';
+                $gateKey  = 'protocol_';
                 $routeKey = 'admin.protocols';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -64,7 +61,7 @@ class ProtocolsController extends Controller
                 return $row->real_name ? $row->real_name : '';
             });
 
-            $table->rawColumns(['actions', 'massDelete']);
+            $table->rawColumns(['actions','massDelete']);
 
             return $table->make(true);
         }
@@ -82,7 +79,6 @@ class ProtocolsController extends Controller
         if (! Gate::allows('protocol_create')) {
             return abort(401);
         }
-
         return view('admin.protocols.create');
     }
 
@@ -99,8 +95,11 @@ class ProtocolsController extends Controller
         }
         $protocol = Protocol::create($request->all());
 
+
+
         return redirect()->route('admin.protocols.index');
     }
+
 
     /**
      * Show the form for editing Protocol.
@@ -133,8 +132,11 @@ class ProtocolsController extends Controller
         $protocol = Protocol::findOrFail($id);
         $protocol->update($request->all());
 
+
+
         return redirect()->route('admin.protocols.index');
     }
+
 
     /**
      * Display Protocol.
@@ -153,6 +155,7 @@ class ProtocolsController extends Controller
 
         return view('admin.protocols.show', compact('protocol', 'csis'));
     }
+
 
     /**
      * Remove Protocol from storage.
@@ -189,6 +192,7 @@ class ProtocolsController extends Controller
             }
         }
     }
+
 
     /**
      * Restore Protocol from storage.

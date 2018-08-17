@@ -1,11 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * updated code from styleci
- */
-
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -16,13 +10,15 @@ class Update1529612162PerChannelConfigurationsTable extends Migration
      *
      * @return void
      */
-    public function up(): void
+    public function up()
     {
-        Schema::table('per_channel_configurations', function (Blueprint $table): void {
-            if (! Schema::hasColumn('per_channel_configurations', 'ad_lengths')) {
+        Schema::table('per_channel_configurations', function (Blueprint $table) {
+            
+if (!Schema::hasColumn('per_channel_configurations', 'ad_lengths')) {
                 $table->integer('ad_lengths')->nullable()->unsigned();
-            }
+                }
         });
+
     }
 
     /**
@@ -30,10 +26,12 @@ class Update1529612162PerChannelConfigurationsTable extends Migration
      *
      * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::table('per_channel_configurations', function (Blueprint $table): void {
+        Schema::table('per_channel_configurations', function (Blueprint $table) {
             $table->dropColumn('ad_lengths');
+            
         });
+
     }
 }

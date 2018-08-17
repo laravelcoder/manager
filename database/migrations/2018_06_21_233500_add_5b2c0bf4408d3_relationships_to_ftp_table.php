@@ -1,11 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * updated code from styleci
- */
-
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -16,13 +10,14 @@ class Add5b2c0bf4408d3RelationshipsToFtpTable extends Migration
      *
      * @return void
      */
-    public function up(): void
+    public function up()
     {
-        Schema::table('ftps', function (Blueprint $table): void {
-            if (! Schema::hasColumn('ftps', 'sync_server_id')) {
+        Schema::table('ftps', function(Blueprint $table) {
+            if (!Schema::hasColumn('ftps', 'sync_server_id')) {
                 $table->integer('sync_server_id')->unsigned()->nullable();
                 $table->foreign('sync_server_id', '175202_5b2c0bede8de4')->references('id')->on('sync_servers')->onDelete('cascade');
-            }
+                }
+                
         });
     }
 
@@ -31,9 +26,10 @@ class Add5b2c0bf4408d3RelationshipsToFtpTable extends Migration
      *
      * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::table('ftps', function (Blueprint $table): void {
+        Schema::table('ftps', function(Blueprint $table) {
+            
         });
     }
 }

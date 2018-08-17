@@ -1,17 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * updated code from styleci
- */
-
 namespace App\Http\Controllers\Api\V1;
 
 use App\ReportSetting;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreReportSettingsRequest;
 use App\Http\Requests\Admin\UpdateReportSettingsRequest;
+use Yajra\DataTables\DataTables;
 
 class ReportSettingsController extends Controller
 {
@@ -29,6 +25,7 @@ class ReportSettingsController extends Controller
     {
         $report_setting = ReportSetting::findOrFail($id);
         $report_setting->update($request->all());
+        
 
         return $report_setting;
     }
@@ -36,6 +33,7 @@ class ReportSettingsController extends Controller
     public function store(StoreReportSettingsRequest $request)
     {
         $report_setting = ReportSetting::create($request->all());
+        
 
         return $report_setting;
     }
@@ -44,7 +42,6 @@ class ReportSettingsController extends Controller
     {
         $report_setting = ReportSetting::findOrFail($id);
         $report_setting->delete();
-
         return '';
     }
 }

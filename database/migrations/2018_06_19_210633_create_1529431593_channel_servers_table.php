@@ -1,11 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * updated code from styleci
- */
-
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -16,16 +10,16 @@ class Create1529431593ChannelServersTable extends Migration
      *
      * @return void
      */
-    public function up(): void
+    public function up()
     {
-        if (! Schema::hasTable('channel_servers')) {
-            Schema::create('channel_servers', function (Blueprint $table): void {
+        if(! Schema::hasTable('channel_servers')) {
+            Schema::create('channel_servers', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('ip')->nullable();
                 $table->string('url')->nullable();
                 $table->integer('port')->nullable()->unsigned();
                 $table->string('pid')->nullable();
-
+                
                 $table->timestamps();
                 $table->softDeletes();
 
@@ -39,7 +33,7 @@ class Create1529431593ChannelServersTable extends Migration
      *
      * @return void
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('channel_servers');
     }

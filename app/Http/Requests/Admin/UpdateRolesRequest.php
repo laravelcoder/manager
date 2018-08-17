@@ -1,11 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
-/*
- * updated code from styleci
- */
-
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -30,7 +23,7 @@ class UpdateRolesRequest extends FormRequest
     public function rules()
     {
         return [
-
+            
             'title' => 'required',
             'permission' => 'required',
             'permission.*' => 'exists:permissions,id',
