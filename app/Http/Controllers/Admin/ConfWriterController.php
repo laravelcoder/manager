@@ -23,7 +23,7 @@ class ConfWriterController extends Controller
                 $channellist[] = array($row['channel_name'],  $row['channel_type']);
         }
 
-dd($file);
+		// dd($file);
 		// $text = "\n Your text to write \n ".date('d')."-".date('m')."-".date('Y')."\n\n";
 		// $text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat adipisci, dolor eos quo similique distinctio. Dolores autem, perspiciatis ipsum explicabo aut commodi quis repellendus, beatae totam, debitis fugit expedita, quasi!"."\n\n";
 		
