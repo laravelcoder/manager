@@ -1,5 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * updated code from styleci
+ */
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -10,16 +16,16 @@ class Create1529517882CsosTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        if(! Schema::hasTable('csos')) {
-            Schema::create('csos', function (Blueprint $table) {
+        if (! Schema::hasTable('csos')) {
+            Schema::create('csos', function (Blueprint $table): void {
                 $table->increments('id');
                 $table->string('ocloud_a')->nullable();
                 $table->integer('ocp_a')->nullable()->unsigned();
                 $table->string('ocloud_b')->nullable();
                 $table->string('ocp_b')->nullable();
-                
+
                 $table->timestamps();
                 $table->softDeletes();
 
@@ -33,7 +39,7 @@ class Create1529517882CsosTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('csos');
     }

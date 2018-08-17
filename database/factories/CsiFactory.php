@@ -1,13 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * updated code from styleci
+ */
+
 $factory->define(App\Csi::class, function (Faker\Generator $faker) {
     return [
-        "channel_server_id" => factory('App\ChannelServer')->create(),
-        "channel_id" => factory('App\CsChannelList')->create(),
-        "protocol_id" => factory('App\Protocol')->create(),
-        "ssm" => $faker->name,
-        "imc" => $faker->name,
-        "ip" => $faker->name,
-        "pid" => $faker->name,
+        'channel_server_id' => factory('App\ChannelServer')->create(),
+        'channel_id' => factory('App\CsChannelList')->create(),
+        'protocol_id' => factory('App\Protocol')->create(),
+        'ssm' => $faker->name,
+        'imc' => $faker->name,
+        'ip' => $faker->name,
+        'pid' => $faker->name,
     ];
 });

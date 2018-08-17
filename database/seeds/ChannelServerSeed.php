@@ -1,5 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * updated code from styleci
+ */
+
 use Illuminate\Database\Seeder;
 
 class ChannelServerSeed extends Seeder
@@ -9,11 +15,11 @@ class ChannelServerSeed extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $items = [
-            
-            ['id' => 1, 'name' => 'cs0-1', 'cs_host' => 'http://d-gp2-caipyascs0-1.imovetv.com',],
+
+            ['id' => 1, 'name' => 'cs0-1', 'cs_host' => 'http://d-gp2-caipyascs0-1.imovetv.com'],
 
         ];
 

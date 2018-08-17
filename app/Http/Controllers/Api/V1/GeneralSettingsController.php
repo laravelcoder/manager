@@ -1,13 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * updated code from styleci
+ */
+
 namespace App\Http\Controllers\Api\V1;
 
 use App\GeneralSetting;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreGeneralSettingsRequest;
 use App\Http\Requests\Admin\UpdateGeneralSettingsRequest;
-use Yajra\DataTables\DataTables;
 
 class GeneralSettingsController extends Controller
 {
@@ -25,7 +29,6 @@ class GeneralSettingsController extends Controller
     {
         $general_setting = GeneralSetting::findOrFail($id);
         $general_setting->update($request->all());
-        
 
         return $general_setting;
     }
@@ -33,7 +36,6 @@ class GeneralSettingsController extends Controller
     public function store(StoreGeneralSettingsRequest $request)
     {
         $general_setting = GeneralSetting::create($request->all());
-        
 
         return $general_setting;
     }
@@ -42,6 +44,7 @@ class GeneralSettingsController extends Controller
     {
         $general_setting = GeneralSetting::findOrFail($id);
         $general_setting->delete();
+
         return '';
     }
 }

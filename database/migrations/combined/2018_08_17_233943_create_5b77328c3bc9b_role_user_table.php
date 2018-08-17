@@ -1,5 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * updated code from styleci
+ */
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -10,15 +16,14 @@ class Create5b77328c3bc9bRoleUserTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        if(! Schema::hasTable('role_user')) {
-            Schema::create('role_user', function (Blueprint $table) {
+        if (! Schema::hasTable('role_user')) {
+            Schema::create('role_user', function (Blueprint $table): void {
                 $table->integer('role_id')->unsigned()->nullable();
                 $table->foreign('role_id', 'fk_p_174136_174137_user_r_5b77328c3be02')->references('id')->on('roles')->onDelete('cascade');
                 $table->integer('user_id')->unsigned()->nullable();
                 $table->foreign('user_id', 'fk_p_174137_174136_role_u_5b77328c3beac')->references('id')->on('users')->onDelete('cascade');
-                
             });
         }
     }
@@ -28,7 +33,7 @@ class Create5b77328c3bc9bRoleUserTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('role_user');
     }

@@ -1,4 +1,11 @@
 <?php
+
+declare(strict_types=1);
+
+/*
+ * updated code from styleci
+ */
+
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -23,7 +30,7 @@ class UpdateReportSettingsRequest extends FormRequest
     public function rules()
     {
         return [
-            
+
         ];
     }
 }
