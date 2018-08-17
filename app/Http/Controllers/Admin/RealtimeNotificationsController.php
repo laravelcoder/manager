@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\RealtimeNotification;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreRealtimeNotificationsRequest;
 use App\Http\Requests\Admin\UpdateRealtimeNotificationsRequest;
+use App\RealtimeNotification;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class RealtimeNotificationsController extends Controller
 {
@@ -18,13 +18,12 @@ class RealtimeNotificationsController extends Controller
      */
     public function index()
     {
-        if (! Gate::allows('realtime_notification_access')) {
+        if (!Gate::allows('realtime_notification_access')) {
             return abort(401);
         }
 
-
         if (request('show_deleted') == 1) {
-            if (! Gate::allows('realtime_notification_delete')) {
+            if (!Gate::allows('realtime_notification_delete')) {
                 return abort(401);
             }
             $realtime_notifications = RealtimeNotification::onlyTrashed()->get();
@@ -42,50 +41,49 @@ class RealtimeNotificationsController extends Controller
      */
     public function create()
     {
-        if (! Gate::allows('realtime_notification_create')) {
+        if (!Gate::allows('realtime_notification_create')) {
             return abort(401);
         }
-        
+
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
         $enum_server_type = RealtimeNotification::$enum_server_type;
-            
+
         return view('admin.realtime_notifications.create', compact('enum_server_type', 'sync_servers'));
     }
 
     /**
      * Store a newly created RealtimeNotification in storage.
      *
-     * @param  \App\Http\Requests\StoreRealtimeNotificationsRequest  $request
+     * @param \App\Http\Requests\StoreRealtimeNotificationsRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(StoreRealtimeNotificationsRequest $request)
     {
-        if (! Gate::allows('realtime_notification_create')) {
+        if (!Gate::allows('realtime_notification_create')) {
             return abort(401);
         }
         $realtime_notification = RealtimeNotification::create($request->all());
 
-
-
         return redirect()->route('admin.realtime_notifications.index');
     }
-
 
     /**
      * Show the form for editing RealtimeNotification.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        if (! Gate::allows('realtime_notification_edit')) {
+        if (!Gate::allows('realtime_notification_edit')) {
             return abort(401);
         }
-        
+
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
         $enum_server_type = RealtimeNotification::$enum_server_type;
-            
+
         $realtime_notification = RealtimeNotification::findOrFail($id);
 
         return view('admin.realtime_notifications.edit', compact('realtime_notification', 'enum_server_type', 'sync_servers'));
@@ -94,53 +92,53 @@ class RealtimeNotificationsController extends Controller
     /**
      * Update RealtimeNotification in storage.
      *
-     * @param  \App\Http\Requests\UpdateRealtimeNotificationsRequest  $request
-     * @param  int  $id
+     * @param \App\Http\Requests\UpdateRealtimeNotificationsRequest $request
+     * @param int                                                   $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateRealtimeNotificationsRequest $request, $id)
     {
-        if (! Gate::allows('realtime_notification_edit')) {
+        if (!Gate::allows('realtime_notification_edit')) {
             return abort(401);
         }
         $realtime_notification = RealtimeNotification::findOrFail($id);
         $realtime_notification->update($request->all());
 
-
-
         return redirect()->route('admin.realtime_notifications.index');
     }
-
 
     /**
      * Display RealtimeNotification.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        if (! Gate::allows('realtime_notification_view')) {
+        if (!Gate::allows('realtime_notification_view')) {
             return abort(401);
         }
-        
-        $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');$per_channel_configurations = \App\PerChannelConfiguration::where('rtn_id', $id)->get();
+
+        $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
+        $per_channel_configurations = \App\PerChannelConfiguration::where('rtn_id', $id)->get();
 
         $realtime_notification = RealtimeNotification::findOrFail($id);
 
         return view('admin.realtime_notifications.show', compact('realtime_notification', 'per_channel_configurations'));
     }
 
-
     /**
      * Remove RealtimeNotification from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        if (! Gate::allows('realtime_notification_delete')) {
+        if (!Gate::allows('realtime_notification_delete')) {
             return abort(401);
         }
         $realtime_notification = RealtimeNotification::findOrFail($id);
@@ -156,7 +154,7 @@ class RealtimeNotificationsController extends Controller
      */
     public function massDestroy(Request $request)
     {
-        if (! Gate::allows('realtime_notification_delete')) {
+        if (!Gate::allows('realtime_notification_delete')) {
             return abort(401);
         }
         if ($request->input('ids')) {
@@ -168,16 +166,16 @@ class RealtimeNotificationsController extends Controller
         }
     }
 
-
     /**
      * Restore RealtimeNotification from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function restore($id)
     {
-        if (! Gate::allows('realtime_notification_delete')) {
+        if (!Gate::allows('realtime_notification_delete')) {
             return abort(401);
         }
         $realtime_notification = RealtimeNotification::onlyTrashed()->findOrFail($id);
@@ -189,12 +187,13 @@ class RealtimeNotificationsController extends Controller
     /**
      * Permanently delete RealtimeNotification from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function perma_del($id)
     {
-        if (! Gate::allows('realtime_notification_delete')) {
+        if (!Gate::allows('realtime_notification_delete')) {
             return abort(401);
         }
         $realtime_notification = RealtimeNotification::onlyTrashed()->findOrFail($id);

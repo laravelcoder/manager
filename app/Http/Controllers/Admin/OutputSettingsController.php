@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\OutputSetting;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreOutputSettingsRequest;
 use App\Http\Requests\Admin\UpdateOutputSettingsRequest;
+use App\OutputSetting;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\DataTables;
 
 class OutputSettingsController extends Controller
@@ -19,22 +19,19 @@ class OutputSettingsController extends Controller
      */
     public function index()
     {
-        if (! Gate::allows('output_setting_access')) {
+        if (!Gate::allows('output_setting_access')) {
             return abort(401);
         }
 
-
-        
         if (request()->ajax()) {
             $query = OutputSetting::query();
-            $query->with("email");
-            $query->with("sync_server");
+            $query->with('email');
+            $query->with('sync_server');
             $template = 'actionsTemplate';
-            if(request('show_deleted') == 1) {
-                
-        if (! Gate::allows('output_setting_delete')) {
-            return abort(401);
-        }
+            if (request('show_deleted') == 1) {
+                if (!Gate::allows('output_setting_delete')) {
+                    return abort(401);
+                }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -52,7 +49,7 @@ class OutputSettingsController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey  = 'output_setting_';
+                $gateKey = 'output_setting_';
                 $routeKey = 'admin.output_settings';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -67,7 +64,7 @@ class OutputSettingsController extends Controller
                 return $row->sync_server ? $row->sync_server->name : '';
             });
 
-            $table->rawColumns(['actions','massDelete']);
+            $table->rawColumns(['actions', 'massDelete']);
 
             return $table->make(true);
         }
@@ -82,10 +79,10 @@ class OutputSettingsController extends Controller
      */
     public function create()
     {
-        if (! Gate::allows('output_setting_create')) {
+        if (!Gate::allows('output_setting_create')) {
             return abort(401);
         }
-        
+
         $emails = \App\User::get()->pluck('email', 'id')->prepend(trans('global.app_please_select'), '');
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
@@ -95,34 +92,33 @@ class OutputSettingsController extends Controller
     /**
      * Store a newly created OutputSetting in storage.
      *
-     * @param  \App\Http\Requests\StoreOutputSettingsRequest  $request
+     * @param \App\Http\Requests\StoreOutputSettingsRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(StoreOutputSettingsRequest $request)
     {
-        if (! Gate::allows('output_setting_create')) {
+        if (!Gate::allows('output_setting_create')) {
             return abort(401);
         }
         $output_setting = OutputSetting::create($request->all());
 
-
-
         return redirect()->route('admin.output_settings.index');
     }
-
 
     /**
      * Show the form for editing OutputSetting.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        if (! Gate::allows('output_setting_edit')) {
+        if (!Gate::allows('output_setting_edit')) {
             return abort(401);
         }
-        
+
         $emails = \App\User::get()->pluck('email', 'id')->prepend(trans('global.app_please_select'), '');
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
@@ -134,33 +130,32 @@ class OutputSettingsController extends Controller
     /**
      * Update OutputSetting in storage.
      *
-     * @param  \App\Http\Requests\UpdateOutputSettingsRequest  $request
-     * @param  int  $id
+     * @param \App\Http\Requests\UpdateOutputSettingsRequest $request
+     * @param int                                            $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateOutputSettingsRequest $request, $id)
     {
-        if (! Gate::allows('output_setting_edit')) {
+        if (!Gate::allows('output_setting_edit')) {
             return abort(401);
         }
         $output_setting = OutputSetting::findOrFail($id);
         $output_setting->update($request->all());
 
-
-
         return redirect()->route('admin.output_settings.index');
     }
-
 
     /**
      * Display OutputSetting.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        if (! Gate::allows('output_setting_view')) {
+        if (!Gate::allows('output_setting_view')) {
             return abort(401);
         }
         $output_setting = OutputSetting::findOrFail($id);
@@ -168,16 +163,16 @@ class OutputSettingsController extends Controller
         return view('admin.output_settings.show', compact('output_setting'));
     }
 
-
     /**
      * Remove OutputSetting from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        if (! Gate::allows('output_setting_delete')) {
+        if (!Gate::allows('output_setting_delete')) {
             return abort(401);
         }
         $output_setting = OutputSetting::findOrFail($id);
@@ -193,7 +188,7 @@ class OutputSettingsController extends Controller
      */
     public function massDestroy(Request $request)
     {
-        if (! Gate::allows('output_setting_delete')) {
+        if (!Gate::allows('output_setting_delete')) {
             return abort(401);
         }
         if ($request->input('ids')) {
@@ -205,16 +200,16 @@ class OutputSettingsController extends Controller
         }
     }
 
-
     /**
      * Restore OutputSetting from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function restore($id)
     {
-        if (! Gate::allows('output_setting_delete')) {
+        if (!Gate::allows('output_setting_delete')) {
             return abort(401);
         }
         $output_setting = OutputSetting::onlyTrashed()->findOrFail($id);
@@ -226,12 +221,13 @@ class OutputSettingsController extends Controller
     /**
      * Permanently delete OutputSetting from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function perma_del($id)
     {
-        if (! Gate::allows('output_setting_delete')) {
+        if (!Gate::allows('output_setting_delete')) {
             return abort(401);
         }
         $output_setting = OutputSetting::onlyTrashed()->findOrFail($id);

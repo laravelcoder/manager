@@ -2,30 +2,28 @@
 
 namespace Tests\Browser;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
+use Tests\DuskTestCase;
 
 class UserTest extends DuskTestCase
 {
-
     public function testCreateUser()
     {
         $admin = \App\User::find(1);
         $user = factory('App\User')->make();
 
         $relations = [
-            factory('App\Role')->create(), 
-            factory('App\Role')->create(), 
+            factory('App\Role')->create(),
+            factory('App\Role')->create(),
         ];
 
         $this->browse(function (Browser $browser) use ($admin, $user, $relations) {
             $browser->loginAs($admin)
                 ->visit(route('admin.users.index'))
                 ->clickLink('Add new')
-                ->type("name", $user->name)
-                ->type("email", $user->email)
-                ->type("password", $user->password)
+                ->type('name', $user->name)
+                ->type('email', $user->email)
+                ->type('password', $user->password)
                 ->select('select[name="role[]"]', $relations[0]->id)
                 ->select('select[name="role[]"]', $relations[1]->id)
                 ->press('Save')
@@ -45,17 +43,17 @@ class UserTest extends DuskTestCase
         $user2 = factory('App\User')->make();
 
         $relations = [
-            factory('App\Role')->create(), 
-            factory('App\Role')->create(), 
+            factory('App\Role')->create(),
+            factory('App\Role')->create(),
         ];
 
         $this->browse(function (Browser $browser) use ($admin, $user, $user2, $relations) {
             $browser->loginAs($admin)
                 ->visit(route('admin.users.index'))
-                ->click('tr[data-entry-id="' . $user->id . '"] .btn-info')
-                ->type("name", $user2->name)
-                ->type("email", $user2->email)
-                ->type("password", $user2->password)
+                ->click('tr[data-entry-id="'.$user->id.'"] .btn-info')
+                ->type('name', $user2->name)
+                ->type('email', $user2->email)
+                ->type('password', $user2->password)
                 ->select('select[name="role[]"]', $relations[0]->id)
                 ->select('select[name="role[]"]', $relations[1]->id)
                 ->press('Update')
@@ -74,8 +72,8 @@ class UserTest extends DuskTestCase
         $user = factory('App\User')->create();
 
         $relations = [
-            factory('App\Role')->create(), 
-            factory('App\Role')->create(), 
+            factory('App\Role')->create(),
+            factory('App\Role')->create(),
         ];
 
         $user->role()->attach([$relations[0]->id, $relations[1]->id]);
@@ -83,7 +81,7 @@ class UserTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($admin, $user, $relations) {
             $browser->loginAs($admin)
                 ->visit(route('admin.users.index'))
-                ->click('tr[data-entry-id="' . $user->id . '"] .btn-primary')
+                ->click('tr[data-entry-id="'.$user->id.'"] .btn-primary')
                 ->assertSeeIn("td[field-key='name']", $user->name)
                 ->assertSeeIn("td[field-key='email']", $user->email)
                 ->assertSeeIn("tr:last-child td[field-key='role'] span:first-child", $relations[0]->title)
@@ -91,5 +89,4 @@ class UserTest extends DuskTestCase
                 ->logout();
         });
     }
-
 }

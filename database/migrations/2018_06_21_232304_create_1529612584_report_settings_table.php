@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class Create1529612584ReportSettingsTable extends Migration
 {
@@ -12,7 +12,7 @@ class Create1529612584ReportSettingsTable extends Migration
      */
     public function up()
     {
-        if(! Schema::hasTable('report_settings')) {
+        if (!Schema::hasTable('report_settings')) {
             Schema::create('report_settings', function (Blueprint $table) {
                 $table->increments('id');
                 $table->tinyInteger('millisecond_precision')->nullable()->default('1');
@@ -24,7 +24,7 @@ class Create1529612584ReportSettingsTable extends Migration
                 $table->tinyInteger('enable_excel')->nullable()->default('0');
                 $table->tinyInteger('enable_evt_timing')->nullable()->default('0');
                 $table->string('timezone')->nullable();
-                
+
                 $table->timestamps();
                 $table->softDeletes();
 

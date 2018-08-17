@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -23,7 +24,7 @@ class StoreOutputSettingsRequest extends FormRequest
     public function rules()
     {
         return [
-            'report_time' => 'nullable|date_format:H:i:s',
+            'report_time'    => 'nullable|date_format:H:i:s',
             'sync_server_id' => 'required',
         ];
     }

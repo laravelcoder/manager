@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Timezone;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreTimezonesRequest;
 use App\Http\Requests\Admin\UpdateTimezonesRequest;
+use App\Timezone;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\DataTables;
 
 class TimezonesController extends Controller
@@ -19,16 +19,14 @@ class TimezonesController extends Controller
      */
     public function index()
     {
-        if (! Gate::allows('timezone_access')) {
+        if (!Gate::allows('timezone_access')) {
             return abort(401);
         }
 
-
-        
         if (request()->ajax()) {
             $query = Timezone::query();
             $template = 'actionsTemplate';
-            
+
             $query->select([
                 'timezones.id',
                 'timezones.timezone',
@@ -41,7 +39,7 @@ class TimezonesController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey  = 'timezone_';
+                $gateKey = 'timezone_';
                 $routeKey = 'admin.timezones';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -50,7 +48,7 @@ class TimezonesController extends Controller
                 return $row->timezone ? $row->timezone : '';
             });
 
-            $table->rawColumns(['actions','massDelete']);
+            $table->rawColumns(['actions', 'massDelete']);
 
             return $table->make(true);
         }
@@ -65,40 +63,40 @@ class TimezonesController extends Controller
      */
     public function create()
     {
-        if (! Gate::allows('timezone_create')) {
+        if (!Gate::allows('timezone_create')) {
             return abort(401);
         }
+
         return view('admin.timezones.create');
     }
 
     /**
      * Store a newly created Timezone in storage.
      *
-     * @param  \App\Http\Requests\StoreTimezonesRequest  $request
+     * @param \App\Http\Requests\StoreTimezonesRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(StoreTimezonesRequest $request)
     {
-        if (! Gate::allows('timezone_create')) {
+        if (!Gate::allows('timezone_create')) {
             return abort(401);
         }
         $timezone = Timezone::create($request->all());
 
-
-
         return redirect()->route('admin.timezones.index');
     }
-
 
     /**
      * Show the form for editing Timezone.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        if (! Gate::allows('timezone_edit')) {
+        if (!Gate::allows('timezone_edit')) {
             return abort(401);
         }
         $timezone = Timezone::findOrFail($id);
@@ -109,33 +107,32 @@ class TimezonesController extends Controller
     /**
      * Update Timezone in storage.
      *
-     * @param  \App\Http\Requests\UpdateTimezonesRequest  $request
-     * @param  int  $id
+     * @param \App\Http\Requests\UpdateTimezonesRequest $request
+     * @param int                                       $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateTimezonesRequest $request, $id)
     {
-        if (! Gate::allows('timezone_edit')) {
+        if (!Gate::allows('timezone_edit')) {
             return abort(401);
         }
         $timezone = Timezone::findOrFail($id);
         $timezone->update($request->all());
 
-
-
         return redirect()->route('admin.timezones.index');
     }
-
 
     /**
      * Display Timezone.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        if (! Gate::allows('timezone_view')) {
+        if (!Gate::allows('timezone_view')) {
             return abort(401);
         }
         $timezone = Timezone::findOrFail($id);
@@ -143,16 +140,16 @@ class TimezonesController extends Controller
         return view('admin.timezones.show', compact('timezone'));
     }
 
-
     /**
      * Remove Timezone from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        if (! Gate::allows('timezone_delete')) {
+        if (!Gate::allows('timezone_delete')) {
             return abort(401);
         }
         $timezone = Timezone::findOrFail($id);
@@ -168,7 +165,7 @@ class TimezonesController extends Controller
      */
     public function massDestroy(Request $request)
     {
-        if (! Gate::allows('timezone_delete')) {
+        if (!Gate::allows('timezone_delete')) {
             return abort(401);
         }
         if ($request->input('ids')) {
@@ -179,5 +176,4 @@ class TimezonesController extends Controller
             }
         }
     }
-
 }

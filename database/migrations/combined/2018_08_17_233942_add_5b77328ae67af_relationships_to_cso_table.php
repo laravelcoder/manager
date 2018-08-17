@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class Add5b77328ae67afRelationshipsToCsoTable extends Migration
 {
@@ -12,16 +12,15 @@ class Add5b77328ae67afRelationshipsToCsoTable extends Migration
      */
     public function up()
     {
-        Schema::table('csos', function(Blueprint $table) {
+        Schema::table('csos', function (Blueprint $table) {
             if (!Schema::hasColumn('csos', 'channel_server_id')) {
                 $table->integer('channel_server_id')->unsigned()->nullable();
                 $table->foreign('channel_server_id', '174743_5b2a97a71c2dd')->references('id')->on('channel_servers')->onDelete('cascade');
-                }
-                if (!Schema::hasColumn('csos', 'channel_id')) {
+            }
+            if (!Schema::hasColumn('csos', 'channel_id')) {
                 $table->integer('channel_id')->unsigned()->nullable();
                 $table->foreign('channel_id', '174743_5b734c26baf5b')->references('id')->on('cs_channel_lists')->onDelete('cascade');
-                }
-                
+            }
         });
     }
 
@@ -32,18 +31,17 @@ class Add5b77328ae67afRelationshipsToCsoTable extends Migration
      */
     public function down()
     {
-        Schema::table('csos', function(Blueprint $table) {
-            if(Schema::hasColumn('csos', 'channel_server_id')) {
+        Schema::table('csos', function (Blueprint $table) {
+            if (Schema::hasColumn('csos', 'channel_server_id')) {
                 $table->dropForeign('174743_5b2a97a71c2dd');
                 $table->dropIndex('174743_5b2a97a71c2dd');
                 $table->dropColumn('channel_server_id');
             }
-            if(Schema::hasColumn('csos', 'channel_id')) {
+            if (Schema::hasColumn('csos', 'channel_id')) {
                 $table->dropForeign('174743_5b734c26baf5b');
                 $table->dropIndex('174743_5b734c26baf5b');
                 $table->dropColumn('channel_id');
             }
-            
         });
     }
 }

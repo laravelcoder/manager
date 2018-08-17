@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateCombined1529611512OutputSettingsTable extends Migration
 {
@@ -12,11 +12,11 @@ class CreateCombined1529611512OutputSettingsTable extends Migration
      */
     public function up()
     {
-        if(! Schema::hasTable('output_settings')) {
+        if (!Schema::hasTable('output_settings')) {
             Schema::create('output_settings', function (Blueprint $table) {
                 $table->increments('id');
                 $table->time('report_time')->nullable();
-                
+
                 $table->timestamps();
                 $table->softDeletes();
 

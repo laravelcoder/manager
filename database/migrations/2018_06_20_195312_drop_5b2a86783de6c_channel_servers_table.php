@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class Drop5b2a86783de6cChannelServersTable extends Migration
 {
@@ -22,7 +22,7 @@ class Drop5b2a86783de6cChannelServersTable extends Migration
      */
     public function down()
     {
-        if(! Schema::hasTable('channel_servers')) {
+        if (!Schema::hasTable('channel_servers')) {
             Schema::create('channel_servers', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('ip')->nullable();
@@ -30,12 +30,12 @@ class Drop5b2a86783de6cChannelServersTable extends Migration
                 $table->integer('port')->nullable()->unsigned();
                 $table->string('pid')->nullable();
                 $table->string('ssm')->nullable();
-                $table->enum('prot', array('HLS', 'UDP', 'RTP', 'MOVE'))->nullable();
-                
+                $table->enum('prot', ['HLS', 'UDP', 'RTP', 'MOVE'])->nullable();
+
                 $table->timestamps();
                 $table->softDeletes();
 
-            $table->index(['deleted_at']);
+                $table->index(['deleted_at']);
             });
         }
     }
