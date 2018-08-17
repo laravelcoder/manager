@@ -1,8 +1,7 @@
 <?php
 
-declare(strict_types=1);
 $factory->define(App\Filter::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
+        "name" => $faker->name,
     ];
 });

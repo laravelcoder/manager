@@ -1,6 +1,5 @@
 <?php
 
-declare(strict_types=1);
 use Illuminate\Database\Seeder;
 
 class UserSeedPivot extends Seeder
@@ -10,10 +9,10 @@ class UserSeedPivot extends Seeder
      *
      * @return void
      */
-    public function run(): void
+    public function run()
     {
         $items = [
-
+            
             1 => [
                 'role' => [1],
             ],
