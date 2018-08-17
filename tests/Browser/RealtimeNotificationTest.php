@@ -8,7 +8,6 @@ use Laravel\Dusk\Browser;
 
 class RealtimeNotificationTest extends DuskTestCase
 {
-    use DatabaseMigrations;
 
     public function testCreateRealtimeNotification()
     {
@@ -27,7 +26,8 @@ class RealtimeNotificationTest extends DuskTestCase
                 ->press('Save')
                 ->assertRouteIs('admin.realtime_notifications.index')
                 ->assertSeeIn("tr:last-child td[field-key='server_type']", $realtime_notification->server_type)
-                ->assertSeeIn("tr:last-child td[field-key='r_urltn']", $realtime_notification->r_urltn);
+                ->assertSeeIn("tr:last-child td[field-key='r_urltn']", $realtime_notification->r_urltn)
+                ->logout();
         });
     }
 
@@ -49,7 +49,8 @@ class RealtimeNotificationTest extends DuskTestCase
                 ->press('Update')
                 ->assertRouteIs('admin.realtime_notifications.index')
                 ->assertSeeIn("tr:last-child td[field-key='server_type']", $realtime_notification2->server_type)
-                ->assertSeeIn("tr:last-child td[field-key='r_urltn']", $realtime_notification2->r_urltn);
+                ->assertSeeIn("tr:last-child td[field-key='r_urltn']", $realtime_notification2->r_urltn)
+                ->logout();
         });
     }
 
@@ -67,7 +68,8 @@ class RealtimeNotificationTest extends DuskTestCase
                 ->click('tr[data-entry-id="' . $realtime_notification->id . '"] .btn-primary')
                 ->assertSeeIn("td[field-key='server_type']", $realtime_notification->server_type)
                 ->assertSeeIn("td[field-key='r_urltn']", $realtime_notification->r_urltn)
-                ->assertSeeIn("td[field-key='sync_server']", $realtime_notification->sync_server->name);
+                ->assertSeeIn("td[field-key='sync_server']", $realtime_notification->sync_server->name)
+                ->logout();
         });
     }
 

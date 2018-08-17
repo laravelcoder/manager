@@ -9,12 +9,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @package App
  * @property string $name
+ * @property string $ss_host
 */
 class SyncServer extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'ss_host'];
     protected $hidden = [];
     
     

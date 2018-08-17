@@ -8,7 +8,6 @@ use Laravel\Dusk\Browser;
 
 class SyncServerTest extends DuskTestCase
 {
-    use DatabaseMigrations;
 
     public function testCreateSyncServer()
     {
@@ -22,9 +21,12 @@ class SyncServerTest extends DuskTestCase
                 ->visit(route('admin.sync_servers.index'))
                 ->clickLink('Add new')
                 ->type("name", $sync_server->name)
+                ->type("ss_host", $sync_server->ss_host)
                 ->press('Save')
                 ->assertRouteIs('admin.sync_servers.index')
-                ->assertSeeIn("tr:last-child td[field-key='name']", $sync_server->name);
+                ->assertSeeIn("tr:last-child td[field-key='name']", $sync_server->name)
+                ->assertSeeIn("tr:last-child td[field-key='ss_host']", $sync_server->ss_host)
+                ->logout();
         });
     }
 
@@ -41,9 +43,12 @@ class SyncServerTest extends DuskTestCase
                 ->visit(route('admin.sync_servers.index'))
                 ->click('tr[data-entry-id="' . $sync_server->id . '"] .btn-info')
                 ->type("name", $sync_server2->name)
+                ->type("ss_host", $sync_server2->ss_host)
                 ->press('Update')
                 ->assertRouteIs('admin.sync_servers.index')
-                ->assertSeeIn("tr:last-child td[field-key='name']", $sync_server2->name);
+                ->assertSeeIn("tr:last-child td[field-key='name']", $sync_server2->name)
+                ->assertSeeIn("tr:last-child td[field-key='ss_host']", $sync_server2->ss_host)
+                ->logout();
         });
     }
 
@@ -59,7 +64,9 @@ class SyncServerTest extends DuskTestCase
             $browser->loginAs($admin)
                 ->visit(route('admin.sync_servers.index'))
                 ->click('tr[data-entry-id="' . $sync_server->id . '"] .btn-primary')
-                ->assertSeeIn("td[field-key='name']", $sync_server->name);
+                ->assertSeeIn("td[field-key='name']", $sync_server->name)
+                ->assertSeeIn("td[field-key='ss_host']", $sync_server->ss_host)
+                ->logout();
         });
     }
 

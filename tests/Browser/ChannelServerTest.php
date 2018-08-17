@@ -8,7 +8,6 @@ use Laravel\Dusk\Browser;
 
 class ChannelServerTest extends DuskTestCase
 {
-    use DatabaseMigrations;
 
     public function testCreateChannelServer()
     {
@@ -22,9 +21,12 @@ class ChannelServerTest extends DuskTestCase
                 ->visit(route('admin.channel_servers.index'))
                 ->clickLink('Add new')
                 ->type("name", $channel_server->name)
+                ->type("cs_host", $channel_server->cs_host)
                 ->press('Save')
                 ->assertRouteIs('admin.channel_servers.index')
-                ->assertSeeIn("tr:last-child td[field-key='name']", $channel_server->name);
+                ->assertSeeIn("tr:last-child td[field-key='name']", $channel_server->name)
+                ->assertSeeIn("tr:last-child td[field-key='cs_host']", $channel_server->cs_host)
+                ->logout();
         });
     }
 
@@ -41,9 +43,12 @@ class ChannelServerTest extends DuskTestCase
                 ->visit(route('admin.channel_servers.index'))
                 ->click('tr[data-entry-id="' . $channel_server->id . '"] .btn-info')
                 ->type("name", $channel_server2->name)
+                ->type("cs_host", $channel_server2->cs_host)
                 ->press('Update')
                 ->assertRouteIs('admin.channel_servers.index')
-                ->assertSeeIn("tr:last-child td[field-key='name']", $channel_server2->name);
+                ->assertSeeIn("tr:last-child td[field-key='name']", $channel_server2->name)
+                ->assertSeeIn("tr:last-child td[field-key='cs_host']", $channel_server2->cs_host)
+                ->logout();
         });
     }
 
@@ -59,7 +64,9 @@ class ChannelServerTest extends DuskTestCase
             $browser->loginAs($admin)
                 ->visit(route('admin.channel_servers.index'))
                 ->click('tr[data-entry-id="' . $channel_server->id . '"] .btn-primary')
-                ->assertSeeIn("td[field-key='name']", $channel_server->name);
+                ->assertSeeIn("td[field-key='name']", $channel_server->name)
+                ->assertSeeIn("td[field-key='cs_host']", $channel_server->cs_host)
+                ->logout();
         });
     }
 

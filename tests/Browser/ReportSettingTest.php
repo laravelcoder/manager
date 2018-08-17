@@ -8,7 +8,6 @@ use Laravel\Dusk\Browser;
 
 class ReportSettingTest extends DuskTestCase
 {
-    use DatabaseMigrations;
 
     public function testCreateReportSetting()
     {
@@ -43,7 +42,8 @@ class ReportSettingTest extends DuskTestCase
                 ->assertChecked("enable_evt")
                 ->assertChecked("enable_excel")
                 ->assertChecked("enable_evt_timing")
-                ->assertSeeIn("tr:last-child td[field-key='timezone']", $report_setting->timezone);
+                ->assertSeeIn("tr:last-child td[field-key='timezone']", $report_setting->timezone)
+                ->logout();
         });
     }
 
@@ -81,7 +81,8 @@ class ReportSettingTest extends DuskTestCase
                 ->assertChecked("enable_evt")
                 ->assertChecked("enable_excel")
                 ->assertChecked("enable_evt_timing")
-                ->assertSeeIn("tr:last-child td[field-key='timezone']", $report_setting2->timezone);
+                ->assertSeeIn("tr:last-child td[field-key='timezone']", $report_setting2->timezone)
+                ->logout();
         });
     }
 
@@ -108,7 +109,8 @@ class ReportSettingTest extends DuskTestCase
                 ->assertSeeIn("td[field-key='timezone']", $report_setting->timezone)
                 ->assertSeeIn("td[field-key='country']", $report_setting->country->title)
                 ->assertSeeIn("td[field-key='synce_server']", $report_setting->synce_server->name)
-                ->assertSeeIn("td[field-key='filters']", $report_setting->filters->name);
+                ->assertSeeIn("td[field-key='filters']", $report_setting->filters->name)
+                ->logout();
         });
     }
 

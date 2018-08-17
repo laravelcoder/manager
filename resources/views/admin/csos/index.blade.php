@@ -31,7 +31,7 @@
                             @if ( request('show_deleted') != 1 )<th style="text-align:center;"><input type="checkbox" id="select-all" /></th>@endif
                         @endcan
 
-                        <th>@lang('global.cso.fields.cid')</th>
+                        <th>@lang('global.cso.fields.channel')</th>
                         <th>@lang('global.cs-channel-list.fields.channel-type')</th>
                         <th>@lang('global.cso.fields.ocloud-a')</th>
                         <th>@lang('global.cso.fields.ocp-a')</th>
@@ -60,8 +60,8 @@
                 @if ( request('show_deleted') != 1 )
                     {data: 'massDelete', name: 'id', searchable: false, sortable: false},
                 @endif
-                @endcan{data: 'cid.channel_name', name: 'cid.channel_name'},
-                {data: 'cid.channel_type', name: 'cid.channel_type'},
+                @endcan{data: 'channel.channel_name', name: 'channel.channel_name'},
+                {data: 'channel.channel_type', name: 'channel.channel_type'},
                 {data: 'ocloud_a', name: 'ocloud_a'},
                 {data: 'ocp_a', name: 'ocp_a'},
                 {data: 'ocloud_b', name: 'ocloud_b'},

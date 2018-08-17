@@ -102,6 +102,17 @@ class PermissionSeed extends Seeder
             ['id' => 102, 'title' => 'cs_channel_list_edit',],
             ['id' => 103, 'title' => 'cs_channel_list_view',],
             ['id' => 104, 'title' => 'cs_channel_list_delete',],
+            ['id' => 105, 'title' => 'video_server_type_access',],
+            ['id' => 106, 'title' => 'video_server_type_create',],
+            ['id' => 107, 'title' => 'video_server_type_edit',],
+            ['id' => 108, 'title' => 'video_server_type_view',],
+            ['id' => 109, 'title' => 'video_server_type_delete',],
+            ['id' => 111, 'title' => 'config_default_access',],
+            ['id' => 112, 'title' => 'timezone_access',],
+            ['id' => 113, 'title' => 'timezone_create',],
+            ['id' => 114, 'title' => 'timezone_edit',],
+            ['id' => 115, 'title' => 'timezone_view',],
+            ['id' => 116, 'title' => 'timezone_delete',],
 
         ];
 

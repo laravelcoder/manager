@@ -7,13 +7,13 @@ return [
 		'users' => [		'title' => 'Users',		'fields' => [			'name' => 'Name',			'email' => 'Email',			'password' => 'Password',			'role' => 'Role',			'remember-token' => 'Remember token',		],	],
 		'channel-server' => [		'title' => 'Channel Server',		'fields' => [		],	],
 		'protocols' => [		'title' => 'Protocols',		'fields' => [			'protocol' => 'Protocol',			'real-name' => 'Real Name',		],	],
-		'channels' => [		'title' => 'Channels',		'fields' => [			'channelid' => 'ChannelID',			'type' => 'Type',		],	],
+		'channels' => [		'title' => 'Channels',		'fields' => [		],	],
 		'csi' => [		'title' => 'Channel Server Inputs',		'fields' => [			'channel-server' => 'Channel server',			'channel' => 'ChannelID',			'protocol' => 'Protocol',			'ssm' => 'Source Specific Mulitcast (SSM)',			'imc' => 'Input Mulicast Group (IMC)',			'ip' => 'IP',			'pid' => 'Service ID (PID)',		],	],
 		'channel-server' => [		'title' => 'Channel Server',		'fields' => [			'name' => 'Name',			'cs-host' => 'CS Host',		],	],
-		'cso' => [		'title' => 'Channel Server Outputs',		'fields' => [			'channel-server' => 'Channel Server',			'cid' => 'Channel ID',			'ocloud-a' => 'OCloud A',			'ocp-a' => 'Port A',			'ocloud-b' => 'OCloud B',			'ocp-b' => 'Port B',		],	],
+		'cso' => [		'title' => 'Channel Server Outputs',		'fields' => [			'channel-server' => 'Channel Server',			'channel' => 'Channel',			'ocloud-a' => 'OCloud A',			'ocp-a' => 'Port A',			'ocloud-b' => 'OCloud B',			'ocp-b' => 'Port B',		],	],
 		'channel-servers-area' => [		'title' => 'Channel Servers Area',		'fields' => [		],	],
 		'sync-server-area' => [		'title' => 'Sync Server Area',		'fields' => [		],	],
-		'sync-servers' => [		'title' => 'Sync Servers',		'fields' => [			'name' => 'Name',		],	],
+		'sync-servers' => [		'title' => 'Sync Servers',		'fields' => [			'name' => 'Name',			'ss-host' => 'Sync Server Host',		],	],
 		'ssconfig' => [		'title' => 'Configuration',		'fields' => [		],	],
 		'configuration-settings' => [		'title' => 'Configuration Settings',		'fields' => [		],	],
 		'ftp' => [		'title' => 'FTP DETAILS',		'fields' => [			'ftp-server' => 'FTP Server',			'ftp-directory' => 'Ftp Directory',			'ftp-username' => 'FTP Username',			'ftp-password' => 'FTP password',			'grab-time' => 'GRAB Time',			'sync-server' => 'Sync server',		],	],
@@ -25,6 +25,10 @@ return [
 		'country' => [		'title' => 'Country',		'fields' => [			'shortcode' => 'Shortcode',			'title' => 'Title',		],	],
 		'filters' => [		'title' => 'Filters',		'fields' => [			'name' => 'Name',		],	],
 		'cs-channel-list' => [		'title' => 'CS Channel List',		'fields' => [			'channel-server' => 'Channel server',			'channel-name' => 'Channel name',			'channel-type' => 'Channel type',		],	],
+		'video-server-type' => [		'title' => 'Video Server Type',		'fields' => [			'server-type' => 'Server type',		],	],
+		'ss-config-defaults' => [		'title' => 'SS Config Defaults',		'fields' => [		],	],
+		'config-defaults' => [		'title' => 'Config defaults',		'fields' => [		],	],
+		'timezone' => [		'title' => 'Timezone',		'fields' => [			'timezone' => 'Timezone',		],	],
 	'app_create' => 'Create',
 	'app_save' => 'Save',
 	'app_edit' => 'Edit',

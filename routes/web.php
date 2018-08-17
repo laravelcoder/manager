@@ -1,41 +1,6 @@
 <?php
-
-// Route::middleware('auth')->group(function () {
-    Route::get('/r', function () {
-        function philsroutes()
-        {
-            $routeCollection = Route::getRoutes();
-            echo '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">';
-            echo "<div class='container'><div class='col-md-12'><table class='table table-striped' style='width:100%'>";
-            echo '<tr>';
-            echo "<td width='10%'><h4>HTTP Method</h4></td>";
-            echo "<td width='30%'><h4>URL</h4></td>";
-            echo "<td width='30%'><h4>Route</h4></td>";
-            echo "<td width='30%'><h4>Corresponding Action</h4></td>";
-            echo '</tr>';
-
-            foreach ($routeCollection as $value) {
-                echo '<tr>';
-                echo '<td>'.$value->methods()[0].'</td>';
-                echo "<td><a href='".$value->uri()."' target='_blank'>".$value->uri().'</a> </td>';
-                echo '<td>'.$value->getName().'</td>';
-                echo '<td>'.$value->getActionName().'</td>';
-                echo '</tr>';
-            }
-
-            echo '</table></div></div>';
-            echo '<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>';
-        }
-
-        return philsroutes();
-    });
-// });
-
-
-Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
-
 Route::get('/', function () { return redirect('/admin/home'); });
-Route::get('/writer', function () { return redirect('/writer'); });
+
 // Authentication Routes...
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
 $this->post('login', 'Auth\LoginController@login')->name('auth.login');
@@ -74,7 +39,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('protocols_mass_destroy', ['uses' => 'Admin\ProtocolsController@massDestroy', 'as' => 'protocols.mass_destroy']);
     Route::post('protocols_restore/{id}', ['uses' => 'Admin\ProtocolsController@restore', 'as' => 'protocols.restore']);
     Route::delete('protocols_perma_del/{id}', ['uses' => 'Admin\ProtocolsController@perma_del', 'as' => 'protocols.perma_del']);
- 
     Route::resource('permissions', 'Admin\PermissionsController');
     Route::post('permissions_mass_destroy', ['uses' => 'Admin\PermissionsController@massDestroy', 'as' => 'permissions.mass_destroy']);
     Route::resource('roles', 'Admin\RolesController');
@@ -117,6 +81,12 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('countries_mass_destroy', ['uses' => 'Admin\CountriesController@massDestroy', 'as' => 'countries.mass_destroy']);
     Route::post('countries_restore/{id}', ['uses' => 'Admin\CountriesController@restore', 'as' => 'countries.restore']);
     Route::delete('countries_perma_del/{id}', ['uses' => 'Admin\CountriesController@perma_del', 'as' => 'countries.perma_del']);
+    Route::resource('video_server_types', 'Admin\VideoServerTypesController');
+    Route::post('video_server_types_mass_destroy', ['uses' => 'Admin\VideoServerTypesController@massDestroy', 'as' => 'video_server_types.mass_destroy']);
+    Route::post('video_server_types_restore/{id}', ['uses' => 'Admin\VideoServerTypesController@restore', 'as' => 'video_server_types.restore']);
+    Route::delete('video_server_types_perma_del/{id}', ['uses' => 'Admin\VideoServerTypesController@perma_del', 'as' => 'video_server_types.perma_del']);
+    Route::resource('timezones', 'Admin\TimezonesController');
+    Route::post('timezones_mass_destroy', ['uses' => 'Admin\TimezonesController@massDestroy', 'as' => 'timezones.mass_destroy']);
 
 
 

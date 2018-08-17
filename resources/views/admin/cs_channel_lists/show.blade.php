@@ -36,7 +36,7 @@
 <table class="table table-bordered table-striped {{ count($csos) > 0 ? 'datatable' : '' }}">
     <thead>
         <tr>
-            <th>@lang('global.cso.fields.cid')</th>
+            <th>@lang('global.cso.fields.channel')</th>
                         <th>@lang('global.cso.fields.ocloud-a')</th>
                         <th>@lang('global.cso.fields.ocp-a')</th>
                         <th>@lang('global.cso.fields.ocloud-b')</th>
@@ -53,7 +53,7 @@
         @if (count($csos) > 0)
             @foreach ($csos as $cso)
                 <tr data-entry-id="{{ $cso->id }}">
-                    <td field-key='cid'>{{ $cso->cid->channel_name or '' }}</td>
+                    <td field-key='channel'>{{ $cso->channel->channel_name or '' }}</td>
                                 <td field-key='ocloud_a'>{{ $cso->ocloud_a }}</td>
                                 <td field-key='ocp_a'>{{ $cso->ocp_a }}</td>
                                 <td field-key='ocloud_b'>{{ $cso->ocloud_b }}</td>

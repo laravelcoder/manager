@@ -8,7 +8,6 @@ use Laravel\Dusk\Browser;
 
 class FtpTest extends DuskTestCase
 {
-    use DatabaseMigrations;
 
     public function testCreateFtp()
     {
@@ -32,7 +31,8 @@ class FtpTest extends DuskTestCase
                 ->assertSeeIn("tr:last-child td[field-key='ftp_server']", $ftp->ftp_server)
                 ->assertSeeIn("tr:last-child td[field-key='ftp_directory']", $ftp->ftp_directory)
                 ->assertSeeIn("tr:last-child td[field-key='ftp_username']", $ftp->ftp_username)
-                ->assertSeeIn("tr:last-child td[field-key='grab_time']", $ftp->grab_time);
+                ->assertSeeIn("tr:last-child td[field-key='grab_time']", $ftp->grab_time)
+                ->logout();
         });
     }
 
@@ -59,7 +59,8 @@ class FtpTest extends DuskTestCase
                 ->assertSeeIn("tr:last-child td[field-key='ftp_server']", $ftp2->ftp_server)
                 ->assertSeeIn("tr:last-child td[field-key='ftp_directory']", $ftp2->ftp_directory)
                 ->assertSeeIn("tr:last-child td[field-key='ftp_username']", $ftp2->ftp_username)
-                ->assertSeeIn("tr:last-child td[field-key='grab_time']", $ftp2->grab_time);
+                ->assertSeeIn("tr:last-child td[field-key='grab_time']", $ftp2->grab_time)
+                ->logout();
         });
     }
 
@@ -79,7 +80,8 @@ class FtpTest extends DuskTestCase
                 ->assertSeeIn("td[field-key='ftp_directory']", $ftp->ftp_directory)
                 ->assertSeeIn("td[field-key='ftp_username']", $ftp->ftp_username)
                 ->assertSeeIn("td[field-key='grab_time']", $ftp->grab_time)
-                ->assertSeeIn("td[field-key='sync_server']", $ftp->sync_server->name);
+                ->assertSeeIn("td[field-key='sync_server']", $ftp->sync_server->name)
+                ->logout();
         });
     }
 

@@ -8,7 +8,6 @@ use Laravel\Dusk\Browser;
 
 class GeneralSettingTest extends DuskTestCase
 {
-    use DatabaseMigrations;
 
     public function testCreateGeneralSetting()
     {
@@ -25,7 +24,8 @@ class GeneralSettingTest extends DuskTestCase
                 ->select("sync_server_id", $general_setting->sync_server_id)
                 ->press('Save')
                 ->assertRouteIs('admin.general_settings.index')
-                ->assertSeeIn("tr:last-child td[field-key='transcoding_server']", $general_setting->transcoding_server);
+                ->assertSeeIn("tr:last-child td[field-key='transcoding_server']", $general_setting->transcoding_server)
+                ->logout();
         });
     }
 
@@ -45,7 +45,8 @@ class GeneralSettingTest extends DuskTestCase
                 ->select("sync_server_id", $general_setting2->sync_server_id)
                 ->press('Update')
                 ->assertRouteIs('admin.general_settings.index')
-                ->assertSeeIn("tr:last-child td[field-key='transcoding_server']", $general_setting2->transcoding_server);
+                ->assertSeeIn("tr:last-child td[field-key='transcoding_server']", $general_setting2->transcoding_server)
+                ->logout();
         });
     }
 
@@ -62,7 +63,8 @@ class GeneralSettingTest extends DuskTestCase
                 ->visit(route('admin.general_settings.index'))
                 ->click('tr[data-entry-id="' . $general_setting->id . '"] .btn-primary')
                 ->assertSeeIn("td[field-key='transcoding_server']", $general_setting->transcoding_server)
-                ->assertSeeIn("td[field-key='sync_server']", $general_setting->sync_server->name);
+                ->assertSeeIn("td[field-key='sync_server']", $general_setting->sync_server->name)
+                ->logout();
         });
     }
 

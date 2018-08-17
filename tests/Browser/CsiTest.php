@@ -8,7 +8,6 @@ use Laravel\Dusk\Browser;
 
 class CsiTest extends DuskTestCase
 {
-    use DatabaseMigrations;
 
     public function testCreateCsi()
     {
@@ -30,13 +29,13 @@ class CsiTest extends DuskTestCase
                 ->type("pid", $csi->pid)
                 ->press('Save')
                 ->assertRouteIs('admin.csis.index')
-                ->assertSeeIn("tr:last-child td[field-key='channel_server']", $csi->channel_server->name)
-                ->assertSeeIn("tr:last-child td[field-key='channel']", $csi->channel->channelid)
+                ->assertSeeIn("tr:last-child td[field-key='channel']", $csi->channel->channel_name)
                 ->assertSeeIn("tr:last-child td[field-key='protocol']", $csi->protocol->protocol)
                 ->assertSeeIn("tr:last-child td[field-key='ssm']", $csi->ssm)
                 ->assertSeeIn("tr:last-child td[field-key='imc']", $csi->imc)
                 ->assertSeeIn("tr:last-child td[field-key='ip']", $csi->ip)
-                ->assertSeeIn("tr:last-child td[field-key='pid']", $csi->pid);
+                ->assertSeeIn("tr:last-child td[field-key='pid']", $csi->pid)
+                ->logout();
         });
     }
 
@@ -61,13 +60,13 @@ class CsiTest extends DuskTestCase
                 ->type("pid", $csi2->pid)
                 ->press('Update')
                 ->assertRouteIs('admin.csis.index')
-                ->assertSeeIn("tr:last-child td[field-key='channel_server']", $csi2->channel_server->name)
-                ->assertSeeIn("tr:last-child td[field-key='channel']", $csi2->channel->channelid)
+                ->assertSeeIn("tr:last-child td[field-key='channel']", $csi2->channel->channel_name)
                 ->assertSeeIn("tr:last-child td[field-key='protocol']", $csi2->protocol->protocol)
                 ->assertSeeIn("tr:last-child td[field-key='ssm']", $csi2->ssm)
                 ->assertSeeIn("tr:last-child td[field-key='imc']", $csi2->imc)
                 ->assertSeeIn("tr:last-child td[field-key='ip']", $csi2->ip)
-                ->assertSeeIn("tr:last-child td[field-key='pid']", $csi2->pid);
+                ->assertSeeIn("tr:last-child td[field-key='pid']", $csi2->pid)
+                ->logout();
         });
     }
 
@@ -83,13 +82,13 @@ class CsiTest extends DuskTestCase
             $browser->loginAs($admin)
                 ->visit(route('admin.csis.index'))
                 ->click('tr[data-entry-id="' . $csi->id . '"] .btn-primary')
-                ->assertSeeIn("td[field-key='channel_server']", $csi->channel_server->name)
-                ->assertSeeIn("td[field-key='channel']", $csi->channel->channelid)
+                ->assertSeeIn("td[field-key='channel']", $csi->channel->channel_name)
                 ->assertSeeIn("td[field-key='protocol']", $csi->protocol->protocol)
                 ->assertSeeIn("td[field-key='ssm']", $csi->ssm)
                 ->assertSeeIn("td[field-key='imc']", $csi->imc)
                 ->assertSeeIn("td[field-key='ip']", $csi->ip)
-                ->assertSeeIn("td[field-key='pid']", $csi->pid);
+                ->assertSeeIn("td[field-key='pid']", $csi->pid)
+                ->logout();
         });
     }
 

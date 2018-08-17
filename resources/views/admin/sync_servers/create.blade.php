@@ -22,6 +22,18 @@
                     @endif
                 </div>
             </div>
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    {!! Form::label('ss_host', trans('global.sync-servers.fields.ss-host').'', ['class' => 'control-label']) !!}
+                    {!! Form::text('ss_host', old('ss_host'), ['class' => 'form-control', 'placeholder' => '']) !!}
+                    <p class="help-block"></p>
+                    @if($errors->has('ss_host'))
+                        <p class="help-block">
+                            {{ $errors->first('ss_host') }}
+                        </p>
+                    @endif
+                </div>
+            </div>
             
         </div>
     </div>

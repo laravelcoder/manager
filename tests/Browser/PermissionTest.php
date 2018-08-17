@@ -8,7 +8,6 @@ use Laravel\Dusk\Browser;
 
 class PermissionTest extends DuskTestCase
 {
-    use DatabaseMigrations;
 
     public function testCreatePermission()
     {
@@ -24,7 +23,8 @@ class PermissionTest extends DuskTestCase
                 ->type("title", $permission->title)
                 ->press('Save')
                 ->assertRouteIs('admin.permissions.index')
-                ->assertSeeIn("tr:last-child td[field-key='title']", $permission->title);
+                ->assertSeeIn("tr:last-child td[field-key='title']", $permission->title)
+                ->logout();
         });
     }
 
@@ -43,7 +43,8 @@ class PermissionTest extends DuskTestCase
                 ->type("title", $permission2->title)
                 ->press('Update')
                 ->assertRouteIs('admin.permissions.index')
-                ->assertSeeIn("tr:last-child td[field-key='title']", $permission2->title);
+                ->assertSeeIn("tr:last-child td[field-key='title']", $permission2->title)
+                ->logout();
         });
     }
 
@@ -59,7 +60,8 @@ class PermissionTest extends DuskTestCase
             $browser->loginAs($admin)
                 ->visit(route('admin.permissions.index'))
                 ->click('tr[data-entry-id="' . $permission->id . '"] .btn-primary')
-                ->assertSeeIn("td[field-key='title']", $permission->title);
+                ->assertSeeIn("td[field-key='title']", $permission->title)
+                ->logout();
         });
     }
 
