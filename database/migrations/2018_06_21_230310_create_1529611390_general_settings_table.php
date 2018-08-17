@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class Create1529611390GeneralSettingsTable extends Migration
 {
@@ -12,11 +12,11 @@ class Create1529611390GeneralSettingsTable extends Migration
      */
     public function up()
     {
-        if(! Schema::hasTable('general_settings')) {
+        if (!Schema::hasTable('general_settings')) {
             Schema::create('general_settings', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('transcoding_server')->nullable();
-                
+
                 $table->timestamps();
                 $table->softDeletes();
 

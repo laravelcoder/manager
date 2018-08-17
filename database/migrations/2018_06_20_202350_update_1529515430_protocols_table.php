@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class Update1529515430ProtocolsTable extends Migration
 {
@@ -13,12 +13,10 @@ class Update1529515430ProtocolsTable extends Migration
     public function up()
     {
         Schema::table('protocols', function (Blueprint $table) {
-            
-if (!Schema::hasColumn('protocols', 'real_name')) {
+            if (!Schema::hasColumn('protocols', 'real_name')) {
                 $table->string('real_name')->nullable();
-                }
+            }
         });
-
     }
 
     /**
@@ -30,8 +28,6 @@ if (!Schema::hasColumn('protocols', 'real_name')) {
     {
         Schema::table('protocols', function (Blueprint $table) {
             $table->dropColumn('real_name');
-            
         });
-
     }
 }

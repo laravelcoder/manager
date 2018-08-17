@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class Create1529514418CsisTable extends Migration
 {
@@ -12,14 +12,14 @@ class Create1529514418CsisTable extends Migration
      */
     public function up()
     {
-        if(! Schema::hasTable('csis')) {
+        if (!Schema::hasTable('csis')) {
             Schema::create('csis', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('ssm')->nullable();
                 $table->string('imc')->nullable();
                 $table->string('ip')->nullable();
                 $table->string('pid')->nullable();
-                
+
                 $table->timestamps();
                 $table->softDeletes();
 

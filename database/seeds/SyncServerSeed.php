@@ -12,8 +12,8 @@ class SyncServerSeed extends Seeder
     public function run()
     {
         $items = [
-            
-            ['id' => 1, 'name' => 'SS0-1',],
+
+            ['id' => 1, 'name' => 'SS0-1'],
 
         ];
 

@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class Add5b2c050379cf6RelationshipsToOutputSettingTable extends Migration
 {
@@ -12,12 +12,11 @@ class Add5b2c050379cf6RelationshipsToOutputSettingTable extends Migration
      */
     public function up()
     {
-        Schema::table('output_settings', function(Blueprint $table) {
+        Schema::table('output_settings', function (Blueprint $table) {
             if (!Schema::hasColumn('output_settings', 'email_id')) {
                 $table->integer('email_id')->unsigned()->nullable();
                 $table->foreign('email_id', '175204_5b2c04fe5d7d2')->references('id')->on('users')->onDelete('cascade');
-                }
-                
+            }
         });
     }
 
@@ -28,8 +27,7 @@ class Add5b2c050379cf6RelationshipsToOutputSettingTable extends Migration
      */
     public function down()
     {
-        Schema::table('output_settings', function(Blueprint $table) {
-            
+        Schema::table('output_settings', function (Blueprint $table) {
         });
     }
 }

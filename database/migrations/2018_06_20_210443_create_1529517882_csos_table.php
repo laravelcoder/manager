@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class Create1529517882CsosTable extends Migration
 {
@@ -12,14 +12,14 @@ class Create1529517882CsosTable extends Migration
      */
     public function up()
     {
-        if(! Schema::hasTable('csos')) {
+        if (!Schema::hasTable('csos')) {
             Schema::create('csos', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('ocloud_a')->nullable();
                 $table->integer('ocp_a')->nullable()->unsigned();
                 $table->string('ocloud_b')->nullable();
                 $table->string('ocp_b')->nullable();
-                
+
                 $table->timestamps();
                 $table->softDeletes();
 

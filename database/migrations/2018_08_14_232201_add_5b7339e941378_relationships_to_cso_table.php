@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class Add5b7339e941378RelationshipsToCsoTable extends Migration
 {
@@ -12,16 +12,15 @@ class Add5b7339e941378RelationshipsToCsoTable extends Migration
      */
     public function up()
     {
-        Schema::table('csos', function(Blueprint $table) {
+        Schema::table('csos', function (Blueprint $table) {
             if (!Schema::hasColumn('csos', 'channel_server_id')) {
                 $table->integer('channel_server_id')->unsigned()->nullable();
                 $table->foreign('channel_server_id', '174743_5b2a97a71c2dd')->references('id')->on('channel_servers')->onDelete('cascade');
-                }
-                if (!Schema::hasColumn('csos', 'cid_id')) {
+            }
+            if (!Schema::hasColumn('csos', 'cid_id')) {
                 $table->integer('cid_id')->unsigned()->nullable();
                 $table->foreign('cid_id', '174743_5b2a973fc8347')->references('id')->on('cs_channel_lists')->onDelete('cascade');
-                }
-                
+            }
         });
     }
 
@@ -32,8 +31,7 @@ class Add5b7339e941378RelationshipsToCsoTable extends Migration
      */
     public function down()
     {
-        Schema::table('csos', function(Blueprint $table) {
-            
+        Schema::table('csos', function (Blueprint $table) {
         });
     }
 }

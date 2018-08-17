@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\RealtimeNotification;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreRealtimeNotificationsRequest;
 use App\Http\Requests\Admin\UpdateRealtimeNotificationsRequest;
-use Yajra\DataTables\DataTables;
+use App\RealtimeNotification;
 
 class RealtimeNotificationsController extends Controller
 {
@@ -25,7 +23,6 @@ class RealtimeNotificationsController extends Controller
     {
         $realtime_notification = RealtimeNotification::findOrFail($id);
         $realtime_notification->update($request->all());
-        
 
         return $realtime_notification;
     }
@@ -33,7 +30,6 @@ class RealtimeNotificationsController extends Controller
     public function store(StoreRealtimeNotificationsRequest $request)
     {
         $realtime_notification = RealtimeNotification::create($request->all());
-        
 
         return $realtime_notification;
     }
@@ -42,6 +38,7 @@ class RealtimeNotificationsController extends Controller
     {
         $realtime_notification = RealtimeNotification::findOrFail($id);
         $realtime_notification->delete();
+
         return '';
     }
 }

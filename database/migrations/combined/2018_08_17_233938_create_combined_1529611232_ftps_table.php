@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateCombined1529611232FtpsTable extends Migration
 {
@@ -12,7 +12,7 @@ class CreateCombined1529611232FtpsTable extends Migration
      */
     public function up()
     {
-        if(! Schema::hasTable('ftps')) {
+        if (!Schema::hasTable('ftps')) {
             Schema::create('ftps', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('ftp_server')->nullable();
@@ -20,7 +20,7 @@ class CreateCombined1529611232FtpsTable extends Migration
                 $table->string('ftp_username')->nullable();
                 $table->string('ftp_password')->nullable();
                 $table->time('grab_time')->nullable();
-                
+
                 $table->timestamps();
                 $table->softDeletes();
 
