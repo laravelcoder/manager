@@ -1,38 +1,38 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Browser;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class PerChannelConfigurationTest extends DuskTestCase
 {
     use DatabaseMigrations;
 
-    public function testCreatePerChannelConfiguration()
+    public function testCreatePerChannelConfiguration(): void
     {
         $admin = \App\User::find(1);
         $per_channel_configuration = factory('App\PerChannelConfiguration')->make();
 
-        
-
-        $this->browse(function (Browser $browser) use ($admin, $per_channel_configuration) {
+        $this->browse(function (Browser $browser) use ($admin, $per_channel_configuration): void {
             $browser->loginAs($admin)
                 ->visit(route('admin.per_channel_configurations.index'))
                 ->clickLink('Add new')
-                ->type("cid", $per_channel_configuration->cid)
-                ->uncheck("active")
-                ->type("notify_channel_id", $per_channel_configuration->notify_channel_id)
-                ->type("offset", $per_channel_configuration->offset)
-                ->type("ad_lengths", $per_channel_configuration->ad_lengths)
-                ->type("ad_spacing", $per_channel_configuration->ad_spacing)
-                ->select("rtn_id", $per_channel_configuration->rtn_id)
-                ->select("sync_server_id", $per_channel_configuration->sync_server_id)
+                ->type('cid', $per_channel_configuration->cid)
+                ->uncheck('active')
+                ->type('notify_channel_id', $per_channel_configuration->notify_channel_id)
+                ->type('offset', $per_channel_configuration->offset)
+                ->type('ad_lengths', $per_channel_configuration->ad_lengths)
+                ->type('ad_spacing', $per_channel_configuration->ad_spacing)
+                ->select('rtn_id', $per_channel_configuration->rtn_id)
+                ->select('sync_server_id', $per_channel_configuration->sync_server_id)
                 ->press('Save')
                 ->assertRouteIs('admin.per_channel_configurations.index')
                 ->assertSeeIn("tr:last-child td[field-key='cid']", $per_channel_configuration->cid)
-                ->assertNotChecked("active")
+                ->assertNotChecked('active')
                 ->assertSeeIn("tr:last-child td[field-key='notify_channel_id']", $per_channel_configuration->notify_channel_id)
                 ->assertSeeIn("tr:last-child td[field-key='offset']", $per_channel_configuration->offset)
                 ->assertSeeIn("tr:last-child td[field-key='ad_lengths']", $per_channel_configuration->ad_lengths)
@@ -41,30 +41,28 @@ class PerChannelConfigurationTest extends DuskTestCase
         });
     }
 
-    public function testEditPerChannelConfiguration()
+    public function testEditPerChannelConfiguration(): void
     {
         $admin = \App\User::find(1);
         $per_channel_configuration = factory('App\PerChannelConfiguration')->create();
         $per_channel_configuration2 = factory('App\PerChannelConfiguration')->make();
 
-        
-
-        $this->browse(function (Browser $browser) use ($admin, $per_channel_configuration, $per_channel_configuration2) {
+        $this->browse(function (Browser $browser) use ($admin, $per_channel_configuration, $per_channel_configuration2): void {
             $browser->loginAs($admin)
                 ->visit(route('admin.per_channel_configurations.index'))
-                ->click('tr[data-entry-id="' . $per_channel_configuration->id . '"] .btn-info')
-                ->type("cid", $per_channel_configuration2->cid)
-                ->uncheck("active")
-                ->type("notify_channel_id", $per_channel_configuration2->notify_channel_id)
-                ->type("offset", $per_channel_configuration2->offset)
-                ->type("ad_lengths", $per_channel_configuration2->ad_lengths)
-                ->type("ad_spacing", $per_channel_configuration2->ad_spacing)
-                ->select("rtn_id", $per_channel_configuration2->rtn_id)
-                ->select("sync_server_id", $per_channel_configuration2->sync_server_id)
+                ->click('tr[data-entry-id="'.$per_channel_configuration->id.'"] .btn-info')
+                ->type('cid', $per_channel_configuration2->cid)
+                ->uncheck('active')
+                ->type('notify_channel_id', $per_channel_configuration2->notify_channel_id)
+                ->type('offset', $per_channel_configuration2->offset)
+                ->type('ad_lengths', $per_channel_configuration2->ad_lengths)
+                ->type('ad_spacing', $per_channel_configuration2->ad_spacing)
+                ->select('rtn_id', $per_channel_configuration2->rtn_id)
+                ->select('sync_server_id', $per_channel_configuration2->sync_server_id)
                 ->press('Update')
                 ->assertRouteIs('admin.per_channel_configurations.index')
                 ->assertSeeIn("tr:last-child td[field-key='cid']", $per_channel_configuration2->cid)
-                ->assertNotChecked("active")
+                ->assertNotChecked('active')
                 ->assertSeeIn("tr:last-child td[field-key='notify_channel_id']", $per_channel_configuration2->notify_channel_id)
                 ->assertSeeIn("tr:last-child td[field-key='offset']", $per_channel_configuration2->offset)
                 ->assertSeeIn("tr:last-child td[field-key='ad_lengths']", $per_channel_configuration2->ad_lengths)
@@ -73,20 +71,17 @@ class PerChannelConfigurationTest extends DuskTestCase
         });
     }
 
-    public function testShowPerChannelConfiguration()
+    public function testShowPerChannelConfiguration(): void
     {
         $admin = \App\User::find(1);
         $per_channel_configuration = factory('App\PerChannelConfiguration')->create();
 
-        
-
-
-        $this->browse(function (Browser $browser) use ($admin, $per_channel_configuration) {
+        $this->browse(function (Browser $browser) use ($admin, $per_channel_configuration): void {
             $browser->loginAs($admin)
                 ->visit(route('admin.per_channel_configurations.index'))
-                ->click('tr[data-entry-id="' . $per_channel_configuration->id . '"] .btn-primary')
+                ->click('tr[data-entry-id="'.$per_channel_configuration->id.'"] .btn-primary')
                 ->assertSeeIn("td[field-key='cid']", $per_channel_configuration->cid)
-                ->assertChecked("active")
+                ->assertChecked('active')
                 ->assertSeeIn("td[field-key='notify_channel_id']", $per_channel_configuration->notify_channel_id)
                 ->assertSeeIn("td[field-key='offset']", $per_channel_configuration->offset)
                 ->assertSeeIn("td[field-key='ad_lengths']", $per_channel_configuration->ad_lengths)
@@ -95,5 +90,4 @@ class PerChannelConfigurationTest extends DuskTestCase
                 ->assertSeeIn("td[field-key='sync_server']", $per_channel_configuration->sync_server->name);
         });
     }
-
 }

@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
-use App\PerChannelConfiguration;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
+use App\PerChannelConfiguration;
+use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Admin\StorePerChannelConfigurationsRequest;
 use App\Http\Requests\Admin\UpdatePerChannelConfigurationsRequest;
-use Yajra\DataTables\DataTables;
 
 class PerChannelConfigurationsController extends Controller
 {
@@ -23,18 +25,15 @@ class PerChannelConfigurationsController extends Controller
             return abort(401);
         }
 
-
-        
         if (request()->ajax()) {
             $query = PerChannelConfiguration::query();
-            $query->with("rtn");
-            $query->with("sync_server");
+            $query->with('rtn');
+            $query->with('sync_server');
             $template = 'actionsTemplate';
-            if(request('show_deleted') == 1) {
-                
-        if (! Gate::allows('per_channel_configuration_delete')) {
-            return abort(401);
-        }
+            if (request('show_deleted') === 1) {
+                if (! Gate::allows('per_channel_configuration_delete')) {
+                    return abort(401);
+                }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -57,7 +56,7 @@ class PerChannelConfigurationsController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey  = 'per_channel_configuration_';
+                $gateKey = 'per_channel_configuration_';
                 $routeKey = 'admin.per_channel_configurations';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -66,7 +65,7 @@ class PerChannelConfigurationsController extends Controller
                 return $row->cid ? $row->cid : '';
             });
             $table->editColumn('active', function ($row) {
-                return \Form::checkbox("active", 1, $row->active == 1, ["disabled"]);
+                return \Form::checkbox('active', 1, $row->active === 1, ['disabled']);
             });
             $table->editColumn('notify_channel_id', function ($row) {
                 return $row->notify_channel_id ? $row->notify_channel_id : '';
@@ -87,7 +86,7 @@ class PerChannelConfigurationsController extends Controller
                 return $row->sync_server ? $row->sync_server->name : '';
             });
 
-            $table->rawColumns(['actions','massDelete','active']);
+            $table->rawColumns(['actions', 'massDelete', 'active']);
 
             return $table->make(true);
         }
@@ -105,7 +104,7 @@ class PerChannelConfigurationsController extends Controller
         if (! Gate::allows('per_channel_configuration_create')) {
             return abort(401);
         }
-        
+
         $rtns = \App\RealtimeNotification::get()->pluck('server_type', 'id')->prepend(trans('global.app_please_select'), '');
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
@@ -125,11 +124,8 @@ class PerChannelConfigurationsController extends Controller
         }
         $per_channel_configuration = PerChannelConfiguration::create($request->all());
 
-
-
         return redirect()->route('admin.per_channel_configurations.index');
     }
-
 
     /**
      * Show the form for editing PerChannelConfiguration.
@@ -142,7 +138,7 @@ class PerChannelConfigurationsController extends Controller
         if (! Gate::allows('per_channel_configuration_edit')) {
             return abort(401);
         }
-        
+
         $rtns = \App\RealtimeNotification::get()->pluck('server_type', 'id')->prepend(trans('global.app_please_select'), '');
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
@@ -166,11 +162,8 @@ class PerChannelConfigurationsController extends Controller
         $per_channel_configuration = PerChannelConfiguration::findOrFail($id);
         $per_channel_configuration->update($request->all());
 
-
-
         return redirect()->route('admin.per_channel_configurations.index');
     }
-
 
     /**
      * Display PerChannelConfiguration.
@@ -187,7 +180,6 @@ class PerChannelConfigurationsController extends Controller
 
         return view('admin.per_channel_configurations.show', compact('per_channel_configuration'));
     }
-
 
     /**
      * Remove PerChannelConfiguration from storage.
@@ -224,7 +216,6 @@ class PerChannelConfigurationsController extends Controller
             }
         }
     }
-
 
     /**
      * Restore PerChannelConfiguration from storage.
