@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateCombined1534538378TimezonesTable extends Migration
 {
@@ -12,13 +12,12 @@ class CreateCombined1534538378TimezonesTable extends Migration
      */
     public function up()
     {
-        if(! Schema::hasTable('timezones')) {
+        if (!Schema::hasTable('timezones')) {
             Schema::create('timezones', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('timezone')->nullable();
-                
+
                 $table->timestamps();
-                
             });
         }
     }

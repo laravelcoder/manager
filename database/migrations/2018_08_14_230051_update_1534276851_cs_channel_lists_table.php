@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class Update1534276851CsChannelListsTable extends Migration
 {
@@ -13,23 +13,20 @@ class Update1534276851CsChannelListsTable extends Migration
     public function up()
     {
         Schema::table('cs_channel_lists', function (Blueprint $table) {
-            if(Schema::hasColumn('cs_channel_lists', 'channel_info_id')) {
+            if (Schema::hasColumn('cs_channel_lists', 'channel_info_id')) {
                 $table->dropForeign('196513_5b732f584bf98');
                 $table->dropIndex('196513_5b732f584bf98');
                 $table->dropColumn('channel_info_id');
             }
-            
         });
-Schema::table('cs_channel_lists', function (Blueprint $table) {
-            
-if (!Schema::hasColumn('cs_channel_lists', 'channel_name')) {
+        Schema::table('cs_channel_lists', function (Blueprint $table) {
+            if (!Schema::hasColumn('cs_channel_lists', 'channel_name')) {
                 $table->string('channel_name')->nullable();
-                }
-if (!Schema::hasColumn('cs_channel_lists', 'channel_type')) {
-                $table->enum('channel_type', array('prod', 'dev'))->nullable();
-                }
+            }
+            if (!Schema::hasColumn('cs_channel_lists', 'channel_type')) {
+                $table->enum('channel_type', ['prod', 'dev'])->nullable();
+            }
         });
-
     }
 
     /**
@@ -42,11 +39,8 @@ if (!Schema::hasColumn('cs_channel_lists', 'channel_type')) {
         Schema::table('cs_channel_lists', function (Blueprint $table) {
             $table->dropColumn('channel_name');
             $table->dropColumn('channel_type');
-            
         });
-Schema::table('cs_channel_lists', function (Blueprint $table) {
-                        
+        Schema::table('cs_channel_lists', function (Blueprint $table) {
         });
-
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class Update1529513563ChannelsTable extends Migration
 {
@@ -13,20 +13,17 @@ class Update1529513563ChannelsTable extends Migration
     public function up()
     {
         Schema::table('channels', function (Blueprint $table) {
-            if(Schema::hasColumn('channels', 'cid_id')) {
+            if (Schema::hasColumn('channels', 'cid_id')) {
                 $table->dropForeign('174144_5b2948c60bc3f');
                 $table->dropIndex('174144_5b2948c60bc3f');
                 $table->dropColumn('cid_id');
             }
-            
         });
-Schema::table('channels', function (Blueprint $table) {
-            
-if (!Schema::hasColumn('channels', 'type')) {
-                $table->enum('type', array('prod', 'dev'))->nullable();
-                }
+        Schema::table('channels', function (Blueprint $table) {
+            if (!Schema::hasColumn('channels', 'type')) {
+                $table->enum('type', ['prod', 'dev'])->nullable();
+            }
         });
-
     }
 
     /**
@@ -38,11 +35,8 @@ if (!Schema::hasColumn('channels', 'type')) {
     {
         Schema::table('channels', function (Blueprint $table) {
             $table->dropColumn('type');
-            
         });
-Schema::table('channels', function (Blueprint $table) {
-                        
+        Schema::table('channels', function (Blueprint $table) {
         });
-
     }
 }

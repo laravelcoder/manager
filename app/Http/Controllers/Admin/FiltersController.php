@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Filter;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreFiltersRequest;
 use App\Http\Requests\Admin\UpdateFiltersRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\DataTables;
 
 class FiltersController extends Controller
@@ -19,20 +19,17 @@ class FiltersController extends Controller
      */
     public function index()
     {
-        if (! Gate::allows('filter_access')) {
+        if (!Gate::allows('filter_access')) {
             return abort(401);
         }
 
-
-        
         if (request()->ajax()) {
             $query = Filter::query();
             $template = 'actionsTemplate';
-            if(request('show_deleted') == 1) {
-                
-        if (! Gate::allows('filter_delete')) {
-            return abort(401);
-        }
+            if (request('show_deleted') == 1) {
+                if (!Gate::allows('filter_delete')) {
+                    return abort(401);
+                }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -48,7 +45,7 @@ class FiltersController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey  = 'filter_';
+                $gateKey = 'filter_';
                 $routeKey = 'admin.filters';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -57,7 +54,7 @@ class FiltersController extends Controller
                 return $row->name ? $row->name : '';
             });
 
-            $table->rawColumns(['actions','massDelete']);
+            $table->rawColumns(['actions', 'massDelete']);
 
             return $table->make(true);
         }
@@ -72,40 +69,40 @@ class FiltersController extends Controller
      */
     public function create()
     {
-        if (! Gate::allows('filter_create')) {
+        if (!Gate::allows('filter_create')) {
             return abort(401);
         }
+
         return view('admin.filters.create');
     }
 
     /**
      * Store a newly created Filter in storage.
      *
-     * @param  \App\Http\Requests\StoreFiltersRequest  $request
+     * @param \App\Http\Requests\StoreFiltersRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(StoreFiltersRequest $request)
     {
-        if (! Gate::allows('filter_create')) {
+        if (!Gate::allows('filter_create')) {
             return abort(401);
         }
         $filter = Filter::create($request->all());
 
-
-
         return redirect()->route('admin.filters.index');
     }
-
 
     /**
      * Show the form for editing Filter.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        if (! Gate::allows('filter_edit')) {
+        if (!Gate::allows('filter_edit')) {
             return abort(401);
         }
         $filter = Filter::findOrFail($id);
@@ -116,33 +113,32 @@ class FiltersController extends Controller
     /**
      * Update Filter in storage.
      *
-     * @param  \App\Http\Requests\UpdateFiltersRequest  $request
-     * @param  int  $id
+     * @param \App\Http\Requests\UpdateFiltersRequest $request
+     * @param int                                     $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateFiltersRequest $request, $id)
     {
-        if (! Gate::allows('filter_edit')) {
+        if (!Gate::allows('filter_edit')) {
             return abort(401);
         }
         $filter = Filter::findOrFail($id);
         $filter->update($request->all());
 
-
-
         return redirect()->route('admin.filters.index');
     }
-
 
     /**
      * Display Filter.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        if (! Gate::allows('filter_view')) {
+        if (!Gate::allows('filter_view')) {
             return abort(401);
         }
         $report_settings = \App\ReportSetting::where('filters_id', $id)->get();
@@ -152,16 +148,16 @@ class FiltersController extends Controller
         return view('admin.filters.show', compact('filter', 'report_settings'));
     }
 
-
     /**
      * Remove Filter from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        if (! Gate::allows('filter_delete')) {
+        if (!Gate::allows('filter_delete')) {
             return abort(401);
         }
         $filter = Filter::findOrFail($id);
@@ -177,7 +173,7 @@ class FiltersController extends Controller
      */
     public function massDestroy(Request $request)
     {
-        if (! Gate::allows('filter_delete')) {
+        if (!Gate::allows('filter_delete')) {
             return abort(401);
         }
         if ($request->input('ids')) {
@@ -189,16 +185,16 @@ class FiltersController extends Controller
         }
     }
 
-
     /**
      * Restore Filter from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function restore($id)
     {
-        if (! Gate::allows('filter_delete')) {
+        if (!Gate::allows('filter_delete')) {
             return abort(401);
         }
         $filter = Filter::onlyTrashed()->findOrFail($id);
@@ -210,12 +206,13 @@ class FiltersController extends Controller
     /**
      * Permanently delete Filter from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function perma_del($id)
     {
-        if (! Gate::allows('filter_delete')) {
+        if (!Gate::allows('filter_delete')) {
             return abort(401);
         }
         $filter = Filter::onlyTrashed()->findOrFail($id);

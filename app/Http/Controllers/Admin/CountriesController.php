@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Country;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreCountriesRequest;
 use App\Http\Requests\Admin\UpdateCountriesRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\DataTables;
 
 class CountriesController extends Controller
@@ -19,20 +19,17 @@ class CountriesController extends Controller
      */
     public function index()
     {
-        if (! Gate::allows('country_access')) {
+        if (!Gate::allows('country_access')) {
             return abort(401);
         }
 
-
-        
         if (request()->ajax()) {
             $query = Country::query();
             $template = 'actionsTemplate';
-            if(request('show_deleted') == 1) {
-                
-        if (! Gate::allows('country_delete')) {
-            return abort(401);
-        }
+            if (request('show_deleted') == 1) {
+                if (!Gate::allows('country_delete')) {
+                    return abort(401);
+                }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -49,7 +46,7 @@ class CountriesController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey  = 'country_';
+                $gateKey = 'country_';
                 $routeKey = 'admin.countries';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -61,7 +58,7 @@ class CountriesController extends Controller
                 return $row->title ? $row->title : '';
             });
 
-            $table->rawColumns(['actions','massDelete']);
+            $table->rawColumns(['actions', 'massDelete']);
 
             return $table->make(true);
         }
@@ -76,40 +73,40 @@ class CountriesController extends Controller
      */
     public function create()
     {
-        if (! Gate::allows('country_create')) {
+        if (!Gate::allows('country_create')) {
             return abort(401);
         }
+
         return view('admin.countries.create');
     }
 
     /**
      * Store a newly created Country in storage.
      *
-     * @param  \App\Http\Requests\StoreCountriesRequest  $request
+     * @param \App\Http\Requests\StoreCountriesRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(StoreCountriesRequest $request)
     {
-        if (! Gate::allows('country_create')) {
+        if (!Gate::allows('country_create')) {
             return abort(401);
         }
         $country = Country::create($request->all());
 
-
-
         return redirect()->route('admin.countries.index');
     }
-
 
     /**
      * Show the form for editing Country.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        if (! Gate::allows('country_edit')) {
+        if (!Gate::allows('country_edit')) {
             return abort(401);
         }
         $country = Country::findOrFail($id);
@@ -120,33 +117,32 @@ class CountriesController extends Controller
     /**
      * Update Country in storage.
      *
-     * @param  \App\Http\Requests\UpdateCountriesRequest  $request
-     * @param  int  $id
+     * @param \App\Http\Requests\UpdateCountriesRequest $request
+     * @param int                                       $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateCountriesRequest $request, $id)
     {
-        if (! Gate::allows('country_edit')) {
+        if (!Gate::allows('country_edit')) {
             return abort(401);
         }
         $country = Country::findOrFail($id);
         $country->update($request->all());
 
-
-
         return redirect()->route('admin.countries.index');
     }
-
 
     /**
      * Display Country.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        if (! Gate::allows('country_view')) {
+        if (!Gate::allows('country_view')) {
             return abort(401);
         }
         $report_settings = \App\ReportSetting::where('country_id', $id)->get();
@@ -156,16 +152,16 @@ class CountriesController extends Controller
         return view('admin.countries.show', compact('country', 'report_settings'));
     }
 
-
     /**
      * Remove Country from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        if (! Gate::allows('country_delete')) {
+        if (!Gate::allows('country_delete')) {
             return abort(401);
         }
         $country = Country::findOrFail($id);
@@ -181,7 +177,7 @@ class CountriesController extends Controller
      */
     public function massDestroy(Request $request)
     {
-        if (! Gate::allows('country_delete')) {
+        if (!Gate::allows('country_delete')) {
             return abort(401);
         }
         if ($request->input('ids')) {
@@ -193,16 +189,16 @@ class CountriesController extends Controller
         }
     }
 
-
     /**
      * Restore Country from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function restore($id)
     {
-        if (! Gate::allows('country_delete')) {
+        if (!Gate::allows('country_delete')) {
             return abort(401);
         }
         $country = Country::onlyTrashed()->findOrFail($id);
@@ -214,12 +210,13 @@ class CountriesController extends Controller
     /**
      * Permanently delete Country from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function perma_del($id)
     {
-        if (! Gate::allows('country_delete')) {
+        if (!Gate::allows('country_delete')) {
             return abort(401);
         }
         $country = Country::onlyTrashed()->findOrFail($id);

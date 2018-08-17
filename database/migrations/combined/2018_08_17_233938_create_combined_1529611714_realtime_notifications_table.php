@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateCombined1529611714RealtimeNotificationsTable extends Migration
 {
@@ -12,12 +12,12 @@ class CreateCombined1529611714RealtimeNotificationsTable extends Migration
      */
     public function up()
     {
-        if(! Schema::hasTable('realtime_notifications')) {
+        if (!Schema::hasTable('realtime_notifications')) {
             Schema::create('realtime_notifications', function (Blueprint $table) {
                 $table->increments('id');
-                $table->enum('server_type', array('NONE', 'CAIPY', 'IMAGINE', 'HARMONIC', 'ENVIVIO', 'OCTOSHAPE', 'MOVE'))->nullable();
+                $table->enum('server_type', ['NONE', 'CAIPY', 'IMAGINE', 'HARMONIC', 'ENVIVIO', 'OCTOSHAPE', 'MOVE'])->nullable();
                 $table->string('r_urltn')->nullable();
-                
+
                 $table->timestamps();
                 $table->softDeletes();
 

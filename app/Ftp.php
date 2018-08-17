@@ -1,42 +1,44 @@
 <?php
+
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Hash;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class Ftp
+ * Class Ftp.
  *
- * @package App
  * @property string $ftp_server
  * @property string $ftp_directory
  * @property string $ftp_username
  * @property string $ftp_password
  * @property time $grab_time
  * @property string $sync_server
-*/
+ */
 class Ftp extends Model
 {
     use SoftDeletes;
 
     protected $fillable = ['ftp_server', 'ftp_directory', 'ftp_username', 'ftp_password', 'grab_time', 'sync_server_id'];
     protected $hidden = ['ftp_password'];
-    
+
     /**
-     * Hash password
+     * Hash password.
+     *
      * @param $input
      */
     public function setFtpPasswordAttribute($input)
     {
-        if ($input)
+        if ($input) {
             $this->attributes['ftp_password'] = app('hash')->needsRehash($input) ? Hash::make($input) : $input;
+        }
     }
-    
 
     /**
-     * Set attribute to date format
+     * Set attribute to date format.
+     *
      * @param $input
      */
     public function setGrabTimeAttribute($input)
@@ -49,7 +51,8 @@ class Ftp extends Model
     }
 
     /**
-     * Get attribute from date format
+     * Get attribute from date format.
+     *
      * @param $input
      *
      * @return string
@@ -64,17 +67,17 @@ class Ftp extends Model
     }
 
     /**
-     * Set to null if empty
+     * Set to null if empty.
+     *
      * @param $input
      */
     public function setSyncServerIdAttribute($input)
     {
         $this->attributes['sync_server_id'] = $input ? $input : null;
     }
-    
+
     public function sync_server()
     {
         return $this->belongsTo(SyncServer::class, 'sync_server_id')->withTrashed();
     }
-    
 }

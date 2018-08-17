@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\PerChannelConfiguration;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StorePerChannelConfigurationsRequest;
 use App\Http\Requests\Admin\UpdatePerChannelConfigurationsRequest;
+use App\PerChannelConfiguration;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\DataTables;
 
 class PerChannelConfigurationsController extends Controller
@@ -19,22 +19,19 @@ class PerChannelConfigurationsController extends Controller
      */
     public function index()
     {
-        if (! Gate::allows('per_channel_configuration_access')) {
+        if (!Gate::allows('per_channel_configuration_access')) {
             return abort(401);
         }
 
-
-        
         if (request()->ajax()) {
             $query = PerChannelConfiguration::query();
-            $query->with("rtn");
-            $query->with("sync_server");
+            $query->with('rtn');
+            $query->with('sync_server');
             $template = 'actionsTemplate';
-            if(request('show_deleted') == 1) {
-                
-        if (! Gate::allows('per_channel_configuration_delete')) {
-            return abort(401);
-        }
+            if (request('show_deleted') == 1) {
+                if (!Gate::allows('per_channel_configuration_delete')) {
+                    return abort(401);
+                }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -57,7 +54,7 @@ class PerChannelConfigurationsController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey  = 'per_channel_configuration_';
+                $gateKey = 'per_channel_configuration_';
                 $routeKey = 'admin.per_channel_configurations';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -66,7 +63,7 @@ class PerChannelConfigurationsController extends Controller
                 return $row->cid ? $row->cid : '';
             });
             $table->editColumn('active', function ($row) {
-                return \Form::checkbox("active", 1, $row->active == 1, ["disabled"]);
+                return \Form::checkbox('active', 1, $row->active == 1, ['disabled']);
             });
             $table->editColumn('notify_channel_id', function ($row) {
                 return $row->notify_channel_id ? $row->notify_channel_id : '';
@@ -87,7 +84,7 @@ class PerChannelConfigurationsController extends Controller
                 return $row->sync_server ? $row->sync_server->name : '';
             });
 
-            $table->rawColumns(['actions','massDelete','active']);
+            $table->rawColumns(['actions', 'massDelete', 'active']);
 
             return $table->make(true);
         }
@@ -102,10 +99,10 @@ class PerChannelConfigurationsController extends Controller
      */
     public function create()
     {
-        if (! Gate::allows('per_channel_configuration_create')) {
+        if (!Gate::allows('per_channel_configuration_create')) {
             return abort(401);
         }
-        
+
         $rtns = \App\RealtimeNotification::get()->pluck('server_type', 'id')->prepend(trans('global.app_please_select'), '');
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
@@ -115,34 +112,33 @@ class PerChannelConfigurationsController extends Controller
     /**
      * Store a newly created PerChannelConfiguration in storage.
      *
-     * @param  \App\Http\Requests\StorePerChannelConfigurationsRequest  $request
+     * @param \App\Http\Requests\StorePerChannelConfigurationsRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(StorePerChannelConfigurationsRequest $request)
     {
-        if (! Gate::allows('per_channel_configuration_create')) {
+        if (!Gate::allows('per_channel_configuration_create')) {
             return abort(401);
         }
         $per_channel_configuration = PerChannelConfiguration::create($request->all());
 
-
-
         return redirect()->route('admin.per_channel_configurations.index');
     }
-
 
     /**
      * Show the form for editing PerChannelConfiguration.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        if (! Gate::allows('per_channel_configuration_edit')) {
+        if (!Gate::allows('per_channel_configuration_edit')) {
             return abort(401);
         }
-        
+
         $rtns = \App\RealtimeNotification::get()->pluck('server_type', 'id')->prepend(trans('global.app_please_select'), '');
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
@@ -154,33 +150,32 @@ class PerChannelConfigurationsController extends Controller
     /**
      * Update PerChannelConfiguration in storage.
      *
-     * @param  \App\Http\Requests\UpdatePerChannelConfigurationsRequest  $request
-     * @param  int  $id
+     * @param \App\Http\Requests\UpdatePerChannelConfigurationsRequest $request
+     * @param int                                                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(UpdatePerChannelConfigurationsRequest $request, $id)
     {
-        if (! Gate::allows('per_channel_configuration_edit')) {
+        if (!Gate::allows('per_channel_configuration_edit')) {
             return abort(401);
         }
         $per_channel_configuration = PerChannelConfiguration::findOrFail($id);
         $per_channel_configuration->update($request->all());
 
-
-
         return redirect()->route('admin.per_channel_configurations.index');
     }
-
 
     /**
      * Display PerChannelConfiguration.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        if (! Gate::allows('per_channel_configuration_view')) {
+        if (!Gate::allows('per_channel_configuration_view')) {
             return abort(401);
         }
         $per_channel_configuration = PerChannelConfiguration::findOrFail($id);
@@ -188,16 +183,16 @@ class PerChannelConfigurationsController extends Controller
         return view('admin.per_channel_configurations.show', compact('per_channel_configuration'));
     }
 
-
     /**
      * Remove PerChannelConfiguration from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        if (! Gate::allows('per_channel_configuration_delete')) {
+        if (!Gate::allows('per_channel_configuration_delete')) {
             return abort(401);
         }
         $per_channel_configuration = PerChannelConfiguration::findOrFail($id);
@@ -213,7 +208,7 @@ class PerChannelConfigurationsController extends Controller
      */
     public function massDestroy(Request $request)
     {
-        if (! Gate::allows('per_channel_configuration_delete')) {
+        if (!Gate::allows('per_channel_configuration_delete')) {
             return abort(401);
         }
         if ($request->input('ids')) {
@@ -225,16 +220,16 @@ class PerChannelConfigurationsController extends Controller
         }
     }
 
-
     /**
      * Restore PerChannelConfiguration from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function restore($id)
     {
-        if (! Gate::allows('per_channel_configuration_delete')) {
+        if (!Gate::allows('per_channel_configuration_delete')) {
             return abort(401);
         }
         $per_channel_configuration = PerChannelConfiguration::onlyTrashed()->findOrFail($id);
@@ -246,12 +241,13 @@ class PerChannelConfigurationsController extends Controller
     /**
      * Permanently delete PerChannelConfiguration from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function perma_del($id)
     {
-        if (! Gate::allows('per_channel_configuration_delete')) {
+        if (!Gate::allows('per_channel_configuration_delete')) {
             return abort(401);
         }
         $per_channel_configuration = PerChannelConfiguration::onlyTrashed()->findOrFail($id);

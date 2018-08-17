@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class Drop5b2abe519f000SsconfigsTable extends Migration
 {
@@ -22,15 +22,15 @@ class Drop5b2abe519f000SsconfigsTable extends Migration
      */
     public function down()
     {
-        if(! Schema::hasTable('ssconfigs')) {
+        if (!Schema::hasTable('ssconfigs')) {
             Schema::create('ssconfigs', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('stuff')->nullable();
-                
+
                 $table->timestamps();
                 $table->softDeletes();
 
-            $table->index(['deleted_at']);
+                $table->index(['deleted_at']);
             });
         }
     }

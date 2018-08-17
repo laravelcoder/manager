@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\VideoServerType;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreVideoServerTypesRequest;
 use App\Http\Requests\Admin\UpdateVideoServerTypesRequest;
+use App\VideoServerType;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\DataTables;
 
 class VideoServerTypesController extends Controller
@@ -19,20 +19,17 @@ class VideoServerTypesController extends Controller
      */
     public function index()
     {
-        if (! Gate::allows('video_server_type_access')) {
+        if (!Gate::allows('video_server_type_access')) {
             return abort(401);
         }
 
-
-        
         if (request()->ajax()) {
             $query = VideoServerType::query();
             $template = 'actionsTemplate';
-            if(request('show_deleted') == 1) {
-                
-        if (! Gate::allows('video_server_type_delete')) {
-            return abort(401);
-        }
+            if (request('show_deleted') == 1) {
+                if (!Gate::allows('video_server_type_delete')) {
+                    return abort(401);
+                }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -48,7 +45,7 @@ class VideoServerTypesController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey  = 'video_server_type_';
+                $gateKey = 'video_server_type_';
                 $routeKey = 'admin.video_server_types';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -57,7 +54,7 @@ class VideoServerTypesController extends Controller
                 return $row->server_type ? $row->server_type : '';
             });
 
-            $table->rawColumns(['actions','massDelete']);
+            $table->rawColumns(['actions', 'massDelete']);
 
             return $table->make(true);
         }
@@ -72,40 +69,40 @@ class VideoServerTypesController extends Controller
      */
     public function create()
     {
-        if (! Gate::allows('video_server_type_create')) {
+        if (!Gate::allows('video_server_type_create')) {
             return abort(401);
         }
+
         return view('admin.video_server_types.create');
     }
 
     /**
      * Store a newly created VideoServerType in storage.
      *
-     * @param  \App\Http\Requests\StoreVideoServerTypesRequest  $request
+     * @param \App\Http\Requests\StoreVideoServerTypesRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(StoreVideoServerTypesRequest $request)
     {
-        if (! Gate::allows('video_server_type_create')) {
+        if (!Gate::allows('video_server_type_create')) {
             return abort(401);
         }
         $video_server_type = VideoServerType::create($request->all());
 
-
-
         return redirect()->route('admin.video_server_types.index');
     }
-
 
     /**
      * Show the form for editing VideoServerType.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        if (! Gate::allows('video_server_type_edit')) {
+        if (!Gate::allows('video_server_type_edit')) {
             return abort(401);
         }
         $video_server_type = VideoServerType::findOrFail($id);
@@ -116,33 +113,32 @@ class VideoServerTypesController extends Controller
     /**
      * Update VideoServerType in storage.
      *
-     * @param  \App\Http\Requests\UpdateVideoServerTypesRequest  $request
-     * @param  int  $id
+     * @param \App\Http\Requests\UpdateVideoServerTypesRequest $request
+     * @param int                                              $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateVideoServerTypesRequest $request, $id)
     {
-        if (! Gate::allows('video_server_type_edit')) {
+        if (!Gate::allows('video_server_type_edit')) {
             return abort(401);
         }
         $video_server_type = VideoServerType::findOrFail($id);
         $video_server_type->update($request->all());
 
-
-
         return redirect()->route('admin.video_server_types.index');
     }
-
 
     /**
      * Display VideoServerType.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        if (! Gate::allows('video_server_type_view')) {
+        if (!Gate::allows('video_server_type_view')) {
             return abort(401);
         }
         $video_server_type = VideoServerType::findOrFail($id);
@@ -150,16 +146,16 @@ class VideoServerTypesController extends Controller
         return view('admin.video_server_types.show', compact('video_server_type'));
     }
 
-
     /**
      * Remove VideoServerType from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        if (! Gate::allows('video_server_type_delete')) {
+        if (!Gate::allows('video_server_type_delete')) {
             return abort(401);
         }
         $video_server_type = VideoServerType::findOrFail($id);
@@ -175,7 +171,7 @@ class VideoServerTypesController extends Controller
      */
     public function massDestroy(Request $request)
     {
-        if (! Gate::allows('video_server_type_delete')) {
+        if (!Gate::allows('video_server_type_delete')) {
             return abort(401);
         }
         if ($request->input('ids')) {
@@ -187,16 +183,16 @@ class VideoServerTypesController extends Controller
         }
     }
 
-
     /**
      * Restore VideoServerType from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function restore($id)
     {
-        if (! Gate::allows('video_server_type_delete')) {
+        if (!Gate::allows('video_server_type_delete')) {
             return abort(401);
         }
         $video_server_type = VideoServerType::onlyTrashed()->findOrFail($id);
@@ -208,12 +204,13 @@ class VideoServerTypesController extends Controller
     /**
      * Permanently delete VideoServerType from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function perma_del($id)
     {
-        if (! Gate::allows('video_server_type_delete')) {
+        if (!Gate::allows('video_server_type_delete')) {
             return abort(401);
         }
         $video_server_type = VideoServerType::onlyTrashed()->findOrFail($id);
