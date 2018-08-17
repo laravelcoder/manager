@@ -3,10 +3,13 @@
 
 <head>
     @include('partials.head')
+
+    @stack('pagestyle')
+    @stack('topscripts')
 </head>
 
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-red sidebar-mini">
 
 <div id="wrapper">
 
@@ -47,6 +50,10 @@
             </div>
         </section>
     </div>
+
+@include('partials.footer')
+@include('partials.right-sidebar')
+
 </div>
 
 {!! Form::open(['route' => 'auth.logout', 'style' => 'display:none;', 'id' => 'logout']) !!}
@@ -54,5 +61,7 @@
 {!! Form::close() !!}
 
 @include('partials.javascripts')
+@stack('scripts')
+
 </body>
 </html>
