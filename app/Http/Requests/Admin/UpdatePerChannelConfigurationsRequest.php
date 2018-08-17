@@ -1,4 +1,11 @@
 <?php
+
+declare(strict_types=1);
+
+/*
+ * updated code from styleci
+ */
+
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -23,7 +30,7 @@ class UpdatePerChannelConfigurationsRequest extends FormRequest
     public function rules()
     {
         return [
-            
+
             'ad_lengths' => 'max:2147483647|nullable|numeric',
             'sync_server_id' => 'required',
         ];

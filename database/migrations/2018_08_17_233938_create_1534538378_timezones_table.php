@@ -1,5 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * updated code from styleci
+ */
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -10,15 +16,14 @@ class Create1534538378TimezonesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        if(! Schema::hasTable('timezones')) {
-            Schema::create('timezones', function (Blueprint $table) {
+        if (! Schema::hasTable('timezones')) {
+            Schema::create('timezones', function (Blueprint $table): void {
                 $table->increments('id');
                 $table->string('timezone')->nullable();
-                
+
                 $table->timestamps();
-                
             });
         }
     }
@@ -28,7 +33,7 @@ class Create1534538378TimezonesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('timezones');
     }

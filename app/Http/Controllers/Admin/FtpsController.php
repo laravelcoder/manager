@@ -1,14 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * updated code from styleci
+ */
+
 namespace App\Http\Controllers\Admin;
 
 use App\Ftp;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
+use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Admin\StoreFtpsRequest;
 use App\Http\Requests\Admin\UpdateFtpsRequest;
-use Yajra\DataTables\DataTables;
 
 class FtpsController extends Controller
 {
@@ -23,17 +29,14 @@ class FtpsController extends Controller
             return abort(401);
         }
 
-
-        
         if (request()->ajax()) {
             $query = Ftp::query();
-            $query->with("sync_server");
+            $query->with('sync_server');
             $template = 'actionsTemplate';
-            if(request('show_deleted') == 1) {
-                
-        if (! Gate::allows('ftp_delete')) {
-            return abort(401);
-        }
+            if (request('show_deleted') === 1) {
+                if (! Gate::allows('ftp_delete')) {
+                    return abort(401);
+                }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -54,7 +57,7 @@ class FtpsController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey  = 'ftp_';
+                $gateKey = 'ftp_';
                 $routeKey = 'admin.ftps';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -78,7 +81,7 @@ class FtpsController extends Controller
                 return $row->sync_server ? $row->sync_server->name : '';
             });
 
-            $table->rawColumns(['actions','massDelete']);
+            $table->rawColumns(['actions', 'massDelete']);
 
             return $table->make(true);
         }
@@ -96,7 +99,7 @@ class FtpsController extends Controller
         if (! Gate::allows('ftp_create')) {
             return abort(401);
         }
-        
+
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
         return view('admin.ftps.create', compact('sync_servers'));
@@ -115,11 +118,8 @@ class FtpsController extends Controller
         }
         $ftp = Ftp::create($request->all());
 
-
-
         return redirect()->route('admin.ftps.index');
     }
-
 
     /**
      * Show the form for editing Ftp.
@@ -132,7 +132,7 @@ class FtpsController extends Controller
         if (! Gate::allows('ftp_edit')) {
             return abort(401);
         }
-        
+
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
         $ftp = Ftp::findOrFail($id);
@@ -155,11 +155,8 @@ class FtpsController extends Controller
         $ftp = Ftp::findOrFail($id);
         $ftp->update($request->all());
 
-
-
         return redirect()->route('admin.ftps.index');
     }
-
 
     /**
      * Display Ftp.
@@ -176,7 +173,6 @@ class FtpsController extends Controller
 
         return view('admin.ftps.show', compact('ftp'));
     }
-
 
     /**
      * Remove Ftp from storage.
@@ -213,7 +209,6 @@ class FtpsController extends Controller
             }
         }
     }
-
 
     /**
      * Restore Ftp from storage.

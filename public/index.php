@@ -1,10 +1,9 @@
 <?php
 
-/**
- * Laravel - A PHP Framework For Web Artisans
- *
- * @package  Laravel
- * @author   Taylor Otwell <taylor@laravel.com>
+declare(strict_types=1);
+
+/*
+ * updated code from styleci
  */
 
 define('LARAVEL_START', microtime(true));

@@ -1,5 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * updated code from styleci
+ */
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -10,15 +16,13 @@ class Update1534536945SyncServersTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::table('sync_servers', function (Blueprint $table) {
-            
-if (!Schema::hasColumn('sync_servers', 'ss_host')) {
+        Schema::table('sync_servers', function (Blueprint $table): void {
+            if (! Schema::hasColumn('sync_servers', 'ss_host')) {
                 $table->string('ss_host')->nullable();
-                }
+            }
         });
-
     }
 
     /**
@@ -26,12 +30,10 @@ if (!Schema::hasColumn('sync_servers', 'ss_host')) {
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::table('sync_servers', function (Blueprint $table) {
+        Schema::table('sync_servers', function (Blueprint $table): void {
             $table->dropColumn('ss_host');
-            
         });
-
     }
 }

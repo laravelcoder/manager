@@ -1,13 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * updated code from styleci
+ */
+
 namespace Tests;
 
 use App\Permission;
-use DatabaseSeeder;
-use Illuminate\Foundation\Testing\Concerns\InteractsWithSession;
 use Laravel\Dusk\TestCase as BaseTestCase;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
+use Illuminate\Foundation\Testing\Concerns\InteractsWithSession;
 
 abstract class DuskTestCase extends BaseTestCase
 {
@@ -19,7 +24,7 @@ abstract class DuskTestCase extends BaseTestCase
      * @beforeClass
      * @return void
      */
-    public static function prepare()
+    public static function prepare(): void
     {
         static::startChromeDriver();
     }
@@ -46,15 +51,15 @@ abstract class DuskTestCase extends BaseTestCase
     /**
      * Creates an empty database for testing, but backups the current dev one first.
      */
-    public function createDatabaseAndSeedsIfNeeded()
+    public function createDatabaseAndSeedsIfNeeded(): void
     {
-        if (!$this->app) {
+        if (! $this->app) {
             $this->refreshApplication();
         }
 
         $this->artisan('migrate:fresh');
 
-        if (Permission::all()->count() == 0) {
+        if (Permission::all()->count() === 0) {
             $this->artisan('db:seed');
         }
     }

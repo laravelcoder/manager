@@ -1,5 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * updated code from styleci
+ */
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -10,14 +16,14 @@ class CreateCombined1529612644CountriesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        if(! Schema::hasTable('countries')) {
-            Schema::create('countries', function (Blueprint $table) {
+        if (! Schema::hasTable('countries')) {
+            Schema::create('countries', function (Blueprint $table): void {
                 $table->increments('id');
                 $table->string('shortcode')->nullable();
                 $table->string('title')->nullable();
-                
+
                 $table->timestamps();
                 $table->softDeletes();
 
@@ -31,7 +37,7 @@ class CreateCombined1529612644CountriesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('countries');
     }

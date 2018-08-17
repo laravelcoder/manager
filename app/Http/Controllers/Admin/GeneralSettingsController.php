@@ -1,14 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * updated code from styleci
+ */
+
 namespace App\Http\Controllers\Admin;
 
 use App\GeneralSetting;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
+use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Admin\StoreGeneralSettingsRequest;
 use App\Http\Requests\Admin\UpdateGeneralSettingsRequest;
-use Yajra\DataTables\DataTables;
 
 class GeneralSettingsController extends Controller
 {
@@ -23,17 +29,14 @@ class GeneralSettingsController extends Controller
             return abort(401);
         }
 
-
-        
         if (request()->ajax()) {
             $query = GeneralSetting::query();
-            $query->with("sync_server");
+            $query->with('sync_server');
             $template = 'actionsTemplate';
-            if(request('show_deleted') == 1) {
-                
-        if (! Gate::allows('general_setting_delete')) {
-            return abort(401);
-        }
+            if (request('show_deleted') === 1) {
+                if (! Gate::allows('general_setting_delete')) {
+                    return abort(401);
+                }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -50,7 +53,7 @@ class GeneralSettingsController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey  = 'general_setting_';
+                $gateKey = 'general_setting_';
                 $routeKey = 'admin.general_settings';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -62,7 +65,7 @@ class GeneralSettingsController extends Controller
                 return $row->sync_server ? $row->sync_server->name : '';
             });
 
-            $table->rawColumns(['actions','massDelete']);
+            $table->rawColumns(['actions', 'massDelete']);
 
             return $table->make(true);
         }
@@ -80,7 +83,7 @@ class GeneralSettingsController extends Controller
         if (! Gate::allows('general_setting_create')) {
             return abort(401);
         }
-        
+
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
         return view('admin.general_settings.create', compact('sync_servers'));
@@ -99,11 +102,8 @@ class GeneralSettingsController extends Controller
         }
         $general_setting = GeneralSetting::create($request->all());
 
-
-
         return redirect()->route('admin.general_settings.index');
     }
-
 
     /**
      * Show the form for editing GeneralSetting.
@@ -116,7 +116,7 @@ class GeneralSettingsController extends Controller
         if (! Gate::allows('general_setting_edit')) {
             return abort(401);
         }
-        
+
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
         $general_setting = GeneralSetting::findOrFail($id);
@@ -139,11 +139,8 @@ class GeneralSettingsController extends Controller
         $general_setting = GeneralSetting::findOrFail($id);
         $general_setting->update($request->all());
 
-
-
         return redirect()->route('admin.general_settings.index');
     }
-
 
     /**
      * Display GeneralSetting.
@@ -160,7 +157,6 @@ class GeneralSettingsController extends Controller
 
         return view('admin.general_settings.show', compact('general_setting'));
     }
-
 
     /**
      * Remove GeneralSetting from storage.
@@ -197,7 +193,6 @@ class GeneralSettingsController extends Controller
             }
         }
     }
-
 
     /**
      * Restore GeneralSetting from storage.

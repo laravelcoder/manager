@@ -1,14 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * updated code from styleci
+ */
+
 namespace App\Http\Controllers\Admin;
 
 use App\Permission;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
+use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Admin\StorePermissionsRequest;
 use App\Http\Requests\Admin\UpdatePermissionsRequest;
-use Yajra\DataTables\DataTables;
 
 class PermissionsController extends Controller
 {
@@ -23,12 +29,10 @@ class PermissionsController extends Controller
             return abort(401);
         }
 
-
-        
         if (request()->ajax()) {
             $query = Permission::query();
             $template = 'actionsTemplate';
-            
+
             $query->select([
                 'permissions.id',
                 'permissions.title',
@@ -41,13 +45,13 @@ class PermissionsController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey  = 'permission_';
+                $gateKey = 'permission_';
                 $routeKey = 'admin.permissions';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
             });
 
-            $table->rawColumns(['actions','massDelete']);
+            $table->rawColumns(['actions', 'massDelete']);
 
             return $table->make(true);
         }
@@ -65,6 +69,7 @@ class PermissionsController extends Controller
         if (! Gate::allows('permission_create')) {
             return abort(401);
         }
+
         return view('admin.permissions.create');
     }
 
@@ -81,11 +86,8 @@ class PermissionsController extends Controller
         }
         $permission = Permission::create($request->all());
 
-
-
         return redirect()->route('admin.permissions.index');
     }
-
 
     /**
      * Show the form for editing Permission.
@@ -118,11 +120,8 @@ class PermissionsController extends Controller
         $permission = Permission::findOrFail($id);
         $permission->update($request->all());
 
-
-
         return redirect()->route('admin.permissions.index');
     }
-
 
     /**
      * Display Permission.
@@ -136,7 +135,7 @@ class PermissionsController extends Controller
             return abort(401);
         }
         $roles = \App\Role::whereHas('permission',
-                    function ($query) use ($id) {
+                    function ($query) use ($id): void {
                         $query->where('id', $id);
                     })->get();
 
@@ -144,7 +143,6 @@ class PermissionsController extends Controller
 
         return view('admin.permissions.show', compact('permission', 'roles'));
     }
-
 
     /**
      * Remove Permission from storage.
@@ -181,5 +179,4 @@ class PermissionsController extends Controller
             }
         }
     }
-
 }

@@ -1,5 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * updated code from styleci
+ */
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -10,7 +16,7 @@ class Drop5b2abe519f000SsconfigsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::dropIfExists('ssconfigs');
     }
@@ -20,17 +26,17 @@ class Drop5b2abe519f000SsconfigsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        if(! Schema::hasTable('ssconfigs')) {
-            Schema::create('ssconfigs', function (Blueprint $table) {
+        if (! Schema::hasTable('ssconfigs')) {
+            Schema::create('ssconfigs', function (Blueprint $table): void {
                 $table->increments('id');
                 $table->string('stuff')->nullable();
-                
+
                 $table->timestamps();
                 $table->softDeletes();
 
-            $table->index(['deleted_at']);
+                $table->index(['deleted_at']);
             });
         }
     }
