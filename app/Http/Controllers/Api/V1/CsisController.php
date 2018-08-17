@@ -2,10 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * updated code from styleci
- */
-
 namespace App\Http\Controllers\Api\V1;
 
 use App\Csi;

@@ -2,10 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * updated code from styleci
- */
-
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Route;

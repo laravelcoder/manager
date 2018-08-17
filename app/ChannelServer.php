@@ -2,10 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * updated code from styleci
- */
-
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;

@@ -1,11 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
-/*
- * updated code from styleci
- */
-
 $factory->define(App\OutputSetting::class, function (Faker\Generator $faker) {
     return [
         'report_time' => $faker->date('H:i:s', $max = 'now'),

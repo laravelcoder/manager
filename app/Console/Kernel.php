@@ -2,10 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * updated code from styleci
- */
-
 namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
