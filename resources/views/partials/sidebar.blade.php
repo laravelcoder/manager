@@ -1,200 +1,258 @@
 @inject('request', 'Illuminate\Http\Request')
 <!-- Left side column. contains the sidebar -->
-<aside class="main-sidebar full-height">
+<aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar" style="height:100%!important;">
+    <section class="sidebar">
         <ul class="sidebar-menu">
-            <li class="header"><i class="fa fa-dashboard"></i> <span>Dashboards</span></li>
-            {{-- <li>
-                <select class="searchable-field form-control"></select>
-            </li> --}}
-{{-- @include('partials.side-profile') --}}
-            {{-- <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
+
+             
+
+            <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
                 <a href="{{ url('/') }}">
                     <i class="fa fa-wrench"></i>
                     <span class="title">@lang('global.app_dashboard')</span>
                 </a>
-            </li> --}}
-
-            @can('sales_dashboard_access')
-            <li>
-                <a href="{{ route('admin.sales_dashboards.index') }}">
-                    <i class="fa fa-dashboard"></i>
-                    <span>@lang('global.sales-dashboard.title')</span>
-                </a>
-            </li>@endcan
-            
-            @can('ads_dashboard_access')
-            <li>
-                <a href="{{ route('admin.ads_dashboards.index') }}">
-                    <i class="fa fa-gears"></i>
-                    <span>@lang('global.ads-dashboard.title')</span>
-                </a>
-            </li>@endcan
- 
-
- <li class="header"> <span>Main Navigation</span></li>
-
-            @can('advertiser_management_access')
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-phone-square"></i>
-                    <span>@lang('global.advertiser-management.title')</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    @can('advertisers_detail_access')
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-gears"></i>
-                            <span>@lang('global.advertisers-details.title')</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            @can('contact_company_access')
-                            <li>
-                                <a href="{{ route('admin.contact_companies.index') }}">
-                                    <i class="fa fa-building-o"></i>
-                                    <span>@lang('global.contact-companies.title')</span>
-                                </a>
-                            </li>
-                            @endcan
-                            
-                            @can('contact_access')
-                            <li>
-                                <a href="{{ route('admin.contacts.index') }}">
-                                    <i class="fa fa-user-plus"></i>
-                                    <span>@lang('global.contacts.title')</span>
-                                </a>
-                            </li>
-                            @endcan
-                            
-                            @can('agent_access')
-                            <li>
-                                <a href="{{ route('admin.agents.index') }}">
-                                    <i class="fa fa-gears"></i>
-                                    <span>@lang('global.agents.title')</span>
-                                </a>
-                            </li>
-                            @endcan
-                            
-                            @can('audience_access')
-                            <li>
-                                <a href="{{ route('admin.audiences.index') }}">
-                                    <i class="fa fa-gears"></i>
-                                    <span>@lang('global.audiences.title')</span>
-                                </a>
-                            </li>
-                            @endcan
-                            
-                            @can('demographic_access')
-                            <li>
-                                <a href="{{ route('admin.demographics.index') }}">
-                                    <i class="fa fa-gears"></i>
-                                    <span>@lang('global.demographics.title')</span>
-                                </a>
-                            </li>
-                            @endcan
-                            
-                        </ul>
-                    </li>@endcan
-                    
-                    @can('phone_access')
-                    <li>
-                        <a href="{{ route('admin.phones.index') }}">
-                            <i class="fa fa-gears"></i>
-                            <span>@lang('global.phones.title')</span>
-                        </a>
-                    </li>@endcan
-                    
-                    @can('ads_section_access')
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-adn"></i>
-                            <span>@lang('global.ads-section.title')</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            @can('category_access')
-                            <li>
-                                <a href="{{ route('admin.categories.index') }}">
-                                    <i class="fa fa-gears"></i>
-                                    <span>@lang('global.categories.title')</span>
-                                </a>
-                            </li>@endcan
-                            
-                            @can('ad_access')
-                            <li>
-                                <a href="{{ route('admin.ads.index') }}">
-                                    <i class="fa fa-gears"></i>
-                                    <span>@lang('global.ads.title')</span>
-                                </a>
-                            </li>@endcan
-                            
-                        </ul>
-                    </li>@endcan
-                    
-                    @can('campaign_access')
-                    <li>
-                        <a href="{{ route('admin.campaigns.index') }}">
-                            <i class="fa fa-gears"></i>
-                            <span>@lang('global.campaign.title')</span>
-                        </a>
-                    </li>@endcan
-                    
-                </ul>
-            </li>@endcan
-            
-            @can('network_research_access')
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-file-video-o"></i>
-                    <span>@lang('global.network-research.title')</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    @can('network_access')
-                    <li>
-                        <a href="{{ route('admin.networks.index') }}">
-                            <i class="fa fa-gears"></i>
-                            <span>@lang('global.networks.title')</span>
-                        </a>
-                    </li>@endcan
-                    
-                    @can('affiliate_access')
-                    <li>
-                        <a href="{{ route('admin.affiliates.index') }}">
-                            <i class="fa fa-gears"></i>
-                            <span>@lang('global.affiliates.title')</span>
-                        </a>
-                    </li>@endcan
-                    
-                    @can('station_access')
-                    <li>
-                        <a href="{{ route('admin.stations.index') }}">
-                            <i class="fa fa-video-camera"></i>
-                            <span>@lang('global.stations.title')</span>
-                        </a>
-                    </li>@endcan
-                    
-                </ul>
             </li>
-            @endcan
 
- 
-@canany(['user_management_access', 'content_management_access'])
-        <li class="header"> <span>Admin Area</span></li>
+            @can('channel_servers_area_access')
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-gears"></i>
+                    <span>@lang('global.channel-servers-area.title')</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    @can('channel_server_access')
+                    <li>
+                        <a href="{{ route('admin.channel_servers.index') }}">
+                            <i class="fa fa-gears"></i>
+                            <span>@lang('global.channel-server.title')</span>
+                        </a>
+                    </li>@endcan
+                    
+                    @can('cs_channel_list_access')
+                    <li>
+                        <a href="{{ route('admin.cs_channel_lists.index') }}">
+                            <i class="fa fa-gears"></i>
+                            <span>@lang('global.cs-channel-list.title')</span>
+                        </a>
+                    </li>@endcan
+                    
+                    @can('csi_access')
+                    <li>
+                        <a href="{{ route('admin.csis.index') }}">
+                            <i class="fa fa-gears"></i>
+                            <span>@lang('global.csi.title')</span>
+                        </a>
+                    </li>@endcan
+                    
+                    @can('cso_access')
+                    <li>
+                        <a href="{{ route('admin.csos.index') }}">
+                            <i class="fa fa-gears"></i>
+                            <span>@lang('global.cso.title')</span>
+                        </a>
+                    </li>@endcan
+                    
+                </ul>
+            </li>@endcan
+            
+            @can('sync_server_area_access')
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-gears"></i>
+                    <span>@lang('global.sync-server-area.title')</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    @can('sync_server_access')
+                    <li>
+                        <a href="{{ route('admin.sync_servers.index') }}">
+                            <i class="fa fa-gears"></i>
+                            <span>@lang('global.sync-servers.title')</span>
+                        </a>
+                    </li>@endcan
+                    
+                    @can('configuration_setting_access')
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-gears"></i>
+                            <span>@lang('global.configuration-settings.title')</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            @can('ftp_access')
+                            <li>
+                                <a href="{{ route('admin.ftps.index') }}">
+                                    <i class="fa fa-gears"></i>
+                                    <span>@lang('global.ftp.title')</span>
+                                </a>
+                            </li>@endcan
+                            
+                            @can('general_setting_access')
+                            <li>
+                                <a href="{{ route('admin.general_settings.index') }}">
+                                    <i class="fa fa-gears"></i>
+                                    <span>@lang('global.general-settings.title')</span>
+                                </a>
+                            </li>@endcan
+                            
+                            @can('output_setting_access')
+                            <li>
+                                <a href="{{ route('admin.output_settings.index') }}">
+                                    <i class="fa fa-gears"></i>
+                                    <span>@lang('global.output-settings.title')</span>
+                                </a>
+                            </li>@endcan
+                            
+                            @can('realtime_notification_access')
+                            <li>
+                                <a href="{{ route('admin.realtime_notifications.index') }}">
+                                    <i class="fa fa-gears"></i>
+                                    <span>@lang('global.realtime-notification.title')</span>
+                                </a>
+                            </li>@endcan
+                            
+                            @can('per_channel_configuration_access')
+                            <li>
+                                <a href="{{ route('admin.per_channel_configurations.index') }}">
+                                    <i class="fa fa-gears"></i>
+                                    <span>@lang('global.per-channel-configurations.title')</span>
+                                </a>
+                            </li>@endcan
+                            
+                            @can('report_setting_access')
+                            <li>
+                                <a href="{{ route('admin.report_settings.index') }}">
+                                    <i class="fa fa-gears"></i>
+                                    <span>@lang('global.report-settings.title')</span>
+                                </a>
+                            </li>@endcan
+                            
+                            @can('filter_access')
+                            <li>
+                                <a href="{{ route('admin.filters.index') }}">
+                                    <i class="fa fa-gears"></i>
+                                    <span>@lang('global.filters.title')</span>
+                                </a>
+                            </li>@endcan
+                            
+                            @can('clipdb_setting_access')
+                            <li>
+                                <a href="{{ route('admin.clipdb_settings.index') }}">
+                                    <i class="fa fa-gears"></i>
+                                    <span>@lang('global.clipdb-settings.title')</span>
+                                </a>
+                            </li>@endcan
+                            
+                        </ul>
+                    </li>@endcan
+                    
+                    @can('aggregation_server_setting_access')
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-gears"></i>
+                            <span>@lang('global.aggregation-server-settings.title')</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            @can('aggregation_server_access')
+                            <li>
+                                <a href="{{ route('admin.aggregation_servers.index') }}">
+                                    <i class="fa fa-gears"></i>
+                                    <span>@lang('global.aggregation-server.title')</span>
+                                </a>
+                            </li>@endcan
+                            
+                            @can('baby_sync_server_access')
+                            <li>
+                                <a href="{{ route('admin.baby_sync_servers.index') }}">
+                                    <i class="fa fa-gears"></i>
+                                    <span>@lang('global.baby-sync-servers.title')</span>
+                                </a>
+                            </li>@endcan
+                            
+                        </ul>
+                    </li>@endcan
+                    
+                    @can('video_server_access')
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-gears"></i>
+                            <span>@lang('global.video-servers.title')</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            @can('video_server_type_access')
+                            <li>
+                                <a href="{{ route('admin.video_server_types.index') }}">
+                                    <i class="fa fa-gears"></i>
+                                    <span>@lang('global.video-server-type.title')</span>
+                                </a>
+                            </li>@endcan
+                            
+                            @can('video_setting_access')
+                            <li>
+                                <a href="{{ route('admin.video_settings.index') }}">
+                                    <i class="fa fa-gears"></i>
+                                    <span>@lang('global.video-settings.title')</span>
+                                </a>
+                            </li>@endcan
+                            
+                        </ul>
+                    </li>@endcan
+                    
+                </ul>
+            </li>@endcan
+            
+            @can('config_default_access')
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-gears"></i>
+                    <span>@lang('global.config-defaults.title')</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    @can('protocol_access')
+                    <li>
+                        <a href="{{ route('admin.protocols.index') }}">
+                            <i class="fa fa-gears"></i>
+                            <span>@lang('global.protocols.title')</span>
+                        </a>
+                    </li>@endcan
+                    
+                    @can('country_access')
+                    <li>
+                        <a href="{{ route('admin.countries.index') }}">
+                            <i class="fa fa-gears"></i>
+                            <span>@lang('global.country.title')</span>
+                        </a>
+                    </li>@endcan
+                    
+                    @can('timezone_access')
+                    <li>
+                        <a href="{{ route('admin.timezones.index') }}">
+                            <i class="fa fa-clock-o"></i>
+                            <span>@lang('global.timezone.title')</span>
+                        </a>
+                    </li>@endcan
+                    
+                </ul>
+            </li>@endcan
             
             @can('user_management_access')
-
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-users"></i>
@@ -204,11 +262,11 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    @can('user_access')
+                    @can('permission_access')
                     <li>
-                        <a href="{{ route('admin.users.index') }}">
-                            <i class="fa fa-user"></i>
-                            <span>@lang('global.users.title')</span>
+                        <a href="{{ route('admin.permissions.index') }}">
+                            <i class="fa fa-briefcase"></i>
+                            <span>@lang('global.permissions.title')</span>
                         </a>
                     </li>@endcan
                     
@@ -220,90 +278,21 @@
                         </a>
                     </li>@endcan
                     
-                    @can('team_access')
+                    @can('user_access')
                     <li>
-                        <a href="{{ route('admin.teams.index') }}">
-                            <i class="fa fa-users"></i>
-                            <span>@lang('global.teams.title')</span>
-                        </a>
-                    </li>@endcan
-                    
-                    @can('permission_access')
-                    <li>
-                        <a href="{{ route('admin.permissions.index') }}">
-                            <i class="fa fa-briefcase"></i>
-                            <span>@lang('global.permissions.title')</span>
-                        </a>
-                    </li>@endcan
-                    
-                    @can('alert_access')
-                    <li>
-                        <a href="{{ route('admin.alerts.index') }}">
-                            <i class="fa fa-asterisk"></i>
-                            <span>@lang('global.alerts.title')</span>
+                        <a href="{{ route('admin.users.index') }}">
+                            <i class="fa fa-user"></i>
+                            <span>@lang('global.users.title')</span>
                         </a>
                     </li>@endcan
                     
                 </ul>
             </li>@endcan
             
-            @can('content_management_access')
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-book"></i>
-                    <span>@lang('global.content-management.title')</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    @can('content_category_access')
-                    <li>
-                        <a href="{{ route('admin.content_categories.index') }}">
-                            <i class="fa fa-folder"></i>
-                            <span>@lang('global.content-categories.title')</span>
-                        </a>
-                    </li>@endcan
-                    
-                    @can('content_tag_access')
-                    <li>
-                        <a href="{{ route('admin.content_tags.index') }}">
-                            <i class="fa fa-tags"></i>
-                            <span>@lang('global.content-tags.title')</span>
-                        </a>
-                    </li>@endcan
-                    
-                    @can('content_page_access')
-                    <li>
-                        <a href="{{ route('admin.content_pages.index') }}">
-                            <i class="fa fa-file-o"></i>
-                            <span>@lang('global.content-pages.title')</span>
-                        </a>
-                    </li>@endcan
-                    
-                </ul>
-            </li>@endcan
-            
-@endcanany
-            
- <li class="header"> <span>Account Area</span></li>
-            
-            @php ($unread = App\MessengerTopic::countUnread())
-            <li class="{{ $request->segment(2) == 'messenger' ? 'active' : '' }} {{ ($unread > 0 ? 'unread' : '') }}">
-                <a href="{{ route('admin.messenger.index') }}">
-                    <i class="fa fa-envelope"></i>
 
-                    <span>Messages</span>
-                    @if($unread > 0)
-                        {{ ($unread > 0 ? '('.$unread.')' : '') }}
-                    @endif
-                </a>
-            </li>
-            <style>
-                .page-sidebar-menu .unread * {
-                    font-weight:bold !important;
-                }
-            </style>
+            
+
+            
 
 
 
@@ -321,9 +310,7 @@
                 </a>
             </li>
         </ul>
-<img src="{{ asset('images/sling_n_dish.png') }}" />
+        <img src="{{ asset('images/sling_n_dish.png') }}" />
     </section>
-
-
 </aside>
 
