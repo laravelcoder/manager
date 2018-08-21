@@ -28,6 +28,7 @@
                         <th>@lang('global.video-settings.fields.server-url')</th>
                         <th>@lang('global.video-settings.fields.server-redirect')</th>
                         <th>@lang('global.video-settings.fields.hls')</th>
+                        <th>@lang('global.video-settings.fields.sync-server')</th>
                                                 <th>&nbsp;</th>
 
                     </tr>
@@ -49,6 +50,7 @@
                 @endcan{data: 'server_url', name: 'server_url'},
                 {data: 'server_redirect', name: 'server_redirect'},
                 {data: 'hls', name: 'hls'},
+                {data: 'sync_server.name', name: 'sync_server.name'},
                 
                 {data: 'actions', name: 'actions', searchable: false, sortable: false}
             ];

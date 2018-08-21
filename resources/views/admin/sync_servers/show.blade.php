@@ -25,9 +25,13 @@
             </div><!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">
     
-<li role="presentation" class="active"><a href="#general_settings" aria-controls="general_settings" role="tab" data-toggle="tab">General settings</a></li>
+<li role="presentation" class="active"><a href="#filters" aria-controls="filters" role="tab" data-toggle="tab">Filters</a></li>
+<li role="presentation" class=""><a href="#general_settings" aria-controls="general_settings" role="tab" data-toggle="tab">General settings</a></li>
+<li role="presentation" class=""><a href="#aggregation_server" aria-controls="aggregation_server" role="tab" data-toggle="tab">Aggregation Server</a></li>
+<li role="presentation" class=""><a href="#baby_sync_servers" aria-controls="baby_sync_servers" role="tab" data-toggle="tab">Baby Sync Servers</a></li>
 <li role="presentation" class=""><a href="#output_settings" aria-controls="output_settings" role="tab" data-toggle="tab">Output Settings</a></li>
 <li role="presentation" class=""><a href="#realtime_notification" aria-controls="realtime_notification" role="tab" data-toggle="tab">Real-time Notification</a></li>
+<li role="presentation" class=""><a href="#video_settings" aria-controls="video_settings" role="tab" data-toggle="tab">Video Settings</a></li>
 <li role="presentation" class=""><a href="#ftp" aria-controls="ftp" role="tab" data-toggle="tab">FTP DETAILS</a></li>
 <li role="presentation" class=""><a href="#per_channel_configurations" aria-controls="per_channel_configurations" role="tab" data-toggle="tab">Per channel configurations</a></li>
 <li role="presentation" class=""><a href="#report_settings" aria-controls="report_settings" role="tab" data-toggle="tab">Report settings</a></li>
@@ -36,7 +40,73 @@
 <!-- Tab panes -->
 <div class="tab-content">
     
-<div role="tabpanel" class="tab-pane active" id="general_settings">
+<div role="tabpanel" class="tab-pane active" id="filters">
+<table class="table table-bordered table-striped {{ count($filters) > 0 ? 'datatable' : '' }}">
+    <thead>
+        <tr>
+            <th>@lang('global.filters.fields.name')</th>
+                        <th>@lang('global.filters.fields.sync-server')</th>
+                        @if( request('show_deleted') == 1 )
+                        <th>&nbsp;</th>
+                        @else
+                        <th>&nbsp;</th>
+                        @endif
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (count($filters) > 0)
+            @foreach ($filters as $filter)
+                <tr data-entry-id="{{ $filter->id }}">
+                    <td field-key='name'>{{ $filter->name }}</td>
+                                <td field-key='sync_server'>{{ $filter->sync_server->name or '' }}</td>
+                                @if( request('show_deleted') == 1 )
+                                <td>
+                                    {!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'POST',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.filters.restore', $filter->id])) !!}
+                                    {!! Form::submit(trans('global.app_restore'), array('class' => 'btn btn-xs btn-success')) !!}
+                                    {!! Form::close() !!}
+                                                                    {!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'DELETE',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.filters.perma_del', $filter->id])) !!}
+                                    {!! Form::submit(trans('global.app_permadel'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                    {!! Form::close() !!}
+                                                                </td>
+                                @else
+                                <td>
+                                    @can('filter_view')
+                                    <a href="{{ route('admin.filters.show',[$filter->id]) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
+                                    @endcan
+                                    @can('filter_edit')
+                                    <a href="{{ route('admin.filters.edit',[$filter->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
+                                    @endcan
+                                    @can('filter_delete')
+{!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'DELETE',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.filters.destroy', $filter->id])) !!}
+                                    {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                    {!! Form::close() !!}
+                                    @endcan
+                                </td>
+                                @endif
+                </tr>
+            @endforeach
+        @else
+            <tr>
+                <td colspan="7">@lang('global.app_no_entries_in_table')</td>
+            </tr>
+        @endif
+    </tbody>
+</table>
+</div>
+<div role="tabpanel" class="tab-pane " id="general_settings">
 <table class="table table-bordered table-striped {{ count($general_settings) > 0 ? 'datatable' : '' }}">
     <thead>
         <tr>
@@ -95,6 +165,140 @@
         @else
             <tr>
                 <td colspan="7">@lang('global.app_no_entries_in_table')</td>
+            </tr>
+        @endif
+    </tbody>
+</table>
+</div>
+<div role="tabpanel" class="tab-pane " id="aggregation_server">
+<table class="table table-bordered table-striped {{ count($aggregation_servers) > 0 ? 'datatable' : '' }}">
+    <thead>
+        <tr>
+            <th>@lang('global.aggregation-server.fields.server-name')</th>
+                        <th>@lang('global.aggregation-server.fields.server-host')</th>
+                        <th>@lang('global.aggregation-server.fields.sync-server')</th>
+                        @if( request('show_deleted') == 1 )
+                        <th>&nbsp;</th>
+                        @else
+                        <th>&nbsp;</th>
+                        @endif
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (count($aggregation_servers) > 0)
+            @foreach ($aggregation_servers as $aggregation_server)
+                <tr data-entry-id="{{ $aggregation_server->id }}">
+                    <td field-key='server_name'>{{ $aggregation_server->server_name }}</td>
+                                <td field-key='server_host'>{{ $aggregation_server->server_host }}</td>
+                                <td field-key='sync_server'>{{ $aggregation_server->sync_server->name or '' }}</td>
+                                @if( request('show_deleted') == 1 )
+                                <td>
+                                    {!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'POST',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.aggregation_servers.restore', $aggregation_server->id])) !!}
+                                    {!! Form::submit(trans('global.app_restore'), array('class' => 'btn btn-xs btn-success')) !!}
+                                    {!! Form::close() !!}
+                                                                    {!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'DELETE',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.aggregation_servers.perma_del', $aggregation_server->id])) !!}
+                                    {!! Form::submit(trans('global.app_permadel'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                    {!! Form::close() !!}
+                                                                </td>
+                                @else
+                                <td>
+                                    @can('aggregation_server_view')
+                                    <a href="{{ route('admin.aggregation_servers.show',[$aggregation_server->id]) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
+                                    @endcan
+                                    @can('aggregation_server_edit')
+                                    <a href="{{ route('admin.aggregation_servers.edit',[$aggregation_server->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
+                                    @endcan
+                                    @can('aggregation_server_delete')
+{!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'DELETE',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.aggregation_servers.destroy', $aggregation_server->id])) !!}
+                                    {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                    {!! Form::close() !!}
+                                    @endcan
+                                </td>
+                                @endif
+                </tr>
+            @endforeach
+        @else
+            <tr>
+                <td colspan="8">@lang('global.app_no_entries_in_table')</td>
+            </tr>
+        @endif
+    </tbody>
+</table>
+</div>
+<div role="tabpanel" class="tab-pane " id="baby_sync_servers">
+<table class="table table-bordered table-striped {{ count($baby_sync_servers) > 0 ? 'datatable' : '' }}">
+    <thead>
+        <tr>
+            <th>@lang('global.baby-sync-servers.fields.baby-sync-server')</th>
+                        <th>@lang('global.baby-sync-servers.fields.sync-server')</th>
+                        @if( request('show_deleted') == 1 )
+                        <th>&nbsp;</th>
+                        @else
+                        <th>&nbsp;</th>
+                        @endif
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (count($baby_sync_servers) > 0)
+            @foreach ($baby_sync_servers as $baby_sync_server)
+                <tr data-entry-id="{{ $baby_sync_server->id }}">
+                    <td field-key='baby_sync_server'>{{ $baby_sync_server->baby_sync_server }}</td>
+                                <td field-key='sync_server'>{{ $baby_sync_server->sync_server->name or '' }}</td>
+                                @if( request('show_deleted') == 1 )
+                                <td>
+                                    {!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'POST',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.baby_sync_servers.restore', $baby_sync_server->id])) !!}
+                                    {!! Form::submit(trans('global.app_restore'), array('class' => 'btn btn-xs btn-success')) !!}
+                                    {!! Form::close() !!}
+                                                                    {!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'DELETE',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.baby_sync_servers.perma_del', $baby_sync_server->id])) !!}
+                                    {!! Form::submit(trans('global.app_permadel'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                    {!! Form::close() !!}
+                                                                </td>
+                                @else
+                                <td>
+                                    @can('baby_sync_server_view')
+                                    <a href="{{ route('admin.baby_sync_servers.show',[$baby_sync_server->id]) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
+                                    @endcan
+                                    @can('baby_sync_server_edit')
+                                    <a href="{{ route('admin.baby_sync_servers.edit',[$baby_sync_server->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
+                                    @endcan
+                                    @can('baby_sync_server_delete')
+{!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'DELETE',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.baby_sync_servers.destroy', $baby_sync_server->id])) !!}
+                                    {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                    {!! Form::close() !!}
+                                    @endcan
+                                </td>
+                                @endif
+                </tr>
+            @endforeach
+        @else
+            <tr>
+                <td colspan="8">@lang('global.app_no_entries_in_table')</td>
             </tr>
         @endif
     </tbody>
@@ -227,6 +431,55 @@
         @else
             <tr>
                 <td colspan="8">@lang('global.app_no_entries_in_table')</td>
+            </tr>
+        @endif
+    </tbody>
+</table>
+</div>
+<div role="tabpanel" class="tab-pane " id="video_settings">
+<table class="table table-bordered table-striped {{ count($video_settings) > 0 ? 'datatable' : '' }}">
+    <thead>
+        <tr>
+            <th>@lang('global.video-settings.fields.server-url')</th>
+                        <th>@lang('global.video-settings.fields.server-redirect')</th>
+                        <th>@lang('global.video-settings.fields.hls')</th>
+                        <th>@lang('global.video-settings.fields.sync-server')</th>
+                                                <th>&nbsp;</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (count($video_settings) > 0)
+            @foreach ($video_settings as $video_setting)
+                <tr data-entry-id="{{ $video_setting->id }}">
+                    <td field-key='server_url'>{{ $video_setting->server_url }}</td>
+                                <td field-key='server_redirect'>{{ $video_setting->server_redirect }}</td>
+                                <td field-key='hls'>{{ $video_setting->hls }}</td>
+                                <td field-key='sync_server'>{{ $video_setting->sync_server->name or '' }}</td>
+                                                                <td>
+                                    @can('video_setting_view')
+                                    <a href="{{ route('admin.video_settings.show',[$video_setting->id]) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
+                                    @endcan
+                                    @can('video_setting_edit')
+                                    <a href="{{ route('admin.video_settings.edit',[$video_setting->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
+                                    @endcan
+                                    @can('video_setting_delete')
+{!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'DELETE',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.video_settings.destroy', $video_setting->id])) !!}
+                                    {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                    {!! Form::close() !!}
+                                    @endcan
+                                </td>
+
+                </tr>
+            @endforeach
+        @else
+            <tr>
+                <td colspan="9">@lang('global.app_no_entries_in_table')</td>
             </tr>
         @endif
     </tbody>
