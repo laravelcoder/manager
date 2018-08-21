@@ -39,9 +39,9 @@ class CsChannelListsController extends Controller
             }
             $query->select([
                 'cs_channel_lists.id',
-                'cs_channel_lists.channel_server_id',
                 'cs_channel_lists.channel_name',
                 'cs_channel_lists.channel_type',
+                'cs_channel_lists.channel_server_id',
                 'cs_channel_lists.sync_server_id',
             ]);
             $table = Datatables::of($query);
@@ -57,14 +57,14 @@ class CsChannelListsController extends Controller
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
             });
-            $table->editColumn('channel_server.name', function ($row) {
-                return $row->channel_server ? $row->channel_server->name : '';
-            });
             $table->editColumn('channel_name', function ($row) {
                 return $row->channel_name ? $row->channel_name : '';
             });
             $table->editColumn('channel_type', function ($row) {
                 return $row->channel_type ? $row->channel_type : '';
+            });
+            $table->editColumn('channel_server.name', function ($row) {
+                return $row->channel_server ? $row->channel_server->name : '';
             });
             $table->editColumn('sync_server.name', function ($row) {
                 return $row->sync_server ? $row->sync_server->name : '';

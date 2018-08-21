@@ -4,7 +4,7 @@ declare(strict_types=1);
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Add5b77603d83a97RelationshipsToRealtimeNotificationTable extends Migration
+class Add5b7c6e3dd3aafRelationshipsToRealtimeNotificationTable extends Migration
 {
     /**
      * Run the migrations.

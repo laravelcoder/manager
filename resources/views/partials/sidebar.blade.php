@@ -14,6 +14,15 @@
                 </a>
             </li>
 
+            @can('cs_channel_list_access')
+            <li>
+                <a href="{{ route('admin.cs_channel_lists.index') }}">
+                    <i class="fa fa-gears"></i>
+                    <span>@lang('global.cs-channel-list.title')</span>
+                </a>
+            </li>
+            @endcan
+
             @can('channel_servers_area_access')
             <li class="treeview">
                 <a href="#">
@@ -29,14 +38,6 @@
                         <a href="{{ route('admin.channel_servers.index') }}">
                             <i class="fa fa-gears"></i>
                             <span>@lang('global.channel-server.title')</span>
-                        </a>
-                    </li>@endcan
-                    
-                    @can('cs_channel_list_access')
-                    <li>
-                        <a href="{{ route('admin.cs_channel_lists.index') }}">
-                            <i class="fa fa-gears"></i>
-                            <span>@lang('global.cs-channel-list.title')</span>
                         </a>
                     </li>@endcan
                     
@@ -58,6 +59,8 @@
                     
                 </ul>
             </li>@endcan
+            
+
             
             @can('sync_server_area_access')
             <li class="treeview">
@@ -310,6 +313,7 @@
                 </a>
             </li>
         </ul>
+         <img src="{{ asset('images/sling_n_dish.png') }}" />
     </section>
 </aside>
 

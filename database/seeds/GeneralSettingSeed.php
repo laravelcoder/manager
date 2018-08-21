@@ -3,7 +3,7 @@
 declare(strict_types=1);
 use Illuminate\Database\Seeder;
 
-class TimezoneSeed extends Seeder
+class GeneralSettingSeed extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,13 +14,12 @@ class TimezoneSeed extends Seeder
     {
         $items = [
 
-            ['id' => 1, 'timezone' => 'Africa/Abidjan'],
-            ['id' => 2, 'timezone' => 'Africa/Accra'],
+            ['id' => 1, 'transcoding_server' => 'd-gp2-tocai-1.imovetv.com', 'sync_server_id' => 1],
 
         ];
 
         foreach ($items as $item) {
-            \App\Timezone::create($item);
+            \App\GeneralSetting::create($item);
         }
     }
 }

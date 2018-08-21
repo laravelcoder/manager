@@ -32,6 +32,7 @@
 <li role="presentation" class=""><a href="#output_settings" aria-controls="output_settings" role="tab" data-toggle="tab">Output Settings</a></li>
 <li role="presentation" class=""><a href="#realtime_notification" aria-controls="realtime_notification" role="tab" data-toggle="tab">Real-time Notification</a></li>
 <li role="presentation" class=""><a href="#video_settings" aria-controls="video_settings" role="tab" data-toggle="tab">Video Settings</a></li>
+<li role="presentation" class=""><a href="#cs_channel_list" aria-controls="cs_channel_list" role="tab" data-toggle="tab">CS Channel List</a></li>
 <li role="presentation" class=""><a href="#ftp" aria-controls="ftp" role="tab" data-toggle="tab">FTP DETAILS</a></li>
 <li role="presentation" class=""><a href="#per_channel_configurations" aria-controls="per_channel_configurations" role="tab" data-toggle="tab">Per channel configurations</a></li>
 <li role="presentation" class=""><a href="#report_settings" aria-controls="report_settings" role="tab" data-toggle="tab">Report settings</a></li>
@@ -444,6 +445,7 @@
                         <th>@lang('global.video-settings.fields.server-redirect')</th>
                         <th>@lang('global.video-settings.fields.hls')</th>
                         <th>@lang('global.video-settings.fields.sync-server')</th>
+                        <th>@lang('global.video-settings.fields.video-server-type')</th>
                                                 <th>&nbsp;</th>
 
         </tr>
@@ -457,6 +459,7 @@
                                 <td field-key='server_redirect'>{{ $video_setting->server_redirect }}</td>
                                 <td field-key='hls'>{{ $video_setting->hls }}</td>
                                 <td field-key='sync_server'>{{ $video_setting->sync_server->name or '' }}</td>
+                                <td field-key='video_server_type'>{{ $video_setting->video_server_type->server_type or '' }}</td>
                                                                 <td>
                                     @can('video_setting_view')
                                     <a href="{{ route('admin.video_settings.show',[$video_setting->id]) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
@@ -475,6 +478,74 @@
                                     @endcan
                                 </td>
 
+                </tr>
+            @endforeach
+        @else
+            <tr>
+                <td colspan="10">@lang('global.app_no_entries_in_table')</td>
+            </tr>
+        @endif
+    </tbody>
+</table>
+</div>
+<div role="tabpanel" class="tab-pane " id="cs_channel_list">
+<table class="table table-bordered table-striped {{ count($cs_channel_lists) > 0 ? 'datatable' : '' }}">
+    <thead>
+        <tr>
+            <th>@lang('global.cs-channel-list.fields.channel-name')</th>
+                        <th>@lang('global.cs-channel-list.fields.channel-type')</th>
+                        <th>@lang('global.cs-channel-list.fields.sync-server')</th>
+                        @if( request('show_deleted') == 1 )
+                        <th>&nbsp;</th>
+                        @else
+                        <th>&nbsp;</th>
+                        @endif
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (count($cs_channel_lists) > 0)
+            @foreach ($cs_channel_lists as $cs_channel_list)
+                <tr data-entry-id="{{ $cs_channel_list->id }}">
+                    <td field-key='channel_name'>{{ $cs_channel_list->channel_name }}</td>
+                                <td field-key='channel_type'>{{ $cs_channel_list->channel_type }}</td>
+                                <td field-key='sync_server'>{{ $cs_channel_list->sync_server->name or '' }}</td>
+                                @if( request('show_deleted') == 1 )
+                                <td>
+                                    {!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'POST',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.cs_channel_lists.restore', $cs_channel_list->id])) !!}
+                                    {!! Form::submit(trans('global.app_restore'), array('class' => 'btn btn-xs btn-success')) !!}
+                                    {!! Form::close() !!}
+                                                                    {!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'DELETE',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.cs_channel_lists.perma_del', $cs_channel_list->id])) !!}
+                                    {!! Form::submit(trans('global.app_permadel'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                    {!! Form::close() !!}
+                                                                </td>
+                                @else
+                                <td>
+                                    @can('cs_channel_list_view')
+                                    <a href="{{ route('admin.cs_channel_lists.show',[$cs_channel_list->id]) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
+                                    @endcan
+                                    @can('cs_channel_list_edit')
+                                    <a href="{{ route('admin.cs_channel_lists.edit',[$cs_channel_list->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
+                                    @endcan
+                                    @can('cs_channel_list_delete')
+{!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'DELETE',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.cs_channel_lists.destroy', $cs_channel_list->id])) !!}
+                                    {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                    {!! Form::close() !!}
+                                    @endcan
+                                </td>
+                                @endif
                 </tr>
             @endforeach
         @else
