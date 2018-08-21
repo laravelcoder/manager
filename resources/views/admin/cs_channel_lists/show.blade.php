@@ -20,6 +20,10 @@
                             <th>@lang('global.cs-channel-list.fields.channel-type')</th>
                             <td field-key='channel_type'>{{ $cs_channel_list->channel_type }}</td>
                         </tr>
+                        <tr>
+                            <th>@lang('global.cs-channel-list.fields.sync-server')</th>
+                            <td field-key='sync_server'>{{ $cs_channel_list->sync_server->name or '' }}</td>
+                        </tr>
                     </table>
                 </div>
             </div><!-- Nav tabs -->

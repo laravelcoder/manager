@@ -17,10 +17,6 @@
                             <td field-key='channel'>{{ $cso->channel->channel_name or '' }}</td>
                         </tr>
                         <tr>
-                            <th>@lang('global.cs-channel-list.fields.channel-type')</th>
-                            <td field-key='channel_type'>{{ isset($cso->channel) ? $cso->channel->channel_type : '' }}</td>
-                        </tr>
-                        <tr>
                             <th>@lang('global.cso.fields.ocloud-a')</th>
                             <td field-key='ocloud_a'>{{ $cso->ocloud_a }}</td>
                         </tr>
