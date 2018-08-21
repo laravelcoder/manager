@@ -32,18 +32,17 @@ class Add5b7c6e3c676efRelationshipsToCsoTable extends Migration
      */
     public function down(): void
     {
-        Schema::table('csos', function(Blueprint $table) {
-            if(Schema::hasColumn('csos', 'channel_server_id')) {
+        Schema::table('csos', function (Blueprint $table): void {
+            if (Schema::hasColumn('csos', 'channel_server_id')) {
                 $table->dropForeign('174743_5b2a97a71c2dd');
                 $table->dropIndex('174743_5b2a97a71c2dd');
                 $table->dropColumn('channel_server_id');
             }
-            if(Schema::hasColumn('csos', 'channel_id')) {
+            if (Schema::hasColumn('csos', 'channel_id')) {
                 $table->dropForeign('174743_5b734c26baf5b');
                 $table->dropIndex('174743_5b734c26baf5b');
                 $table->dropColumn('channel_id');
             }
-            
         });
     }
 }
