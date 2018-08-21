@@ -39,6 +39,7 @@
         <tr>
             <th>@lang('global.cs-channel-list.fields.channel-name')</th>
                         <th>@lang('global.cs-channel-list.fields.channel-type')</th>
+                        <th>@lang('global.cs-channel-list.fields.sync-server')</th>
                         @if( request('show_deleted') == 1 )
                         <th>&nbsp;</th>
                         @else
@@ -53,6 +54,7 @@
                 <tr data-entry-id="{{ $cs_channel_list->id }}">
                     <td field-key='channel_name'>{{ $cs_channel_list->channel_name }}</td>
                                 <td field-key='channel_type'>{{ $cs_channel_list->channel_type }}</td>
+                                <td field-key='sync_server'>{{ $cs_channel_list->sync_server->name or '' }}</td>
                                 @if( request('show_deleted') == 1 )
                                 <td>
                                     {!! Form::open(array(
@@ -93,7 +95,7 @@
             @endforeach
         @else
             <tr>
-                <td colspan="8">@lang('global.app_no_entries_in_table')</td>
+                <td colspan="9">@lang('global.app_no_entries_in_table')</td>
             </tr>
         @endif
     </tbody>

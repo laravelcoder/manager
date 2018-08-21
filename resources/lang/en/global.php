@@ -25,18 +25,18 @@ return [
         'per-channel-configurations' => [        'title' => 'Per channel configurations',        'fields' => [            'cid' => 'Caipy Channel-ID',            'active' => 'Active',            'notify-channel-id' => 'Notify channel ID',            'offset' => 'Offset',            'ad-lengths' => 'Ad lengths',            'ad-spacing' => 'Ad spacing',            'rtn' => 'Real-Time Notification',            'sync-server' => 'Sync server']],
         'report-settings' => [        'title' => 'Report settings',        'fields' => [            'millisecond-precision' => 'Millisecond precision',            'show-channel-button' => 'Show channel button',            'show-clip-button' => 'Show clip button',            'show-group-button' => 'Show group button',            'show-live-button' => 'Show live button',            'enable-evt' => 'Enable evt',            'enable-excel' => 'Enable excel',            'enable-evt-timing' => 'Enable evt timing',            'timezone' => 'Timezone',            'country' => 'Country',            'synce-server' => 'Synce server',            'filters' => 'Filters']],
         'country' => [        'title' => 'Country',        'fields' => [            'shortcode' => 'Shortcode',            'title' => 'Title']],
-        'filters' => [        'title' => 'Filters',        'fields' => [            'name' => 'Name']],
-        'cs-channel-list' => [        'title' => 'CS Channel List',        'fields' => [            'channel-server' => 'Channel server',            'channel-name' => 'Channel name',            'channel-type' => 'Channel type']],
+        'filters' => [        'title' => 'Filters',        'fields' => [            'name' => 'Name',            'sync-server' => 'Sync server']],
+        'cs-channel-list' => [        'title' => 'CS Channel List',        'fields' => [            'channel-server' => 'Channel server',            'channel-name' => 'Channel name',            'channel-type' => 'Channel type',            'sync-server' => 'Sync server']],
         'video-server-type' => [        'title' => 'Video Server Type',        'fields' => [            'server-type' => 'Server type']],
         'ss-config-defaults' => [        'title' => 'SS Config Defaults',        'fields' => [        ]],
         'config-defaults' => [        'title' => 'Config defaults',        'fields' => [        ]],
         'timezone' => [        'title' => 'Timezone',        'fields' => [            'timezone' => 'Timezone']],
-        'video-settings' => [        'title' => 'Video Settings',        'fields' => [            'server-url' => 'Server URL',            'server-redirect' => 'Server Redirect',            'hls' => 'Time-Shift']],
+        'video-settings' => [        'title' => 'Video Settings',        'fields' => [            'server-url' => 'Server URL',            'server-redirect' => 'Server Redirect',            'hls' => 'Time-Shift',            'sync-server' => 'Sync server',            'video-server-type' => 'Video server type']],
         'aggregation-server-settings' => [        'title' => 'Aggregation Server Settings',        'fields' => [        ]],
         'aggregation-server-settings' => [        'title' => ' Aggregation Server Settings',        'fields' => [        ]],
         'aggregation-server-settings' => [        'title' => 'Aggregation Servers',        'fields' => [        ]],
-        'aggregation-server' => [        'title' => 'Aggregation Server',        'fields' => [            'server-name' => 'Server name',            'server-host' => 'Server Host']],
-        'baby-sync-servers' => [        'title' => 'Baby Sync Servers',        'fields' => [            'baby-sync-server' => 'Baby Sync Server',            'parent-aggregation-server' => 'Parent Aggregation Server']],
+        'aggregation-server' => [        'title' => 'Aggregation Server',        'fields' => [            'server-name' => 'Server name',            'server-host' => 'Server Host',            'sync-server' => 'Sync server']],
+        'baby-sync-servers' => [        'title' => 'Baby Sync Servers',        'fields' => [            'baby-sync-server' => 'Baby Sync Server',            'parent-aggregation-server' => 'Parent Aggregation Server',            'sync-server' => 'Sync server']],
         'video-servers' => [        'title' => 'Video Servers',        'fields' => [        ]],
         'clipdb-settings' => [        'title' => 'Clip DB Settings',        'fields' => [            'clip-db-url' => 'Clip db url']],
     'app_create' => 'Create',
