@@ -32,8 +32,6 @@ class Add5b7c6e3c676efRelationshipsToCsoTable extends Migration
      */
     public function down(): void
     {
-    public function down()
-    {
         Schema::table('csos', function(Blueprint $table) {
             if(Schema::hasColumn('csos', 'channel_server_id')) {
                 $table->dropForeign('174743_5b2a97a71c2dd');
