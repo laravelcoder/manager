@@ -47,6 +47,18 @@
                     @endif
                 </div>
             </div>
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    {!! Form::label('sync_server_id', trans('global.video-settings.fields.sync-server').'', ['class' => 'control-label']) !!}
+                    {!! Form::select('sync_server_id', $sync_servers, old('sync_server_id'), ['class' => 'form-control select2']) !!}
+                    <p class="help-block"></p>
+                    @if($errors->has('sync_server_id'))
+                        <p class="help-block">
+                            {{ $errors->first('sync_server_id') }}
+                        </p>
+                    @endif
+                </div>
+            </div>
             
         </div>
     </div>

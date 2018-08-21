@@ -27,6 +27,7 @@ class VideoSettingsController extends Controller
 
         if (request()->ajax()) {
             $query = VideoSetting::query();
+            $query->with('sync_server');
             $template = 'actionsTemplate';
 
             $query->select([
@@ -34,6 +35,7 @@ class VideoSettingsController extends Controller
                 'video_settings.server_url',
                 'video_settings.server_redirect',
                 'video_settings.hls',
+                'video_settings.sync_server_id',
             ]);
             $table = Datatables::of($query);
 
@@ -57,6 +59,9 @@ class VideoSettingsController extends Controller
             $table->editColumn('hls', function ($row) {
                 return $row->hls ? $row->hls : '';
             });
+            $table->editColumn('sync_server.name', function ($row) {
+                return $row->sync_server ? $row->sync_server->name : '';
+            });
 
             $table->rawColumns(['actions', 'massDelete']);
 
@@ -77,7 +82,9 @@ class VideoSettingsController extends Controller
             return abort(401);
         }
 
-        return view('admin.video_settings.create');
+        $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
+
+        return view('admin.video_settings.create', compact('sync_servers'));
     }
 
     /**
@@ -107,9 +114,12 @@ class VideoSettingsController extends Controller
         if (! Gate::allows('video_setting_edit')) {
             return abort(401);
         }
+
+        $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
+
         $video_setting = VideoSetting::findOrFail($id);
 
-        return view('admin.video_settings.edit', compact('video_setting'));
+        return view('admin.video_settings.edit', compact('video_setting', 'sync_servers'));
     }
 
     /**

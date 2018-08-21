@@ -21,11 +21,13 @@ class VideoSettingTest extends DuskTestCase
                 ->type('server_url', $video_setting->server_url)
                 ->type('server_redirect', $video_setting->server_redirect)
                 ->type('hls', $video_setting->hls)
+                ->select('sync_server_id', $video_setting->sync_server_id)
                 ->press('Save')
                 ->assertRouteIs('admin.video_settings.index')
                 ->assertSeeIn("tr:last-child td[field-key='server_url']", $video_setting->server_url)
                 ->assertSeeIn("tr:last-child td[field-key='server_redirect']", $video_setting->server_redirect)
                 ->assertSeeIn("tr:last-child td[field-key='hls']", $video_setting->hls)
+                ->assertSeeIn("tr:last-child td[field-key='sync_server']", $video_setting->sync_server->name)
                 ->logout();
         });
     }
@@ -43,11 +45,13 @@ class VideoSettingTest extends DuskTestCase
                 ->type('server_url', $video_setting2->server_url)
                 ->type('server_redirect', $video_setting2->server_redirect)
                 ->type('hls', $video_setting2->hls)
+                ->select('sync_server_id', $video_setting2->sync_server_id)
                 ->press('Update')
                 ->assertRouteIs('admin.video_settings.index')
                 ->assertSeeIn("tr:last-child td[field-key='server_url']", $video_setting2->server_url)
                 ->assertSeeIn("tr:last-child td[field-key='server_redirect']", $video_setting2->server_redirect)
                 ->assertSeeIn("tr:last-child td[field-key='hls']", $video_setting2->hls)
+                ->assertSeeIn("tr:last-child td[field-key='sync_server']", $video_setting2->sync_server->name)
                 ->logout();
         });
     }
@@ -64,6 +68,7 @@ class VideoSettingTest extends DuskTestCase
                 ->assertSeeIn("td[field-key='server_url']", $video_setting->server_url)
                 ->assertSeeIn("td[field-key='server_redirect']", $video_setting->server_redirect)
                 ->assertSeeIn("td[field-key='hls']", $video_setting->hls)
+                ->assertSeeIn("td[field-key='sync_server']", $video_setting->sync_server->name)
                 ->logout();
         });
     }

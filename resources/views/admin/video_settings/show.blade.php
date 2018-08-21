@@ -24,6 +24,10 @@
                             <th>@lang('global.video-settings.fields.hls')</th>
                             <td field-key='hls'>{{ $video_setting->hls }}</td>
                         </tr>
+                        <tr>
+                            <th>@lang('global.video-settings.fields.sync-server')</th>
+                            <td field-key='sync_server'>{{ $video_setting->sync_server->name or '' }}</td>
+                        </tr>
                     </table>
                 </div>
             </div>
