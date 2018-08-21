@@ -31,9 +31,9 @@
                             @if ( request('show_deleted') != 1 )<th style="text-align:center;"><input type="checkbox" id="select-all" /></th>@endif
                         @endcan
 
-                        <th>@lang('global.cs-channel-list.fields.channel-server')</th>
                         <th>@lang('global.cs-channel-list.fields.channel-name')</th>
                         <th>@lang('global.cs-channel-list.fields.channel-type')</th>
+                        <th>@lang('global.cs-channel-list.fields.channel-server')</th>
                         <th>@lang('global.cs-channel-list.fields.sync-server')</th>
                         @if( request('show_deleted') == 1 )
                         <th>&nbsp;</th>
@@ -58,9 +58,9 @@
                 @if ( request('show_deleted') != 1 )
                     {data: 'massDelete', name: 'id', searchable: false, sortable: false},
                 @endif
-                @endcan{data: 'channel_server.name', name: 'channel_server.name'},
-                {data: 'channel_name', name: 'channel_name'},
+                @endcan{data: 'channel_name', name: 'channel_name'},
                 {data: 'channel_type', name: 'channel_type'},
+                {data: 'channel_server.name', name: 'channel_server.name'},
                 {data: 'sync_server.name', name: 'sync_server.name'},
                 
                 {data: 'actions', name: 'actions', searchable: false, sortable: false}

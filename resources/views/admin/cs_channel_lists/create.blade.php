@@ -12,18 +12,6 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    {!! Form::label('channel_server_id', trans('global.cs-channel-list.fields.channel-server').'', ['class' => 'control-label']) !!}
-                    {!! Form::select('channel_server_id', $channel_servers, old('channel_server_id'), ['class' => 'form-control select2']) !!}
-                    <p class="help-block"></p>
-                    @if($errors->has('channel_server_id'))
-                        <p class="help-block">
-                            {{ $errors->first('channel_server_id') }}
-                        </p>
-                    @endif
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 form-group">
                     {!! Form::label('channel_name', trans('global.cs-channel-list.fields.channel-name').'', ['class' => 'control-label']) !!}
                     {!! Form::text('channel_name', old('channel_name'), ['class' => 'form-control', 'placeholder' => '']) !!}
                     <p class="help-block"></p>
@@ -42,6 +30,18 @@
                     @if($errors->has('channel_type'))
                         <p class="help-block">
                             {{ $errors->first('channel_type') }}
+                        </p>
+                    @endif
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    {!! Form::label('channel_server_id', trans('global.cs-channel-list.fields.channel-server').'', ['class' => 'control-label']) !!}
+                    {!! Form::select('channel_server_id', $channel_servers, old('channel_server_id'), ['class' => 'form-control select2']) !!}
+                    <p class="help-block"></p>
+                    @if($errors->has('channel_server_id'))
+                        <p class="help-block">
+                            {{ $errors->first('channel_server_id') }}
                         </p>
                     @endif
                 </div>

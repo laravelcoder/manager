@@ -25,83 +25,15 @@
             </div><!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">
     
-<li role="presentation" class="active"><a href="#cs_channel_list" aria-controls="cs_channel_list" role="tab" data-toggle="tab">CS Channel List</a></li>
-<li role="presentation" class=""><a href="#csi" aria-controls="csi" role="tab" data-toggle="tab">Channel Server Inputs</a></li>
+<li role="presentation" class="active"><a href="#csi" aria-controls="csi" role="tab" data-toggle="tab">Channel Server Inputs</a></li>
 <li role="presentation" class=""><a href="#cso" aria-controls="cso" role="tab" data-toggle="tab">Channel Server Outputs</a></li>
+<li role="presentation" class=""><a href="#cs_channel_list" aria-controls="cs_channel_list" role="tab" data-toggle="tab">CS Channel List</a></li>
 </ul>
 
 <!-- Tab panes -->
 <div class="tab-content">
     
-<div role="tabpanel" class="tab-pane active" id="cs_channel_list">
-<table class="table table-bordered table-striped {{ count($cs_channel_lists) > 0 ? 'datatable' : '' }}">
-    <thead>
-        <tr>
-            <th>@lang('global.cs-channel-list.fields.channel-name')</th>
-                        <th>@lang('global.cs-channel-list.fields.channel-type')</th>
-                        <th>@lang('global.cs-channel-list.fields.sync-server')</th>
-                        @if( request('show_deleted') == 1 )
-                        <th>&nbsp;</th>
-                        @else
-                        <th>&nbsp;</th>
-                        @endif
-        </tr>
-    </thead>
-
-    <tbody>
-        @if (count($cs_channel_lists) > 0)
-            @foreach ($cs_channel_lists as $cs_channel_list)
-                <tr data-entry-id="{{ $cs_channel_list->id }}">
-                    <td field-key='channel_name'>{{ $cs_channel_list->channel_name }}</td>
-                                <td field-key='channel_type'>{{ $cs_channel_list->channel_type }}</td>
-                                <td field-key='sync_server'>{{ $cs_channel_list->sync_server->name or '' }}</td>
-                                @if( request('show_deleted') == 1 )
-                                <td>
-                                    {!! Form::open(array(
-                                        'style' => 'display: inline-block;',
-                                        'method' => 'POST',
-                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
-                                        'route' => ['admin.cs_channel_lists.restore', $cs_channel_list->id])) !!}
-                                    {!! Form::submit(trans('global.app_restore'), array('class' => 'btn btn-xs btn-success')) !!}
-                                    {!! Form::close() !!}
-                                                                    {!! Form::open(array(
-                                        'style' => 'display: inline-block;',
-                                        'method' => 'DELETE',
-                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
-                                        'route' => ['admin.cs_channel_lists.perma_del', $cs_channel_list->id])) !!}
-                                    {!! Form::submit(trans('global.app_permadel'), array('class' => 'btn btn-xs btn-danger')) !!}
-                                    {!! Form::close() !!}
-                                                                </td>
-                                @else
-                                <td>
-                                    @can('cs_channel_list_view')
-                                    <a href="{{ route('admin.cs_channel_lists.show',[$cs_channel_list->id]) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
-                                    @endcan
-                                    @can('cs_channel_list_edit')
-                                    <a href="{{ route('admin.cs_channel_lists.edit',[$cs_channel_list->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
-                                    @endcan
-                                    @can('cs_channel_list_delete')
-{!! Form::open(array(
-                                        'style' => 'display: inline-block;',
-                                        'method' => 'DELETE',
-                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
-                                        'route' => ['admin.cs_channel_lists.destroy', $cs_channel_list->id])) !!}
-                                    {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
-                                    {!! Form::close() !!}
-                                    @endcan
-                                </td>
-                                @endif
-                </tr>
-            @endforeach
-        @else
-            <tr>
-                <td colspan="9">@lang('global.app_no_entries_in_table')</td>
-            </tr>
-        @endif
-    </tbody>
-</table>
-</div>
-<div role="tabpanel" class="tab-pane " id="csi">
+<div role="tabpanel" class="tab-pane active" id="csi">
 <table class="table table-bordered table-striped {{ count($csis) > 0 ? 'datatable' : '' }}">
     <thead>
         <tr>
@@ -242,6 +174,74 @@
         @else
             <tr>
                 <td colspan="11">@lang('global.app_no_entries_in_table')</td>
+            </tr>
+        @endif
+    </tbody>
+</table>
+</div>
+<div role="tabpanel" class="tab-pane " id="cs_channel_list">
+<table class="table table-bordered table-striped {{ count($cs_channel_lists) > 0 ? 'datatable' : '' }}">
+    <thead>
+        <tr>
+            <th>@lang('global.cs-channel-list.fields.channel-name')</th>
+                        <th>@lang('global.cs-channel-list.fields.channel-type')</th>
+                        <th>@lang('global.cs-channel-list.fields.sync-server')</th>
+                        @if( request('show_deleted') == 1 )
+                        <th>&nbsp;</th>
+                        @else
+                        <th>&nbsp;</th>
+                        @endif
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (count($cs_channel_lists) > 0)
+            @foreach ($cs_channel_lists as $cs_channel_list)
+                <tr data-entry-id="{{ $cs_channel_list->id }}">
+                    <td field-key='channel_name'>{{ $cs_channel_list->channel_name }}</td>
+                                <td field-key='channel_type'>{{ $cs_channel_list->channel_type }}</td>
+                                <td field-key='sync_server'>{{ $cs_channel_list->sync_server->name or '' }}</td>
+                                @if( request('show_deleted') == 1 )
+                                <td>
+                                    {!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'POST',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.cs_channel_lists.restore', $cs_channel_list->id])) !!}
+                                    {!! Form::submit(trans('global.app_restore'), array('class' => 'btn btn-xs btn-success')) !!}
+                                    {!! Form::close() !!}
+                                                                    {!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'DELETE',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.cs_channel_lists.perma_del', $cs_channel_list->id])) !!}
+                                    {!! Form::submit(trans('global.app_permadel'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                    {!! Form::close() !!}
+                                                                </td>
+                                @else
+                                <td>
+                                    @can('cs_channel_list_view')
+                                    <a href="{{ route('admin.cs_channel_lists.show',[$cs_channel_list->id]) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
+                                    @endcan
+                                    @can('cs_channel_list_edit')
+                                    <a href="{{ route('admin.cs_channel_lists.edit',[$cs_channel_list->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
+                                    @endcan
+                                    @can('cs_channel_list_delete')
+{!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'DELETE',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.cs_channel_lists.destroy', $cs_channel_list->id])) !!}
+                                    {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                    {!! Form::close() !!}
+                                    @endcan
+                                </td>
+                                @endif
+                </tr>
+            @endforeach
+        @else
+            <tr>
+                <td colspan="9">@lang('global.app_no_entries_in_table')</td>
             </tr>
         @endif
     </tbody>

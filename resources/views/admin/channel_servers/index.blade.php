@@ -56,10 +56,10 @@
                 @if ( request('show_deleted') != 1 )
                     {data: 'massDelete', name: 'id', searchable: false, sortable: false},
                 @endif
-                @endcan{data: 'name', name: 'name'},
-                {data: 'cs_host', name: 'cs_host'},
-                
-                {data: 'actions', name: 'actions', searchable: false, sortable: false}
+                @endcan
+                    {data: 'name', name: 'name'},
+                    {data: 'cs_host', name: 'cs_host'},
+                    {data: 'actions', name: 'actions', searchable: false, sortable: false} 
             ];
             processAjaxTables();
         });

@@ -1,6 +1,5 @@
 @can($gateKey.'view')
-    <a href="{{ route($routeKey.'.show', $row->id) }}"
-       class="btn btn-xs btn-primary">@lang('global.app_view')</a>
+    <a href="{{ route($routeKey.'.show', $row->id) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
 @endcan
 @can($gateKey.'edit')
     <a href="{{ route($routeKey.'.edit', $row->id) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
@@ -13,4 +12,8 @@
         'route' => [$routeKey.'.destroy', $row->id])) !!}
     {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
     {!! Form::close() !!}
+
+    <a href="" class="btn btn-xs btn-info">View Config</a>
+    <a href="" class="btn btn-xs btn-info">Download Config</a>
+    <a href="" class="btn btn-xs btn-info">Post Config To Server</a>
 @endcan
