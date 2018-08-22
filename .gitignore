@@ -16,3 +16,4 @@ vendor/
 *.rar
 *.zip
 storage/debugbar
+resources/views/auth/login.blade.php
