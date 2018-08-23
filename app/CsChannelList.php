@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property   string  $channel_type
  * @property   string  $channel_server
  * @property   string  $sync_server
- */ 
+ */
 class CsChannelList extends Model
 {
     use SoftDeletes;
@@ -43,7 +43,7 @@ class CsChannelList extends Model
     }
 
     /**
-     * { function_description }
+     * { function_description }.
      *
      * @return     <type>  ( description_of_the_return_value )
      */
@@ -53,7 +53,7 @@ class CsChannelList extends Model
     }
 
     /**
-     * synce_server belongs to
+     * synce_server belongs to.
      *
      * @return     <type>  ( description_of_the_return_value )
      */
@@ -61,5 +61,4 @@ class CsChannelList extends Model
     {
         return $this->belongsTo(SyncServer::class, 'sync_server_id')->withTrashed();
     }
-
 }
