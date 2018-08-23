@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
-use DB;
 use App\Csi;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -102,11 +101,11 @@ class CsisController extends Controller
         if (! Gate::allows('csi_create')) {
             return abort(401);
         }
- 
-$channels = \App\CsChannelList::selectRaw('id, CONCAT(channel_name," | ",channel_type) as channel_name')->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
-         
+
+        $channels = \App\CsChannelList::selectRaw('id, CONCAT(channel_name," | ",channel_type) as channel_name')->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
+
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
- 
+
         $protocols = \App\Protocol::get()->pluck('protocol', 'id')->prepend(trans('global.app_please_select'), '');
 
         return view('admin.csis.create', compact('channel_servers', 'channels', 'protocols'));
