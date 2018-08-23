@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class CsChannelList.
  *
- * @property string $channel_name
- * @property string $channel_type
- * @property string $channel_server
- * @property string $sync_server
- */
+ * @property   string  $channel_name
+ * @property   string  $channel_type
+ * @property   string  $channel_server
+ * @property   string  $sync_server
+ */ 
 class CsChannelList extends Model
 {
     use SoftDeletes;
@@ -24,7 +24,9 @@ class CsChannelList extends Model
 
     /**
      * Set to null if empty.
-     * @param $input
+     *
+     * @param      <type>  $input  The input
+     * @param      $input
      */
     public function setChannelServerIdAttribute($input): void
     {
@@ -40,13 +42,24 @@ class CsChannelList extends Model
         $this->attributes['sync_server_id'] = $input ? $input : null;
     }
 
+    /**
+     * { function_description }
+     *
+     * @return     <type>  ( description_of_the_return_value )
+     */
     public function channel_server()
     {
         return $this->belongsTo(ChannelServer::class, 'channel_server_id')->withTrashed();
     }
 
+    /**
+     * synce_server belongs to
+     *
+     * @return     <type>  ( description_of_the_return_value )
+     */
     public function sync_server()
     {
         return $this->belongsTo(SyncServer::class, 'sync_server_id')->withTrashed();
     }
+
 }

@@ -17,3 +17,5 @@ vendor/
 *.zip
 storage/debugbar
 resources/views/auth/login.blade.php
+resources/views/auth/login.blade.php
+resources/views/auth/login.blade.php

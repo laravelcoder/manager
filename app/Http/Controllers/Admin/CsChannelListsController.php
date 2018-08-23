@@ -59,6 +59,7 @@ class CsChannelListsController extends Controller
             });
             $table->editColumn('channel_name', function ($row) {
                 return $row->channel_name ? $row->channel_name : '';
+                // return $row->channel_name ? $row->channel_name . " " . $row->channel_type : '';
             });
             $table->editColumn('channel_type', function ($row) {
                 return $row->channel_type ? $row->channel_type : '';

@@ -1,6 +1,5 @@
 <?php
 
-declare(strict_types=1);
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -11,10 +10,10 @@ class CreateCombined1529612584ReportSettingsTable extends Migration
      *
      * @return void
      */
-    public function up(): void
+    public function up()
     {
-        if (! Schema::hasTable('report_settings')) {
-            Schema::create('report_settings', function (Blueprint $table): void {
+        if(! Schema::hasTable('report_settings')) {
+            Schema::create('report_settings', function (Blueprint $table) {
                 $table->increments('id');
                 $table->tinyInteger('millisecond_precision')->nullable()->default('1');
                 $table->tinyInteger('show_channel_button')->nullable()->default('1');
@@ -25,7 +24,7 @@ class CreateCombined1529612584ReportSettingsTable extends Migration
                 $table->tinyInteger('enable_excel')->nullable()->default('0');
                 $table->tinyInteger('enable_evt_timing')->nullable()->default('0');
                 $table->string('timezone')->nullable();
-
+                
                 $table->timestamps();
                 $table->softDeletes();
 
@@ -39,7 +38,7 @@ class CreateCombined1529612584ReportSettingsTable extends Migration
      *
      * @return void
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('report_settings');
     }

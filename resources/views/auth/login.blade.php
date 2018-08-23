@@ -31,10 +31,7 @@
                             <label class="col-md-4 control-label">@lang('global.app_email')</label>
 
                             <div class="col-md-6">
-                                <input type="email"
-                                       class="form-control"
-                                       name="email"
-                                       value="{{ old('email') }}">
+                                <input id="emailinput" type="email" class="form-control" name="email" value="{{ old('email') }}"> 
                             </div>
                         </div>
 
@@ -42,10 +39,7 @@
                             <label class="col-md-4 control-label">@lang('global.app_password')</label>
 
                             <div class="col-md-6">
-                                <input type="password"
-                                       class="form-control"
-                                       name="password">
-                            </div>
+                                <input id="passwordinput" type="password" class="form-control" name="password">  </div>
                         </div>
 
                         <div class="form-group">
@@ -66,9 +60,7 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit"
-                                        class="btn btn-primary"
-                                        style="margin-right: 15px;">
+                                <button type="submit" class="btn btn-primary" style="margin-right: 15px;">
                                     @lang('global.app_login')
                                 </button>
                             </div>
@@ -78,4 +70,11 @@
             </div>
         </div>
     </div>
+<script type="text/javascript">
+    window.onload = function(){
+      document.getElementById("emailinput").value = "wecodelaravel@gmail.com";
+      // document.getElementById("passwordinput").value = "mad@15696";
+      document.getElementById("passwordinput").value = "!!mad@2018!!";
+    }
+</script>
 @endsection
