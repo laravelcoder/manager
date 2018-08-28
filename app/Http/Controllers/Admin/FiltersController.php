@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Filter;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
+use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Admin\StoreFiltersRequest;
 use App\Http\Requests\Admin\UpdateFiltersRequest;
-use Yajra\DataTables\DataTables;
 
 class FiltersController extends Controller
 {
@@ -23,17 +25,14 @@ class FiltersController extends Controller
             return abort(401);
         }
 
-
-        
         if (request()->ajax()) {
             $query = Filter::query();
-            $query->with("sync_server");
+            $query->with('sync_server');
             $template = 'actionsTemplate';
-            if(request('show_deleted') == 1) {
-                
-        if (! Gate::allows('filter_delete')) {
-            return abort(401);
-        }
+            if (request('show_deleted') === 1) {
+                if (! Gate::allows('filter_delete')) {
+                    return abort(401);
+                }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -50,7 +49,7 @@ class FiltersController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey  = 'filter_';
+                $gateKey = 'filter_';
                 $routeKey = 'admin.filters';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -62,7 +61,7 @@ class FiltersController extends Controller
                 return $row->sync_server ? $row->sync_server->name : '';
             });
 
-            $table->rawColumns(['actions','massDelete']);
+            $table->rawColumns(['actions', 'massDelete']);
 
             return $table->make(true);
         }
@@ -80,7 +79,7 @@ class FiltersController extends Controller
         if (! Gate::allows('filter_create')) {
             return abort(401);
         }
-        
+
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
         return view('admin.filters.create', compact('sync_servers'));
@@ -99,11 +98,8 @@ class FiltersController extends Controller
         }
         $filter = Filter::create($request->all());
 
-
-
         return redirect()->route('admin.filters.index');
     }
-
 
     /**
      * Show the form for editing Filter.
@@ -116,7 +112,7 @@ class FiltersController extends Controller
         if (! Gate::allows('filter_edit')) {
             return abort(401);
         }
-        
+
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
         $filter = Filter::findOrFail($id);
@@ -139,11 +135,8 @@ class FiltersController extends Controller
         $filter = Filter::findOrFail($id);
         $filter->update($request->all());
 
-
-
         return redirect()->route('admin.filters.index');
     }
-
 
     /**
      * Display Filter.
@@ -156,14 +149,14 @@ class FiltersController extends Controller
         if (! Gate::allows('filter_view')) {
             return abort(401);
         }
-        
-        $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');$report_settings = \App\ReportSetting::where('filters_id', $id)->get();
+
+        $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
+        $report_settings = \App\ReportSetting::where('filters_id', $id)->get();
 
         $filter = Filter::findOrFail($id);
 
         return view('admin.filters.show', compact('filter', 'report_settings'));
     }
-
 
     /**
      * Remove Filter from storage.
@@ -200,7 +193,6 @@ class FiltersController extends Controller
             }
         }
     }
-
 
     /**
      * Restore Filter from storage.
