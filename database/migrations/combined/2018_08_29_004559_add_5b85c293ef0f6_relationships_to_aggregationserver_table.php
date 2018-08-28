@@ -4,7 +4,7 @@ declare(strict_types=1);
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Add5b85bb33a4ff3RelationshipsToAggregationServerTable extends Migration
+class Add5b85c293ef0f6RelationshipsToAggregationServerTable extends Migration
 {
     /**
      * Run the migrations.

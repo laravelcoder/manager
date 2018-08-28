@@ -4,7 +4,7 @@ declare(strict_types=1);
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Add5b85bb34253e5RelationshipsToVideoSettingTable extends Migration
+class Add5b85c2946b78aRelationshipsToVideoSettingTable extends Migration
 {
     /**
      * Run the migrations.

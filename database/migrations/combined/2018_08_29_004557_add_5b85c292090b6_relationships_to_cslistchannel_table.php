@@ -4,7 +4,7 @@ declare(strict_types=1);
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Add5b85bb31c1b37RelationshipsToCsListChannelTable extends Migration
+class Add5b85c292090b6RelationshipsToCsListChannelTable extends Migration
 {
     /**
      * Run the migrations.

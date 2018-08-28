@@ -4,7 +4,7 @@ declare(strict_types=1);
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Add5b85bb321eff1RelationshipsToCsiTable extends Migration
+class Add5b85c29253fbaRelationshipsToCsiTable extends Migration
 {
     /**
      * Run the migrations.

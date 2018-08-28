@@ -4,7 +4,7 @@ declare(strict_types=1);
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Add5b85bb330be6dRelationshipsToReportSettingTable extends Migration
+class Add5b85c29376042RelationshipsToReportSettingTable extends Migration
 {
     /**
      * Run the migrations.

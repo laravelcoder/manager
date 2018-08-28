@@ -4,7 +4,7 @@ declare(strict_types=1);
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Add5b85bb33cadebRelationshipsToBabySyncServerTable extends Migration
+class Add5b85c2941829cRelationshipsToBabySyncServerTable extends Migration
 {
     /**
      * Run the migrations.
