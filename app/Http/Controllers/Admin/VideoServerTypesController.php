@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\VideoServerType;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
+use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Admin\StoreVideoServerTypesRequest;
 use App\Http\Requests\Admin\UpdateVideoServerTypesRequest;
-use Yajra\DataTables\DataTables;
 
 class VideoServerTypesController extends Controller
 {
@@ -23,16 +25,13 @@ class VideoServerTypesController extends Controller
             return abort(401);
         }
 
-
-        
         if (request()->ajax()) {
             $query = VideoServerType::query();
             $template = 'actionsTemplate';
-            if(request('show_deleted') == 1) {
-                
-        if (! Gate::allows('video_server_type_delete')) {
-            return abort(401);
-        }
+            if (request('show_deleted') === 1) {
+                if (! Gate::allows('video_server_type_delete')) {
+                    return abort(401);
+                }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -48,7 +47,7 @@ class VideoServerTypesController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey  = 'video_server_type_';
+                $gateKey = 'video_server_type_';
                 $routeKey = 'admin.video_server_types';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -57,7 +56,7 @@ class VideoServerTypesController extends Controller
                 return $row->server_type ? $row->server_type : '';
             });
 
-            $table->rawColumns(['actions','massDelete']);
+            $table->rawColumns(['actions', 'massDelete']);
 
             return $table->make(true);
         }
@@ -75,6 +74,7 @@ class VideoServerTypesController extends Controller
         if (! Gate::allows('video_server_type_create')) {
             return abort(401);
         }
+
         return view('admin.video_server_types.create');
     }
 
@@ -91,11 +91,8 @@ class VideoServerTypesController extends Controller
         }
         $video_server_type = VideoServerType::create($request->all());
 
-
-
         return redirect()->route('admin.video_server_types.index');
     }
-
 
     /**
      * Show the form for editing VideoServerType.
@@ -128,11 +125,8 @@ class VideoServerTypesController extends Controller
         $video_server_type = VideoServerType::findOrFail($id);
         $video_server_type->update($request->all());
 
-
-
         return redirect()->route('admin.video_server_types.index');
     }
-
 
     /**
      * Display VideoServerType.
@@ -151,7 +145,6 @@ class VideoServerTypesController extends Controller
 
         return view('admin.video_server_types.show', compact('video_server_type', 'video_settings'));
     }
-
 
     /**
      * Remove VideoServerType from storage.
@@ -188,7 +181,6 @@ class VideoServerTypesController extends Controller
             }
         }
     }
-
 
     /**
      * Restore VideoServerType from storage.
