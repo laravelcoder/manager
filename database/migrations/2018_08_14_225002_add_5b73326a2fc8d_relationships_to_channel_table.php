@@ -1,6 +1,5 @@
 <?php
 
-declare(strict_types=1);
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -11,13 +10,14 @@ class Add5b73326a2fc8dRelationshipsToChannelTable extends Migration
      *
      * @return void
      */
-    public function up(): void
+    public function up()
     {
-        Schema::table('channels', function (Blueprint $table): void {
-            if (! Schema::hasColumn('channels', 'channel_server_id')) {
+        Schema::table('channels', function(Blueprint $table) {
+            if (!Schema::hasColumn('channels', 'channel_server_id')) {
                 $table->integer('channel_server_id')->unsigned()->nullable();
                 $table->foreign('channel_server_id', '174144_5b7332698cf84')->references('id')->on('channel_servers')->onDelete('cascade');
-            }
+                }
+                
         });
     }
 
@@ -26,9 +26,10 @@ class Add5b73326a2fc8dRelationshipsToChannelTable extends Migration
      *
      * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::table('channels', function (Blueprint $table): void {
+        Schema::table('channels', function(Blueprint $table) {
+            
         });
     }
 }

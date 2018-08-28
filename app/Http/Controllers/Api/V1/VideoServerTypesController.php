@@ -1,13 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers\Api\V1;
 
 use App\VideoServerType;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreVideoServerTypesRequest;
 use App\Http\Requests\Admin\UpdateVideoServerTypesRequest;
+use Yajra\DataTables\DataTables;
 
 class VideoServerTypesController extends Controller
 {
@@ -25,6 +25,7 @@ class VideoServerTypesController extends Controller
     {
         $video_server_type = VideoServerType::findOrFail($id);
         $video_server_type->update($request->all());
+        
 
         return $video_server_type;
     }
@@ -32,6 +33,7 @@ class VideoServerTypesController extends Controller
     public function store(StoreVideoServerTypesRequest $request)
     {
         $video_server_type = VideoServerType::create($request->all());
+        
 
         return $video_server_type;
     }
@@ -40,7 +42,6 @@ class VideoServerTypesController extends Controller
     {
         $video_server_type = VideoServerType::findOrFail($id);
         $video_server_type->delete();
-
         return '';
     }
 }

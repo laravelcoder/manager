@@ -1,6 +1,5 @@
 <?php
 
-declare(strict_types=1);
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -11,13 +10,14 @@ class Add5b2c0cdf72ce4RelationshipsToRealtimeNotificationTable extends Migration
      *
      * @return void
      */
-    public function up(): void
+    public function up()
     {
-        Schema::table('realtime_notifications', function (Blueprint $table): void {
-            if (! Schema::hasColumn('realtime_notifications', 'sync_server_id')) {
+        Schema::table('realtime_notifications', function(Blueprint $table) {
+            if (!Schema::hasColumn('realtime_notifications', 'sync_server_id')) {
                 $table->integer('sync_server_id')->unsigned()->nullable();
                 $table->foreign('sync_server_id', '175205_5b2c0c53b229c')->references('id')->on('sync_servers')->onDelete('cascade');
-            }
+                }
+                
         });
     }
 
@@ -26,9 +26,10 @@ class Add5b2c0cdf72ce4RelationshipsToRealtimeNotificationTable extends Migration
      *
      * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::table('realtime_notifications', function (Blueprint $table): void {
+        Schema::table('realtime_notifications', function(Blueprint $table) {
+            
         });
     }
 }

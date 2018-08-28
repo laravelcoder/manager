@@ -1,13 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers\Api\V1;
 
 use App\Csi;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreCsisRequest;
 use App\Http\Requests\Admin\UpdateCsisRequest;
+use Yajra\DataTables\DataTables;
 
 class CsisController extends Controller
 {
@@ -25,6 +25,7 @@ class CsisController extends Controller
     {
         $csi = Csi::findOrFail($id);
         $csi->update($request->all());
+        
 
         return $csi;
     }
@@ -32,6 +33,7 @@ class CsisController extends Controller
     public function store(StoreCsisRequest $request)
     {
         $csi = Csi::create($request->all());
+        
 
         return $csi;
     }
@@ -40,7 +42,6 @@ class CsisController extends Controller
     {
         $csi = Csi::findOrFail($id);
         $csi->delete();
-
         return '';
     }
 }
