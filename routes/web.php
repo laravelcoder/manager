@@ -1,5 +1,9 @@
 <?php
-Route::get('/', function () { return redirect('/admin/home'); });
+
+declare(strict_types=1);
+Route::get('/', function () {
+    return redirect('/admin/home');
+});
 
 // Authentication Routes...
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -16,9 +20,9 @@ $this->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 $this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 $this->post('password/reset', 'Auth\ResetPasswordController@reset')->name('auth.password.reset');
 
-Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
+Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function (): void {
     Route::get('/home', 'HomeController@index');
-    
+
     Route::resource('cs_channel_lists', 'Admin\CsChannelListsController');
     Route::post('cs_channel_lists_mass_destroy', ['uses' => 'Admin\CsChannelListsController@massDestroy', 'as' => 'cs_channel_lists.mass_destroy']);
     Route::post('cs_channel_lists_restore/{id}', ['uses' => 'Admin\CsChannelListsController@restore', 'as' => 'cs_channel_lists.restore']);
@@ -97,8 +101,4 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('roles_mass_destroy', ['uses' => 'Admin\RolesController@massDestroy', 'as' => 'roles.mass_destroy']);
     Route::resource('users', 'Admin\UsersController');
     Route::post('users_mass_destroy', ['uses' => 'Admin\UsersController@massDestroy', 'as' => 'users.mass_destroy']);
-
-
-
- 
 });

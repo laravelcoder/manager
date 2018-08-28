@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -10,13 +11,13 @@ class CreateCombined1534537137VideoServerTypesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        if(! Schema::hasTable('video_server_types')) {
-            Schema::create('video_server_types', function (Blueprint $table) {
+        if (! Schema::hasTable('video_server_types')) {
+            Schema::create('video_server_types', function (Blueprint $table): void {
                 $table->increments('id');
                 $table->string('server_type')->nullable();
-                
+
                 $table->timestamps();
                 $table->softDeletes();
 
@@ -30,7 +31,7 @@ class CreateCombined1534537137VideoServerTypesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('video_server_types');
     }

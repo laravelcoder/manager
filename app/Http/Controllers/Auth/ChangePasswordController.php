@@ -1,16 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use Hash;
 use Validator;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ChangePasswordController extends Controller
 {
-
     /**
      * Create a new controller instance.
      */
@@ -22,12 +23,12 @@ class ChangePasswordController extends Controller
     /**
      * Where to redirect users after password is changed.
      *
-     * @var string $redirectTo
+     * @var string
      */
     protected $redirectTo = '/change_password';
 
     /**
-     * Change password form
+     * Change password form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -51,6 +52,7 @@ class ChangePasswordController extends Controller
         if (Hash::check($request->get('current_password'), $user->password)) {
             $user->password = $request->get('new_password');
             $user->save();
+
             return redirect($this->redirectTo)->with('success', 'Password change successfully!');
         } else {
             return redirect()->back()->withErrors('Current password is incorrect');

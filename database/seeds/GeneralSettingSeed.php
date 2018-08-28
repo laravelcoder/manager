@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 use Illuminate\Database\Seeder;
 
 class GeneralSettingSeed extends Seeder
@@ -9,11 +10,11 @@ class GeneralSettingSeed extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $items = [
-            
-            ['id' => 1, 'transcoding_server' => 'd-gp2-tocai-1.imovetv.com', 'sync_server_id' => 1,],
+
+            ['id' => 1, 'transcoding_server' => 'd-gp2-tocai-1.imovetv.com', 'sync_server_id' => 1],
 
         ];
 

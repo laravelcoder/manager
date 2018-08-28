@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -10,15 +11,14 @@ class Create5b2aa422beb6dCsoProtocolTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        if(! Schema::hasTable('cso_protocol')) {
-            Schema::create('cso_protocol', function (Blueprint $table) {
+        if (! Schema::hasTable('cso_protocol')) {
+            Schema::create('cso_protocol', function (Blueprint $table): void {
                 $table->integer('cso_id')->unsigned()->nullable();
                 $table->foreign('cso_id', 'fk_p_174743_174143_protoc_5b2aa422becf0')->references('id')->on('csos')->onDelete('cascade');
                 $table->integer('protocol_id')->unsigned()->nullable();
                 $table->foreign('protocol_id', 'fk_p_174143_174743_cso_pr_5b2aa422bedc9')->references('id')->on('protocols')->onDelete('cascade');
-                
             });
         }
     }
@@ -28,7 +28,7 @@ class Create5b2aa422beb6dCsoProtocolTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('cso_protocol');
     }
