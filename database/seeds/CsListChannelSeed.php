@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 use Illuminate\Database\Seeder;
 
 class CsListChannelSeed extends Seeder
@@ -9,11 +10,9 @@ class CsListChannelSeed extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $items = [
-            
-
 
         ];
 
