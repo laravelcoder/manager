@@ -1,13 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers\Api\V1;
 
 use App\User;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreUsersRequest;
 use App\Http\Requests\Admin\UpdateUsersRequest;
+use Yajra\DataTables\DataTables;
 
 class UsersController extends Controller
 {
@@ -25,6 +25,7 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $user->update($request->all());
+        
 
         return $user;
     }
@@ -32,6 +33,7 @@ class UsersController extends Controller
     public function store(StoreUsersRequest $request)
     {
         $user = User::create($request->all());
+        
 
         return $user;
     }
@@ -40,7 +42,6 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-
         return '';
     }
 }

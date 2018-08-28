@@ -1,6 +1,5 @@
 <?php
 
-declare(strict_types=1);
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -11,16 +10,18 @@ class Update1535480073CsChannelListsTable extends Migration
      *
      * @return void
      */
-    public function up(): void
+    public function up()
     {
-        Schema::table('cs_channel_lists', function (Blueprint $table): void {
-            if (Schema::hasColumn('cs_channel_lists', 'channel_name')) {
+        Schema::table('cs_channel_lists', function (Blueprint $table) {
+            if(Schema::hasColumn('cs_channel_lists', 'channel_name')) {
                 $table->dropColumn('channel_name');
             }
-            if (Schema::hasColumn('cs_channel_lists', 'channel_type')) {
+            if(Schema::hasColumn('cs_channel_lists', 'channel_type')) {
                 $table->dropColumn('channel_type');
             }
+            
         });
+
     }
 
     /**
@@ -28,11 +29,13 @@ class Update1535480073CsChannelListsTable extends Migration
      *
      * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::table('cs_channel_lists', function (Blueprint $table): void {
-            $table->string('channel_name')->nullable();
-            $table->string('channel_type')->nullable();
+        Schema::table('cs_channel_lists', function (Blueprint $table) {
+                        $table->string('channel_name')->nullable();
+                $table->string('channel_type')->nullable();
+                
         });
+
     }
 }

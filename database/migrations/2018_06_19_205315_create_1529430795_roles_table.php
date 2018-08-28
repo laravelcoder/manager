@@ -1,6 +1,5 @@
 <?php
 
-declare(strict_types=1);
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -11,14 +10,15 @@ class Create1529430795RolesTable extends Migration
      *
      * @return void
      */
-    public function up(): void
+    public function up()
     {
-        if (! Schema::hasTable('roles')) {
-            Schema::create('roles', function (Blueprint $table): void {
+        if(! Schema::hasTable('roles')) {
+            Schema::create('roles', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('title');
-
+                
                 $table->timestamps();
+                
             });
         }
     }
@@ -28,7 +28,7 @@ class Create1529430795RolesTable extends Migration
      *
      * @return void
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('roles');
     }

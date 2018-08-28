@@ -1,6 +1,5 @@
 <?php
 
-declare(strict_types=1);
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -11,7 +10,7 @@ class Drop5b859debc1171CsChannelListsTable extends Migration
      *
      * @return void
      */
-    public function up(): void
+    public function up()
     {
         Schema::dropIfExists('cs_channel_lists');
     }
@@ -21,17 +20,17 @@ class Drop5b859debc1171CsChannelListsTable extends Migration
      *
      * @return void
      */
-    public function down(): void
+    public function down()
     {
-        if (! Schema::hasTable('cs_channel_lists')) {
-            Schema::create('cs_channel_lists', function (Blueprint $table): void {
+        if(! Schema::hasTable('cs_channel_lists')) {
+            Schema::create('cs_channel_lists', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('name')->nullable();
-
+                
                 $table->timestamps();
                 $table->softDeletes();
 
-                $table->index(['deleted_at']);
+            $table->index(['deleted_at']);
             });
         }
     }

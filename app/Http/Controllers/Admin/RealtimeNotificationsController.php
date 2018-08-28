@@ -1,16 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\RealtimeNotification;
-use Yajra\DataTables\DataTables;
-use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreRealtimeNotificationsRequest;
 use App\Http\Requests\Admin\UpdateRealtimeNotificationsRequest;
+use Yajra\DataTables\DataTables;
 
 class RealtimeNotificationsController extends Controller
 {
@@ -25,14 +23,17 @@ class RealtimeNotificationsController extends Controller
             return abort(401);
         }
 
+
+        
         if (request()->ajax()) {
             $query = RealtimeNotification::query();
-            $query->with('sync_server');
+            $query->with("sync_server");
             $template = 'actionsTemplate';
-            if (request('show_deleted') === 1) {
-                if (! Gate::allows('realtime_notification_delete')) {
-                    return abort(401);
-                }
+            if(request('show_deleted') == 1) {
+                
+        if (! Gate::allows('realtime_notification_delete')) {
+            return abort(401);
+        }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -50,7 +51,7 @@ class RealtimeNotificationsController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey = 'realtime_notification_';
+                $gateKey  = 'realtime_notification_';
                 $routeKey = 'admin.realtime_notifications';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -65,7 +66,7 @@ class RealtimeNotificationsController extends Controller
                 return $row->sync_server ? $row->sync_server->name : '';
             });
 
-            $table->rawColumns(['actions', 'massDelete']);
+            $table->rawColumns(['actions','massDelete']);
 
             return $table->make(true);
         }
@@ -83,10 +84,10 @@ class RealtimeNotificationsController extends Controller
         if (! Gate::allows('realtime_notification_create')) {
             return abort(401);
         }
-
+        
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
         $enum_server_type = RealtimeNotification::$enum_server_type;
-
+            
         return view('admin.realtime_notifications.create', compact('enum_server_type', 'sync_servers'));
     }
 
@@ -103,8 +104,11 @@ class RealtimeNotificationsController extends Controller
         }
         $realtime_notification = RealtimeNotification::create($request->all());
 
+
+
         return redirect()->route('admin.realtime_notifications.index');
     }
+
 
     /**
      * Show the form for editing RealtimeNotification.
@@ -117,10 +121,10 @@ class RealtimeNotificationsController extends Controller
         if (! Gate::allows('realtime_notification_edit')) {
             return abort(401);
         }
-
+        
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
         $enum_server_type = RealtimeNotification::$enum_server_type;
-
+            
         $realtime_notification = RealtimeNotification::findOrFail($id);
 
         return view('admin.realtime_notifications.edit', compact('realtime_notification', 'enum_server_type', 'sync_servers'));
@@ -141,8 +145,11 @@ class RealtimeNotificationsController extends Controller
         $realtime_notification = RealtimeNotification::findOrFail($id);
         $realtime_notification->update($request->all());
 
+
+
         return redirect()->route('admin.realtime_notifications.index');
     }
+
 
     /**
      * Display RealtimeNotification.
@@ -159,6 +166,7 @@ class RealtimeNotificationsController extends Controller
 
         return view('admin.realtime_notifications.show', compact('realtime_notification'));
     }
+
 
     /**
      * Remove RealtimeNotification from storage.
@@ -195,6 +203,7 @@ class RealtimeNotificationsController extends Controller
             }
         }
     }
+
 
     /**
      * Restore RealtimeNotification from storage.
