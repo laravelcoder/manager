@@ -14,11 +14,7 @@ class CsListChannelSeed extends Seeder
     {
         $items = [
 
-            ['id' => 1, 'name' => 'RGTI', 'channel_id' => 1, 'channelserver_id' => 1],
-            ['id' => 2, 'name' => null, 'channel_id' => 2, 'channelserver_id' => 1],
-            ['id' => 3, 'name' => null, 'channel_id' => 3, 'channelserver_id' => 1],
-            ['id' => 4, 'name' => null, 'channel_id' => 4, 'channelserver_id' => 1],
-            ['id' => 5, 'name' => null, 'channel_id' => 5, 'channelserver_id' => 1],
+            
 
         ];
 

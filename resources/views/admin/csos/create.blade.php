@@ -24,6 +24,18 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group">
+                    {!! Form::label('channel_id', trans('global.cso.fields.channel').'', ['class' => 'control-label']) !!}
+                    {!! Form::select('channel_id', $channels, old('channel_id'), ['class' => 'form-control select2']) !!}
+                    <p class="help-block"></p>
+                    @if($errors->has('channel_id'))
+                        <p class="help-block">
+                            {{ $errors->first('channel_id') }}
+                        </p>
+                    @endif
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 form-group">
                     {!! Form::label('ocloud_a', trans('global.cso.fields.ocloud-a').'', ['class' => 'control-label']) !!}
                     {!! Form::text('ocloud_a', old('ocloud_a'), ['class' => 'form-control', 'placeholder' => '']) !!}
                     <p class="help-block"></p>
@@ -66,18 +78,6 @@
                     @if($errors->has('ocp_b'))
                         <p class="help-block">
                             {{ $errors->first('ocp_b') }}
-                        </p>
-                    @endif
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 form-group">
-                    {!! Form::label('channel_id', trans('global.cso.fields.channel').'', ['class' => 'control-label']) !!}
-                    {!! Form::select('channel_id', $channels, old('channel_id'), ['class' => 'form-control select2']) !!}
-                    <p class="help-block"></p>
-                    @if($errors->has('channel_id'))
-                        <p class="help-block">
-                            {{ $errors->first('channel_id') }}
                         </p>
                     @endif
                 </div>
