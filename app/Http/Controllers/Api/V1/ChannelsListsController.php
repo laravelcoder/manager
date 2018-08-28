@@ -1,13 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api\V1;
 
 use App\ChannelsList;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreChannelsListsRequest;
 use App\Http\Requests\Admin\UpdateChannelsListsRequest;
-use Yajra\DataTables\DataTables;
 
 class ChannelsListsController extends Controller
 {
@@ -25,14 +25,14 @@ class ChannelsListsController extends Controller
     {
         $channels_list = ChannelsList::findOrFail($id);
         $channels_list->update($request->all());
-        
-        $csListChannels           = $channels_list->cs_list_channels;
+
+        $csListChannels = $channels_list->cs_list_channels;
         $currentCsListChannelData = [];
         foreach ($request->input('cs_list_channels', []) as $index => $data) {
-            if (is_integer($index)) {
+            if (is_int($index)) {
                 $channels_list->cs_list_channels()->create($data);
             } else {
-                $id                          = explode('-', $index)[1];
+                $id = explode('-', $index)[1];
                 $currentCsListChannelData[$id] = $data;
             }
         }
@@ -50,7 +50,7 @@ class ChannelsListsController extends Controller
     public function store(StoreChannelsListsRequest $request)
     {
         $channels_list = ChannelsList::create($request->all());
-        
+
         foreach ($request->input('cs_list_channels', []) as $data) {
             $channels_list->cs_list_channels()->create($data);
         }
@@ -62,6 +62,7 @@ class ChannelsListsController extends Controller
     {
         $channels_list = ChannelsList::findOrFail($id);
         $channels_list->delete();
+
         return '';
     }
 }
