@@ -20,10 +20,12 @@ class BabySyncServerTest extends DuskTestCase
                 ->clickLink('Add new')
                 ->type('baby_sync_server', $baby_sync_server->baby_sync_server)
                 ->select('parent_aggregation_server_id', $baby_sync_server->parent_aggregation_server_id)
+                ->select('sync_server_id', $baby_sync_server->sync_server_id)
                 ->press('Save')
                 ->assertRouteIs('admin.baby_sync_servers.index')
                 ->assertSeeIn("tr:last-child td[field-key='baby_sync_server']", $baby_sync_server->baby_sync_server)
                 ->assertSeeIn("tr:last-child td[field-key='parent_aggregation_server']", $baby_sync_server->parent_aggregation_server->server_name)
+                ->assertSeeIn("tr:last-child td[field-key='sync_server']", $baby_sync_server->sync_server->name)
                 ->logout();
         });
     }
@@ -40,10 +42,12 @@ class BabySyncServerTest extends DuskTestCase
                 ->click('tr[data-entry-id="'.$baby_sync_server->id.'"] .btn-info')
                 ->type('baby_sync_server', $baby_sync_server2->baby_sync_server)
                 ->select('parent_aggregation_server_id', $baby_sync_server2->parent_aggregation_server_id)
+                ->select('sync_server_id', $baby_sync_server2->sync_server_id)
                 ->press('Update')
                 ->assertRouteIs('admin.baby_sync_servers.index')
                 ->assertSeeIn("tr:last-child td[field-key='baby_sync_server']", $baby_sync_server2->baby_sync_server)
                 ->assertSeeIn("tr:last-child td[field-key='parent_aggregation_server']", $baby_sync_server2->parent_aggregation_server->server_name)
+                ->assertSeeIn("tr:last-child td[field-key='sync_server']", $baby_sync_server2->sync_server->name)
                 ->logout();
         });
     }
@@ -59,6 +63,7 @@ class BabySyncServerTest extends DuskTestCase
                 ->click('tr[data-entry-id="'.$baby_sync_server->id.'"] .btn-primary')
                 ->assertSeeIn("td[field-key='baby_sync_server']", $baby_sync_server->baby_sync_server)
                 ->assertSeeIn("td[field-key='parent_aggregation_server']", $baby_sync_server->parent_aggregation_server->server_name)
+                ->assertSeeIn("td[field-key='sync_server']", $baby_sync_server->sync_server->name)
                 ->logout();
         });
     }

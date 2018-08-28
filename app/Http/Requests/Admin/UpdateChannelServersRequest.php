@@ -27,6 +27,7 @@ class UpdateChannelServersRequest extends FormRequest
     {
         return [
 
+            'channel.*' => 'exists:channels_lists,id',
         ];
     }
 }

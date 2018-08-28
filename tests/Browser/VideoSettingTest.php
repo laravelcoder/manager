@@ -22,12 +22,14 @@ class VideoSettingTest extends DuskTestCase
                 ->type('server_redirect', $video_setting->server_redirect)
                 ->type('hls', $video_setting->hls)
                 ->select('sync_server_id', $video_setting->sync_server_id)
+                ->select('video_server_type_id', $video_setting->video_server_type_id)
                 ->press('Save')
                 ->assertRouteIs('admin.video_settings.index')
                 ->assertSeeIn("tr:last-child td[field-key='server_url']", $video_setting->server_url)
                 ->assertSeeIn("tr:last-child td[field-key='server_redirect']", $video_setting->server_redirect)
                 ->assertSeeIn("tr:last-child td[field-key='hls']", $video_setting->hls)
                 ->assertSeeIn("tr:last-child td[field-key='sync_server']", $video_setting->sync_server->name)
+                ->assertSeeIn("tr:last-child td[field-key='video_server_type']", $video_setting->video_server_type->server_type)
                 ->logout();
         });
     }
@@ -46,12 +48,14 @@ class VideoSettingTest extends DuskTestCase
                 ->type('server_redirect', $video_setting2->server_redirect)
                 ->type('hls', $video_setting2->hls)
                 ->select('sync_server_id', $video_setting2->sync_server_id)
+                ->select('video_server_type_id', $video_setting2->video_server_type_id)
                 ->press('Update')
                 ->assertRouteIs('admin.video_settings.index')
                 ->assertSeeIn("tr:last-child td[field-key='server_url']", $video_setting2->server_url)
                 ->assertSeeIn("tr:last-child td[field-key='server_redirect']", $video_setting2->server_redirect)
                 ->assertSeeIn("tr:last-child td[field-key='hls']", $video_setting2->hls)
                 ->assertSeeIn("tr:last-child td[field-key='sync_server']", $video_setting2->sync_server->name)
+                ->assertSeeIn("tr:last-child td[field-key='video_server_type']", $video_setting2->video_server_type->server_type)
                 ->logout();
         });
     }
@@ -69,6 +73,7 @@ class VideoSettingTest extends DuskTestCase
                 ->assertSeeIn("td[field-key='server_redirect']", $video_setting->server_redirect)
                 ->assertSeeIn("td[field-key='hls']", $video_setting->hls)
                 ->assertSeeIn("td[field-key='sync_server']", $video_setting->sync_server->name)
+                ->assertSeeIn("td[field-key='video_server_type']", $video_setting->video_server_type->server_type)
                 ->logout();
         });
     }

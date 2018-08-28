@@ -33,6 +33,7 @@
 
                         <th>@lang('global.baby-sync-servers.fields.baby-sync-server')</th>
                         <th>@lang('global.baby-sync-servers.fields.parent-aggregation-server')</th>
+                        <th>@lang('global.baby-sync-servers.fields.sync-server')</th>
                         @if( request('show_deleted') == 1 )
                         <th>&nbsp;</th>
                         @else
@@ -58,6 +59,7 @@
                 @endif
                 @endcan{data: 'baby_sync_server', name: 'baby_sync_server'},
                 {data: 'parent_aggregation_server.server_name', name: 'parent_aggregation_server.server_name'},
+                {data: 'sync_server.name', name: 'sync_server.name'},
                 
                 {data: 'actions', name: 'actions', searchable: false, sortable: false}
             ];

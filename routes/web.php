@@ -1,40 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
-Route::group(['middleware' => ['auth']], function (): void {
-    Route::get('/r', function () {
-        function philsroutes(): void
-        {
-            $routeCollection = Route::getRoutes();
-            echo '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">';
-            echo "<div class='container'><div class='col-md-12'><table class='table table-striped' style='width:100%'>";
-            echo '<tr>';
-            //  echo '<td><h4>Domain</h4></td>';
-            echo "<td width='10%'><h4>HTTP Method</h4></td>";
-            echo "<td width='30%'><h4>URL</h4></td>";
-            echo "<td width='30%'><h4>Route</h4></td>";
-            echo "<td width='30%'><h4>Corresponding Action</h4></td>";
-            echo '</tr>';
-
-            foreach ($routeCollection as $value) {
-                echo '<tr>';
-                //    echo '<td>lcadashboard.com</td>';
-                echo '<td>'.$value->methods()[0].'</td>';
-                echo "<td><a href='".$value->uri()."' target='_blank'>".$value->uri().'</a> </td>';
-                echo '<td>'.$value->getName().'</td>';
-                echo '<td>'.$value->getActionName().'</td>';
-                echo '</tr>';
-            }
-
-            echo '</table></div></div>';
-            echo '<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>';
-        }
-
-        return philsroutes();
-    })->name('assigned-routes');
-});
-
 Route::get('/', function () {
     return redirect('/admin/home');
 });
@@ -61,10 +27,10 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('channel_servers_mass_destroy', ['uses' => 'Admin\ChannelServersController@massDestroy', 'as' => 'channel_servers.mass_destroy']);
     Route::post('channel_servers_restore/{id}', ['uses' => 'Admin\ChannelServersController@restore', 'as' => 'channel_servers.restore']);
     Route::delete('channel_servers_perma_del/{id}', ['uses' => 'Admin\ChannelServersController@perma_del', 'as' => 'channel_servers.perma_del']);
-    Route::resource('cs_channel_lists', 'Admin\CsChannelListsController');
-    Route::post('cs_channel_lists_mass_destroy', ['uses' => 'Admin\CsChannelListsController@massDestroy', 'as' => 'cs_channel_lists.mass_destroy']);
-    Route::post('cs_channel_lists_restore/{id}', ['uses' => 'Admin\CsChannelListsController@restore', 'as' => 'cs_channel_lists.restore']);
-    Route::delete('cs_channel_lists_perma_del/{id}', ['uses' => 'Admin\CsChannelListsController@perma_del', 'as' => 'cs_channel_lists.perma_del']);
+    Route::resource('cs_list_channels', 'Admin\CsListChannelsController');
+    Route::post('cs_list_channels_mass_destroy', ['uses' => 'Admin\CsListChannelsController@massDestroy', 'as' => 'cs_list_channels.mass_destroy']);
+    Route::post('cs_list_channels_restore/{id}', ['uses' => 'Admin\CsListChannelsController@restore', 'as' => 'cs_list_channels.restore']);
+    Route::delete('cs_list_channels_perma_del/{id}', ['uses' => 'Admin\CsListChannelsController@perma_del', 'as' => 'cs_list_channels.perma_del']);
     Route::resource('csis', 'Admin\CsisController');
     Route::post('csis_mass_destroy', ['uses' => 'Admin\CsisController@massDestroy', 'as' => 'csis.mass_destroy']);
     Route::post('csis_restore/{id}', ['uses' => 'Admin\CsisController@restore', 'as' => 'csis.restore']);
@@ -93,10 +59,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('realtime_notifications_mass_destroy', ['uses' => 'Admin\RealtimeNotificationsController@massDestroy', 'as' => 'realtime_notifications.mass_destroy']);
     Route::post('realtime_notifications_restore/{id}', ['uses' => 'Admin\RealtimeNotificationsController@restore', 'as' => 'realtime_notifications.restore']);
     Route::delete('realtime_notifications_perma_del/{id}', ['uses' => 'Admin\RealtimeNotificationsController@perma_del', 'as' => 'realtime_notifications.perma_del']);
-    Route::resource('per_channel_configurations', 'Admin\PerChannelConfigurationsController');
-    Route::post('per_channel_configurations_mass_destroy', ['uses' => 'Admin\PerChannelConfigurationsController@massDestroy', 'as' => 'per_channel_configurations.mass_destroy']);
-    Route::post('per_channel_configurations_restore/{id}', ['uses' => 'Admin\PerChannelConfigurationsController@restore', 'as' => 'per_channel_configurations.restore']);
-    Route::delete('per_channel_configurations_perma_del/{id}', ['uses' => 'Admin\PerChannelConfigurationsController@perma_del', 'as' => 'per_channel_configurations.perma_del']);
     Route::resource('report_settings', 'Admin\ReportSettingsController');
     Route::post('report_settings_mass_destroy', ['uses' => 'Admin\ReportSettingsController@massDestroy', 'as' => 'report_settings.mass_destroy']);
     Route::post('report_settings_restore/{id}', ['uses' => 'Admin\ReportSettingsController@restore', 'as' => 'report_settings.restore']);
@@ -139,4 +101,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('roles_mass_destroy', ['uses' => 'Admin\RolesController@massDestroy', 'as' => 'roles.mass_destroy']);
     Route::resource('users', 'Admin\UsersController');
     Route::post('users_mass_destroy', ['uses' => 'Admin\UsersController@massDestroy', 'as' => 'users.mass_destroy']);
+    Route::resource('channels_lists', 'Admin\ChannelsListsController');
+    Route::post('channels_lists_mass_destroy', ['uses' => 'Admin\ChannelsListsController@massDestroy', 'as' => 'channels_lists.mass_destroy']);
+    Route::post('channels_lists_restore/{id}', ['uses' => 'Admin\ChannelsListsController@restore', 'as' => 'channels_lists.restore']);
+    Route::delete('channels_lists_perma_del/{id}', ['uses' => 'Admin\ChannelsListsController@perma_del', 'as' => 'channels_lists.perma_del']);
 });

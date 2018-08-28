@@ -139,9 +139,11 @@ class VideoServerTypesController extends Controller
         if (! Gate::allows('video_server_type_view')) {
             return abort(401);
         }
+        $video_settings = \App\VideoSetting::where('video_server_type_id', $id)->get();
+
         $video_server_type = VideoServerType::findOrFail($id);
 
-        return view('admin.video_server_types.show', compact('video_server_type'));
+        return view('admin.video_server_types.show', compact('video_server_type', 'video_settings'));
     }
 
     /**

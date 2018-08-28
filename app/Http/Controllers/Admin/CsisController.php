@@ -28,7 +28,6 @@ class CsisController extends Controller
         if (request()->ajax()) {
             $query = Csi::query();
             $query->with('channel_server');
-            $query->with('channel');
             $query->with('protocol');
             $template = 'actionsTemplate';
             if (request('show_deleted') === 1) {
@@ -41,8 +40,8 @@ class CsisController extends Controller
             $query->select([
                 'csis.id',
                 'csis.channel_server_id',
-                'csis.channel_id',
                 'csis.protocol_id',
+                'csis.url',
                 'csis.ssm',
                 'csis.imc',
                 'csis.ip',
@@ -64,11 +63,11 @@ class CsisController extends Controller
             $table->editColumn('channel_server.name', function ($row) {
                 return $row->channel_server ? $row->channel_server->name : '';
             });
-            $table->editColumn('channel.channel_name', function ($row) {
-                return $row->channel ? $row->channel->channel_name : '';
-            });
             $table->editColumn('protocol.protocol', function ($row) {
                 return $row->protocol ? $row->protocol->protocol : '';
+            });
+            $table->editColumn('url', function ($row) {
+                return $row->url ? $row->url : '';
             });
             $table->editColumn('ssm', function ($row) {
                 return $row->ssm ? $row->ssm : '';
@@ -103,10 +102,9 @@ class CsisController extends Controller
         }
 
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
-        $channels = \App\CsChannelList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
         $protocols = \App\Protocol::get()->pluck('protocol', 'id')->prepend(trans('global.app_please_select'), '');
 
-        return view('admin.csis.create', compact('channel_servers', 'channels', 'protocols'));
+        return view('admin.csis.create', compact('channel_servers', 'protocols'));
     }
 
     /**
@@ -138,12 +136,11 @@ class CsisController extends Controller
         }
 
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
-        $channels = \App\CsChannelList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
         $protocols = \App\Protocol::get()->pluck('protocol', 'id')->prepend(trans('global.app_please_select'), '');
 
         $csi = Csi::findOrFail($id);
 
-        return view('admin.csis.edit', compact('csi', 'channel_servers', 'channels', 'protocols'));
+        return view('admin.csis.edit', compact('csi', 'channel_servers', 'protocols'));
     }
 
     /**

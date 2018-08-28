@@ -42,7 +42,7 @@ trait FileUploadTrait
                         $image->resize($request->{$key.'_max_width'}, null, function ($constraint): void {
                             $constraint->aspectRatio();
                         });
-                    } elseif ($height > $request->{$key.'_max_width'}) {
+                    } elseif ($height > $request->{$key.'_max_height'}) {
                         $image->resize(null, $request->{$key.'_max_height'}, function ($constraint): void {
                             $constraint->aspectRatio();
                         });

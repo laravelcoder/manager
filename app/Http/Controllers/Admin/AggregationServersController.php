@@ -27,6 +27,7 @@ class AggregationServersController extends Controller
 
         if (request()->ajax()) {
             $query = AggregationServer::query();
+            $query->with('sync_server');
             $template = 'actionsTemplate';
             if (request('show_deleted') === 1) {
                 if (! Gate::allows('aggregation_server_delete')) {
@@ -39,6 +40,7 @@ class AggregationServersController extends Controller
                 'aggregation_servers.id',
                 'aggregation_servers.server_name',
                 'aggregation_servers.server_host',
+                'aggregation_servers.sync_server_id',
             ]);
             $table = Datatables::of($query);
 
@@ -58,6 +60,9 @@ class AggregationServersController extends Controller
             });
             $table->editColumn('server_host', function ($row) {
                 return $row->server_host ? $row->server_host : '';
+            });
+            $table->editColumn('sync_server.name', function ($row) {
+                return $row->sync_server ? $row->sync_server->name : '';
             });
 
             $table->rawColumns(['actions', 'massDelete']);
@@ -79,7 +84,9 @@ class AggregationServersController extends Controller
             return abort(401);
         }
 
-        return view('admin.aggregation_servers.create');
+        $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
+
+        return view('admin.aggregation_servers.create', compact('sync_servers'));
     }
 
     /**
@@ -113,9 +120,12 @@ class AggregationServersController extends Controller
         if (! Gate::allows('aggregation_server_edit')) {
             return abort(401);
         }
+
+        $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
+
         $aggregation_server = AggregationServer::findOrFail($id);
 
-        return view('admin.aggregation_servers.edit', compact('aggregation_server'));
+        return view('admin.aggregation_servers.edit', compact('aggregation_server', 'sync_servers'));
     }
 
     /**
@@ -165,6 +175,8 @@ class AggregationServersController extends Controller
         if (! Gate::allows('aggregation_server_view')) {
             return abort(401);
         }
+
+        $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
         $baby_sync_servers = \App\BabySyncServer::where('parent_aggregation_server_id', $id)->get();
 
         $aggregation_server = AggregationServer::findOrFail($id);

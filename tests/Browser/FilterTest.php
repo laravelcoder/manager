@@ -19,9 +19,11 @@ class FilterTest extends DuskTestCase
                 ->visit(route('admin.filters.index'))
                 ->clickLink('Add new')
                 ->type('name', $filter->name)
+                ->select('sync_server_id', $filter->sync_server_id)
                 ->press('Save')
                 ->assertRouteIs('admin.filters.index')
                 ->assertSeeIn("tr:last-child td[field-key='name']", $filter->name)
+                ->assertSeeIn("tr:last-child td[field-key='sync_server']", $filter->sync_server->name)
                 ->logout();
         });
     }
@@ -37,9 +39,11 @@ class FilterTest extends DuskTestCase
                 ->visit(route('admin.filters.index'))
                 ->click('tr[data-entry-id="'.$filter->id.'"] .btn-info')
                 ->type('name', $filter2->name)
+                ->select('sync_server_id', $filter2->sync_server_id)
                 ->press('Update')
                 ->assertRouteIs('admin.filters.index')
                 ->assertSeeIn("tr:last-child td[field-key='name']", $filter2->name)
+                ->assertSeeIn("tr:last-child td[field-key='sync_server']", $filter2->sync_server->name)
                 ->logout();
         });
     }
@@ -54,6 +58,7 @@ class FilterTest extends DuskTestCase
                 ->visit(route('admin.filters.index'))
                 ->click('tr[data-entry-id="'.$filter->id.'"] .btn-primary')
                 ->assertSeeIn("td[field-key='name']", $filter->name)
+                ->assertSeeIn("td[field-key='sync_server']", $filter->sync_server->name)
                 ->logout();
         });
     }

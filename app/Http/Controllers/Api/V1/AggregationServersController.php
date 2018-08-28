@@ -26,12 +26,34 @@ class AggregationServersController extends Controller
         $aggregation_server = AggregationServer::findOrFail($id);
         $aggregation_server->update($request->all());
 
+        $babySyncServers = $aggregation_server->baby_sync_servers;
+        $currentBabySyncServerData = [];
+        foreach ($request->input('baby_sync_servers', []) as $index => $data) {
+            if (is_int($index)) {
+                $aggregation_server->baby_sync_servers()->create($data);
+            } else {
+                $id = explode('-', $index)[1];
+                $currentBabySyncServerData[$id] = $data;
+            }
+        }
+        foreach ($babySyncServers as $item) {
+            if (isset($currentBabySyncServerData[$item->id])) {
+                $item->update($currentBabySyncServerData[$item->id]);
+            } else {
+                $item->delete();
+            }
+        }
+
         return $aggregation_server;
     }
 
     public function store(StoreAggregationServersRequest $request)
     {
         $aggregation_server = AggregationServer::create($request->all());
+
+        foreach ($request->input('baby_sync_servers', []) as $data) {
+            $aggregation_server->baby_sync_servers()->create($data);
+        }
 
         return $aggregation_server;
     }

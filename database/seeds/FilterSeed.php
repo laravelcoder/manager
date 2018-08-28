@@ -14,14 +14,14 @@ class FilterSeed extends Seeder
     {
         $items = [
 
-            ['id' => 2, 'name' => 'RAW'],
-            ['id' => 3, 'name' => 'Default'],
-            ['id' => 4, 'name' => 'Detailed'],
-            ['id' => 5, 'name' => 'Default-Unmerge'],
-            ['id' => 6, 'name' => 'Pods'],
-            ['id' => 7, 'name' => 'Pods-Unmerge'],
-            ['id' => 8, 'name' => 'EPG Starts'],
-            ['id' => 9, 'name' => 'EPG Correction'],
+            ['id' => 2, 'name' => 'RAW', 'sync_server_id' => null],
+            ['id' => 3, 'name' => 'Default', 'sync_server_id' => null],
+            ['id' => 4, 'name' => 'Detailed', 'sync_server_id' => null],
+            ['id' => 5, 'name' => 'Default-Unmerge', 'sync_server_id' => null],
+            ['id' => 6, 'name' => 'Pods', 'sync_server_id' => null],
+            ['id' => 7, 'name' => 'Pods-Unmerge', 'sync_server_id' => null],
+            ['id' => 8, 'name' => 'EPG Starts', 'sync_server_id' => null],
+            ['id' => 9, 'name' => 'EPG Correction', 'sync_server_id' => null],
 
         ];
 

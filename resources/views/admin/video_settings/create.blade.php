@@ -58,6 +58,18 @@
                     @endif
                 </div>
             </div>
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    {!! Form::label('video_server_type_id', trans('global.video-settings.fields.video-server-type').'', ['class' => 'control-label']) !!}
+                    {!! Form::select('video_server_type_id', $video_server_types, old('video_server_type_id'), ['class' => 'form-control select2']) !!}
+                    <p class="help-block"></p>
+                    @if($errors->has('video_server_type_id'))
+                        <p class="help-block">
+                            {{ $errors->first('video_server_type_id') }}
+                        </p>
+                    @endif
+                </div>
+            </div>
             
         </div>
     </div>

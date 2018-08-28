@@ -26,34 +26,12 @@ class ChannelServersController extends Controller
         $channel_server = ChannelServer::findOrFail($id);
         $channel_server->update($request->all());
 
-        $csChannelLists = $channel_server->cs_channel_lists;
-        $currentCsChannelListData = [];
-        foreach ($request->input('cs_channel_lists', []) as $index => $data) {
-            if (is_int($index)) {
-                $channel_server->cs_channel_lists()->create($data);
-            } else {
-                $id = explode('-', $index)[1];
-                $currentCsChannelListData[$id] = $data;
-            }
-        }
-        foreach ($csChannelLists as $item) {
-            if (isset($currentCsChannelListData[$item->id])) {
-                $item->update($currentCsChannelListData[$item->id]);
-            } else {
-                $item->delete();
-            }
-        }
-
         return $channel_server;
     }
 
     public function store(StoreChannelServersRequest $request)
     {
         $channel_server = ChannelServer::create($request->all());
-
-        foreach ($request->input('cs_channel_lists', []) as $data) {
-            $channel_server->cs_channel_lists()->create($data);
-        }
 
         return $channel_server;
     }

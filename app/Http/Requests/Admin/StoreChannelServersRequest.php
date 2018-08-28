@@ -26,6 +26,7 @@ class StoreChannelServersRequest extends FormRequest
     public function rules()
     {
         return [
+            'channel.*' => 'exists:channels_lists,id',
         ];
     }
 }

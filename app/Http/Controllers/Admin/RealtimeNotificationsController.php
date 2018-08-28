@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\RealtimeNotification;
+use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Admin\StoreRealtimeNotificationsRequest;
@@ -24,16 +25,52 @@ class RealtimeNotificationsController extends Controller
             return abort(401);
         }
 
-        if (request('show_deleted') === 1) {
-            if (! Gate::allows('realtime_notification_delete')) {
-                return abort(401);
+        if (request()->ajax()) {
+            $query = RealtimeNotification::query();
+            $query->with('sync_server');
+            $template = 'actionsTemplate';
+            if (request('show_deleted') === 1) {
+                if (! Gate::allows('realtime_notification_delete')) {
+                    return abort(401);
+                }
+                $query->onlyTrashed();
+                $template = 'restoreTemplate';
             }
-            $realtime_notifications = RealtimeNotification::onlyTrashed()->get();
-        } else {
-            $realtime_notifications = RealtimeNotification::all();
+            $query->select([
+                'realtime_notifications.id',
+                'realtime_notifications.server_type',
+                'realtime_notifications.r_urltn',
+                'realtime_notifications.sync_server_id',
+            ]);
+            $table = Datatables::of($query);
+
+            $table->setRowAttr([
+                'data-entry-id' => '{{$id}}',
+            ]);
+            $table->addColumn('massDelete', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+            $table->editColumn('actions', function ($row) use ($template) {
+                $gateKey = 'realtime_notification_';
+                $routeKey = 'admin.realtime_notifications';
+
+                return view($template, compact('row', 'gateKey', 'routeKey'));
+            });
+            $table->editColumn('server_type', function ($row) {
+                return $row->server_type ? $row->server_type : '';
+            });
+            $table->editColumn('r_urltn', function ($row) {
+                return $row->r_urltn ? $row->r_urltn : '';
+            });
+            $table->editColumn('sync_server.name', function ($row) {
+                return $row->sync_server ? $row->sync_server->name : '';
+            });
+
+            $table->rawColumns(['actions', 'massDelete']);
+
+            return $table->make(true);
         }
 
-        return view('admin.realtime_notifications.index', compact('realtime_notifications'));
+        return view('admin.realtime_notifications.index');
     }
 
     /**
@@ -118,13 +155,9 @@ class RealtimeNotificationsController extends Controller
         if (! Gate::allows('realtime_notification_view')) {
             return abort(401);
         }
-
-        $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
-        $per_channel_configurations = \App\PerChannelConfiguration::where('rtn_id', $id)->get();
-
         $realtime_notification = RealtimeNotification::findOrFail($id);
 
-        return view('admin.realtime_notifications.show', compact('realtime_notification', 'per_channel_configurations'));
+        return view('admin.realtime_notifications.show', compact('realtime_notification'));
     }
 
     /**

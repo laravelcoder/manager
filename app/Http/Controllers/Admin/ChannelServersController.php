@@ -27,6 +27,7 @@ class ChannelServersController extends Controller
 
         if (request()->ajax()) {
             $query = ChannelServer::query();
+            $query->with('channel');
             $template = 'actionsTemplate';
             if (request('show_deleted') === 1) {
                 if (! Gate::allows('channel_server_delete')) {
@@ -59,8 +60,16 @@ class ChannelServersController extends Controller
             $table->editColumn('cs_host', function ($row) {
                 return $row->cs_host ? $row->cs_host : '';
             });
+            $table->editColumn('channel.channel_name', function ($row) {
+                if (count($row->channel) === 0) {
+                    return '';
+                }
 
-            $table->rawColumns(['actions', 'massDelete']);
+                return '<span class="label label-info label-many">'.implode('</span><span class="label label-info label-many"> ',
+                        $row->channel->pluck('channel_name')->toArray()).'</span>';
+            });
+
+            $table->rawColumns(['actions', 'massDelete', 'channel.channel_name']);
 
             return $table->make(true);
         }
@@ -79,7 +88,9 @@ class ChannelServersController extends Controller
             return abort(401);
         }
 
-        return view('admin.channel_servers.create');
+        $channels = \App\ChannelsList::get()->pluck('channel_name', 'id');
+
+        return view('admin.channel_servers.create', compact('channels'));
     }
 
     /**
@@ -94,10 +105,7 @@ class ChannelServersController extends Controller
             return abort(401);
         }
         $channel_server = ChannelServer::create($request->all());
-
-        foreach ($request->input('cs_channel_lists', []) as $data) {
-            $channel_server->cs_channel_lists()->create($data);
-        }
+        $channel_server->channel()->sync(array_filter((array) $request->input('channel')));
 
         return redirect()->route('admin.channel_servers.index');
     }
@@ -113,9 +121,12 @@ class ChannelServersController extends Controller
         if (! Gate::allows('channel_server_edit')) {
             return abort(401);
         }
+
+        $channels = \App\ChannelsList::get()->pluck('channel_name', 'id');
+
         $channel_server = ChannelServer::findOrFail($id);
 
-        return view('admin.channel_servers.edit', compact('channel_server'));
+        return view('admin.channel_servers.edit', compact('channel_server', 'channels'));
     }
 
     /**
@@ -132,24 +143,7 @@ class ChannelServersController extends Controller
         }
         $channel_server = ChannelServer::findOrFail($id);
         $channel_server->update($request->all());
-
-        $csChannelLists = $channel_server->cs_channel_lists;
-        $currentCsChannelListData = [];
-        foreach ($request->input('cs_channel_lists', []) as $index => $data) {
-            if (is_int($index)) {
-                $channel_server->cs_channel_lists()->create($data);
-            } else {
-                $id = explode('-', $index)[1];
-                $currentCsChannelListData[$id] = $data;
-            }
-        }
-        foreach ($csChannelLists as $item) {
-            if (isset($currentCsChannelListData[$item->id])) {
-                $item->update($currentCsChannelListData[$item->id]);
-            } else {
-                $item->delete();
-            }
-        }
+        $channel_server->channel()->sync(array_filter((array) $request->input('channel')));
 
         return redirect()->route('admin.channel_servers.index');
     }
@@ -166,12 +160,14 @@ class ChannelServersController extends Controller
             return abort(401);
         }
 
-        $cs_channel_lists = \App\CsChannelList::where('channel_server_id', $id)->get();
+        $channels = \App\ChannelsList::get()->pluck('channel_name', 'id');
         $csis = \App\Csi::where('channel_server_id', $id)->get();
         $csos = \App\Cso::where('channel_server_id', $id)->get();
+        $cs_list_channels = \App\CsListChannel::where('channelserver_id', $id)->get();
+
         $channel_server = ChannelServer::findOrFail($id);
 
-        return view('admin.channel_servers.show', compact('channel_server', 'csis', 'csos', 'cs_channel_lists'));
+        return view('admin.channel_servers.show', compact('channel_server', 'csis', 'csos', 'cs_list_channels'));
     }
 
     /**

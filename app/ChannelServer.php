@@ -20,8 +20,8 @@ class ChannelServer extends Model
     protected $fillable = ['name', 'cs_host'];
     protected $hidden = [];
 
-    public function cs_channel_lists()
+    public function channel()
     {
-        return $this->hasMany(CsChannelList::class, 'channel_server_id');
+        return $this->belongsToMany(ChannelsList::class, 'channel_server_channels_list')->withTrashed();
     }
 }

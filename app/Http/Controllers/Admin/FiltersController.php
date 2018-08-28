@@ -27,6 +27,7 @@ class FiltersController extends Controller
 
         if (request()->ajax()) {
             $query = Filter::query();
+            $query->with('sync_server');
             $template = 'actionsTemplate';
             if (request('show_deleted') === 1) {
                 if (! Gate::allows('filter_delete')) {
@@ -38,6 +39,7 @@ class FiltersController extends Controller
             $query->select([
                 'filters.id',
                 'filters.name',
+                'filters.sync_server_id',
             ]);
             $table = Datatables::of($query);
 
@@ -54,6 +56,9 @@ class FiltersController extends Controller
             });
             $table->editColumn('name', function ($row) {
                 return $row->name ? $row->name : '';
+            });
+            $table->editColumn('sync_server.name', function ($row) {
+                return $row->sync_server ? $row->sync_server->name : '';
             });
 
             $table->rawColumns(['actions', 'massDelete']);
@@ -75,7 +80,9 @@ class FiltersController extends Controller
             return abort(401);
         }
 
-        return view('admin.filters.create');
+        $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
+
+        return view('admin.filters.create', compact('sync_servers'));
     }
 
     /**
@@ -105,9 +112,12 @@ class FiltersController extends Controller
         if (! Gate::allows('filter_edit')) {
             return abort(401);
         }
+
+        $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
+
         $filter = Filter::findOrFail($id);
 
-        return view('admin.filters.edit', compact('filter'));
+        return view('admin.filters.edit', compact('filter', 'sync_servers'));
     }
 
     /**
@@ -139,6 +149,8 @@ class FiltersController extends Controller
         if (! Gate::allows('filter_view')) {
             return abort(401);
         }
+
+        $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
         $report_settings = \App\ReportSetting::where('filters_id', $id)->get();
 
         $filter = Filter::findOrFail($id);

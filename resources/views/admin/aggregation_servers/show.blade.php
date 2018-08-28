@@ -20,6 +20,10 @@
                             <th>@lang('global.aggregation-server.fields.server-host')</th>
                             <td field-key='server_host'>{{ $aggregation_server->server_host }}</td>
                         </tr>
+                        <tr>
+                            <th>@lang('global.aggregation-server.fields.sync-server')</th>
+                            <td field-key='sync_server'>{{ $aggregation_server->sync_server->name or '' }}</td>
+                        </tr>
                     </table>
                 </div>
             </div><!-- Nav tabs -->
@@ -36,6 +40,7 @@
     <thead>
         <tr>
             <th>@lang('global.baby-sync-servers.fields.baby-sync-server')</th>
+                        <th>@lang('global.baby-sync-servers.fields.sync-server')</th>
                         @if( request('show_deleted') == 1 )
                         <th>&nbsp;</th>
                         @else
@@ -49,6 +54,7 @@
             @foreach ($baby_sync_servers as $baby_sync_server)
                 <tr data-entry-id="{{ $baby_sync_server->id }}">
                     <td field-key='baby_sync_server'>{{ $baby_sync_server->baby_sync_server }}</td>
+                                <td field-key='sync_server'>{{ $baby_sync_server->sync_server->name or '' }}</td>
                                 @if( request('show_deleted') == 1 )
                                 <td>
                                     {!! Form::open(array(
@@ -89,7 +95,7 @@
             @endforeach
         @else
             <tr>
-                <td colspan="7">@lang('global.app_no_entries_in_table')</td>
+                <td colspan="8">@lang('global.app_no_entries_in_table')</td>
             </tr>
         @endif
     </tbody>

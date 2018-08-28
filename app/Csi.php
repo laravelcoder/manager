@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * Class Csi.
  *
  * @property string $channel_server
- * @property string $channel
  * @property string $protocol
+ * @property string $url
  * @property string $ssm
  * @property string $imc
  * @property string $ip
@@ -22,7 +22,7 @@ class Csi extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['ssm', 'imc', 'ip', 'pid', 'channel_server_id', 'channel_id', 'protocol_id'];
+    protected $fillable = ['url', 'ssm', 'imc', 'ip', 'pid', 'channel_server_id', 'protocol_id'];
     protected $hidden = [];
 
     /**
@@ -38,15 +38,6 @@ class Csi extends Model
      * Set to null if empty.
      * @param $input
      */
-    public function setChannelIdAttribute($input): void
-    {
-        $this->attributes['channel_id'] = $input ? $input : null;
-    }
-
-    /**
-     * Set to null if empty.
-     * @param $input
-     */
     public function setProtocolIdAttribute($input): void
     {
         $this->attributes['protocol_id'] = $input ? $input : null;
@@ -55,11 +46,6 @@ class Csi extends Model
     public function channel_server()
     {
         return $this->belongsTo(ChannelServer::class, 'channel_server_id')->withTrashed();
-    }
-
-    public function channel()
-    {
-        return $this->belongsTo(CsChannelList::class, 'channel_id')->withTrashed();
     }
 
     public function protocol()

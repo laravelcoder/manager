@@ -28,6 +28,10 @@
                             <th>@lang('global.video-settings.fields.sync-server')</th>
                             <td field-key='sync_server'>{{ $video_setting->sync_server->name or '' }}</td>
                         </tr>
+                        <tr>
+                            <th>@lang('global.video-settings.fields.video-server-type')</th>
+                            <td field-key='video_server_type'>{{ $video_setting->video_server_type->server_type or '' }}</td>
+                        </tr>
                     </table>
                 </div>
             </div>
