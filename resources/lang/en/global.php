@@ -41,6 +41,7 @@ return [
         'clipdb-settings' => [        'title' => 'Clip DB Settings',        'fields' => [            'clip-db-url' => 'Clip db url']],
         'channels-list' => [        'title' => 'Channels lists',        'fields' => [            'channel-name' => 'Channel name',            'channel-type' => 'Channel Type']],
         'cs-list-channels' => [        'title' => 'Cs list channels',        'fields' => [            'channel' => 'Channel',            'channelserver' => 'Channel Server']],
+        'ss-list-channels' => [        'title' => 'SS list channels',        'fields' => [            'sync-server' => 'Sync server',            'channel' => 'Channel']],
     'app_create' => 'Create',
     'app_save' => 'Save',
     'app_edit' => 'Edit',

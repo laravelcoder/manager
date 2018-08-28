@@ -136,6 +136,11 @@ class PermissionSeed extends Seeder
             ['id' => 152, 'title' => 'cs_list_channel_edit'],
             ['id' => 153, 'title' => 'cs_list_channel_view'],
             ['id' => 154, 'title' => 'cs_list_channel_delete'],
+            ['id' => 155, 'title' => 'ss_list_channel_access'],
+            ['id' => 156, 'title' => 'ss_list_channel_create'],
+            ['id' => 157, 'title' => 'ss_list_channel_edit'],
+            ['id' => 158, 'title' => 'ss_list_channel_view'],
+            ['id' => 159, 'title' => 'ss_list_channel_delete'],
 
         ];
 
