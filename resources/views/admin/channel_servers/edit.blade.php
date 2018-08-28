@@ -35,39 +35,25 @@
                     @endif
                 </div>
             </div>
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    {!! Form::label('channel', trans('global.channel-server.fields.channel').'', ['class' => 'control-label']) !!}
+                    <button type="button" class="btn btn-primary btn-xs" id="selectbtn-channel">
+                        {{ trans('global.app_select_all') }}
+                    </button>
+                    <button type="button" class="btn btn-primary btn-xs" id="deselectbtn-channel">
+                        {{ trans('global.app_deselect_all') }}
+                    </button>
+                    {!! Form::select('channel[]', $channels, old('channel') ? old('channel') : $channel_server->channel->pluck('id')->toArray(), ['class' => 'form-control select2', 'multiple' => 'multiple', 'id' => 'selectall-channel' ]) !!}
+                    <p class="help-block"></p>
+                    @if($errors->has('channel'))
+                        <p class="help-block">
+                            {{ $errors->first('channel') }}
+                        </p>
+                    @endif
+                </div>
+            </div>
             
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            CS Channel List
-        </div>
-        <div class="panel-body">
-            <table class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                    <th>@lang('global.cs-channel-list.fields.channel-name')</th>
-                        <th>@lang('global.cs-channel-list.fields.channel-type')</th>
-                        
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody id="cs-channel-list">
-                    @forelse(old('cs_channel_lists', []) as $index => $data)
-                        @include('admin.channel_servers.cs_channel_lists_row', [
-                            'index' => $index
-                        ])
-                    @empty
-                        @foreach($channel_server->cs_channel_lists as $item)
-                            @include('admin.channel_servers.cs_channel_lists_row', [
-                                'index' => 'id-' . $item->id,
-                                'field' => $item
-                            ])
-                        @endforeach
-                    @endforelse
-                </tbody>
-            </table>
-            <a href="#" class="btn btn-success pull-right add-new">@lang('global.app_add_new')</a>
         </div>
     </div>
 
@@ -78,28 +64,14 @@
 @section('javascript')
     @parent
 
-    <script type="text/html" id="cs-channel-list-template">
-        @include('admin.channel_servers.cs_channel_lists_row',
-                [
-                    'index' => '_INDEX_',
-                ])
-               </script > 
-
-            <script>
-        $('.add-new').click(function () {
-            var tableBody = $(this).parent().find('tbody');
-            var template = $('#' + tableBody.attr('id') + '-template').html();
-            var lastIndex = parseInt(tableBody.find('tr').last().data('index'));
-            if (isNaN(lastIndex)) {
-                lastIndex = 0;
-            }
-            tableBody.append(template.replace(/_INDEX_/g, lastIndex + 1));
-            return false;
+    <script>
+        $("#selectbtn-channel").click(function(){
+            $("#selectall-channel > option").prop("selected","selected");
+            $("#selectall-channel").trigger("change");
         });
-        $(document).on('click', '.remove', function () {
-            var row = $(this).parentsUntil('tr').parent();
-            row.remove();
-            return false;
+        $("#deselectbtn-channel").click(function(){
+            $("#selectall-channel > option").prop("selected","");
+            $("#selectall-channel").trigger("change");
         });
-        </script>
+    </script>
 @stop

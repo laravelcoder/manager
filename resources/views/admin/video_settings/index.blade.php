@@ -29,6 +29,7 @@
                         <th>@lang('global.video-settings.fields.server-redirect')</th>
                         <th>@lang('global.video-settings.fields.hls')</th>
                         <th>@lang('global.video-settings.fields.sync-server')</th>
+                        <th>@lang('global.video-settings.fields.video-server-type')</th>
                                                 <th>&nbsp;</th>
 
                     </tr>
@@ -51,6 +52,7 @@
                 {data: 'server_redirect', name: 'server_redirect'},
                 {data: 'hls', name: 'hls'},
                 {data: 'sync_server.name', name: 'sync_server.name'},
+                {data: 'video_server_type.server_type', name: 'video_server_type.server_type'},
                 
                 {data: 'actions', name: 'actions', searchable: false, sortable: false}
             ];

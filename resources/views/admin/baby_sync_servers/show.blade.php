@@ -16,6 +16,10 @@
                             <th>@lang('global.baby-sync-servers.fields.baby-sync-server')</th>
                             <td field-key='baby_sync_server'>{{ $baby_sync_server->baby_sync_server }}</td>
                         </tr>
+                        <tr>
+                            <th>@lang('global.baby-sync-servers.fields.sync-server')</th>
+                            <td field-key='sync_server'>{{ $baby_sync_server->sync_server->name or '' }}</td>
+                        </tr>
                     </table>
                 </div>
             </div>

@@ -20,6 +20,14 @@
                             <th>@lang('global.channel-server.fields.cs-host')</th>
                             <td field-key='cs_host'>{{ $channel_server->cs_host }}</td>
                         </tr>
+                        <tr>
+                            <th>@lang('global.channel-server.fields.channel')</th>
+                            <td field-key='channel'>
+                                @foreach ($channel_server->channel as $singleChannel)
+                                    <span class="label label-info label-many">{{ $singleChannel->channel_name }}</span>
+                                @endforeach
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div><!-- Nav tabs -->
@@ -27,7 +35,7 @@
     
 <li role="presentation" class="active"><a href="#csi" aria-controls="csi" role="tab" data-toggle="tab">Channel Server Inputs</a></li>
 <li role="presentation" class=""><a href="#cso" aria-controls="cso" role="tab" data-toggle="tab">Channel Server Outputs</a></li>
-<li role="presentation" class=""><a href="#cs_channel_list" aria-controls="cs_channel_list" role="tab" data-toggle="tab">CS Channel List</a></li>
+<li role="presentation" class=""><a href="#cs_list_channels" aria-controls="cs_list_channels" role="tab" data-toggle="tab">Cs list channels</a></li>
 </ul>
 
 <!-- Tab panes -->
@@ -37,8 +45,9 @@
 <table class="table table-bordered table-striped {{ count($csis) > 0 ? 'datatable' : '' }}">
     <thead>
         <tr>
-            <th>@lang('global.csi.fields.channel')</th>
+            <th>@lang('global.csi.fields.channel-server')</th>
                         <th>@lang('global.csi.fields.protocol')</th>
+                        <th>@lang('global.csi.fields.url')</th>
                         <th>@lang('global.csi.fields.ssm')</th>
                         <th>@lang('global.csi.fields.imc')</th>
                         <th>@lang('global.csi.fields.ip')</th>
@@ -55,8 +64,9 @@
         @if (count($csis) > 0)
             @foreach ($csis as $csi)
                 <tr data-entry-id="{{ $csi->id }}">
-                    <td field-key='channel'>{{ $csi->channel->channel_name or '' }}</td>
+                    <td field-key='channel_server'>{{ $csi->channel_server->name or '' }}</td>
                                 <td field-key='protocol'>{{ $csi->protocol->protocol or '' }}</td>
+                                <td field-key='url'>{{ $csi->url }}</td>
                                 <td field-key='ssm'>{{ $csi->ssm }}</td>
                                 <td field-key='imc'>{{ $csi->imc }}</td>
                                 <td field-key='ip'>{{ $csi->ip }}</td>
@@ -111,8 +121,7 @@
 <table class="table table-bordered table-striped {{ count($csos) > 0 ? 'datatable' : '' }}">
     <thead>
         <tr>
-            <th>@lang('global.cso.fields.channel')</th>
-                        <th>@lang('global.cso.fields.ocloud-a')</th>
+            <th>@lang('global.cso.fields.ocloud-a')</th>
                         <th>@lang('global.cso.fields.ocp-a')</th>
                         <th>@lang('global.cso.fields.ocloud-b')</th>
                         <th>@lang('global.cso.fields.ocp-b')</th>
@@ -128,8 +137,7 @@
         @if (count($csos) > 0)
             @foreach ($csos as $cso)
                 <tr data-entry-id="{{ $cso->id }}">
-                    <td field-key='channel'>{{ $cso->channel->channel_name or '' }}</td>
-                                <td field-key='ocloud_a'>{{ $cso->ocloud_a }}</td>
+                    <td field-key='ocloud_a'>{{ $cso->ocloud_a }}</td>
                                 <td field-key='ocp_a'>{{ $cso->ocp_a }}</td>
                                 <td field-key='ocloud_b'>{{ $cso->ocloud_b }}</td>
                                 <td field-key='ocp_b'>{{ $cso->ocp_b }}</td>
@@ -173,19 +181,18 @@
             @endforeach
         @else
             <tr>
-                <td colspan="11">@lang('global.app_no_entries_in_table')</td>
+                <td colspan="10">@lang('global.app_no_entries_in_table')</td>
             </tr>
         @endif
     </tbody>
 </table>
 </div>
-<div role="tabpanel" class="tab-pane " id="cs_channel_list">
-<table class="table table-bordered table-striped {{ count($cs_channel_lists) > 0 ? 'datatable' : '' }}">
+<div role="tabpanel" class="tab-pane " id="cs_list_channels">
+<table class="table table-bordered table-striped {{ count($cs_list_channels) > 0 ? 'datatable' : '' }}">
     <thead>
         <tr>
-            <th>@lang('global.cs-channel-list.fields.channel-name')</th>
-                        <th>@lang('global.cs-channel-list.fields.channel-type')</th>
-                        <th>@lang('global.cs-channel-list.fields.sync-server')</th>
+            <th>@lang('global.cs-list-channels.fields.channel')</th>
+                        <th>@lang('global.cs-list-channels.fields.channelserver')</th>
                         @if( request('show_deleted') == 1 )
                         <th>&nbsp;</th>
                         @else
@@ -195,43 +202,42 @@
     </thead>
 
     <tbody>
-        @if (count($cs_channel_lists) > 0)
-            @foreach ($cs_channel_lists as $cs_channel_list)
-                <tr data-entry-id="{{ $cs_channel_list->id }}">
-                    <td field-key='channel_name'>{{ $cs_channel_list->channel_name }}</td>
-                                <td field-key='channel_type'>{{ $cs_channel_list->channel_type }}</td>
-                                <td field-key='sync_server'>{{ $cs_channel_list->sync_server->name or '' }}</td>
+        @if (count($cs_list_channels) > 0)
+            @foreach ($cs_list_channels as $cs_list_channel)
+                <tr data-entry-id="{{ $cs_list_channel->id }}">
+                    <td field-key='channel'>{{ $cs_list_channel->channel->channel_name or '' }}</td>
+                                <td field-key='channelserver'>{{ $cs_list_channel->channelserver->name or '' }}</td>
                                 @if( request('show_deleted') == 1 )
                                 <td>
                                     {!! Form::open(array(
                                         'style' => 'display: inline-block;',
                                         'method' => 'POST',
                                         'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
-                                        'route' => ['admin.cs_channel_lists.restore', $cs_channel_list->id])) !!}
+                                        'route' => ['admin.cs_list_channels.restore', $cs_list_channel->id])) !!}
                                     {!! Form::submit(trans('global.app_restore'), array('class' => 'btn btn-xs btn-success')) !!}
                                     {!! Form::close() !!}
                                                                     {!! Form::open(array(
                                         'style' => 'display: inline-block;',
                                         'method' => 'DELETE',
                                         'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
-                                        'route' => ['admin.cs_channel_lists.perma_del', $cs_channel_list->id])) !!}
+                                        'route' => ['admin.cs_list_channels.perma_del', $cs_list_channel->id])) !!}
                                     {!! Form::submit(trans('global.app_permadel'), array('class' => 'btn btn-xs btn-danger')) !!}
                                     {!! Form::close() !!}
                                                                 </td>
                                 @else
                                 <td>
-                                    @can('cs_channel_list_view')
-                                    <a href="{{ route('admin.cs_channel_lists.show',[$cs_channel_list->id]) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
+                                    @can('cs_list_channel_view')
+                                    <a href="{{ route('admin.cs_list_channels.show',[$cs_list_channel->id]) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
                                     @endcan
-                                    @can('cs_channel_list_edit')
-                                    <a href="{{ route('admin.cs_channel_lists.edit',[$cs_channel_list->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
+                                    @can('cs_list_channel_edit')
+                                    <a href="{{ route('admin.cs_list_channels.edit',[$cs_list_channel->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
                                     @endcan
-                                    @can('cs_channel_list_delete')
+                                    @can('cs_list_channel_delete')
 {!! Form::open(array(
                                         'style' => 'display: inline-block;',
                                         'method' => 'DELETE',
                                         'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
-                                        'route' => ['admin.cs_channel_lists.destroy', $cs_channel_list->id])) !!}
+                                        'route' => ['admin.cs_list_channels.destroy', $cs_list_channel->id])) !!}
                                     {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
                                     {!! Form::close() !!}
                                     @endcan
@@ -241,7 +247,7 @@
             @endforeach
         @else
             <tr>
-                <td colspan="9">@lang('global.app_no_entries_in_table')</td>
+                <td colspan="7">@lang('global.app_no_entries_in_table')</td>
             </tr>
         @endif
     </tbody>

@@ -1,16 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers\Admin;
 
 use App\Csi;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreCsisRequest;
 use App\Http\Requests\Admin\UpdateCsisRequest;
+use Yajra\DataTables\DataTables;
 
 class CsisController extends Controller
 {
@@ -25,24 +23,26 @@ class CsisController extends Controller
             return abort(401);
         }
 
+
+        
         if (request()->ajax()) {
             $query = Csi::query();
-            $query->with('channel_server');
-            $query->with('channel');
-            $query->with('protocol');
+            $query->with("channel_server");
+            $query->with("protocol");
             $template = 'actionsTemplate';
-            if (request('show_deleted') === 1) {
-                if (! Gate::allows('csi_delete')) {
-                    return abort(401);
-                }
+            if(request('show_deleted') == 1) {
+                
+        if (! Gate::allows('csi_delete')) {
+            return abort(401);
+        }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
             $query->select([
                 'csis.id',
                 'csis.channel_server_id',
-                'csis.channel_id',
                 'csis.protocol_id',
+                'csis.url',
                 'csis.ssm',
                 'csis.imc',
                 'csis.ip',
@@ -56,7 +56,7 @@ class CsisController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey = 'csi_';
+                $gateKey  = 'csi_';
                 $routeKey = 'admin.csis';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -64,11 +64,11 @@ class CsisController extends Controller
             $table->editColumn('channel_server.name', function ($row) {
                 return $row->channel_server ? $row->channel_server->name : '';
             });
-            $table->editColumn('channel.channel_name', function ($row) {
-                return $row->channel ? $row->channel->channel_name : '';
-            });
             $table->editColumn('protocol.protocol', function ($row) {
                 return $row->protocol ? $row->protocol->protocol : '';
+            });
+            $table->editColumn('url', function ($row) {
+                return $row->url ? $row->url : '';
             });
             $table->editColumn('ssm', function ($row) {
                 return $row->ssm ? $row->ssm : '';
@@ -83,7 +83,7 @@ class CsisController extends Controller
                 return $row->pid ? $row->pid : '';
             });
 
-            $table->rawColumns(['actions', 'massDelete']);
+            $table->rawColumns(['actions','massDelete']);
 
             return $table->make(true);
         }
@@ -101,12 +101,11 @@ class CsisController extends Controller
         if (! Gate::allows('csi_create')) {
             return abort(401);
         }
-
+        
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
-        $channels = \App\CsChannelList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
         $protocols = \App\Protocol::get()->pluck('protocol', 'id')->prepend(trans('global.app_please_select'), '');
 
-        return view('admin.csis.create', compact('channel_servers', 'channels', 'protocols'));
+        return view('admin.csis.create', compact('channel_servers', 'protocols'));
     }
 
     /**
@@ -122,8 +121,11 @@ class CsisController extends Controller
         }
         $csi = Csi::create($request->all());
 
+
+
         return redirect()->route('admin.csis.index');
     }
+
 
     /**
      * Show the form for editing Csi.
@@ -136,14 +138,13 @@ class CsisController extends Controller
         if (! Gate::allows('csi_edit')) {
             return abort(401);
         }
-
+        
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
-        $channels = \App\CsChannelList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
         $protocols = \App\Protocol::get()->pluck('protocol', 'id')->prepend(trans('global.app_please_select'), '');
 
         $csi = Csi::findOrFail($id);
 
-        return view('admin.csis.edit', compact('csi', 'channel_servers', 'channels', 'protocols'));
+        return view('admin.csis.edit', compact('csi', 'channel_servers', 'protocols'));
     }
 
     /**
@@ -161,8 +162,11 @@ class CsisController extends Controller
         $csi = Csi::findOrFail($id);
         $csi->update($request->all());
 
+
+
         return redirect()->route('admin.csis.index');
     }
+
 
     /**
      * Display Csi.
@@ -179,6 +183,7 @@ class CsisController extends Controller
 
         return view('admin.csis.show', compact('csi'));
     }
+
 
     /**
      * Remove Csi from storage.
@@ -215,6 +220,7 @@ class CsisController extends Controller
             }
         }
     }
+
 
     /**
      * Restore Csi from storage.
