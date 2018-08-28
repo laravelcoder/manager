@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\ChannelsList;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
+use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Admin\StoreChannelsListsRequest;
 use App\Http\Requests\Admin\UpdateChannelsListsRequest;
-use Yajra\DataTables\DataTables;
 
 class ChannelsListsController extends Controller
 {
@@ -23,16 +25,13 @@ class ChannelsListsController extends Controller
             return abort(401);
         }
 
-
-        
         if (request()->ajax()) {
             $query = ChannelsList::query();
             $template = 'actionsTemplate';
-            if(request('show_deleted') == 1) {
-                
-        if (! Gate::allows('channels_list_delete')) {
-            return abort(401);
-        }
+            if (request('show_deleted') === 1) {
+                if (! Gate::allows('channels_list_delete')) {
+                    return abort(401);
+                }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -49,7 +48,7 @@ class ChannelsListsController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey  = 'channels_list_';
+                $gateKey = 'channels_list_';
                 $routeKey = 'admin.channels_lists';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -61,7 +60,7 @@ class ChannelsListsController extends Controller
                 return $row->channel_type ? $row->channel_type : '';
             });
 
-            $table->rawColumns(['actions','massDelete']);
+            $table->rawColumns(['actions', 'massDelete']);
 
             return $table->make(true);
         }
@@ -79,6 +78,7 @@ class ChannelsListsController extends Controller
         if (! Gate::allows('channels_list_create')) {
             return abort(401);
         }
+
         return view('admin.channels_lists.create');
     }
 
@@ -95,11 +95,8 @@ class ChannelsListsController extends Controller
         }
         $channels_list = ChannelsList::create($request->all());
 
-
-
         return redirect()->route('admin.channels_lists.index');
     }
-
 
     /**
      * Show the form for editing ChannelsList.
@@ -132,11 +129,8 @@ class ChannelsListsController extends Controller
         $channels_list = ChannelsList::findOrFail($id);
         $channels_list->update($request->all());
 
-
-
         return redirect()->route('admin.channels_lists.index');
     }
-
 
     /**
      * Display ChannelsList.
@@ -149,8 +143,9 @@ class ChannelsListsController extends Controller
         if (! Gate::allows('channels_list_view')) {
             return abort(401);
         }
-        $cs_list_channels = \App\CsListChannel::where('channel_id', $id)->get();$channel_servers = \App\ChannelServer::whereHas('channel',
-                    function ($query) use ($id) {
+        $cs_list_channels = \App\CsListChannel::where('channel_id', $id)->get();
+        $channel_servers = \App\ChannelServer::whereHas('channel',
+                    function ($query) use ($id): void {
                         $query->where('id', $id);
                     })->get();
 
@@ -158,7 +153,6 @@ class ChannelsListsController extends Controller
 
         return view('admin.channels_lists.show', compact('channels_list', 'cs_list_channels', 'channel_servers'));
     }
-
 
     /**
      * Remove ChannelsList from storage.
@@ -195,7 +189,6 @@ class ChannelsListsController extends Controller
             }
         }
     }
-
 
     /**
      * Restore ChannelsList from storage.
