@@ -10,9 +10,9 @@ return [
         'channel-server' => [        'title' => 'Channel Server',        'fields' => [        ]],
         'protocols' => [        'title' => 'Protocols',        'fields' => [            'protocol' => 'Protocol',            'real-name' => 'Real Name']],
         'channels' => [        'title' => 'Channels',        'fields' => [        ]],
-        'csi' => [        'title' => 'Channel Server Inputs',        'fields' => [            'channel-server' => 'Channel server',            'protocol' => 'Protocol',            'url' => 'URL',            'ssm' => 'Source Specific Mulitcast (SSM)',            'imc' => 'Input Mulicast Group (IMC)',            'ip' => 'IP',            'pid' => 'Service ID (PID)']],
+        'csi' => [        'title' => 'Channel Server Inputs',        'fields' => [            'channel-server' => 'Channel server',            'channel' => 'Channel',            'protocol' => 'Protocol',            'url' => 'URL',            'ssm' => 'Source Specific Mulitcast (SSM)',            'imc' => 'Input Mulicast Group (IMC)',            'ip' => 'IP',            'pid' => 'Service ID (PID)']],
         'channel-server' => [        'title' => 'Channel Server',        'fields' => [            'name' => 'Name',            'cs-host' => 'CS Host',            'channel' => 'Channel']],
-        'cso' => [        'title' => 'Channel Server Outputs',        'fields' => [            'channel-server' => 'Channel Server',            'ocloud-a' => 'OCloud A',            'ocp-a' => 'Port A',            'ocloud-b' => 'OCloud B',            'ocp-b' => 'Port B']],
+        'cso' => [        'title' => 'Channel Server Outputs',        'fields' => [            'channel-server' => 'Channel Server',            'ocloud-a' => 'OCloud A',            'ocp-a' => 'Port A',            'ocloud-b' => 'OCloud B',            'ocp-b' => 'Port B',            'channel' => 'Channel']],
         'channel-servers-area' => [        'title' => 'Channel Servers Area',        'fields' => [        ]],
         'sync-server-area' => [        'title' => 'Sync Server Area',        'fields' => [        ]],
         'sync-servers' => [        'title' => 'Sync Servers',        'fields' => [            'name' => 'Name',            'ss-host' => 'Sync Server Host']],
