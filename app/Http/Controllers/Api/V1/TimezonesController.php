@@ -1,13 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api\V1;
 
 use App\Timezone;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreTimezonesRequest;
 use App\Http\Requests\Admin\UpdateTimezonesRequest;
-use Yajra\DataTables\DataTables;
 
 class TimezonesController extends Controller
 {
@@ -25,7 +25,6 @@ class TimezonesController extends Controller
     {
         $timezone = Timezone::findOrFail($id);
         $timezone->update($request->all());
-        
 
         return $timezone;
     }
@@ -33,7 +32,6 @@ class TimezonesController extends Controller
     public function store(StoreTimezonesRequest $request)
     {
         $timezone = Timezone::create($request->all());
-        
 
         return $timezone;
     }
@@ -42,6 +40,7 @@ class TimezonesController extends Controller
     {
         $timezone = Timezone::findOrFail($id);
         $timezone->delete();
+
         return '';
     }
 }

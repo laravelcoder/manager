@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -10,15 +11,14 @@ class Create5b732e4ef0ccfChannelCsChannelListTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        if(! Schema::hasTable('channel_cs_channel_list')) {
-            Schema::create('channel_cs_channel_list', function (Blueprint $table) {
+        if (! Schema::hasTable('channel_cs_channel_list')) {
+            Schema::create('channel_cs_channel_list', function (Blueprint $table): void {
                 $table->integer('channel_id')->unsigned()->nullable();
                 $table->foreign('channel_id', 'fk_p_174144_196513_cschan_5b732e4ef0e5c')->references('id')->on('channels')->onDelete('cascade');
                 $table->integer('cs_channel_list_id')->unsigned()->nullable();
                 $table->foreign('cs_channel_list_id', 'fk_p_196513_174144_channe_5b732e4ef0f4d')->references('id')->on('cs_channel_lists')->onDelete('cascade');
-                
             });
         }
     }
@@ -28,7 +28,7 @@ class Create5b732e4ef0ccfChannelCsChannelListTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('channel_cs_channel_list');
     }

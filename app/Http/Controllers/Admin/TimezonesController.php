@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Timezone;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
+use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Admin\StoreTimezonesRequest;
 use App\Http\Requests\Admin\UpdateTimezonesRequest;
-use Yajra\DataTables\DataTables;
 
 class TimezonesController extends Controller
 {
@@ -23,12 +25,10 @@ class TimezonesController extends Controller
             return abort(401);
         }
 
-
-        
         if (request()->ajax()) {
             $query = Timezone::query();
             $template = 'actionsTemplate';
-            
+
             $query->select([
                 'timezones.id',
                 'timezones.timezone',
@@ -41,7 +41,7 @@ class TimezonesController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey  = 'timezone_';
+                $gateKey = 'timezone_';
                 $routeKey = 'admin.timezones';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -50,7 +50,7 @@ class TimezonesController extends Controller
                 return $row->timezone ? $row->timezone : '';
             });
 
-            $table->rawColumns(['actions','massDelete']);
+            $table->rawColumns(['actions', 'massDelete']);
 
             return $table->make(true);
         }
@@ -68,6 +68,7 @@ class TimezonesController extends Controller
         if (! Gate::allows('timezone_create')) {
             return abort(401);
         }
+
         return view('admin.timezones.create');
     }
 
@@ -84,11 +85,8 @@ class TimezonesController extends Controller
         }
         $timezone = Timezone::create($request->all());
 
-
-
         return redirect()->route('admin.timezones.index');
     }
-
 
     /**
      * Show the form for editing Timezone.
@@ -121,11 +119,8 @@ class TimezonesController extends Controller
         $timezone = Timezone::findOrFail($id);
         $timezone->update($request->all());
 
-
-
         return redirect()->route('admin.timezones.index');
     }
-
 
     /**
      * Display Timezone.
@@ -142,7 +137,6 @@ class TimezonesController extends Controller
 
         return view('admin.timezones.show', compact('timezone'));
     }
-
 
     /**
      * Remove Timezone from storage.
@@ -179,5 +173,4 @@ class TimezonesController extends Controller
             }
         }
     }
-
 }
