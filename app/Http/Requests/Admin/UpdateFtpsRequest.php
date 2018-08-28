@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -26,7 +23,7 @@ class UpdateFtpsRequest extends FormRequest
     public function rules()
     {
         return [
-
+            
             'grab_time' => 'nullable|date_format:H:i:s',
             'sync_server_id' => 'required',
         ];

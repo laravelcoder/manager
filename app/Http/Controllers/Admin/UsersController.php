@@ -1,16 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers\Admin;
 
 use App\User;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreUsersRequest;
 use App\Http\Requests\Admin\UpdateUsersRequest;
+use Yajra\DataTables\DataTables;
 
 class UsersController extends Controller
 {
@@ -25,11 +23,13 @@ class UsersController extends Controller
             return abort(401);
         }
 
+
+        
         if (request()->ajax()) {
             $query = User::query();
-            $query->with('role');
+            $query->with("role");
             $template = 'actionsTemplate';
-
+            
             $query->select([
                 'users.id',
                 'users.name',
@@ -45,7 +45,7 @@ class UsersController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey = 'user_';
+                $gateKey  = 'user_';
                 $routeKey = 'admin.users';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -54,18 +54,18 @@ class UsersController extends Controller
                 return '---';
             });
             $table->editColumn('role.title', function ($row) {
-                if (count($row->role) === 0) {
+                if(count($row->role) == 0) {
                     return '';
                 }
 
-                return '<span class="label label-info label-many">'.implode('</span><span class="label label-info label-many"> ',
-                        $row->role->pluck('title')->toArray()).'</span>';
+                return '<span class="label label-info label-many">' . implode('</span><span class="label label-info label-many"> ',
+                        $row->role->pluck('title')->toArray()) . '</span>';
             });
             $table->editColumn('remember_token', function ($row) {
                 return $row->remember_token ? $row->remember_token : '';
             });
 
-            $table->rawColumns(['actions', 'massDelete', 'role.title']);
+            $table->rawColumns(['actions','massDelete','role.title']);
 
             return $table->make(true);
         }
@@ -83,8 +83,9 @@ class UsersController extends Controller
         if (! Gate::allows('user_create')) {
             return abort(401);
         }
-
+        
         $roles = \App\Role::get()->pluck('title', 'id');
+
 
         return view('admin.users.create', compact('roles'));
     }
@@ -101,10 +102,13 @@ class UsersController extends Controller
             return abort(401);
         }
         $user = User::create($request->all());
-        $user->role()->sync(array_filter((array) $request->input('role')));
+        $user->role()->sync(array_filter((array)$request->input('role')));
+
+
 
         return redirect()->route('admin.users.index');
     }
+
 
     /**
      * Show the form for editing User.
@@ -117,8 +121,9 @@ class UsersController extends Controller
         if (! Gate::allows('user_edit')) {
             return abort(401);
         }
-
+        
         $roles = \App\Role::get()->pluck('title', 'id');
+
 
         $user = User::findOrFail($id);
 
@@ -139,10 +144,13 @@ class UsersController extends Controller
         }
         $user = User::findOrFail($id);
         $user->update($request->all());
-        $user->role()->sync(array_filter((array) $request->input('role')));
+        $user->role()->sync(array_filter((array)$request->input('role')));
+
+
 
         return redirect()->route('admin.users.index');
     }
+
 
     /**
      * Display User.
@@ -155,14 +163,15 @@ class UsersController extends Controller
         if (! Gate::allows('user_view')) {
             return abort(401);
         }
-
+        
         $roles = \App\Role::get()->pluck('title', 'id');
-        $output_settings = \App\OutputSetting::where('email_id', $id)->get();
+$output_settings = \App\OutputSetting::where('email_id', $id)->get();
 
         $user = User::findOrFail($id);
 
         return view('admin.users.show', compact('user', 'output_settings'));
     }
+
 
     /**
      * Remove User from storage.
@@ -199,4 +208,5 @@ class UsersController extends Controller
             }
         }
     }
+
 }

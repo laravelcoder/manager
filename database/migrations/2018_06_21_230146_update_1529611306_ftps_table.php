@@ -1,6 +1,5 @@
 <?php
 
-declare(strict_types=1);
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -11,13 +10,15 @@ class Update1529611306FtpsTable extends Migration
      *
      * @return void
      */
-    public function up(): void
+    public function up()
     {
-        Schema::table('ftps', function (Blueprint $table): void {
-            if (! Schema::hasColumn('ftps', 'grab_time')) {
+        Schema::table('ftps', function (Blueprint $table) {
+            
+if (!Schema::hasColumn('ftps', 'grab_time')) {
                 $table->time('grab_time')->nullable();
-            }
+                }
         });
+
     }
 
     /**
@@ -25,10 +26,12 @@ class Update1529611306FtpsTable extends Migration
      *
      * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::table('ftps', function (Blueprint $table): void {
+        Schema::table('ftps', function (Blueprint $table) {
             $table->dropColumn('grab_time');
+            
         });
+
     }
 }
