@@ -14,8 +14,6 @@ class SsListChannelSeed extends Seeder
     {
         $items = [
 
-           
-
         ];
 
         foreach ($items as $item) {
