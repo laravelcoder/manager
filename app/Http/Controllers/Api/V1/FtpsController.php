@@ -1,13 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api\V1;
 
 use App\Ftp;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreFtpsRequest;
 use App\Http\Requests\Admin\UpdateFtpsRequest;
-use Yajra\DataTables\DataTables;
 
 class FtpsController extends Controller
 {
@@ -25,7 +25,6 @@ class FtpsController extends Controller
     {
         $ftp = Ftp::findOrFail($id);
         $ftp->update($request->all());
-        
 
         return $ftp;
     }
@@ -33,7 +32,6 @@ class FtpsController extends Controller
     public function store(StoreFtpsRequest $request)
     {
         $ftp = Ftp::create($request->all());
-        
 
         return $ftp;
     }
@@ -42,6 +40,7 @@ class FtpsController extends Controller
     {
         $ftp = Ftp::findOrFail($id);
         $ftp->delete();
+
         return '';
     }
 }

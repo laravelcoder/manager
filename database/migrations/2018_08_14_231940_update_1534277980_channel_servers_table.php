@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -10,15 +11,13 @@ class Update1534277980ChannelServersTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::table('channel_servers', function (Blueprint $table) {
-            
-if (!Schema::hasColumn('channel_servers', 'cs_host')) {
+        Schema::table('channel_servers', function (Blueprint $table): void {
+            if (! Schema::hasColumn('channel_servers', 'cs_host')) {
                 $table->string('cs_host')->nullable();
-                }
+            }
         });
-
     }
 
     /**
@@ -26,12 +25,10 @@ if (!Schema::hasColumn('channel_servers', 'cs_host')) {
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::table('channel_servers', function (Blueprint $table) {
+        Schema::table('channel_servers', function (Blueprint $table): void {
             $table->dropColumn('cs_host');
-            
         });
-
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 use Illuminate\Database\Seeder;
 
 class SsListChannelSeed extends Seeder
@@ -9,11 +10,11 @@ class SsListChannelSeed extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $items = [
-            
-            ['id' => 1, 'sync_server_id' => 1, 'channel_id' => 1,],
+
+            ['id' => 1, 'sync_server_id' => 1, 'channel_id' => 1],
 
         ];
 
