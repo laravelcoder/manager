@@ -1,13 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api\V1;
 
 use App\VideoSetting;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreVideoSettingsRequest;
 use App\Http\Requests\Admin\UpdateVideoSettingsRequest;
-use Yajra\DataTables\DataTables;
 
 class VideoSettingsController extends Controller
 {
@@ -25,7 +25,6 @@ class VideoSettingsController extends Controller
     {
         $video_setting = VideoSetting::findOrFail($id);
         $video_setting->update($request->all());
-        
 
         return $video_setting;
     }
@@ -33,7 +32,6 @@ class VideoSettingsController extends Controller
     public function store(StoreVideoSettingsRequest $request)
     {
         $video_setting = VideoSetting::create($request->all());
-        
 
         return $video_setting;
     }
@@ -42,6 +40,7 @@ class VideoSettingsController extends Controller
     {
         $video_setting = VideoSetting::findOrFail($id);
         $video_setting->delete();
+
         return '';
     }
 }
