@@ -48,6 +48,18 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group">
+                    {!! Form::label('url', trans('global.csi.fields.url').'', ['class' => 'control-label']) !!}
+                    {!! Form::text('url', old('url'), ['class' => 'form-control', 'placeholder' => 'This is for Move and HLS']) !!}
+                    <p class="help-block">This is for Move and HLS</p>
+                    @if($errors->has('url'))
+                        <p class="help-block">
+                            {{ $errors->first('url') }}
+                        </p>
+                    @endif
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 form-group">
                     {!! Form::label('ssm', trans('global.csi.fields.ssm').'', ['class' => 'control-label']) !!}
                     {!! Form::text('ssm', old('ssm'), ['class' => 'form-control', 'placeholder' => '']) !!}
                     <p class="help-block"></p>

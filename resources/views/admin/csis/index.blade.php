@@ -31,10 +31,11 @@
                             @if ( request('show_deleted') != 1 )<th style="text-align:center;"><input type="checkbox" id="select-all" /></th>@endif
                         @endcan
 
+                        <th>@lang('global.csi.fields.channel-server')</th>
                         <th>@lang('global.csi.fields.channel')</th>
                         <th>@lang('global.cs-channel-list.fields.channel-type')</th>
                         <th>@lang('global.csi.fields.protocol')</th>
-                        <th>@lang('global.protocols.fields.real-name')</th>
+                        <th>@lang('global.csi.fields.url')</th>
                         <th>@lang('global.csi.fields.ssm')</th>
                         <th>@lang('global.csi.fields.imc')</th>
                         <th>@lang('global.csi.fields.ip')</th>
@@ -62,10 +63,11 @@
                 @if ( request('show_deleted') != 1 )
                     {data: 'massDelete', name: 'id', searchable: false, sortable: false},
                 @endif
-                @endcan{data: 'channel.channel_name', name: 'channel.channel_name'},
+                @endcan{data: 'channel_server.name', name: 'channel_server.name'},
+                {data: 'channel.channel_name', name: 'channel.channel_name'},
                 {data: 'channel.channel_type', name: 'channel.channel_type'},
                 {data: 'protocol.protocol', name: 'protocol.protocol'},
-                {data: 'protocol.real_name', name: 'protocol.real_name'},
+                {data: 'url', name: 'url'},
                 {data: 'ssm', name: 'ssm'},
                 {data: 'imc', name: 'imc'},
                 {data: 'ip', name: 'ip'},

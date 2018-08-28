@@ -1,16 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers\Admin;
 
 use App\AggregationServer;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreAggregationServersRequest;
 use App\Http\Requests\Admin\UpdateAggregationServersRequest;
+use Yajra\DataTables\DataTables;
 
 class AggregationServersController extends Controller
 {
@@ -25,13 +23,17 @@ class AggregationServersController extends Controller
             return abort(401);
         }
 
+
+        
         if (request()->ajax()) {
             $query = AggregationServer::query();
+            $query->with("sync_server");
             $template = 'actionsTemplate';
-            if (request('show_deleted') === 1) {
-                if (! Gate::allows('aggregation_server_delete')) {
-                    return abort(401);
-                }
+            if(request('show_deleted') == 1) {
+                
+        if (! Gate::allows('aggregation_server_delete')) {
+            return abort(401);
+        }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -39,6 +41,7 @@ class AggregationServersController extends Controller
                 'aggregation_servers.id',
                 'aggregation_servers.server_name',
                 'aggregation_servers.server_host',
+                'aggregation_servers.sync_server_id',
             ]);
             $table = Datatables::of($query);
 
@@ -48,7 +51,7 @@ class AggregationServersController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey = 'aggregation_server_';
+                $gateKey  = 'aggregation_server_';
                 $routeKey = 'admin.aggregation_servers';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -59,8 +62,11 @@ class AggregationServersController extends Controller
             $table->editColumn('server_host', function ($row) {
                 return $row->server_host ? $row->server_host : '';
             });
+            $table->editColumn('sync_server.name', function ($row) {
+                return $row->sync_server ? $row->sync_server->name : '';
+            });
 
-            $table->rawColumns(['actions', 'massDelete']);
+            $table->rawColumns(['actions','massDelete']);
 
             return $table->make(true);
         }
@@ -78,8 +84,10 @@ class AggregationServersController extends Controller
         if (! Gate::allows('aggregation_server_create')) {
             return abort(401);
         }
+        
+        $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
-        return view('admin.aggregation_servers.create');
+        return view('admin.aggregation_servers.create', compact('sync_servers'));
     }
 
     /**
@@ -99,8 +107,10 @@ class AggregationServersController extends Controller
             $aggregation_server->baby_sync_servers()->create($data);
         }
 
+
         return redirect()->route('admin.aggregation_servers.index');
     }
+
 
     /**
      * Show the form for editing AggregationServer.
@@ -113,9 +123,12 @@ class AggregationServersController extends Controller
         if (! Gate::allows('aggregation_server_edit')) {
             return abort(401);
         }
+        
+        $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
+
         $aggregation_server = AggregationServer::findOrFail($id);
 
-        return view('admin.aggregation_servers.edit', compact('aggregation_server'));
+        return view('admin.aggregation_servers.edit', compact('aggregation_server', 'sync_servers'));
     }
 
     /**
@@ -133,13 +146,13 @@ class AggregationServersController extends Controller
         $aggregation_server = AggregationServer::findOrFail($id);
         $aggregation_server->update($request->all());
 
-        $babySyncServers = $aggregation_server->baby_sync_servers;
+        $babySyncServers           = $aggregation_server->baby_sync_servers;
         $currentBabySyncServerData = [];
         foreach ($request->input('baby_sync_servers', []) as $index => $data) {
-            if (is_int($index)) {
+            if (is_integer($index)) {
                 $aggregation_server->baby_sync_servers()->create($data);
             } else {
-                $id = explode('-', $index)[1];
+                $id                          = explode('-', $index)[1];
                 $currentBabySyncServerData[$id] = $data;
             }
         }
@@ -151,8 +164,10 @@ class AggregationServersController extends Controller
             }
         }
 
+
         return redirect()->route('admin.aggregation_servers.index');
     }
+
 
     /**
      * Display AggregationServer.
@@ -165,12 +180,14 @@ class AggregationServersController extends Controller
         if (! Gate::allows('aggregation_server_view')) {
             return abort(401);
         }
-        $baby_sync_servers = \App\BabySyncServer::where('parent_aggregation_server_id', $id)->get();
+        
+        $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');$baby_sync_servers = \App\BabySyncServer::where('parent_aggregation_server_id', $id)->get();
 
         $aggregation_server = AggregationServer::findOrFail($id);
 
         return view('admin.aggregation_servers.show', compact('aggregation_server', 'baby_sync_servers'));
     }
+
 
     /**
      * Remove AggregationServer from storage.
@@ -207,6 +224,7 @@ class AggregationServersController extends Controller
             }
         }
     }
+
 
     /**
      * Restore AggregationServer from storage.

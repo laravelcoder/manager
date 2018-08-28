@@ -1,16 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers\Admin;
 
 use App\VideoSetting;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreVideoSettingsRequest;
 use App\Http\Requests\Admin\UpdateVideoSettingsRequest;
+use Yajra\DataTables\DataTables;
 
 class VideoSettingsController extends Controller
 {
@@ -25,17 +23,21 @@ class VideoSettingsController extends Controller
             return abort(401);
         }
 
+
+        
         if (request()->ajax()) {
             $query = VideoSetting::query();
-            $query->with('sync_server');
+            $query->with("sync_server");
+            $query->with("video_server_type");
             $template = 'actionsTemplate';
-
+            
             $query->select([
                 'video_settings.id',
                 'video_settings.server_url',
                 'video_settings.server_redirect',
                 'video_settings.hls',
                 'video_settings.sync_server_id',
+                'video_settings.video_server_type_id',
             ]);
             $table = Datatables::of($query);
 
@@ -45,7 +47,7 @@ class VideoSettingsController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey = 'video_setting_';
+                $gateKey  = 'video_setting_';
                 $routeKey = 'admin.video_settings';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -62,8 +64,11 @@ class VideoSettingsController extends Controller
             $table->editColumn('sync_server.name', function ($row) {
                 return $row->sync_server ? $row->sync_server->name : '';
             });
+            $table->editColumn('video_server_type.server_type', function ($row) {
+                return $row->video_server_type ? $row->video_server_type->server_type : '';
+            });
 
-            $table->rawColumns(['actions', 'massDelete']);
+            $table->rawColumns(['actions','massDelete']);
 
             return $table->make(true);
         }
@@ -81,10 +86,11 @@ class VideoSettingsController extends Controller
         if (! Gate::allows('video_setting_create')) {
             return abort(401);
         }
-
+        
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
+        $video_server_types = \App\VideoServerType::get()->pluck('server_type', 'id')->prepend(trans('global.app_please_select'), '');
 
-        return view('admin.video_settings.create', compact('sync_servers'));
+        return view('admin.video_settings.create', compact('sync_servers', 'video_server_types'));
     }
 
     /**
@@ -100,8 +106,11 @@ class VideoSettingsController extends Controller
         }
         $video_setting = VideoSetting::create($request->all());
 
+
+
         return redirect()->route('admin.video_settings.index');
     }
+
 
     /**
      * Show the form for editing VideoSetting.
@@ -114,12 +123,13 @@ class VideoSettingsController extends Controller
         if (! Gate::allows('video_setting_edit')) {
             return abort(401);
         }
-
+        
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
+        $video_server_types = \App\VideoServerType::get()->pluck('server_type', 'id')->prepend(trans('global.app_please_select'), '');
 
         $video_setting = VideoSetting::findOrFail($id);
 
-        return view('admin.video_settings.edit', compact('video_setting', 'sync_servers'));
+        return view('admin.video_settings.edit', compact('video_setting', 'sync_servers', 'video_server_types'));
     }
 
     /**
@@ -137,8 +147,11 @@ class VideoSettingsController extends Controller
         $video_setting = VideoSetting::findOrFail($id);
         $video_setting->update($request->all());
 
+
+
         return redirect()->route('admin.video_settings.index');
     }
+
 
     /**
      * Display VideoSetting.
@@ -155,6 +168,7 @@ class VideoSettingsController extends Controller
 
         return view('admin.video_settings.show', compact('video_setting'));
     }
+
 
     /**
      * Remove VideoSetting from storage.
@@ -191,4 +205,5 @@ class VideoSettingsController extends Controller
             }
         }
     }
+
 }

@@ -21,6 +21,10 @@
                             <td field-key='channel_type'>{{ $cs_channel_list->channel_type }}</td>
                         </tr>
                         <tr>
+                            <th>@lang('global.cs-channel-list.fields.channel-server')</th>
+                            <td field-key='channel_server'>{{ $cs_channel_list->channel_server->name or '' }}</td>
+                        </tr>
+                        <tr>
                             <th>@lang('global.cs-channel-list.fields.sync-server')</th>
                             <td field-key='sync_server'>{{ $cs_channel_list->sync_server->name or '' }}</td>
                         </tr>
@@ -112,8 +116,10 @@
 <table class="table table-bordered table-striped {{ count($csis) > 0 ? 'datatable' : '' }}">
     <thead>
         <tr>
-            <th>@lang('global.csi.fields.channel')</th>
+            <th>@lang('global.csi.fields.channel-server')</th>
+                        <th>@lang('global.csi.fields.channel')</th>
                         <th>@lang('global.csi.fields.protocol')</th>
+                        <th>@lang('global.csi.fields.url')</th>
                         <th>@lang('global.csi.fields.ssm')</th>
                         <th>@lang('global.csi.fields.imc')</th>
                         <th>@lang('global.csi.fields.ip')</th>
@@ -130,8 +136,10 @@
         @if (count($csis) > 0)
             @foreach ($csis as $csi)
                 <tr data-entry-id="{{ $csi->id }}">
-                    <td field-key='channel'>{{ $csi->channel->channel_name or '' }}</td>
+                    <td field-key='channel_server'>{{ $csi->channel_server->name or '' }}</td>
+                                <td field-key='channel'>{{ $csi->channel->channel_name or '' }}</td>
                                 <td field-key='protocol'>{{ $csi->protocol->protocol or '' }}</td>
+                                <td field-key='url'>{{ $csi->url }}</td>
                                 <td field-key='ssm'>{{ $csi->ssm }}</td>
                                 <td field-key='imc'>{{ $csi->imc }}</td>
                                 <td field-key='ip'>{{ $csi->ip }}</td>
@@ -176,7 +184,7 @@
             @endforeach
         @else
             <tr>
-                <td colspan="12">@lang('global.app_no_entries_in_table')</td>
+                <td colspan="13">@lang('global.app_no_entries_in_table')</td>
             </tr>
         @endif
     </tbody>

@@ -33,6 +33,7 @@
 
                         <th>@lang('global.aggregation-server.fields.server-name')</th>
                         <th>@lang('global.aggregation-server.fields.server-host')</th>
+                        <th>@lang('global.aggregation-server.fields.sync-server')</th>
                         @if( request('show_deleted') == 1 )
                         <th>&nbsp;</th>
                         @else
@@ -58,6 +59,7 @@
                 @endif
                 @endcan{data: 'server_name', name: 'server_name'},
                 {data: 'server_host', name: 'server_host'},
+                {data: 'sync_server.name', name: 'sync_server.name'},
                 
                 {data: 'actions', name: 'actions', searchable: false, sortable: false}
             ];

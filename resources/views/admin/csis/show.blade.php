@@ -25,8 +25,8 @@
                             <td field-key='protocol'>{{ $csi->protocol->protocol or '' }}</td>
                         </tr>
                         <tr>
-                            <th>@lang('global.protocols.fields.real-name')</th>
-                            <td field-key='real_name'>{{ isset($csi->protocol) ? $csi->protocol->real_name : '' }}</td>
+                            <th>@lang('global.csi.fields.url')</th>
+                            <td field-key='url'>{{ $csi->url }}</td>
                         </tr>
                         <tr>
                             <th>@lang('global.csi.fields.ssm')</th>

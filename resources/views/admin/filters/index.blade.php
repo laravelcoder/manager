@@ -32,6 +32,7 @@
                         @endcan
 
                         <th>@lang('global.filters.fields.name')</th>
+                        <th>@lang('global.filters.fields.sync-server')</th>
                         @if( request('show_deleted') == 1 )
                         <th>&nbsp;</th>
                         @else
@@ -56,6 +57,7 @@
                     {data: 'massDelete', name: 'id', searchable: false, sortable: false},
                 @endif
                 @endcan{data: 'name', name: 'name'},
+                {data: 'sync_server.name', name: 'sync_server.name'},
                 
                 {data: 'actions', name: 'actions', searchable: false, sortable: false}
             ];

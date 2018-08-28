@@ -16,6 +16,10 @@
                             <th>@lang('global.filters.fields.name')</th>
                             <td field-key='name'>{{ $filter->name }}</td>
                         </tr>
+                        <tr>
+                            <th>@lang('global.filters.fields.sync-server')</th>
+                            <td field-key='sync_server'>{{ $filter->sync_server->name or '' }}</td>
+                        </tr>
                     </table>
                 </div>
             </div><!-- Nav tabs -->

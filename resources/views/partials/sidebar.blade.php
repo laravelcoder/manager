@@ -20,9 +20,8 @@
                     <i class="fa fa-gears"></i>
                     <span>@lang('global.cs-channel-list.title')</span>
                 </a>
-            </li>
-            @endcan
-
+            </li>@endcan
+            
             @can('channel_servers_area_access')
             <li class="treeview">
                 <a href="#">
@@ -59,8 +58,6 @@
                     
                 </ul>
             </li>@endcan
-            
-
             
             @can('sync_server_area_access')
             <li class="treeview">
@@ -119,14 +116,6 @@
                                 <a href="{{ route('admin.realtime_notifications.index') }}">
                                     <i class="fa fa-gears"></i>
                                     <span>@lang('global.realtime-notification.title')</span>
-                                </a>
-                            </li>@endcan
-                            
-                            @can('per_channel_configuration_access')
-                            <li>
-                                <a href="{{ route('admin.per_channel_configurations.index') }}">
-                                    <i class="fa fa-gears"></i>
-                                    <span>@lang('global.per-channel-configurations.title')</span>
                                 </a>
                             </li>@endcan
                             
@@ -313,7 +302,6 @@
                 </a>
             </li>
         </ul>
-         <img src="{{ asset('images/sling_n_dish.png') }}" />
     </section>
 </aside>
 

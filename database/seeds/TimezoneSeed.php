@@ -1,6 +1,5 @@
 <?php
 
-declare(strict_types=1);
 use Illuminate\Database\Seeder;
 
 class TimezoneSeed extends Seeder
@@ -10,12 +9,12 @@ class TimezoneSeed extends Seeder
      *
      * @return void
      */
-    public function run(): void
+    public function run()
     {
         $items = [
-
-            ['id' => 1, 'timezone' => 'Africa/Abidjan'],
-            ['id' => 2, 'timezone' => 'Africa/Accra'],
+            
+            ['id' => 1, 'timezone' => 'Africa/Abidjan',],
+            ['id' => 2, 'timezone' => 'Africa/Accra',],
 
         ];
 
