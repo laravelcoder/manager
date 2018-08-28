@@ -204,6 +204,14 @@
                         </ul>
                     </li>@endcan
                     
+                    @can('ss_list_channel_access')
+                    <li>
+                        <a href="{{ route('admin.ss_list_channels.index') }}">
+                            <i class="fa fa-gears"></i>
+                            <span>@lang('global.ss-list-channels.title')</span>
+                        </a>
+                    </li>@endcan
+                    
                 </ul>
             </li>@endcan
             

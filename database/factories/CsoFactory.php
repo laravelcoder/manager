@@ -8,5 +8,6 @@ $factory->define(App\Cso::class, function (Faker\Generator $faker) {
         'ocp_a' => $faker->randomNumber(2),
         'ocloud_b' => $faker->name,
         'ocp_b' => $faker->name,
+        'channel_id' => factory('App\ChannelsList')->create(),
     ];
 });
