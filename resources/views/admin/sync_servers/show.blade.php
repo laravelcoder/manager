@@ -25,8 +25,10 @@
             </div><!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">
     
+ 
 <li role="presentation" class="active"><a href="#ss_list_channels" aria-controls="ss_list_channels" role="tab" data-toggle="tab">SS list channels</a></li>
 <li role="presentation" class=""><a href="#filters" aria-controls="filters" role="tab" data-toggle="tab">Filters</a></li>
+ 
 <li role="presentation" class=""><a href="#general_settings" aria-controls="general_settings" role="tab" data-toggle="tab">General settings</a></li>
 <li role="presentation" class=""><a href="#aggregation_server" aria-controls="aggregation_server" role="tab" data-toggle="tab">Aggregation Server</a></li>
 <li role="presentation" class=""><a href="#baby_sync_servers" aria-controls="baby_sync_servers" role="tab" data-toggle="tab">Baby Sync Servers</a></li>
@@ -40,6 +42,7 @@
 <!-- Tab panes -->
 <div class="tab-content">
     
+ 
 <div role="tabpanel" class="tab-pane active" id="ss_list_channels">
 <table class="table table-bordered table-striped {{ count($ss_list_channels) > 0 ? 'datatable' : '' }}">
     <thead>
@@ -107,6 +110,7 @@
 </table>
 </div>
 <div role="tabpanel" class="tab-pane " id="filters">
+ 
 <table class="table table-bordered table-striped {{ count($filters) > 0 ? 'datatable' : '' }}">
     <thead>
         <tr>

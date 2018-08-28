@@ -27,7 +27,9 @@
     
 <li role="presentation" class="active"><a href="#cs_list_channels" aria-controls="cs_list_channels" role="tab" data-toggle="tab">Cs list channels</a></li>
 <li role="presentation" class=""><a href="#csi" aria-controls="csi" role="tab" data-toggle="tab">Channel Server Inputs</a></li>
+
 <li role="presentation" class=""><a href="#ss_list_channels" aria-controls="ss_list_channels" role="tab" data-toggle="tab">SS list channels</a></li>
+
 <li role="presentation" class=""><a href="#channel_server" aria-controls="channel_server" role="tab" data-toggle="tab">Channel Server</a></li>
 <li role="presentation" class=""><a href="#cso" aria-controls="cso" role="tab" data-toggle="tab">Channel Server Outputs</a></li>
 </ul>
@@ -179,6 +181,7 @@
     </tbody>
 </table>
 </div>
+ 
 <div role="tabpanel" class="tab-pane " id="ss_list_channels">
 <table class="table table-bordered table-striped {{ count($ss_list_channels) > 0 ? 'datatable' : '' }}">
     <thead>
@@ -245,6 +248,7 @@
     </tbody>
 </table>
 </div>
+ 
 <div role="tabpanel" class="tab-pane " id="channel_server">
 <table class="table table-bordered table-striped {{ count($channel_servers) > 0 ? 'datatable' : '' }}">
     <thead>
