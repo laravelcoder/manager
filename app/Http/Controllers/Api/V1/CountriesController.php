@@ -1,13 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api\V1;
 
 use App\Country;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreCountriesRequest;
 use App\Http\Requests\Admin\UpdateCountriesRequest;
-use Yajra\DataTables\DataTables;
 
 class CountriesController extends Controller
 {
@@ -25,7 +25,6 @@ class CountriesController extends Controller
     {
         $country = Country::findOrFail($id);
         $country->update($request->all());
-        
 
         return $country;
     }
@@ -33,7 +32,6 @@ class CountriesController extends Controller
     public function store(StoreCountriesRequest $request)
     {
         $country = Country::create($request->all());
-        
 
         return $country;
     }
@@ -42,6 +40,7 @@ class CountriesController extends Controller
     {
         $country = Country::findOrFail($id);
         $country->delete();
+
         return '';
     }
 }

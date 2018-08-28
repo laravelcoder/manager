@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Country;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
+use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Admin\StoreCountriesRequest;
 use App\Http\Requests\Admin\UpdateCountriesRequest;
-use Yajra\DataTables\DataTables;
 
 class CountriesController extends Controller
 {
@@ -23,16 +25,13 @@ class CountriesController extends Controller
             return abort(401);
         }
 
-
-        
         if (request()->ajax()) {
             $query = Country::query();
             $template = 'actionsTemplate';
-            if(request('show_deleted') == 1) {
-                
-        if (! Gate::allows('country_delete')) {
-            return abort(401);
-        }
+            if (request('show_deleted') === 1) {
+                if (! Gate::allows('country_delete')) {
+                    return abort(401);
+                }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -49,7 +48,7 @@ class CountriesController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey  = 'country_';
+                $gateKey = 'country_';
                 $routeKey = 'admin.countries';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -61,7 +60,7 @@ class CountriesController extends Controller
                 return $row->title ? $row->title : '';
             });
 
-            $table->rawColumns(['actions','massDelete']);
+            $table->rawColumns(['actions', 'massDelete']);
 
             return $table->make(true);
         }
@@ -79,6 +78,7 @@ class CountriesController extends Controller
         if (! Gate::allows('country_create')) {
             return abort(401);
         }
+
         return view('admin.countries.create');
     }
 
@@ -95,11 +95,8 @@ class CountriesController extends Controller
         }
         $country = Country::create($request->all());
 
-
-
         return redirect()->route('admin.countries.index');
     }
-
 
     /**
      * Show the form for editing Country.
@@ -132,11 +129,8 @@ class CountriesController extends Controller
         $country = Country::findOrFail($id);
         $country->update($request->all());
 
-
-
         return redirect()->route('admin.countries.index');
     }
-
 
     /**
      * Display Country.
@@ -155,7 +149,6 @@ class CountriesController extends Controller
 
         return view('admin.countries.show', compact('country', 'report_settings'));
     }
-
 
     /**
      * Remove Country from storage.
@@ -192,7 +185,6 @@ class CountriesController extends Controller
             }
         }
     }
-
 
     /**
      * Restore Country from storage.
