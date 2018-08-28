@@ -1,8 +1,9 @@
-<?php 
+<?php
 
+declare(strict_types=1);
 
-if (!function_exists('get_cs_file_path')) {
-    /**
+if (! function_exists('get_cs_file_path')) {
+    /*
      * get path for channel server file.
      *
      * @param string $channelServerName
@@ -21,7 +22,7 @@ if (!function_exists('get_cs_file_path')) {
     //     if (file_exists($path)) {
     //         return $path;
     //     }
-        
+
     //     return base_path('conf_files/cs/'.$channelServerName.'/cs/'.$channelServerName.'.stub');
     // }
 }

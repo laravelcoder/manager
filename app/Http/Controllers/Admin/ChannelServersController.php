@@ -244,11 +244,7 @@ class ChannelServersController extends Controller
         return redirect()->route('admin.channel_servers.index');
     }
 
-
-    public function create_conf()
+    public function create_conf(): void
     {
-
-
-
     }
 }
