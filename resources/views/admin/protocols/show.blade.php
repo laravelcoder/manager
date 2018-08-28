@@ -36,6 +36,7 @@
     <thead>
         <tr>
             <th>@lang('global.csi.fields.channel-server')</th>
+                        <th>@lang('global.csi.fields.channel')</th>
                         <th>@lang('global.csi.fields.protocol')</th>
                         <th>@lang('global.csi.fields.url')</th>
                         <th>@lang('global.csi.fields.ssm')</th>
@@ -55,6 +56,7 @@
             @foreach ($csis as $csi)
                 <tr data-entry-id="{{ $csi->id }}">
                     <td field-key='channel_server'>{{ $csi->channel_server->name or '' }}</td>
+                                <td field-key='channel'>{{ $csi->channel->channel_name or '' }}</td>
                                 <td field-key='protocol'>{{ $csi->protocol->protocol or '' }}</td>
                                 <td field-key='url'>{{ $csi->url }}</td>
                                 <td field-key='ssm'>{{ $csi->ssm }}</td>
@@ -101,7 +103,7 @@
             @endforeach
         @else
             <tr>
-                <td colspan="12">@lang('global.app_no_entries_in_table')</td>
+                <td colspan="13">@lang('global.app_no_entries_in_table')</td>
             </tr>
         @endif
     </tbody>

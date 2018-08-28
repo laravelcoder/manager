@@ -1,6 +1,5 @@
 <?php
 
-declare(strict_types=1);
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -11,13 +10,13 @@ class Create1529611512OutputSettingsTable extends Migration
      *
      * @return void
      */
-    public function up(): void
+    public function up()
     {
-        if (! Schema::hasTable('output_settings')) {
-            Schema::create('output_settings', function (Blueprint $table): void {
+        if(! Schema::hasTable('output_settings')) {
+            Schema::create('output_settings', function (Blueprint $table) {
                 $table->increments('id');
                 $table->time('report_time')->nullable();
-
+                
                 $table->timestamps();
                 $table->softDeletes();
 
@@ -31,7 +30,7 @@ class Create1529611512OutputSettingsTable extends Migration
      *
      * @return void
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('output_settings');
     }

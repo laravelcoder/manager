@@ -1,6 +1,5 @@
 <?php
 
-declare(strict_types=1);
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -11,16 +10,17 @@ class Create1534545292VideoSettingsTable extends Migration
      *
      * @return void
      */
-    public function up(): void
+    public function up()
     {
-        if (! Schema::hasTable('video_settings')) {
-            Schema::create('video_settings', function (Blueprint $table): void {
+        if(! Schema::hasTable('video_settings')) {
+            Schema::create('video_settings', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('server_url')->nullable();
                 $table->string('server_redirect')->nullable();
                 $table->string('url_params')->nullable();
-
+                
                 $table->timestamps();
+                
             });
         }
     }
@@ -30,7 +30,7 @@ class Create1534545292VideoSettingsTable extends Migration
      *
      * @return void
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('video_settings');
     }

@@ -1,16 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers\Admin;
 
 use App\BabySyncServer;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreBabySyncServersRequest;
 use App\Http\Requests\Admin\UpdateBabySyncServersRequest;
+use Yajra\DataTables\DataTables;
 
 class BabySyncServersController extends Controller
 {
@@ -25,15 +23,18 @@ class BabySyncServersController extends Controller
             return abort(401);
         }
 
+
+        
         if (request()->ajax()) {
             $query = BabySyncServer::query();
-            $query->with('parent_aggregation_server');
-            $query->with('sync_server');
+            $query->with("parent_aggregation_server");
+            $query->with("sync_server");
             $template = 'actionsTemplate';
-            if (request('show_deleted') === 1) {
-                if (! Gate::allows('baby_sync_server_delete')) {
-                    return abort(401);
-                }
+            if(request('show_deleted') == 1) {
+                
+        if (! Gate::allows('baby_sync_server_delete')) {
+            return abort(401);
+        }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -51,7 +52,7 @@ class BabySyncServersController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey = 'baby_sync_server_';
+                $gateKey  = 'baby_sync_server_';
                 $routeKey = 'admin.baby_sync_servers';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -66,7 +67,7 @@ class BabySyncServersController extends Controller
                 return $row->sync_server ? $row->sync_server->name : '';
             });
 
-            $table->rawColumns(['actions', 'massDelete']);
+            $table->rawColumns(['actions','massDelete']);
 
             return $table->make(true);
         }
@@ -84,7 +85,7 @@ class BabySyncServersController extends Controller
         if (! Gate::allows('baby_sync_server_create')) {
             return abort(401);
         }
-
+        
         $parent_aggregation_servers = \App\AggregationServer::get()->pluck('server_name', 'id')->prepend(trans('global.app_please_select'), '');
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
@@ -104,8 +105,11 @@ class BabySyncServersController extends Controller
         }
         $baby_sync_server = BabySyncServer::create($request->all());
 
+
+
         return redirect()->route('admin.baby_sync_servers.index');
     }
+
 
     /**
      * Show the form for editing BabySyncServer.
@@ -118,7 +122,7 @@ class BabySyncServersController extends Controller
         if (! Gate::allows('baby_sync_server_edit')) {
             return abort(401);
         }
-
+        
         $parent_aggregation_servers = \App\AggregationServer::get()->pluck('server_name', 'id')->prepend(trans('global.app_please_select'), '');
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
@@ -142,8 +146,11 @@ class BabySyncServersController extends Controller
         $baby_sync_server = BabySyncServer::findOrFail($id);
         $baby_sync_server->update($request->all());
 
+
+
         return redirect()->route('admin.baby_sync_servers.index');
     }
+
 
     /**
      * Display BabySyncServer.
@@ -160,6 +167,7 @@ class BabySyncServersController extends Controller
 
         return view('admin.baby_sync_servers.show', compact('baby_sync_server'));
     }
+
 
     /**
      * Remove BabySyncServer from storage.
@@ -196,6 +204,7 @@ class BabySyncServersController extends Controller
             }
         }
     }
+
 
     /**
      * Restore BabySyncServer from storage.

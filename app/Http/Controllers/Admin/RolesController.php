@@ -1,13 +1,11 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers\Admin;
 
 use App\Role;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreRolesRequest;
 use App\Http\Requests\Admin\UpdateRolesRequest;
 
@@ -24,7 +22,8 @@ class RolesController extends Controller
             return abort(401);
         }
 
-        $roles = Role::all();
+
+                $roles = Role::all();
 
         return view('admin.roles.index', compact('roles'));
     }
@@ -39,8 +38,9 @@ class RolesController extends Controller
         if (! Gate::allows('role_create')) {
             return abort(401);
         }
-
+        
         $permissions = \App\Permission::get()->pluck('title', 'id');
+
 
         return view('admin.roles.create', compact('permissions'));
     }
@@ -57,10 +57,13 @@ class RolesController extends Controller
             return abort(401);
         }
         $role = Role::create($request->all());
-        $role->permission()->sync(array_filter((array) $request->input('permission')));
+        $role->permission()->sync(array_filter((array)$request->input('permission')));
+
+
 
         return redirect()->route('admin.roles.index');
     }
+
 
     /**
      * Show the form for editing Role.
@@ -73,8 +76,9 @@ class RolesController extends Controller
         if (! Gate::allows('role_edit')) {
             return abort(401);
         }
-
+        
         $permissions = \App\Permission::get()->pluck('title', 'id');
+
 
         $role = Role::findOrFail($id);
 
@@ -95,10 +99,13 @@ class RolesController extends Controller
         }
         $role = Role::findOrFail($id);
         $role->update($request->all());
-        $role->permission()->sync(array_filter((array) $request->input('permission')));
+        $role->permission()->sync(array_filter((array)$request->input('permission')));
+
+
 
         return redirect()->route('admin.roles.index');
     }
+
 
     /**
      * Display Role.
@@ -111,10 +118,10 @@ class RolesController extends Controller
         if (! Gate::allows('role_view')) {
             return abort(401);
         }
-
+        
         $permissions = \App\Permission::get()->pluck('title', 'id');
-        $users = \App\User::whereHas('role',
-                    function ($query) use ($id): void {
+$users = \App\User::whereHas('role',
+                    function ($query) use ($id) {
                         $query->where('id', $id);
                     })->get();
 
@@ -122,6 +129,7 @@ class RolesController extends Controller
 
         return view('admin.roles.show', compact('role', 'users'));
     }
+
 
     /**
      * Remove Role from storage.
@@ -158,4 +166,5 @@ class RolesController extends Controller
             }
         }
     }
+
 }

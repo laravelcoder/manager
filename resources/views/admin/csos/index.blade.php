@@ -35,6 +35,8 @@
                         <th>@lang('global.cso.fields.ocp-a')</th>
                         <th>@lang('global.cso.fields.ocloud-b')</th>
                         <th>@lang('global.cso.fields.ocp-b')</th>
+                        <th>@lang('global.cso.fields.channel')</th>
+                        <th>@lang('global.channels-list.fields.channel-type')</th>
                         @if( request('show_deleted') == 1 )
                         <th>&nbsp;</th>
                         @else
@@ -62,6 +64,8 @@
                 {data: 'ocp_a', name: 'ocp_a'},
                 {data: 'ocloud_b', name: 'ocloud_b'},
                 {data: 'ocp_b', name: 'ocp_b'},
+                {data: 'channel.channel_name', name: 'channel.channel_name'},
+                {data: 'channel.channel_type', name: 'channel.channel_type'},
                 
                 {data: 'actions', name: 'actions', searchable: false, sortable: false}
             ];

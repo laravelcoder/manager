@@ -1,16 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers\Admin;
 
 use App\OutputSetting;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreOutputSettingsRequest;
 use App\Http\Requests\Admin\UpdateOutputSettingsRequest;
+use Yajra\DataTables\DataTables;
 
 class OutputSettingsController extends Controller
 {
@@ -25,15 +23,18 @@ class OutputSettingsController extends Controller
             return abort(401);
         }
 
+
+        
         if (request()->ajax()) {
             $query = OutputSetting::query();
-            $query->with('email');
-            $query->with('sync_server');
+            $query->with("email");
+            $query->with("sync_server");
             $template = 'actionsTemplate';
-            if (request('show_deleted') === 1) {
-                if (! Gate::allows('output_setting_delete')) {
-                    return abort(401);
-                }
+            if(request('show_deleted') == 1) {
+                
+        if (! Gate::allows('output_setting_delete')) {
+            return abort(401);
+        }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -51,7 +52,7 @@ class OutputSettingsController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey = 'output_setting_';
+                $gateKey  = 'output_setting_';
                 $routeKey = 'admin.output_settings';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -66,7 +67,7 @@ class OutputSettingsController extends Controller
                 return $row->sync_server ? $row->sync_server->name : '';
             });
 
-            $table->rawColumns(['actions', 'massDelete']);
+            $table->rawColumns(['actions','massDelete']);
 
             return $table->make(true);
         }
@@ -84,7 +85,7 @@ class OutputSettingsController extends Controller
         if (! Gate::allows('output_setting_create')) {
             return abort(401);
         }
-
+        
         $emails = \App\User::get()->pluck('email', 'id')->prepend(trans('global.app_please_select'), '');
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
@@ -104,8 +105,11 @@ class OutputSettingsController extends Controller
         }
         $output_setting = OutputSetting::create($request->all());
 
+
+
         return redirect()->route('admin.output_settings.index');
     }
+
 
     /**
      * Show the form for editing OutputSetting.
@@ -118,7 +122,7 @@ class OutputSettingsController extends Controller
         if (! Gate::allows('output_setting_edit')) {
             return abort(401);
         }
-
+        
         $emails = \App\User::get()->pluck('email', 'id')->prepend(trans('global.app_please_select'), '');
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
@@ -142,8 +146,11 @@ class OutputSettingsController extends Controller
         $output_setting = OutputSetting::findOrFail($id);
         $output_setting->update($request->all());
 
+
+
         return redirect()->route('admin.output_settings.index');
     }
+
 
     /**
      * Display OutputSetting.
@@ -160,6 +167,7 @@ class OutputSettingsController extends Controller
 
         return view('admin.output_settings.show', compact('output_setting'));
     }
+
 
     /**
      * Remove OutputSetting from storage.
@@ -196,6 +204,7 @@ class OutputSettingsController extends Controller
             }
         }
     }
+
 
     /**
      * Restore OutputSetting from storage.

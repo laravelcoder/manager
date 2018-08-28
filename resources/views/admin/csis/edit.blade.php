@@ -25,6 +25,18 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group">
+                    {!! Form::label('channel_id', trans('global.csi.fields.channel').'', ['class' => 'control-label']) !!}
+                    {!! Form::select('channel_id', $channels, old('channel_id'), ['class' => 'form-control select2']) !!}
+                    <p class="help-block"></p>
+                    @if($errors->has('channel_id'))
+                        <p class="help-block">
+                            {{ $errors->first('channel_id') }}
+                        </p>
+                    @endif
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 form-group">
                     {!! Form::label('protocol_id', trans('global.csi.fields.protocol').'', ['class' => 'control-label']) !!}
                     {!! Form::select('protocol_id', $protocols, old('protocol_id'), ['class' => 'form-control select2']) !!}
                     <p class="help-block"></p>

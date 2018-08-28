@@ -1,6 +1,5 @@
 <?php
 
-declare(strict_types=1);
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -11,13 +10,15 @@ class Update1529515430ProtocolsTable extends Migration
      *
      * @return void
      */
-    public function up(): void
+    public function up()
     {
-        Schema::table('protocols', function (Blueprint $table): void {
-            if (! Schema::hasColumn('protocols', 'real_name')) {
+        Schema::table('protocols', function (Blueprint $table) {
+            
+if (!Schema::hasColumn('protocols', 'real_name')) {
                 $table->string('real_name')->nullable();
-            }
+                }
         });
+
     }
 
     /**
@@ -25,10 +26,12 @@ class Update1529515430ProtocolsTable extends Migration
      *
      * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::table('protocols', function (Blueprint $table): void {
+        Schema::table('protocols', function (Blueprint $table) {
             $table->dropColumn('real_name');
+            
         });
+
     }
 }
