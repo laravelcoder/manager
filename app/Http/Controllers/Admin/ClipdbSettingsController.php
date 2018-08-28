@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\ClipdbSetting;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
+use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Admin\StoreClipdbSettingsRequest;
 use App\Http\Requests\Admin\UpdateClipdbSettingsRequest;
-use Yajra\DataTables\DataTables;
 
 class ClipdbSettingsController extends Controller
 {
@@ -23,16 +25,13 @@ class ClipdbSettingsController extends Controller
             return abort(401);
         }
 
-
-        
         if (request()->ajax()) {
             $query = ClipdbSetting::query();
             $template = 'actionsTemplate';
-            if(request('show_deleted') == 1) {
-                
-        if (! Gate::allows('clipdb_setting_delete')) {
-            return abort(401);
-        }
+            if (request('show_deleted') === 1) {
+                if (! Gate::allows('clipdb_setting_delete')) {
+                    return abort(401);
+                }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -48,7 +47,7 @@ class ClipdbSettingsController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey  = 'clipdb_setting_';
+                $gateKey = 'clipdb_setting_';
                 $routeKey = 'admin.clipdb_settings';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -57,7 +56,7 @@ class ClipdbSettingsController extends Controller
                 return $row->clip_db_url ? $row->clip_db_url : '';
             });
 
-            $table->rawColumns(['actions','massDelete']);
+            $table->rawColumns(['actions', 'massDelete']);
 
             return $table->make(true);
         }
@@ -75,6 +74,7 @@ class ClipdbSettingsController extends Controller
         if (! Gate::allows('clipdb_setting_create')) {
             return abort(401);
         }
+
         return view('admin.clipdb_settings.create');
     }
 
@@ -91,11 +91,8 @@ class ClipdbSettingsController extends Controller
         }
         $clipdb_setting = ClipdbSetting::create($request->all());
 
-
-
         return redirect()->route('admin.clipdb_settings.index');
     }
-
 
     /**
      * Show the form for editing ClipdbSetting.
@@ -128,11 +125,8 @@ class ClipdbSettingsController extends Controller
         $clipdb_setting = ClipdbSetting::findOrFail($id);
         $clipdb_setting->update($request->all());
 
-
-
         return redirect()->route('admin.clipdb_settings.index');
     }
-
 
     /**
      * Display ClipdbSetting.
@@ -149,7 +143,6 @@ class ClipdbSettingsController extends Controller
 
         return view('admin.clipdb_settings.show', compact('clipdb_setting'));
     }
-
 
     /**
      * Remove ClipdbSetting from storage.
@@ -186,7 +179,6 @@ class ClipdbSettingsController extends Controller
             }
         }
     }
-
 
     /**
      * Restore ClipdbSetting from storage.
