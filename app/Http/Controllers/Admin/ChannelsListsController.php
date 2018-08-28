@@ -156,9 +156,7 @@ class ChannelsListsController extends Controller
 
         $channels_list = ChannelsList::findOrFail($id);
 
-
         return view('admin.channels_lists.show', compact('channels_list', 'cs_list_channels', 'csis', 'ss_list_channels', 'channel_servers', 'csos'));
-
     }
 
     /**

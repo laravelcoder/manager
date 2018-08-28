@@ -158,9 +158,7 @@ class SyncServersController extends Controller
 
         $sync_server = SyncServer::findOrFail($id);
 
-
         return view('admin.sync_servers.show', compact('sync_server', 'ss_list_channels', 'filters', 'general_settings', 'aggregation_servers', 'baby_sync_servers', 'output_settings', 'realtime_notifications', 'video_settings', 'ftps', 'report_settings'));
-
     }
 
     /**
