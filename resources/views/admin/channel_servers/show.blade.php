@@ -46,6 +46,7 @@
     <thead>
         <tr>
             <th>@lang('global.csi.fields.channel-server')</th>
+                        <th>@lang('global.csi.fields.channel')</th>
                         <th>@lang('global.csi.fields.protocol')</th>
                         <th>@lang('global.csi.fields.url')</th>
                         <th>@lang('global.csi.fields.ssm')</th>
@@ -65,6 +66,7 @@
             @foreach ($csis as $csi)
                 <tr data-entry-id="{{ $csi->id }}">
                     <td field-key='channel_server'>{{ $csi->channel_server->name or '' }}</td>
+                                <td field-key='channel'>{{ $csi->channel->channel_name or '' }}</td>
                                 <td field-key='protocol'>{{ $csi->protocol->protocol or '' }}</td>
                                 <td field-key='url'>{{ $csi->url }}</td>
                                 <td field-key='ssm'>{{ $csi->ssm }}</td>
@@ -111,7 +113,7 @@
             @endforeach
         @else
             <tr>
-                <td colspan="12">@lang('global.app_no_entries_in_table')</td>
+                <td colspan="13">@lang('global.app_no_entries_in_table')</td>
             </tr>
         @endif
     </tbody>
@@ -125,6 +127,7 @@
                         <th>@lang('global.cso.fields.ocp-a')</th>
                         <th>@lang('global.cso.fields.ocloud-b')</th>
                         <th>@lang('global.cso.fields.ocp-b')</th>
+                        <th>@lang('global.cso.fields.channel')</th>
                         @if( request('show_deleted') == 1 )
                         <th>&nbsp;</th>
                         @else
@@ -141,6 +144,7 @@
                                 <td field-key='ocp_a'>{{ $cso->ocp_a }}</td>
                                 <td field-key='ocloud_b'>{{ $cso->ocloud_b }}</td>
                                 <td field-key='ocp_b'>{{ $cso->ocp_b }}</td>
+                                <td field-key='channel'>{{ $cso->channel->channel_name or '' }}</td>
                                 @if( request('show_deleted') == 1 )
                                 <td>
                                     {!! Form::open(array(
@@ -181,7 +185,7 @@
             @endforeach
         @else
             <tr>
-                <td colspan="10">@lang('global.app_no_entries_in_table')</td>
+                <td colspan="11">@lang('global.app_no_entries_in_table')</td>
             </tr>
         @endif
     </tbody>

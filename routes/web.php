@@ -105,4 +105,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('channels_lists_mass_destroy', ['uses' => 'Admin\ChannelsListsController@massDestroy', 'as' => 'channels_lists.mass_destroy']);
     Route::post('channels_lists_restore/{id}', ['uses' => 'Admin\ChannelsListsController@restore', 'as' => 'channels_lists.restore']);
     Route::delete('channels_lists_perma_del/{id}', ['uses' => 'Admin\ChannelsListsController@perma_del', 'as' => 'channels_lists.perma_del']);
+    Route::resource('ss_list_channels', 'Admin\SsListChannelsController');
+    Route::post('ss_list_channels_mass_destroy', ['uses' => 'Admin\SsListChannelsController@massDestroy', 'as' => 'ss_list_channels.mass_destroy']);
+    Route::post('ss_list_channels_restore/{id}', ['uses' => 'Admin\SsListChannelsController@restore', 'as' => 'ss_list_channels.restore']);
+    Route::delete('ss_list_channels_perma_del/{id}', ['uses' => 'Admin\SsListChannelsController@perma_del', 'as' => 'ss_list_channels.perma_del']);
 });
