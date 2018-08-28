@@ -32,9 +32,9 @@
                         @endcan
 
                         <th>@lang('global.csi.fields.channel')</th>
-                        <th>@lang('global.cs-channel-list.fields.channel-type')</th>
+                        {{-- <th>@lang('global.cs-channel-list.fields.channel-type')</th> --}}
                         <th>@lang('global.csi.fields.protocol')</th>
-                        <th>@lang('global.protocols.fields.real-name')</th>
+                        {{-- <th>@lang('global.protocols.fields.real-name')</th> --}}
                         <th>@lang('global.csi.fields.ssm')</th>
                         <th>@lang('global.csi.fields.imc')</th>
                         <th>@lang('global.csi.fields.ip')</th>
@@ -63,9 +63,9 @@
                     {data: 'massDelete', name: 'id', searchable: false, sortable: false},
                 @endif
                 @endcan{data: 'channel.channel_name', name: 'channel.channel_name'},
-                {data: 'channel.channel_type', name: 'channel.channel_type'},
+                // {data: 'channel.channel_type', name: 'channel.channel_type'},
                 {data: 'protocol.protocol', name: 'protocol.protocol'},
-                {data: 'protocol.real_name', name: 'protocol.real_name'},
+                // {data: 'protocol.real_name', name: 'protocol.real_name'},
                 {data: 'ssm', name: 'ssm'},
                 {data: 'imc', name: 'imc'},
                 {data: 'ip', name: 'ip'},

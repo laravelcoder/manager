@@ -12,8 +12,4 @@
         'route' => [$routeKey.'.destroy', $row->id])) !!}
     {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
     {!! Form::close() !!}
-
-    <a href="" class="btn btn-xs btn-info">View Config</a>
-    <a href="" class="btn btn-xs btn-info">Download Config</a>
-    <a href="" class="btn btn-xs btn-info">Post Config To Server</a>
 @endcan
