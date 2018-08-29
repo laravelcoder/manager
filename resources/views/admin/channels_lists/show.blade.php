@@ -27,11 +27,9 @@
     
 <li role="presentation" class="active"><a href="#cs_list_channels" aria-controls="cs_list_channels" role="tab" data-toggle="tab">Cs list channels</a></li>
 <li role="presentation" class=""><a href="#csi" aria-controls="csi" role="tab" data-toggle="tab">Channel Server Inputs</a></li>
-
-<li role="presentation" class=""><a href="#ss_list_channels" aria-controls="ss_list_channels" role="tab" data-toggle="tab">SS list channels</a></li>
-
-<li role="presentation" class=""><a href="#channel_server" aria-controls="channel_server" role="tab" data-toggle="tab">Channel Server</a></li>
 <li role="presentation" class=""><a href="#cso" aria-controls="cso" role="tab" data-toggle="tab">Channel Server Outputs</a></li>
+<li role="presentation" class=""><a href="#ss_list_channels" aria-controls="ss_list_channels" role="tab" data-toggle="tab">SS list channels</a></li>
+<li role="presentation" class=""><a href="#channel_server" aria-controls="channel_server" role="tab" data-toggle="tab">Channel Server</a></li>
 </ul>
 
 <!-- Tab panes -->
@@ -181,7 +179,78 @@
     </tbody>
 </table>
 </div>
- 
+<div role="tabpanel" class="tab-pane " id="cso">
+<table class="table table-bordered table-striped {{ count($csos) > 0 ? 'datatable' : '' }}">
+    <thead>
+        <tr>
+            <th>@lang('global.cso.fields.channel')</th>
+                        <th>@lang('global.cso.fields.ocloud-a')</th>
+                        <th>@lang('global.cso.fields.ocp-a')</th>
+                        <th>@lang('global.cso.fields.ocloud-b')</th>
+                        <th>@lang('global.cso.fields.ocp-b')</th>
+                        @if( request('show_deleted') == 1 )
+                        <th>&nbsp;</th>
+                        @else
+                        <th>&nbsp;</th>
+                        @endif
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (count($csos) > 0)
+            @foreach ($csos as $cso)
+                <tr data-entry-id="{{ $cso->id }}">
+                    <td field-key='channel'>{{ $cso->channel->channel_name or '' }}</td>
+                                <td field-key='ocloud_a'>{{ $cso->ocloud_a }}</td>
+                                <td field-key='ocp_a'>{{ $cso->ocp_a }}</td>
+                                <td field-key='ocloud_b'>{{ $cso->ocloud_b }}</td>
+                                <td field-key='ocp_b'>{{ $cso->ocp_b }}</td>
+                                @if( request('show_deleted') == 1 )
+                                <td>
+                                    {!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'POST',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.csos.restore', $cso->id])) !!}
+                                    {!! Form::submit(trans('global.app_restore'), array('class' => 'btn btn-xs btn-success')) !!}
+                                    {!! Form::close() !!}
+                                                                    {!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'DELETE',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.csos.perma_del', $cso->id])) !!}
+                                    {!! Form::submit(trans('global.app_permadel'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                    {!! Form::close() !!}
+                                                                </td>
+                                @else
+                                <td>
+                                    @can('cso_view')
+                                    <a href="{{ route('admin.csos.show',[$cso->id]) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
+                                    @endcan
+                                    @can('cso_edit')
+                                    <a href="{{ route('admin.csos.edit',[$cso->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
+                                    @endcan
+                                    @can('cso_delete')
+{!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'DELETE',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.csos.destroy', $cso->id])) !!}
+                                    {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                    {!! Form::close() !!}
+                                    @endcan
+                                </td>
+                                @endif
+                </tr>
+            @endforeach
+        @else
+            <tr>
+                <td colspan="11">@lang('global.app_no_entries_in_table')</td>
+            </tr>
+        @endif
+    </tbody>
+</table>
+</div>
 <div role="tabpanel" class="tab-pane " id="ss_list_channels">
 <table class="table table-bordered table-striped {{ count($ss_list_channels) > 0 ? 'datatable' : '' }}">
     <thead>
@@ -248,7 +317,6 @@
     </tbody>
 </table>
 </div>
- 
 <div role="tabpanel" class="tab-pane " id="channel_server">
 <table class="table table-bordered table-striped {{ count($channel_servers) > 0 ? 'datatable' : '' }}">
     <thead>
@@ -316,78 +384,6 @@
         @else
             <tr>
                 <td colspan="8">@lang('global.app_no_entries_in_table')</td>
-            </tr>
-        @endif
-    </tbody>
-</table>
-</div>
-<div role="tabpanel" class="tab-pane " id="cso">
-<table class="table table-bordered table-striped {{ count($csos) > 0 ? 'datatable' : '' }}">
-    <thead>
-        <tr>
-            <th>@lang('global.cso.fields.ocloud-a')</th>
-                        <th>@lang('global.cso.fields.ocp-a')</th>
-                        <th>@lang('global.cso.fields.ocloud-b')</th>
-                        <th>@lang('global.cso.fields.ocp-b')</th>
-                        <th>@lang('global.cso.fields.channel')</th>
-                        @if( request('show_deleted') == 1 )
-                        <th>&nbsp;</th>
-                        @else
-                        <th>&nbsp;</th>
-                        @endif
-        </tr>
-    </thead>
-
-    <tbody>
-        @if (count($csos) > 0)
-            @foreach ($csos as $cso)
-                <tr data-entry-id="{{ $cso->id }}">
-                    <td field-key='ocloud_a'>{{ $cso->ocloud_a }}</td>
-                                <td field-key='ocp_a'>{{ $cso->ocp_a }}</td>
-                                <td field-key='ocloud_b'>{{ $cso->ocloud_b }}</td>
-                                <td field-key='ocp_b'>{{ $cso->ocp_b }}</td>
-                                <td field-key='channel'>{{ $cso->channel->channel_name or '' }}</td>
-                                @if( request('show_deleted') == 1 )
-                                <td>
-                                    {!! Form::open(array(
-                                        'style' => 'display: inline-block;',
-                                        'method' => 'POST',
-                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
-                                        'route' => ['admin.csos.restore', $cso->id])) !!}
-                                    {!! Form::submit(trans('global.app_restore'), array('class' => 'btn btn-xs btn-success')) !!}
-                                    {!! Form::close() !!}
-                                                                    {!! Form::open(array(
-                                        'style' => 'display: inline-block;',
-                                        'method' => 'DELETE',
-                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
-                                        'route' => ['admin.csos.perma_del', $cso->id])) !!}
-                                    {!! Form::submit(trans('global.app_permadel'), array('class' => 'btn btn-xs btn-danger')) !!}
-                                    {!! Form::close() !!}
-                                                                </td>
-                                @else
-                                <td>
-                                    @can('cso_view')
-                                    <a href="{{ route('admin.csos.show',[$cso->id]) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
-                                    @endcan
-                                    @can('cso_edit')
-                                    <a href="{{ route('admin.csos.edit',[$cso->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
-                                    @endcan
-                                    @can('cso_delete')
-{!! Form::open(array(
-                                        'style' => 'display: inline-block;',
-                                        'method' => 'DELETE',
-                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
-                                        'route' => ['admin.csos.destroy', $cso->id])) !!}
-                                    {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
-                                    {!! Form::close() !!}
-                                    @endcan
-                                </td>
-                                @endif
-                </tr>
-            @endforeach
-        @else
-            <tr>
-                <td colspan="11">@lang('global.app_no_entries_in_table')</td>
             </tr>
         @endif
     </tbody>

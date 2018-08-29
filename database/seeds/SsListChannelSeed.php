@@ -14,8 +14,6 @@ class SsListChannelSeed extends Seeder
     {
         $items = [
 
-            ['id' => 1, 'sync_server_id' => 1, 'channel_id' => 1],
-
         ];
 
         foreach ($items as $item) {
