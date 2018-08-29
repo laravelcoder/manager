@@ -25,4 +25,6 @@ resources/views/auth/login.blade.php
 /resources/views/partials/right-sidebar.blade.php
 /resources/views/partials/selector.blade.php
 /resources/views/partials/javascripts.blade.php
-!/resources/views/extraTemplate.blade.php
+/resources/views/extraTemplate.blade.php
+/public/adminlte
+public/chartjs
