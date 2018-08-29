@@ -1,26 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Browser;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 
 class ClipdbSettingTest extends DuskTestCase
 {
-
-    public function testCreateClipdbSetting()
+    public function testCreateClipdbSetting(): void
     {
         $admin = \App\User::find(1);
         $clipdb_setting = factory('App\ClipdbSetting')->make();
 
-        
-
-        $this->browse(function (Browser $browser) use ($admin, $clipdb_setting) {
+        $this->browse(function (Browser $browser) use ($admin, $clipdb_setting): void {
             $browser->loginAs($admin)
                 ->visit(route('admin.clipdb_settings.index'))
                 ->clickLink('Add new')
-                ->type("clip_db_url", $clipdb_setting->clip_db_url)
+                ->type('clip_db_url', $clipdb_setting->clip_db_url)
                 ->press('Save')
                 ->assertRouteIs('admin.clipdb_settings.index')
                 ->assertSeeIn("tr:last-child td[field-key='clip_db_url']", $clipdb_setting->clip_db_url)
@@ -28,19 +26,17 @@ class ClipdbSettingTest extends DuskTestCase
         });
     }
 
-    public function testEditClipdbSetting()
+    public function testEditClipdbSetting(): void
     {
         $admin = \App\User::find(1);
         $clipdb_setting = factory('App\ClipdbSetting')->create();
         $clipdb_setting2 = factory('App\ClipdbSetting')->make();
 
-        
-
-        $this->browse(function (Browser $browser) use ($admin, $clipdb_setting, $clipdb_setting2) {
+        $this->browse(function (Browser $browser) use ($admin, $clipdb_setting, $clipdb_setting2): void {
             $browser->loginAs($admin)
                 ->visit(route('admin.clipdb_settings.index'))
-                ->click('tr[data-entry-id="' . $clipdb_setting->id . '"] .btn-info')
-                ->type("clip_db_url", $clipdb_setting2->clip_db_url)
+                ->click('tr[data-entry-id="'.$clipdb_setting->id.'"] .btn-info')
+                ->type('clip_db_url', $clipdb_setting2->clip_db_url)
                 ->press('Update')
                 ->assertRouteIs('admin.clipdb_settings.index')
                 ->assertSeeIn("tr:last-child td[field-key='clip_db_url']", $clipdb_setting2->clip_db_url)
@@ -48,21 +44,17 @@ class ClipdbSettingTest extends DuskTestCase
         });
     }
 
-    public function testShowClipdbSetting()
+    public function testShowClipdbSetting(): void
     {
         $admin = \App\User::find(1);
         $clipdb_setting = factory('App\ClipdbSetting')->create();
 
-        
-
-
-        $this->browse(function (Browser $browser) use ($admin, $clipdb_setting) {
+        $this->browse(function (Browser $browser) use ($admin, $clipdb_setting): void {
             $browser->loginAs($admin)
                 ->visit(route('admin.clipdb_settings.index'))
-                ->click('tr[data-entry-id="' . $clipdb_setting->id . '"] .btn-primary')
+                ->click('tr[data-entry-id="'.$clipdb_setting->id.'"] .btn-primary')
                 ->assertSeeIn("td[field-key='clip_db_url']", $clipdb_setting->clip_db_url)
                 ->logout();
         });
     }
-
 }
