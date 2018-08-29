@@ -18,3 +18,13 @@ vendor/
 storage/debugbar
 resources/views/auth/login.blade.php
 /app.rar
+/resources/views/partials/side-profile.blade.php
+/resources/views/partials/topbar.blade.php
+/resources/views/partials/footer.blade.php
+/resources/views/partials/head.blade.php
+/resources/views/partials/right-sidebar.blade.php
+/resources/views/partials/selector.blade.php
+/resources/views/partials/javascripts.blade.php
+/resources/views/extraTemplate.blade.php
+/public/adminlte
+public/chartjs
