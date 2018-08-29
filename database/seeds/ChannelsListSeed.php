@@ -975,9 +975,6 @@ class ChannelsListSeed extends Seeder
             ['id'   => 958,     'channel_name' => 'DIYHD',          'channel_type' => 'qa'],
             ['id'   => 959,     'channel_name' => 'FS1HD',          'channel_type' => 'qa'],
 
-
-         ];            
-
         ];
 
         foreach ($items as $item) {

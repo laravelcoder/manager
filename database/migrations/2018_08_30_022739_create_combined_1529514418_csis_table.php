@@ -15,10 +15,10 @@ class CreateCombined1529514418CsisTable extends Migration
         if(! Schema::hasTable('csis')) {
             Schema::create('csis', function (Blueprint $table) {
                 $table->increments('id');
-                $table->string('url')->nullable();
+                $table->string('url')->nullable()->default('/home/caipy/segments_in');
                 $table->string('ssm')->nullable();
-                $table->string('imc')->nullable();
-                $table->string('ip')->nullable();
+                $table->string('imc')->default('127.0.0.1')->nullable();
+                $table->string('ip')->default('80')->nullable();
                 $table->string('pid')->nullable();
                 
                 $table->timestamps();
