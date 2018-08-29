@@ -110,3 +110,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('ss_list_channels_restore/{id}', ['uses' => 'Admin\SsListChannelsController@restore', 'as' => 'ss_list_channels.restore']);
     Route::delete('ss_list_channels_perma_del/{id}', ['uses' => 'Admin\SsListChannelsController@perma_del', 'as' => 'ss_list_channels.perma_del']);
 });
+
+
+// Event::listen();
