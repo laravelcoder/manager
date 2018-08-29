@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Listeners;
+declare(strict_types=1);
 
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
+namespace App\Listeners;
 
 class whenCSChannelAdded
 {
@@ -23,7 +22,7 @@ class whenCSChannelAdded
      * @param  object  $event
      * @return void
      */
-    public function handle($event)
+    public function handle($event): void
     {
         //
     }
