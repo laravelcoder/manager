@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -10,14 +11,13 @@ class Add5b77540cc16d6RelationshipsToBabySyncServerTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::table('baby_sync_servers', function(Blueprint $table) {
-            if (!Schema::hasColumn('baby_sync_servers', 'parent_aggregation_server_id')) {
+        Schema::table('baby_sync_servers', function (Blueprint $table): void {
+            if (! Schema::hasColumn('baby_sync_servers', 'parent_aggregation_server_id')) {
                 $table->integer('parent_aggregation_server_id')->unsigned()->nullable();
                 $table->foreign('parent_aggregation_server_id', '197935_5b77540c41020')->references('id')->on('aggregation_servers')->onDelete('cascade');
-                }
-                
+            }
         });
     }
 
@@ -26,10 +26,9 @@ class Add5b77540cc16d6RelationshipsToBabySyncServerTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::table('baby_sync_servers', function(Blueprint $table) {
-            
+        Schema::table('baby_sync_servers', function (Blueprint $table): void {
         });
     }
 }
