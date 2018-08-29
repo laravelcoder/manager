@@ -143,11 +143,10 @@ class SyncServersController extends Controller
         if (! Gate::allows('sync_server_view')) {
             return abort(401);
         }
-
         $ss_list_channels = \App\SsListChannel::where('sync_server_id', $id)->get();
-
         $filters = \App\Filter::where('sync_server_id', $id)->get();
         $general_settings = \App\GeneralSetting::where('sync_server_id', $id)->get();
+        $cs_list_channels = \App\CsListChannel::where('sync_server_id', $id)->get();
         $aggregation_servers = \App\AggregationServer::where('sync_server_id', $id)->get();
         $baby_sync_servers = \App\BabySyncServer::where('sync_server_id', $id)->get();
         $output_settings = \App\OutputSetting::where('sync_server_id', $id)->get();
@@ -158,7 +157,7 @@ class SyncServersController extends Controller
 
         $sync_server = SyncServer::findOrFail($id);
 
-        return view('admin.sync_servers.show', compact('sync_server', 'ss_list_channels', 'filters', 'general_settings', 'aggregation_servers', 'baby_sync_servers', 'output_settings', 'realtime_notifications', 'video_settings', 'ftps', 'report_settings'));
+        return view('admin.sync_servers.show', compact('sync_server', 'ss_list_channels', 'filters', 'general_settings', 'cs_list_channels', 'aggregation_servers', 'baby_sync_servers', 'output_settings', 'realtime_notifications', 'video_settings', 'ftps', 'report_settings'));
     }
 
     /**

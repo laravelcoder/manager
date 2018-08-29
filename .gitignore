@@ -27,4 +27,8 @@ resources/views/auth/login.blade.php
 /resources/views/partials/javascripts.blade.php
 /resources/views/extraTemplate.blade.php
 /public/adminlte
+<<<<<<< HEAD
 public/chartjs
+=======
+public/chartjs
+>>>>>>> deployment-branch-id-1823

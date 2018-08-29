@@ -34,6 +34,7 @@
                         <th>@lang('global.ss-list-channels.fields.sync-server')</th>
                         <th>@lang('global.ss-list-channels.fields.channel')</th>
                         <th>@lang('global.channels-list.fields.channel-type')</th>
+                        <th>@lang('global.ss-list-channels.fields.channel-server')</th>
                         @if( request('show_deleted') == 1 )
                         <th>&nbsp;</th>
                         @else
@@ -60,6 +61,7 @@
                 @endcan{data: 'sync_server.name', name: 'sync_server.name'},
                 {data: 'channel.channel_name', name: 'channel.channel_name'},
                 {data: 'channel.channel_type', name: 'channel.channel_type'},
+                {data: 'channel_server.name', name: 'channel_server.name'},
                 
                 {data: 'actions', name: 'actions', searchable: false, sortable: false}
             ];

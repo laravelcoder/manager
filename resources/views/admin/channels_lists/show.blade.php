@@ -41,6 +41,7 @@
         <tr>
             <th>@lang('global.cs-list-channels.fields.channel')</th>
                         <th>@lang('global.cs-list-channels.fields.channelserver')</th>
+                        <th>@lang('global.cs-list-channels.fields.sync-server')</th>
                         @if( request('show_deleted') == 1 )
                         <th>&nbsp;</th>
                         @else
@@ -55,6 +56,7 @@
                 <tr data-entry-id="{{ $cs_list_channel->id }}">
                     <td field-key='channel'>{{ $cs_list_channel->channel->channel_name or '' }}</td>
                                 <td field-key='channelserver'>{{ $cs_list_channel->channelserver->name or '' }}</td>
+                                <td field-key='sync_server'>{{ $cs_list_channel->sync_server->name or '' }}</td>
                                 @if( request('show_deleted') == 1 )
                                 <td>
                                     {!! Form::open(array(
@@ -95,7 +97,7 @@
             @endforeach
         @else
             <tr>
-                <td colspan="7">@lang('global.app_no_entries_in_table')</td>
+                <td colspan="8">@lang('global.app_no_entries_in_table')</td>
             </tr>
         @endif
     </tbody>
@@ -257,6 +259,7 @@
         <tr>
             <th>@lang('global.ss-list-channels.fields.sync-server')</th>
                         <th>@lang('global.ss-list-channels.fields.channel')</th>
+                        <th>@lang('global.ss-list-channels.fields.channel-server')</th>
                         @if( request('show_deleted') == 1 )
                         <th>&nbsp;</th>
                         @else
@@ -271,6 +274,7 @@
                 <tr data-entry-id="{{ $ss_list_channel->id }}">
                     <td field-key='sync_server'>{{ $ss_list_channel->sync_server->name or '' }}</td>
                                 <td field-key='channel'>{{ $ss_list_channel->channel->channel_name or '' }}</td>
+                                <td field-key='channel_server'>{{ $ss_list_channel->channel_server->name or '' }}</td>
                                 @if( request('show_deleted') == 1 )
                                 <td>
                                     {!! Form::open(array(
@@ -311,7 +315,7 @@
             @endforeach
         @else
             <tr>
-                <td colspan="7">@lang('global.app_no_entries_in_table')</td>
+                <td colspan="8">@lang('global.app_no_entries_in_table')</td>
             </tr>
         @endif
     </tbody>

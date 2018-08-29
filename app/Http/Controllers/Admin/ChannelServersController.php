@@ -164,10 +164,11 @@ class ChannelServersController extends Controller
         $csis = \App\Csi::where('channel_server_id', $id)->get();
         $csos = \App\Cso::where('channel_server_id', $id)->get();
         $cs_list_channels = \App\CsListChannel::where('channelserver_id', $id)->get();
+        $ss_list_channels = \App\SsListChannel::where('channel_server_id', $id)->get();
 
         $channel_server = ChannelServer::findOrFail($id);
 
-        return view('admin.channel_servers.show', compact('channel_server', 'csis', 'csos', 'cs_list_channels'));
+        return view('admin.channel_servers.show', compact('channel_server', 'csis', 'csos', 'cs_list_channels', 'ss_list_channels'));
     }
 
     /**

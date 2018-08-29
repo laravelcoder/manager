@@ -11,11 +11,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * Class Cso.
  *
  * @property string $channel_server
+ * @property string $channel
  * @property string $ocloud_a
  * @property int $ocp_a
  * @property string $ocloud_b
  * @property string $ocp_b
- * @property string $channel
  */
 class Cso extends Model
 {
@@ -34,21 +34,21 @@ class Cso extends Model
     }
 
     /**
-     * Set attribute to money format.
-     * @param $input
-     */
-    public function setOcpAAttribute($input): void
-    {
-        $this->attributes['ocp_a'] = $input ? $input : null;
-    }
-
-    /**
      * Set to null if empty.
      * @param $input
      */
     public function setChannelIdAttribute($input): void
     {
         $this->attributes['channel_id'] = $input ? $input : null;
+    }
+
+    /**
+     * Set attribute to money format.
+     * @param $input
+     */
+    public function setOcpAAttribute($input): void
+    {
+        $this->attributes['ocp_a'] = $input ? $input : null;
     }
 
     public function channel_server()

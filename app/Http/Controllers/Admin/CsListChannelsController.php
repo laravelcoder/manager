@@ -29,6 +29,7 @@ class CsListChannelsController extends Controller
             $query = CsListChannel::query();
             $query->with('channel');
             $query->with('channelserver');
+            $query->with('sync_server');
             $template = 'actionsTemplate';
             if (request('show_deleted') === 1) {
                 if (! Gate::allows('cs_list_channel_delete')) {
@@ -41,6 +42,7 @@ class CsListChannelsController extends Controller
                 'cs_list_channels.id',
                 'cs_list_channels.channel_id',
                 'cs_list_channels.channelserver_id',
+                'cs_list_channels.sync_server_id',
             ]);
             $table = Datatables::of($query);
 
@@ -60,6 +62,9 @@ class CsListChannelsController extends Controller
             });
             $table->editColumn('channelserver.name', function ($row) {
                 return $row->channelserver ? $row->channelserver->name : '';
+            });
+            $table->editColumn('sync_server.name', function ($row) {
+                return $row->sync_server ? $row->sync_server->name : '';
             });
 
             $table->rawColumns(['actions', 'massDelete']);
@@ -83,8 +88,9 @@ class CsListChannelsController extends Controller
 
         $channels = \App\ChannelsList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
         $channelservers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
+        $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
-        return view('admin.cs_list_channels.create', compact('channels', 'channelservers'));
+        return view('admin.cs_list_channels.create', compact('channels', 'channelservers', 'sync_servers'));
     }
 
     /**
@@ -117,10 +123,11 @@ class CsListChannelsController extends Controller
 
         $channels = \App\ChannelsList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
         $channelservers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
+        $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
         $cs_list_channel = CsListChannel::findOrFail($id);
 
-        return view('admin.cs_list_channels.edit', compact('cs_list_channel', 'channels', 'channelservers'));
+        return view('admin.cs_list_channels.edit', compact('cs_list_channel', 'channels', 'channelservers', 'sync_servers'));
     }
 
     /**

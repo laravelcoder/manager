@@ -31,8 +31,10 @@
                             <label class="col-md-4 control-label">@lang('global.app_email')</label>
 
                             <div class="col-md-6">
-                             <input id="emailinput" type="email" class="form-control" name="email" value="{{ old('email') }}"> 
-
+                                <input type="email"
+                                       class="form-control"
+                                       name="email"
+                                       value="{{ old('email') }}">
                             </div>
                         </div>
 
@@ -40,7 +42,9 @@
                             <label class="col-md-4 control-label">@lang('global.app_password')</label>
 
                             <div class="col-md-6">
-                                        <input id="passwordinput" type="password" class="form-control" name="password"> 
+                                <input type="password"
+                                       class="form-control"
+                                       name="password">
                             </div>
                         </div>
 
@@ -74,11 +78,4 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-    window.onload = function(){
-      document.getElementById("emailinput").value = "wecodelaravel@gmail.com";
-      // document.getElementById("passwordinput").value = "mad@15696";
-      document.getElementById("passwordinput").value = "!!mad@2018!!";
-    }
-</script>
 @endsection
