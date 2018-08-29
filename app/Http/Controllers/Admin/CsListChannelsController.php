@@ -5,12 +5,17 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\CsListChannel;
+use App\Events\ChannelAdded;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Admin\StoreCsListChannelsRequest;
 use App\Http\Requests\Admin\UpdateCsListChannelsRequest;
+use App\Csi;
+use App\Protocal;
+use App\ChannelServer;
+use App\ChannelsList;
 
 class CsListChannelsController extends Controller
 {
@@ -84,6 +89,8 @@ class CsListChannelsController extends Controller
         $channels = \App\ChannelsList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
         $channelservers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
+         
+
         return view('admin.cs_list_channels.create', compact('channels', 'channelservers'));
     }
 
@@ -99,6 +106,27 @@ class CsListChannelsController extends Controller
             return abort(401);
         }
         $cs_list_channel = CsListChannel::create($request->all());
+
+        // dd($request->all());
+         try{
+                Csi::create([
+                    'channel_server_id' => $request->channelserver_id,
+                    'channel_id' => $request->channel_id,
+                    'protocol_id' => null,
+                    'url' => null,
+                    'ssm' => null,
+                    'imc' => null,
+                    'ip' => null,
+                    'pid' => null
+                ]);
+
+        } catch {
+            
+        }
+
+
+
+           
 
         return redirect()->route('admin.cs_list_channels.index');
     }
