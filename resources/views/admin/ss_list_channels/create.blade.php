@@ -34,6 +34,18 @@
                     @endif
                 </div>
             </div>
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    {!! Form::label('channel_server_id', trans('global.ss-list-channels.fields.channel-server').'', ['class' => 'control-label']) !!}
+                    {!! Form::select('channel_server_id', $channel_servers, old('channel_server_id'), ['class' => 'form-control select2']) !!}
+                    <p class="help-block"></p>
+                    @if($errors->has('channel_server_id'))
+                        <p class="help-block">
+                            {{ $errors->first('channel_server_id') }}
+                        </p>
+                    @endif
+                </div>
+            </div>
             
         </div>
     </div>

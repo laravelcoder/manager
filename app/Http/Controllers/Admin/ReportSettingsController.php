@@ -1,16 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers\Admin;
 
 use App\ReportSetting;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreReportSettingsRequest;
 use App\Http\Requests\Admin\UpdateReportSettingsRequest;
+use Yajra\DataTables\DataTables;
 
 class ReportSettingsController extends Controller
 {
@@ -25,16 +23,19 @@ class ReportSettingsController extends Controller
             return abort(401);
         }
 
+
+        
         if (request()->ajax()) {
             $query = ReportSetting::query();
-            $query->with('country');
-            $query->with('synce_server');
-            $query->with('filters');
+            $query->with("country");
+            $query->with("synce_server");
+            $query->with("filters");
             $template = 'actionsTemplate';
-            if (request('show_deleted') === 1) {
-                if (! Gate::allows('report_setting_delete')) {
-                    return abort(401);
-                }
+            if(request('show_deleted') == 1) {
+                
+        if (! Gate::allows('report_setting_delete')) {
+            return abort(401);
+        }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -61,34 +62,34 @@ class ReportSettingsController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey = 'report_setting_';
+                $gateKey  = 'report_setting_';
                 $routeKey = 'admin.report_settings';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
             });
             $table->editColumn('millisecond_precision', function ($row) {
-                return \Form::checkbox('millisecond_precision', 1, $row->millisecond_precision === 1, ['disabled']);
+                return \Form::checkbox("millisecond_precision", 1, $row->millisecond_precision == 1, ["disabled"]);
             });
             $table->editColumn('show_channel_button', function ($row) {
-                return \Form::checkbox('show_channel_button', 1, $row->show_channel_button === 1, ['disabled']);
+                return \Form::checkbox("show_channel_button", 1, $row->show_channel_button == 1, ["disabled"]);
             });
             $table->editColumn('show_clip_button', function ($row) {
-                return \Form::checkbox('show_clip_button', 1, $row->show_clip_button === 1, ['disabled']);
+                return \Form::checkbox("show_clip_button", 1, $row->show_clip_button == 1, ["disabled"]);
             });
             $table->editColumn('show_group_button', function ($row) {
-                return \Form::checkbox('show_group_button', 1, $row->show_group_button === 1, ['disabled']);
+                return \Form::checkbox("show_group_button", 1, $row->show_group_button == 1, ["disabled"]);
             });
             $table->editColumn('show_live_button', function ($row) {
-                return \Form::checkbox('show_live_button', 1, $row->show_live_button === 1, ['disabled']);
+                return \Form::checkbox("show_live_button", 1, $row->show_live_button == 1, ["disabled"]);
             });
             $table->editColumn('enable_evt', function ($row) {
-                return \Form::checkbox('enable_evt', 1, $row->enable_evt === 1, ['disabled']);
+                return \Form::checkbox("enable_evt", 1, $row->enable_evt == 1, ["disabled"]);
             });
             $table->editColumn('enable_excel', function ($row) {
-                return \Form::checkbox('enable_excel', 1, $row->enable_excel === 1, ['disabled']);
+                return \Form::checkbox("enable_excel", 1, $row->enable_excel == 1, ["disabled"]);
             });
             $table->editColumn('enable_evt_timing', function ($row) {
-                return \Form::checkbox('enable_evt_timing', 1, $row->enable_evt_timing === 1, ['disabled']);
+                return \Form::checkbox("enable_evt_timing", 1, $row->enable_evt_timing == 1, ["disabled"]);
             });
             $table->editColumn('timezone', function ($row) {
                 return $row->timezone ? $row->timezone : '';
@@ -103,7 +104,7 @@ class ReportSettingsController extends Controller
                 return $row->filters ? $row->filters->name : '';
             });
 
-            $table->rawColumns(['actions', 'massDelete', 'millisecond_precision', 'show_channel_button', 'show_clip_button', 'show_group_button', 'show_live_button', 'enable_evt', 'enable_excel', 'enable_evt_timing']);
+            $table->rawColumns(['actions','massDelete','millisecond_precision','show_channel_button','show_clip_button','show_group_button','show_live_button','enable_evt','enable_excel','enable_evt_timing']);
 
             return $table->make(true);
         }
@@ -121,7 +122,7 @@ class ReportSettingsController extends Controller
         if (! Gate::allows('report_setting_create')) {
             return abort(401);
         }
-
+        
         $countries = \App\Country::get()->pluck('title', 'id')->prepend(trans('global.app_please_select'), '');
         $synce_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
         $filters = \App\Filter::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
@@ -142,8 +143,11 @@ class ReportSettingsController extends Controller
         }
         $report_setting = ReportSetting::create($request->all());
 
+
+
         return redirect()->route('admin.report_settings.index');
     }
+
 
     /**
      * Show the form for editing ReportSetting.
@@ -156,7 +160,7 @@ class ReportSettingsController extends Controller
         if (! Gate::allows('report_setting_edit')) {
             return abort(401);
         }
-
+        
         $countries = \App\Country::get()->pluck('title', 'id')->prepend(trans('global.app_please_select'), '');
         $synce_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
         $filters = \App\Filter::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
@@ -181,8 +185,11 @@ class ReportSettingsController extends Controller
         $report_setting = ReportSetting::findOrFail($id);
         $report_setting->update($request->all());
 
+
+
         return redirect()->route('admin.report_settings.index');
     }
+
 
     /**
      * Display ReportSetting.
@@ -199,6 +206,7 @@ class ReportSettingsController extends Controller
 
         return view('admin.report_settings.show', compact('report_setting'));
     }
+
 
     /**
      * Remove ReportSetting from storage.
@@ -235,6 +243,7 @@ class ReportSettingsController extends Controller
             }
         }
     }
+
 
     /**
      * Restore ReportSetting from storage.

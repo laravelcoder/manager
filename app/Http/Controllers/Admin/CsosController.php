@@ -1,16 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers\Admin;
 
 use App\Cso;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreCsosRequest;
 use App\Http\Requests\Admin\UpdateCsosRequest;
+use Yajra\DataTables\DataTables;
 
 class CsosController extends Controller
 {
@@ -25,26 +23,29 @@ class CsosController extends Controller
             return abort(401);
         }
 
+
+        
         if (request()->ajax()) {
             $query = Cso::query();
-            $query->with('channel_server');
-            $query->with('channel');
+            $query->with("channel_server");
+            $query->with("channel");
             $template = 'actionsTemplate';
-            if (request('show_deleted') === 1) {
-                if (! Gate::allows('cso_delete')) {
-                    return abort(401);
-                }
+            if(request('show_deleted') == 1) {
+                
+        if (! Gate::allows('cso_delete')) {
+            return abort(401);
+        }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
             $query->select([
                 'csos.id',
                 'csos.channel_server_id',
+                'csos.channel_id',
                 'csos.ocloud_a',
                 'csos.ocp_a',
                 'csos.ocloud_b',
                 'csos.ocp_b',
-                'csos.channel_id',
             ]);
             $table = Datatables::of($query);
 
@@ -54,13 +55,16 @@ class CsosController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey = 'cso_';
+                $gateKey  = 'cso_';
                 $routeKey = 'admin.csos';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
             });
             $table->editColumn('channel_server.name', function ($row) {
                 return $row->channel_server ? $row->channel_server->name : '';
+            });
+            $table->editColumn('channel.channel_name', function ($row) {
+                return $row->channel ? $row->channel->channel_name : '';
             });
             $table->editColumn('ocloud_a', function ($row) {
                 return $row->ocloud_a ? $row->ocloud_a : '';
@@ -74,11 +78,8 @@ class CsosController extends Controller
             $table->editColumn('ocp_b', function ($row) {
                 return $row->ocp_b ? $row->ocp_b : '';
             });
-            $table->editColumn('channel.channel_name', function ($row) {
-                return $row->channel ? $row->channel->channel_name : '';
-            });
 
-            $table->rawColumns(['actions', 'massDelete']);
+            $table->rawColumns(['actions','massDelete']);
 
             return $table->make(true);
         }
@@ -96,7 +97,7 @@ class CsosController extends Controller
         if (! Gate::allows('cso_create')) {
             return abort(401);
         }
-
+        
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
         $channels = \App\ChannelsList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
 
@@ -116,8 +117,11 @@ class CsosController extends Controller
         }
         $cso = Cso::create($request->all());
 
+
+
         return redirect()->route('admin.csos.index');
     }
+
 
     /**
      * Show the form for editing Cso.
@@ -130,7 +134,7 @@ class CsosController extends Controller
         if (! Gate::allows('cso_edit')) {
             return abort(401);
         }
-
+        
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
         $channels = \App\ChannelsList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
 
@@ -154,8 +158,11 @@ class CsosController extends Controller
         $cso = Cso::findOrFail($id);
         $cso->update($request->all());
 
+
+
         return redirect()->route('admin.csos.index');
     }
+
 
     /**
      * Display Cso.
@@ -172,6 +179,7 @@ class CsosController extends Controller
 
         return view('admin.csos.show', compact('cso'));
     }
+
 
     /**
      * Remove Cso from storage.
@@ -208,6 +216,7 @@ class CsosController extends Controller
             }
         }
     }
+
 
     /**
      * Restore Cso from storage.

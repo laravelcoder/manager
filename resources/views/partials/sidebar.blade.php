@@ -318,8 +318,6 @@
                 </a>
             </li>
         </ul>
-        <img src="{{ asset('images/sling_n_dish.png') }}" />
-        
     </section>
 </aside>
 

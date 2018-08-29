@@ -1,16 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers\Admin;
 
 use App\SyncServer;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreSyncServersRequest;
 use App\Http\Requests\Admin\UpdateSyncServersRequest;
+use Yajra\DataTables\DataTables;
 
 class SyncServersController extends Controller
 {
@@ -25,13 +23,16 @@ class SyncServersController extends Controller
             return abort(401);
         }
 
+
+        
         if (request()->ajax()) {
             $query = SyncServer::query();
             $template = 'actionsTemplate';
-            if (request('show_deleted') === 1) {
-                if (! Gate::allows('sync_server_delete')) {
-                    return abort(401);
-                }
+            if(request('show_deleted') == 1) {
+                
+        if (! Gate::allows('sync_server_delete')) {
+            return abort(401);
+        }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -48,7 +49,7 @@ class SyncServersController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey = 'sync_server_';
+                $gateKey  = 'sync_server_';
                 $routeKey = 'admin.sync_servers';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -60,7 +61,7 @@ class SyncServersController extends Controller
                 return $row->ss_host ? $row->ss_host : '';
             });
 
-            $table->rawColumns(['actions', 'massDelete']);
+            $table->rawColumns(['actions','massDelete']);
 
             return $table->make(true);
         }
@@ -78,7 +79,6 @@ class SyncServersController extends Controller
         if (! Gate::allows('sync_server_create')) {
             return abort(401);
         }
-
         return view('admin.sync_servers.create');
     }
 
@@ -95,8 +95,11 @@ class SyncServersController extends Controller
         }
         $sync_server = SyncServer::create($request->all());
 
+
+
         return redirect()->route('admin.sync_servers.index');
     }
+
 
     /**
      * Show the form for editing SyncServer.
@@ -129,8 +132,11 @@ class SyncServersController extends Controller
         $sync_server = SyncServer::findOrFail($id);
         $sync_server->update($request->all());
 
+
+
         return redirect()->route('admin.sync_servers.index');
     }
+
 
     /**
      * Display SyncServer.
@@ -143,23 +149,13 @@ class SyncServersController extends Controller
         if (! Gate::allows('sync_server_view')) {
             return abort(401);
         }
-
-        $ss_list_channels = \App\SsListChannel::where('sync_server_id', $id)->get();
-
-        $filters = \App\Filter::where('sync_server_id', $id)->get();
-        $general_settings = \App\GeneralSetting::where('sync_server_id', $id)->get();
-        $aggregation_servers = \App\AggregationServer::where('sync_server_id', $id)->get();
-        $baby_sync_servers = \App\BabySyncServer::where('sync_server_id', $id)->get();
-        $output_settings = \App\OutputSetting::where('sync_server_id', $id)->get();
-        $realtime_notifications = \App\RealtimeNotification::where('sync_server_id', $id)->get();
-        $video_settings = \App\VideoSetting::where('sync_server_id', $id)->get();
-        $ftps = \App\Ftp::where('sync_server_id', $id)->get();
-        $report_settings = \App\ReportSetting::where('synce_server_id', $id)->get();
+        $ss_list_channels = \App\SsListChannel::where('sync_server_id', $id)->get();$filters = \App\Filter::where('sync_server_id', $id)->get();$general_settings = \App\GeneralSetting::where('sync_server_id', $id)->get();$cs_list_channels = \App\CsListChannel::where('sync_server_id', $id)->get();$aggregation_servers = \App\AggregationServer::where('sync_server_id', $id)->get();$baby_sync_servers = \App\BabySyncServer::where('sync_server_id', $id)->get();$output_settings = \App\OutputSetting::where('sync_server_id', $id)->get();$realtime_notifications = \App\RealtimeNotification::where('sync_server_id', $id)->get();$video_settings = \App\VideoSetting::where('sync_server_id', $id)->get();$ftps = \App\Ftp::where('sync_server_id', $id)->get();$report_settings = \App\ReportSetting::where('synce_server_id', $id)->get();
 
         $sync_server = SyncServer::findOrFail($id);
 
-        return view('admin.sync_servers.show', compact('sync_server', 'ss_list_channels', 'filters', 'general_settings', 'aggregation_servers', 'baby_sync_servers', 'output_settings', 'realtime_notifications', 'video_settings', 'ftps', 'report_settings'));
+        return view('admin.sync_servers.show', compact('sync_server', 'ss_list_channels', 'filters', 'general_settings', 'cs_list_channels', 'aggregation_servers', 'baby_sync_servers', 'output_settings', 'realtime_notifications', 'video_settings', 'ftps', 'report_settings'));
     }
+
 
     /**
      * Remove SyncServer from storage.
@@ -196,6 +192,7 @@ class SyncServersController extends Controller
             }
         }
     }
+
 
     /**
      * Restore SyncServer from storage.

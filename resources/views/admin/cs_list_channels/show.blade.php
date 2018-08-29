@@ -24,6 +24,10 @@
                             <th>@lang('global.cs-list-channels.fields.channelserver')</th>
                             <td field-key='channelserver'>{{ $cs_list_channel->channelserver->name or '' }}</td>
                         </tr>
+                        <tr>
+                            <th>@lang('global.cs-list-channels.fields.sync-server')</th>
+                            <td field-key='sync_server'>{{ $cs_list_channel->sync_server->name or '' }}</td>
+                        </tr>
                     </table>
                 </div>
             </div>

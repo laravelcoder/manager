@@ -24,6 +24,10 @@
                             <th>@lang('global.channels-list.fields.channel-type')</th>
                             <td field-key='channel_type'>{{ isset($ss_list_channel->channel) ? $ss_list_channel->channel->channel_type : '' }}</td>
                         </tr>
+                        <tr>
+                            <th>@lang('global.ss-list-channels.fields.channel-server')</th>
+                            <td field-key='channel_server'>{{ $ss_list_channel->channel_server->name or '' }}</td>
+                        </tr>
                     </table>
                 </div>
             </div>
