@@ -5,7 +5,7 @@
     <section class="sidebar">
         <ul class="sidebar-menu">
 
-             
+      <!--       {{ $request->segment(2) == 'admin.channel_servers.index' ? 'active bg-red' : 'hippie' }}  -->
 
             <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
                 <a href="{{ url('/') }}">
@@ -15,10 +15,10 @@
             </li>
 
             @can('channel_servers_area_access')
-            <li class="treeview">
+            <li class="treeview ">
                 <a href="#">
                     <i class="fa fa-gears"></i>
-                    <span>@lang('global.channel-servers-area.title')</span>
+                    <span>@lang('global.channel-servers-area.title') </span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
