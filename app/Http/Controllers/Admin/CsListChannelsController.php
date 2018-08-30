@@ -4,20 +4,18 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
-use App\CsListChannel;
 use App\Csi;
 use App\Cso;
-use App\Protocal;
 use App\ChannelServer;
-use App\ChannelsList;
+use App\CsListChannel;
 use App\SsListChannel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Admin\StoreCsListChannelsRequest;
 use App\Http\Requests\Admin\UpdateCsListChannelsRequest;
-use Illuminate\Support\Facades\Log;
 
 class CsListChannelsController extends Controller
 {
@@ -113,7 +111,7 @@ class CsListChannelsController extends Controller
         }
         $cs_list_channel = CsListChannel::create($request->all());
 
-        if($request->channelserver_id) {
+        if ($request->channelserver_id) {
             try {
                 Csi::create([
                     'channel_server_id' => $request->channelserver_id,
@@ -125,8 +123,7 @@ class CsListChannelsController extends Controller
 //                    'ip' => null,
 //                    'pid' => null
                 ]);
-
-            } catch(\Exception $e) {
+            } catch (\Exception $e) {
                 Log::alert($e);
             }
 
@@ -139,23 +136,20 @@ class CsListChannelsController extends Controller
 //                    "ocloud_b" => null,
 //                    "ocp_b" => null,
                 ]);
-
-            } catch(\Exception $e) {
+            } catch (\Exception $e) {
                 Log::alert($e);
             }
         }
 
-        if($request->sync_server_id) {
+        if ($request->sync_server_id) {
             try {
                 SsListChannel::create([
                     'channel_server_id' => $request->channelserver_id,
                     'channel_id' => $request->channel_id,
-                    "sync_server_id" => $request->sync_server_id,
+                    'sync_server_id' => $request->sync_server_id,
                 ]);
-
-            } catch(\Exception $e) {
+            } catch (\Exception $e) {
                 Log::alert($e);
-
             }
         }
 
