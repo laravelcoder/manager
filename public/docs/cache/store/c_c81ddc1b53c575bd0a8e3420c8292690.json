@@ -1,0 +1,337 @@
+{
+    "name": "App\\CsChannelList",
+    "line": 89,
+    "short_desc": "Class CsChannelList.",
+    "long_desc": "",
+    "hint": null,
+    "tags": {
+        "property": [
+            [
+                [
+                    [
+                        "string",
+                        false
+                    ]
+                ],
+                "channel_server",
+                ""
+            ],
+            [
+                [
+                    [
+                        "string",
+                        false
+                    ]
+                ],
+                "channel_name",
+                ""
+            ],
+            [
+                [
+                    [
+                        "string",
+                        false
+                    ]
+                ],
+                "channel_type",
+                ""
+            ],
+            [
+                [
+                    [
+                        "int",
+                        false
+                    ]
+                ],
+                "id",
+                ""
+            ],
+            [
+                [
+                    [
+                        "\\Carbon\\Carbon",
+                        false
+                    ],
+                    [
+                        "null",
+                        false
+                    ]
+                ],
+                "created_at",
+                ""
+            ],
+            [
+                [
+                    [
+                        "\\Carbon\\Carbon",
+                        false
+                    ],
+                    [
+                        "null",
+                        false
+                    ]
+                ],
+                "updated_at",
+                ""
+            ],
+            [
+                [
+                    [
+                        "string",
+                        false
+                    ],
+                    [
+                        "null",
+                        false
+                    ]
+                ],
+                "deleted_at",
+                ""
+            ],
+            [
+                [
+                    [
+                        "int",
+                        false
+                    ],
+                    [
+                        "null",
+                        false
+                    ]
+                ],
+                "channel_server_id",
+                ""
+            ]
+        ],
+        "method": [
+            [
+                "static",
+                "bool|null",
+                "forceDelete()"
+            ],
+            [
+                "static",
+                "\\Illuminate\\Database\\Query\\Builder|\\App\\CsChannelList",
+                "onlyTrashed()"
+            ],
+            [
+                "static",
+                "bool|null",
+                "restore()"
+            ],
+            [
+                "static",
+                "\\Illuminate\\Database\\Eloquent\\Builder|\\App\\CsChannelList",
+                "whereChannelName($value)"
+            ],
+            [
+                "static",
+                "\\Illuminate\\Database\\Eloquent\\Builder|\\App\\CsChannelList",
+                "whereChannelServerId($value)"
+            ],
+            [
+                "static",
+                "\\Illuminate\\Database\\Eloquent\\Builder|\\App\\CsChannelList",
+                "whereChannelType($value)"
+            ],
+            [
+                "static",
+                "\\Illuminate\\Database\\Eloquent\\Builder|\\App\\CsChannelList",
+                "whereCreatedAt($value)"
+            ],
+            [
+                "static",
+                "\\Illuminate\\Database\\Eloquent\\Builder|\\App\\CsChannelList",
+                "whereDeletedAt($value)"
+            ],
+            [
+                "static",
+                "\\Illuminate\\Database\\Eloquent\\Builder|\\App\\CsChannelList",
+                "whereId($value)"
+            ],
+            [
+                "static",
+                "\\Illuminate\\Database\\Eloquent\\Builder|\\App\\CsChannelList",
+                "whereUpdatedAt($value)"
+            ],
+            [
+                "static",
+                "\\Illuminate\\Database\\Query\\Builder|\\App\\CsChannelList",
+                "withTrashed()"
+            ],
+            [
+                "static",
+                "\\Illuminate\\Database\\Query\\Builder|\\App\\CsChannelList",
+                "withoutTrashed()"
+            ]
+        ]
+    },
+    "namespace": "App",
+    "file": "\/home\/vagrant\/repos\/manager\/_ide_helper_models.php",
+    "relative_file": null,
+    "hash": "fa04a8fb6d24b0245f80f94f6e59de5a8b0a6cb9",
+    "parent": "Eloquent",
+    "modifiers": 0,
+    "is_trait": false,
+    "is_interface": false,
+    "aliases": [],
+    "errors": [],
+    "interfaces": [],
+    "traits": [],
+    "properties": {
+        "channel_server": {
+            "name": "channel_server",
+            "line": 89,
+            "short_desc": "",
+            "long_desc": null,
+            "hint": [
+                [
+                    "string",
+                    false
+                ]
+            ],
+            "hint_desc": null,
+            "tags": [],
+            "modifiers": null,
+            "default": null,
+            "errors": []
+        },
+        "channel_name": {
+            "name": "channel_name",
+            "line": 89,
+            "short_desc": "",
+            "long_desc": null,
+            "hint": [
+                [
+                    "string",
+                    false
+                ]
+            ],
+            "hint_desc": null,
+            "tags": [],
+            "modifiers": null,
+            "default": null,
+            "errors": []
+        },
+        "channel_type": {
+            "name": "channel_type",
+            "line": 89,
+            "short_desc": "",
+            "long_desc": null,
+            "hint": [
+                [
+                    "string",
+                    false
+                ]
+            ],
+            "hint_desc": null,
+            "tags": [],
+            "modifiers": null,
+            "default": null,
+            "errors": []
+        },
+        "id": {
+            "name": "id",
+            "line": 89,
+            "short_desc": "",
+            "long_desc": null,
+            "hint": [
+                [
+                    "int",
+                    false
+                ]
+            ],
+            "hint_desc": null,
+            "tags": [],
+            "modifiers": null,
+            "default": null,
+            "errors": []
+        },
+        "created_at": {
+            "name": "created_at",
+            "line": 89,
+            "short_desc": "",
+            "long_desc": null,
+            "hint": [
+                [
+                    "\\Carbon\\Carbon",
+                    false
+                ],
+                [
+                    "null",
+                    false
+                ]
+            ],
+            "hint_desc": null,
+            "tags": [],
+            "modifiers": null,
+            "default": null,
+            "errors": []
+        },
+        "updated_at": {
+            "name": "updated_at",
+            "line": 89,
+            "short_desc": "",
+            "long_desc": null,
+            "hint": [
+                [
+                    "\\Carbon\\Carbon",
+                    false
+                ],
+                [
+                    "null",
+                    false
+                ]
+            ],
+            "hint_desc": null,
+            "tags": [],
+            "modifiers": null,
+            "default": null,
+            "errors": []
+        },
+        "deleted_at": {
+            "name": "deleted_at",
+            "line": 89,
+            "short_desc": "",
+            "long_desc": null,
+            "hint": [
+                [
+                    "string",
+                    false
+                ],
+                [
+                    "null",
+                    false
+                ]
+            ],
+            "hint_desc": null,
+            "tags": [],
+            "modifiers": null,
+            "default": null,
+            "errors": []
+        },
+        "channel_server_id": {
+            "name": "channel_server_id",
+            "line": 89,
+            "short_desc": "",
+            "long_desc": null,
+            "hint": [
+                [
+                    "int",
+                    false
+                ],
+                [
+                    "null",
+                    false
+                ]
+            ],
+            "hint_desc": null,
+            "tags": [],
+            "modifiers": null,
+            "default": null,
+            "errors": []
+        }
+    },
+    "methods": [],
+    "constants": []
+}

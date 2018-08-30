@@ -32,3 +32,4 @@ resources/views/auth/login.blade.php
 /public/chartjs/*
 */login.blade.php
 resources/views/auth/login.blade.php
+composer.lock

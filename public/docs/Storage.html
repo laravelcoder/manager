@@ -1,0 +1,2471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
+    <title>Storage | Configuration Manager Documentation</title>
+
+            <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="css/sami.css">
+        <script src="js/jquery-1.11.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/typeahead.min.js"></script>
+        <script src="sami.js"></script>
+        <meta name="MobileOptimized" content="width">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    
+    
+    </head>
+
+    <body id="class" data-name="class:Storage" data-root-path="">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                <script>
+            $('option[data-version="'+window.projectVersion+'"]').prop('selected', true);
+        </script>
+        <form id="search-form" action="search.html" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
+        </form>
+    </div>
+
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Configuration Manager Documentation</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="classes.html">Classes</a></li>
+                                            <li><a href="namespaces.html">Namespaces</a></li>
+                                        <li><a href="interfaces.html">Interfaces</a></li>
+                    <li><a href="traits.html">Traits</a></li>
+                    <li><a href="doc-index.html">Index</a></li>
+                    <li><a href="search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                            <div id="page-content">
+                
+    <div class="page-header">
+        <h1>
+            Storage
+                
+        </h1>
+    </div>
+
+    <p>    class
+    <strong>Storage</strong>        extends <a href="Illuminate/Support/Facades/Storage.html"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a>
+</p>
+
+        
+    
+
+    
+    
+    
+    
+            <h2>Methods</h2>
+
+            <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;<abbr title="Illuminate\Filesystem\FilesystemAdapter">FilesystemAdapter</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_drive">drive</a>(string $name = null)
+        
+                                            <p>Get a filesystem instance.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_drive"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;<abbr title="Illuminate\Filesystem\FilesystemAdapter">FilesystemAdapter</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_disk">disk</a>(string $name = null)
+        
+                                            <p>Get a filesystem instance.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_disk"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;<abbr title="Illuminate\Filesystem\FilesystemAdapter">FilesystemAdapter</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_cloud">cloud</a>()
+        
+                                            <p>Get a default cloud filesystem instance.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_cloud"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;<abbr title="Illuminate\Filesystem\FilesystemAdapter">FilesystemAdapter</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_createLocalDriver">createLocalDriver</a>(array $config)
+        
+                                            <p>Create an instance of the local driver.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_createLocalDriver"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;<abbr title="Illuminate\Filesystem\FilesystemAdapter">FilesystemAdapter</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_createFtpDriver">createFtpDriver</a>(array $config)
+        
+                                            <p>Create an instance of the ftp driver.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_createFtpDriver"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;<abbr title="Illuminate\Filesystem\FilesystemAdapter">FilesystemAdapter</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_createSftpDriver">createSftpDriver</a>(array $config)
+        
+                                            <p>Create an instance of the sftp driver.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_createSftpDriver"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;<abbr title="Illuminate\Contracts\Filesystem\Cloud">Cloud</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_createS3Driver">createS3Driver</a>(array $config)
+        
+                                            <p>Create an instance of the Amazon S3 driver.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_createS3Driver"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;<abbr title="Illuminate\Contracts\Filesystem\Cloud">Cloud</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_createRackspaceDriver">createRackspaceDriver</a>(array $config)
+        
+                                            <p>Create an instance of the Rackspace driver.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_createRackspaceDriver"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;$this
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_set">set</a>(string $name, mixed $disk)
+        
+                                            <p>Set the given disk instance.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_set"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getDefaultDriver">getDefaultDriver</a>()
+        
+                                            <p>Get the default driver name.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_getDefaultDriver"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getDefaultCloudDriver">getDefaultCloudDriver</a>()
+        
+                                            <p>Get the default cloud driver name.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_getDefaultCloudDriver"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;$this
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_forgetDisk">forgetDisk</a>(array|string $disk)
+        
+                                            <p>Unset the given disk instances.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_forgetDisk"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;$this
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_extend">extend</a>(string $driver, <a target="_blank" href="http://php.net/Closure">Closure</a> $callback)
+        
+                                            <p>Register a custom driver creator Closure.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_extend"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_assertExists">assertExists</a>(string $path)
+        
+                                            <p>Assert that the given file exists.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_assertExists"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_assertMissing">assertMissing</a>(string $path)
+        
+                                            <p>Assert that the given file does not exist.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_assertMissing"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_exists">exists</a>(string $path)
+        
+                                            <p>Determine if a file exists.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_exists"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_path">path</a>(string $path)
+        
+                                            <p>Get the full path for the file at the given "short" path.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_path"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_get">get</a>(string $path)
+        
+                                            <p>Get the contents of a file.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_get"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;<abbr title="Symfony\Component\HttpFoundation\StreamedResponse">StreamedResponse</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_response">response</a>(string $path, string|null $name = null, array|null $headers = [], string|null $disposition = &#039;inline&#039;)
+        
+                                            <p>Create a streamed response for a given file.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_response"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;<abbr title="Symfony\Component\HttpFoundation\StreamedResponse">StreamedResponse</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_download">download</a>(string $path, string|null $name = null, array|null $headers = [])
+        
+                                            <p>Create a streamed download response for a given file.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_download"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_put">put</a>(string $path, string|resource $contents, mixed $options = [])
+        
+                                            <p>Write the contents of a file.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_put"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string|false
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_putFile">putFile</a>(string $path, <abbr title="Illuminate\Http\File">File</abbr>|<abbr title="Illuminate\Http\UploadedFile">UploadedFile</abbr> $file, array $options = [])
+        
+                                            <p>Store the uploaded file on the disk.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_putFile"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string|false
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_putFileAs">putFileAs</a>(string $path, <abbr title="Illuminate\Http\File">File</abbr>|<abbr title="Illuminate\Http\UploadedFile">UploadedFile</abbr> $file, string $name, array $options = [])
+        
+                                            <p>Store the uploaded file on the disk with a given name.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_putFileAs"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getVisibility">getVisibility</a>(string $path)
+        
+                                            <p>Get the visibility for the given path.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_getVisibility"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_setVisibility">setVisibility</a>(string $path, string $visibility)
+        
+                                            <p>Set the visibility for the given path.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_setVisibility"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;int
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_prepend">prepend</a>(string $path, string $data, string $separator = &#039;&#039;)
+        
+                                            <p>Prepend to a file.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_prepend"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;int
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_append">append</a>(string $path, string $data, string $separator = &#039;&#039;)
+        
+                                            <p>Append to a file.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_append"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_delete">delete</a>(string|array $paths)
+        
+                                            <p>Delete the file at a given path.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_delete"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_copy">copy</a>(string $from, string $to)
+        
+                                            <p>Copy a file to a new location.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_copy"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_move">move</a>(string $from, string $to)
+        
+                                            <p>Move a file to a new location.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_move"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;int
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_size">size</a>(string $path)
+        
+                                            <p>Get the file size of a given file.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_size"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string|false
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_mimeType">mimeType</a>(string $path)
+        
+                                            <p>Get the mime-type of a given file.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_mimeType"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;int
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_lastModified">lastModified</a>(string $path)
+        
+                                            <p>Get the file's last modification time.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_lastModified"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_url">url</a>(string $path)
+        
+                                            <p>Get the URL for the file at the given path.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_url"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_temporaryUrl">temporaryUrl</a>(string $path, <a target="_blank" href="http://php.net/DateTimeInterface">DateTimeInterface</a> $expiration, array $options = [])
+        
+                                            <p>Get a temporary URL for the file at the given path.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_temporaryUrl"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getAwsTemporaryUrl">getAwsTemporaryUrl</a>(<abbr title="League\Flysystem\AwsS3v3\AwsS3Adapter">AwsS3Adapter</abbr> $adapter, string $path, <a target="_blank" href="http://php.net/DateTimeInterface">DateTimeInterface</a> $expiration, array $options)
+        
+                                            <p>Get a temporary URL for the file at the given path.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_getAwsTemporaryUrl"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getRackspaceTemporaryUrl">getRackspaceTemporaryUrl</a>(<abbr title="League\Flysystem\Rackspace\RackspaceAdapter">RackspaceAdapter</abbr> $adapter, string $path, <a target="_blank" href="http://php.net/DateTimeInterface">DateTimeInterface</a> $expiration, array $options)
+        
+                                            <p>Get a temporary URL for the file at the given path.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_getRackspaceTemporaryUrl"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_files">files</a>(string|null $directory = null, bool $recursive = false)
+        
+                                            <p>Get an array of all files in a directory.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_files"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_allFiles">allFiles</a>(string|null $directory = null)
+        
+                                            <p>Get all of the files from the given directory (recursive).</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_allFiles"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_directories">directories</a>(string|null $directory = null, bool $recursive = false)
+        
+                                            <p>Get all of the directories within a given directory.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_directories"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_allDirectories">allDirectories</a>(string|null $directory = null)
+        
+                                            <p>Get all (recursive) of the directories within a given directory.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_allDirectories"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_makeDirectory">makeDirectory</a>(string $path)
+        
+                                            <p>Create a directory.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_makeDirectory"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_deleteDirectory">deleteDirectory</a>(string $directory)
+        
+                                            <p>Recursively delete a directory.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_deleteDirectory"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_flushCache">flushCache</a>()
+        
+                                            <p>Flush the Flysystem cache.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_flushCache"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;<abbr title="League\Flysystem\FilesystemInterface">FilesystemInterface</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getDriver">getDriver</a>()
+        
+                                            <p>Get the Flysystem driver.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Storage.html#method_getDriver"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a></small></div>
+            </div>
+            </div>
+
+
+        <h2>Details</h2>
+
+            <div id="method-details">
+                    <div class="method-item">
+                    <h3 id="method_drive">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_drive"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10589</div>
+        <code>        static            <abbr title="Illuminate\Filesystem\FilesystemAdapter">FilesystemAdapter</abbr>
+    <strong>drive</strong>(string $name = null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get a filesystem instance.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$name</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Illuminate\Filesystem\FilesystemAdapter">FilesystemAdapter</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_disk">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_disk"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10601</div>
+        <code>        static            <abbr title="Illuminate\Filesystem\FilesystemAdapter">FilesystemAdapter</abbr>
+    <strong>disk</strong>(string $name = null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get a filesystem instance.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$name</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Illuminate\Filesystem\FilesystemAdapter">FilesystemAdapter</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_cloud">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_cloud"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10612</div>
+        <code>        static            <abbr title="Illuminate\Filesystem\FilesystemAdapter">FilesystemAdapter</abbr>
+    <strong>cloud</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get a default cloud filesystem instance.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Illuminate\Filesystem\FilesystemAdapter">FilesystemAdapter</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_createLocalDriver">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_createLocalDriver"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10624</div>
+        <code>        static            <abbr title="Illuminate\Filesystem\FilesystemAdapter">FilesystemAdapter</abbr>
+    <strong>createLocalDriver</strong>(array $config)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Create an instance of the local driver.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$config</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Illuminate\Filesystem\FilesystemAdapter">FilesystemAdapter</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_createFtpDriver">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_createFtpDriver"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10636</div>
+        <code>        static            <abbr title="Illuminate\Filesystem\FilesystemAdapter">FilesystemAdapter</abbr>
+    <strong>createFtpDriver</strong>(array $config)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Create an instance of the ftp driver.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$config</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Illuminate\Filesystem\FilesystemAdapter">FilesystemAdapter</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_createSftpDriver">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_createSftpDriver"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10648</div>
+        <code>        static            <abbr title="Illuminate\Filesystem\FilesystemAdapter">FilesystemAdapter</abbr>
+    <strong>createSftpDriver</strong>(array $config)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Create an instance of the sftp driver.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$config</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Illuminate\Filesystem\FilesystemAdapter">FilesystemAdapter</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_createS3Driver">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_createS3Driver"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10660</div>
+        <code>        static            <abbr title="Illuminate\Contracts\Filesystem\Cloud">Cloud</abbr>
+    <strong>createS3Driver</strong>(array $config)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Create an instance of the Amazon S3 driver.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$config</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Illuminate\Contracts\Filesystem\Cloud">Cloud</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_createRackspaceDriver">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_createRackspaceDriver"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10672</div>
+        <code>        static            <abbr title="Illuminate\Contracts\Filesystem\Cloud">Cloud</abbr>
+    <strong>createRackspaceDriver</strong>(array $config)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Create an instance of the Rackspace driver.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$config</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Illuminate\Contracts\Filesystem\Cloud">Cloud</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_set">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_set"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10685</div>
+        <code>        static            $this
+    <strong>set</strong>(string $name, mixed $disk)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Set the given disk instance.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$name</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$disk</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>$this</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getDefaultDriver">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_getDefaultDriver"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10696</div>
+        <code>        static            string
+    <strong>getDefaultDriver</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get the default driver name.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getDefaultCloudDriver">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_getDefaultCloudDriver"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10707</div>
+        <code>        static            string
+    <strong>getDefaultCloudDriver</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get the default cloud driver name.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_forgetDisk">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_forgetDisk"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10719</div>
+        <code>        static            $this
+    <strong>forgetDisk</strong>(array|string $disk)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Unset the given disk instances.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array|string</td>
+                <td>$disk</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>$this</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_extend">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_extend"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10732</div>
+        <code>        static            $this
+    <strong>extend</strong>(string $driver, <a target="_blank" href="http://php.net/Closure">Closure</a> $callback)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Register a custom driver creator Closure.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$driver</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td><a target="_blank" href="http://php.net/Closure">Closure</a></td>
+                <td>$callback</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>$this</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_assertExists">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_assertExists"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10744</div>
+        <code>        static            void
+    <strong>assertExists</strong>(string $path)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Assert that the given file exists.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_assertMissing">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_assertMissing"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10756</div>
+        <code>        static            void
+    <strong>assertMissing</strong>(string $path)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Assert that the given file does not exist.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_exists">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_exists"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10768</div>
+        <code>        static            bool
+    <strong>exists</strong>(string $path)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Determine if a file exists.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_path">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_path"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10780</div>
+        <code>        static            string
+    <strong>path</strong>(string $path)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get the full path for the file at the given "short" path.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_get">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_get"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10793</div>
+        <code>        static            string
+    <strong>get</strong>(string $path)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get the contents of a file.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Illuminate\Contracts\Filesystem\FileNotFoundException">FileNotFoundException</abbr></td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_response">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_response"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10808</div>
+        <code>        static            <abbr title="Symfony\Component\HttpFoundation\StreamedResponse">StreamedResponse</abbr>
+    <strong>response</strong>(string $path, string|null $name = null, array|null $headers = [], string|null $disposition = &#039;inline&#039;)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Create a streamed response for a given file.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string|null</td>
+                <td>$name</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array|null</td>
+                <td>$headers</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string|null</td>
+                <td>$disposition</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\StreamedResponse">StreamedResponse</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_download">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_download"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10822</div>
+        <code>        static            <abbr title="Symfony\Component\HttpFoundation\StreamedResponse">StreamedResponse</abbr>
+    <strong>download</strong>(string $path, string|null $name = null, array|null $headers = [])
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Create a streamed download response for a given file.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string|null</td>
+                <td>$name</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array|null</td>
+                <td>$headers</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\StreamedResponse">StreamedResponse</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_put">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_put"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10836</div>
+        <code>        static            bool
+    <strong>put</strong>(string $path, string|resource $contents, mixed $options = [])
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Write the contents of a file.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string|resource</td>
+                <td>$contents</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$options</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_putFile">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_putFile"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10850</div>
+        <code>        static            string|false
+    <strong>putFile</strong>(string $path, <abbr title="Illuminate\Http\File">File</abbr>|<abbr title="Illuminate\Http\UploadedFile">UploadedFile</abbr> $file, array $options = [])
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Store the uploaded file on the disk.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td><abbr title="Illuminate\Http\File">File</abbr>|<abbr title="Illuminate\Http\UploadedFile">UploadedFile</abbr></td>
+                <td>$file</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$options</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string|false</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_putFileAs">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_putFileAs"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10865</div>
+        <code>        static            string|false
+    <strong>putFileAs</strong>(string $path, <abbr title="Illuminate\Http\File">File</abbr>|<abbr title="Illuminate\Http\UploadedFile">UploadedFile</abbr> $file, string $name, array $options = [])
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Store the uploaded file on the disk with a given name.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td><abbr title="Illuminate\Http\File">File</abbr>|<abbr title="Illuminate\Http\UploadedFile">UploadedFile</abbr></td>
+                <td>$file</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$name</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$options</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string|false</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getVisibility">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_getVisibility"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10877</div>
+        <code>        static            string
+    <strong>getVisibility</strong>(string $path)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get the visibility for the given path.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setVisibility">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_setVisibility"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10890</div>
+        <code>        static            void
+    <strong>setVisibility</strong>(string $path, string $visibility)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Set the visibility for the given path.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$visibility</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_prepend">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_prepend"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10904</div>
+        <code>        static            int
+    <strong>prepend</strong>(string $path, string $data, string $separator = &#039;&#039;)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Prepend to a file.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$data</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$separator</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>int</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_append">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_append"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10918</div>
+        <code>        static            int
+    <strong>append</strong>(string $path, string $data, string $separator = &#039;&#039;)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Append to a file.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$data</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$separator</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>int</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_delete">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_delete"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10930</div>
+        <code>        static            bool
+    <strong>delete</strong>(string|array $paths)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Delete the file at a given path.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string|array</td>
+                <td>$paths</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_copy">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_copy"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10943</div>
+        <code>        static            bool
+    <strong>copy</strong>(string $from, string $to)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Copy a file to a new location.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$from</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$to</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_move">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_move"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10956</div>
+        <code>        static            bool
+    <strong>move</strong>(string $from, string $to)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Move a file to a new location.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$from</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$to</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_size">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_size"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10968</div>
+        <code>        static            int
+    <strong>size</strong>(string $path)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get the file size of a given file.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>int</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_mimeType">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_mimeType"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10980</div>
+        <code>        static            string|false
+    <strong>mimeType</strong>(string $path)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get the mime-type of a given file.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string|false</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_lastModified">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_lastModified"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 10992</div>
+        <code>        static            int
+    <strong>lastModified</strong>(string $path)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get the file's last modification time.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>int</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_url">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_url"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 11004</div>
+        <code>        static            string
+    <strong>url</strong>(string $path)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get the URL for the file at the given path.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_temporaryUrl">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_temporaryUrl"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 11018</div>
+        <code>        static            string
+    <strong>temporaryUrl</strong>(string $path, <a target="_blank" href="http://php.net/DateTimeInterface">DateTimeInterface</a> $expiration, array $options = [])
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get a temporary URL for the file at the given path.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td><a target="_blank" href="http://php.net/DateTimeInterface">DateTimeInterface</a></td>
+                <td>$expiration</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$options</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getAwsTemporaryUrl">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_getAwsTemporaryUrl"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 11033</div>
+        <code>        static            string
+    <strong>getAwsTemporaryUrl</strong>(<abbr title="League\Flysystem\AwsS3v3\AwsS3Adapter">AwsS3Adapter</abbr> $adapter, string $path, <a target="_blank" href="http://php.net/DateTimeInterface">DateTimeInterface</a> $expiration, array $options)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get a temporary URL for the file at the given path.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="League\Flysystem\AwsS3v3\AwsS3Adapter">AwsS3Adapter</abbr></td>
+                <td>$adapter</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td><a target="_blank" href="http://php.net/DateTimeInterface">DateTimeInterface</a></td>
+                <td>$expiration</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$options</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getRackspaceTemporaryUrl">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_getRackspaceTemporaryUrl"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 11048</div>
+        <code>        static            string
+    <strong>getRackspaceTemporaryUrl</strong>(<abbr title="League\Flysystem\Rackspace\RackspaceAdapter">RackspaceAdapter</abbr> $adapter, string $path, <a target="_blank" href="http://php.net/DateTimeInterface">DateTimeInterface</a> $expiration, array $options)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get a temporary URL for the file at the given path.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="League\Flysystem\Rackspace\RackspaceAdapter">RackspaceAdapter</abbr></td>
+                <td>$adapter</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td><a target="_blank" href="http://php.net/DateTimeInterface">DateTimeInterface</a></td>
+                <td>$expiration</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$options</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_files">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_files"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 11061</div>
+        <code>        static            array
+    <strong>files</strong>(string|null $directory = null, bool $recursive = false)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get an array of all files in a directory.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string|null</td>
+                <td>$directory</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$recursive</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_allFiles">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_allFiles"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 11073</div>
+        <code>        static            array
+    <strong>allFiles</strong>(string|null $directory = null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get all of the files from the given directory (recursive).</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string|null</td>
+                <td>$directory</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_directories">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_directories"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 11086</div>
+        <code>        static            array
+    <strong>directories</strong>(string|null $directory = null, bool $recursive = false)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get all of the directories within a given directory.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string|null</td>
+                <td>$directory</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$recursive</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_allDirectories">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_allDirectories"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 11098</div>
+        <code>        static            array
+    <strong>allDirectories</strong>(string|null $directory = null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get all (recursive) of the directories within a given directory.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string|null</td>
+                <td>$directory</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_makeDirectory">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_makeDirectory"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 11110</div>
+        <code>        static            bool
+    <strong>makeDirectory</strong>(string $path)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Create a directory.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_deleteDirectory">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_deleteDirectory"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 11122</div>
+        <code>        static            bool
+    <strong>deleteDirectory</strong>(string $directory)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Recursively delete a directory.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$directory</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_flushCache">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_flushCache"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 11133</div>
+        <code>        static            void
+    <strong>flushCache</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Flush the Flysystem cache.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getDriver">
+        <div class="location">in <a href="Illuminate/Support/Facades/Storage.html#method_getDriver"><abbr title="Illuminate\Support\Facades\Storage">Storage</abbr></a> at         line 11144</div>
+        <code>        static            <abbr title="League\Flysystem\FilesystemInterface">FilesystemInterface</abbr>
+    <strong>getDriver</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get the Flysystem driver.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="League\Flysystem\FilesystemInterface">FilesystemInterface</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+            </div>
+
+    
+            </div>
+                <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+    </div>
+
+        </div>
+    </div>
+    </body>
+
+</html>

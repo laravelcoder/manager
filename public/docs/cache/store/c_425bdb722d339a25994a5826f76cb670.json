@@ -1,0 +1,48 @@
+{
+    "name": "App\\Http\\Controllers\\Auth\\ForgotPasswordController",
+    "line": 10,
+    "short_desc": "",
+    "long_desc": "",
+    "hint": null,
+    "tags": [],
+    "namespace": "App\\Http\\Controllers\\Auth",
+    "file": "\/home\/vagrant\/repos\/manager\/app\/Http\/Controllers\/Auth\/ForgotPasswordController.php",
+    "relative_file": null,
+    "hash": "fd05b3f5578b53b3bee118bbea0abfa8bc584a43",
+    "parent": "App\\Http\\Controllers\\Controller",
+    "modifiers": 0,
+    "is_trait": false,
+    "is_interface": false,
+    "aliases": {
+        "Controller": "App\\Http\\Controllers\\Controller",
+        "SendsPasswordResetEmails": "Illuminate\\Foundation\\Auth\\SendsPasswordResetEmails"
+    },
+    "errors": [],
+    "interfaces": [],
+    "traits": {
+        "Illuminate\\Foundation\\Auth\\SendsPasswordResetEmails": "Illuminate\\Foundation\\Auth\\SendsPasswordResetEmails"
+    },
+    "properties": [],
+    "methods": {
+        "__construct": {
+            "name": "__construct",
+            "line": 30,
+            "short_desc": "Create a new controller instance.",
+            "long_desc": "",
+            "hint": [
+                [
+                    "void",
+                    false
+                ]
+            ],
+            "hint_desc": "",
+            "tags": [],
+            "modifiers": 1,
+            "is_by_ref": "",
+            "exceptions": [],
+            "errors": [],
+            "parameters": []
+        }
+    },
+    "constants": []
+}
