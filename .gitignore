@@ -1,3 +1,15 @@
+*.rar
+*.zip
+resources/views/auth/login.blade.php
+resources/views/extraTemplate.blade.php
+/composer.lock
+/.styleci.yml
+/.env.example
+/_ide_helper_models.php
+/_ide_helper.php
+/composer.lock
+/public/docs/cache/*
+storage/debugbar
 /node_modules
 /public/hot
 /public/storage
@@ -13,7 +25,3 @@ yarn-error.log
 .env
 .phpintel
 vendor/
-*.rar
-*.zip
-_ide_helper.php
-_ide_helper_models.php
