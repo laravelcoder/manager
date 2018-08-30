@@ -16,7 +16,7 @@ vendor/
 *.rar
 *.zip
 storage/debugbar
-resources/views/auth/login.blade.php
+
 /app.rar
 # /resources/views/partials/side-profile.blade.php
 # /resources/views/partials/topbar.blade.php
@@ -26,8 +26,7 @@ resources/views/auth/login.blade.php
 # /resources/views/partials/selector.blade.php
 # /resources/views/partials/javascripts.blade.php
 # /resources/views/extraTemplate.blade.php
-*/login.blade.php
-/resources/views/auth/login.blade.php
+
 /composer.lock
 /.styleci.yml
 /.env.example
