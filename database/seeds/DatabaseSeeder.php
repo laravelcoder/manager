@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ChannelsListSeed::class);
         $this->call(ChannelServerSeed::class);
         $this->call(CountrySeed::class);
-        $this->call(CsListChannelSeed::class);
         $this->call(ProtocolSeed::class);
         $this->call(CsiSeed::class);
         $this->call(CsoSeed::class);
@@ -24,7 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(GeneralSettingSeed::class);
         $this->call(PermissionSeed::class);
         $this->call(RoleSeed::class);
-        $this->call(SsListChannelSeed::class);
         $this->call(TimezoneSeed::class);
         $this->call(UserSeed::class);
         $this->call(VideoServerTypeSeed::class);

@@ -20,10 +20,12 @@ class SsListChannelTest extends DuskTestCase
                 ->clickLink('Add new')
                 ->select('sync_server_id', $ss_list_channel->sync_server_id)
                 ->select('channel_id', $ss_list_channel->channel_id)
+                ->select('channel_server_id', $ss_list_channel->channel_server_id)
                 ->press('Save')
                 ->assertRouteIs('admin.ss_list_channels.index')
                 ->assertSeeIn("tr:last-child td[field-key='sync_server']", $ss_list_channel->sync_server->name)
                 ->assertSeeIn("tr:last-child td[field-key='channel']", $ss_list_channel->channel->channel_name)
+                ->assertSeeIn("tr:last-child td[field-key='channel_server']", $ss_list_channel->channel_server->name)
                 ->logout();
         });
     }
@@ -40,10 +42,12 @@ class SsListChannelTest extends DuskTestCase
                 ->click('tr[data-entry-id="'.$ss_list_channel->id.'"] .btn-info')
                 ->select('sync_server_id', $ss_list_channel2->sync_server_id)
                 ->select('channel_id', $ss_list_channel2->channel_id)
+                ->select('channel_server_id', $ss_list_channel2->channel_server_id)
                 ->press('Update')
                 ->assertRouteIs('admin.ss_list_channels.index')
                 ->assertSeeIn("tr:last-child td[field-key='sync_server']", $ss_list_channel2->sync_server->name)
                 ->assertSeeIn("tr:last-child td[field-key='channel']", $ss_list_channel2->channel->channel_name)
+                ->assertSeeIn("tr:last-child td[field-key='channel_server']", $ss_list_channel2->channel_server->name)
                 ->logout();
         });
     }
@@ -59,6 +63,7 @@ class SsListChannelTest extends DuskTestCase
                 ->click('tr[data-entry-id="'.$ss_list_channel->id.'"] .btn-primary')
                 ->assertSeeIn("td[field-key='sync_server']", $ss_list_channel->sync_server->name)
                 ->assertSeeIn("td[field-key='channel']", $ss_list_channel->channel->channel_name)
+                ->assertSeeIn("td[field-key='channel_server']", $ss_list_channel->channel_server->name)
                 ->logout();
         });
     }

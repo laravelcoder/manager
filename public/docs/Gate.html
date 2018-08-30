@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
+    <title>Gate | Configuration Manager Documentation</title>
+
+            <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="css/sami.css">
+        <script src="js/jquery-1.11.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/typeahead.min.js"></script>
+        <script src="sami.js"></script>
+        <meta name="MobileOptimized" content="width">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    
+    
+    </head>
+
+    <body id="class" data-name="class:Gate" data-root-path="">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                <script>
+            $('option[data-version="'+window.projectVersion+'"]').prop('selected', true);
+        </script>
+        <form id="search-form" action="search.html" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
+        </form>
+    </div>
+
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Configuration Manager Documentation</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="classes.html">Classes</a></li>
+                                            <li><a href="namespaces.html">Namespaces</a></li>
+                                        <li><a href="interfaces.html">Interfaces</a></li>
+                    <li><a href="traits.html">Traits</a></li>
+                    <li><a href="doc-index.html">Index</a></li>
+                    <li><a href="search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                            <div id="page-content">
+                
+    <div class="page-header">
+        <h1>
+            Gate
+                
+        </h1>
+    </div>
+
+    <p>    class
+    <strong>Gate</strong>        extends <a href="Illuminate/Support/Facades/Gate.html"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a>
+</p>
+
+        
+    
+
+    
+    
+    
+    
+            <h2>Methods</h2>
+
+            <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_has">has</a>(string|array $ability)
+        
+                                            <p>Determine if a given ability has been defined.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Gate.html#method_has"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;$this
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_define">define</a>(string $ability, callable|string $callback)
+        
+                                            <p>Define a new ability.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Gate.html#method_define"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;$this
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_resource">resource</a>(string $name, string $class, array|null $abilities = null)
+        
+                                            <p>Define abilities for a resource.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Gate.html#method_resource"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;$this
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_policy">policy</a>(string $class, string $policy)
+        
+                                            <p>Define a policy class for a given class type.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Gate.html#method_policy"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;$this
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_before">before</a>(callable $callback)
+        
+                                            <p>Register a callback to run before all Gate checks.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Gate.html#method_before"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;$this
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_after">after</a>(callable $callback)
+        
+                                            <p>Register a callback to run after all Gate checks.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Gate.html#method_after"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_allows">allows</a>(string $ability, array|mixed $arguments = [])
+        
+                                            <p>Determine if the given ability should be granted for the current user.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Gate.html#method_allows"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_denies">denies</a>(string $ability, array|mixed $arguments = [])
+        
+                                            <p>Determine if the given ability should be denied for the current user.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Gate.html#method_denies"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_check">check</a>(<abbr title="Illuminate\Auth\Access\iterable">iterable</abbr>|string $abilities, array|mixed $arguments = [])
+        
+                                            <p>Determine if all of the given abilities should be granted for the current user.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Gate.html#method_check"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_any">any</a>(<abbr title="Illuminate\Auth\Access\iterable">iterable</abbr>|string $abilities, array|mixed $arguments = [])
+        
+                                            <p>Determine if any one of the given abilities should be granted for the current user.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Gate.html#method_any"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;<abbr title="Illuminate\Auth\Access\Response">Response</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_authorize">authorize</a>(string $ability, array|mixed $arguments = [])
+        
+                                            <p>Determine if the given ability should be granted for the current user.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Gate.html#method_authorize"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;mixed
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getPolicyFor">getPolicyFor</a>(object|string $class)
+        
+                                            <p>Get a policy instance for a given class.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Gate.html#method_getPolicyFor"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;mixed
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_resolvePolicy">resolvePolicy</a>(object|string $class)
+        
+                                            <p>Build a policy class instance of the given type.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Gate.html#method_resolvePolicy"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;<a href="Illuminate/Support/Facades/Gate.html"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_forUser">forUser</a>(<abbr title="Illuminate\Contracts\Auth\Authenticatable">Authenticatable</abbr>|mixed $user)
+        
+                                            <p>Get a gate instance for the given user.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Gate.html#method_forUser"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_abilities">abilities</a>()
+        
+                                            <p>Get all of the defined abilities.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Gate.html#method_abilities"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_policies">policies</a>()
+        
+                                            <p>Get all of the defined policies.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Gate.html#method_policies"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a></small></div>
+            </div>
+            </div>
+
+
+        <h2>Details</h2>
+
+            <div id="method-details">
+                    <div class="method-item">
+                    <h3 id="method_has">
+        <div class="location">in <a href="Illuminate/Support/Facades/Gate.html#method_has"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a> at         line 4972</div>
+        <code>        static            bool
+    <strong>has</strong>(string|array $ability)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Determine if a given ability has been defined.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string|array</td>
+                <td>$ability</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_define">
+        <div class="location">in <a href="Illuminate/Support/Facades/Gate.html#method_define"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a> at         line 4986</div>
+        <code>        static            $this
+    <strong>define</strong>(string $ability, callable|string $callback)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Define a new ability.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$ability</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>callable|string</td>
+                <td>$callback</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>$this</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a target="_blank" href="http://php.net/InvalidArgumentException">InvalidArgumentException</a></td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_resource">
+        <div class="location">in <a href="Illuminate/Support/Facades/Gate.html#method_resource"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a> at         line 5000</div>
+        <code>        static            $this
+    <strong>resource</strong>(string $name, string $class, array|null $abilities = null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Define abilities for a resource.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$name</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$class</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array|null</td>
+                <td>$abilities</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>$this</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_policy">
+        <div class="location">in <a href="Illuminate/Support/Facades/Gate.html#method_policy"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a> at         line 5013</div>
+        <code>        static            $this
+    <strong>policy</strong>(string $class, string $policy)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Define a policy class for a given class type.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$class</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$policy</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>$this</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_before">
+        <div class="location">in <a href="Illuminate/Support/Facades/Gate.html#method_before"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a> at         line 5025</div>
+        <code>        static            $this
+    <strong>before</strong>(callable $callback)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Register a callback to run before all Gate checks.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>callable</td>
+                <td>$callback</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>$this</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_after">
+        <div class="location">in <a href="Illuminate/Support/Facades/Gate.html#method_after"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a> at         line 5037</div>
+        <code>        static            $this
+    <strong>after</strong>(callable $callback)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Register a callback to run after all Gate checks.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>callable</td>
+                <td>$callback</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>$this</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_allows">
+        <div class="location">in <a href="Illuminate/Support/Facades/Gate.html#method_allows"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a> at         line 5050</div>
+        <code>        static            bool
+    <strong>allows</strong>(string $ability, array|mixed $arguments = [])
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Determine if the given ability should be granted for the current user.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$ability</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array|mixed</td>
+                <td>$arguments</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_denies">
+        <div class="location">in <a href="Illuminate/Support/Facades/Gate.html#method_denies"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a> at         line 5063</div>
+        <code>        static            bool
+    <strong>denies</strong>(string $ability, array|mixed $arguments = [])
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Determine if the given ability should be denied for the current user.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$ability</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array|mixed</td>
+                <td>$arguments</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_check">
+        <div class="location">in <a href="Illuminate/Support/Facades/Gate.html#method_check"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a> at         line 5076</div>
+        <code>        static            bool
+    <strong>check</strong>(<abbr title="Illuminate\Auth\Access\iterable">iterable</abbr>|string $abilities, array|mixed $arguments = [])
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Determine if all of the given abilities should be granted for the current user.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Illuminate\Auth\Access\iterable">iterable</abbr>|string</td>
+                <td>$abilities</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array|mixed</td>
+                <td>$arguments</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_any">
+        <div class="location">in <a href="Illuminate/Support/Facades/Gate.html#method_any"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a> at         line 5089</div>
+        <code>        static            bool
+    <strong>any</strong>(<abbr title="Illuminate\Auth\Access\iterable">iterable</abbr>|string $abilities, array|mixed $arguments = [])
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Determine if any one of the given abilities should be granted for the current user.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Illuminate\Auth\Access\iterable">iterable</abbr>|string</td>
+                <td>$abilities</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array|mixed</td>
+                <td>$arguments</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_authorize">
+        <div class="location">in <a href="Illuminate/Support/Facades/Gate.html#method_authorize"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a> at         line 5103</div>
+        <code>        static            <abbr title="Illuminate\Auth\Access\Response">Response</abbr>
+    <strong>authorize</strong>(string $ability, array|mixed $arguments = [])
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Determine if the given ability should be granted for the current user.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$ability</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array|mixed</td>
+                <td>$arguments</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Illuminate\Auth\Access\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Illuminate\Auth\Access\AuthorizationException">AuthorizationException</abbr></td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getPolicyFor">
+        <div class="location">in <a href="Illuminate/Support/Facades/Gate.html#method_getPolicyFor"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a> at         line 5115</div>
+        <code>        static            mixed
+    <strong>getPolicyFor</strong>(object|string $class)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get a policy instance for a given class.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>object|string</td>
+                <td>$class</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>mixed</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_resolvePolicy">
+        <div class="location">in <a href="Illuminate/Support/Facades/Gate.html#method_resolvePolicy"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a> at         line 5127</div>
+        <code>        static            mixed
+    <strong>resolvePolicy</strong>(object|string $class)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Build a policy class instance of the given type.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>object|string</td>
+                <td>$class</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>mixed</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_forUser">
+        <div class="location">in <a href="Illuminate/Support/Facades/Gate.html#method_forUser"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a> at         line 5139</div>
+        <code>        static            <a href="Illuminate/Support/Facades/Gate.html"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a>
+    <strong>forUser</strong>(<abbr title="Illuminate\Contracts\Auth\Authenticatable">Authenticatable</abbr>|mixed $user)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get a gate instance for the given user.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Illuminate\Contracts\Auth\Authenticatable">Authenticatable</abbr>|mixed</td>
+                <td>$user</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="Illuminate/Support/Facades/Gate.html"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_abilities">
+        <div class="location">in <a href="Illuminate/Support/Facades/Gate.html#method_abilities"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a> at         line 5150</div>
+        <code>        static            array
+    <strong>abilities</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get all of the defined abilities.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_policies">
+        <div class="location">in <a href="Illuminate/Support/Facades/Gate.html#method_policies"><abbr title="Illuminate\Support\Facades\Gate">Gate</abbr></a> at         line 5161</div>
+        <code>        static            array
+    <strong>policies</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get all of the defined policies.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+            </div>
+
+    
+            </div>
+                <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+    </div>
+
+        </div>
+    </div>
+    </body>
+
+</html>

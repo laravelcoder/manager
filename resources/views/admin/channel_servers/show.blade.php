@@ -36,6 +36,7 @@
 <li role="presentation" class="active"><a href="#csi" aria-controls="csi" role="tab" data-toggle="tab">Channel Server Inputs</a></li>
 <li role="presentation" class=""><a href="#cso" aria-controls="cso" role="tab" data-toggle="tab">Channel Server Outputs</a></li>
 <li role="presentation" class=""><a href="#cs_list_channels" aria-controls="cs_list_channels" role="tab" data-toggle="tab">Cs list channels</a></li>
+<li role="presentation" class=""><a href="#ss_list_channels" aria-controls="ss_list_channels" role="tab" data-toggle="tab">SS list channels</a></li>
 </ul>
 
 <!-- Tab panes -->
@@ -197,6 +198,7 @@
         <tr>
             <th>@lang('global.cs-list-channels.fields.channel')</th>
                         <th>@lang('global.cs-list-channels.fields.channelserver')</th>
+                        <th>@lang('global.cs-list-channels.fields.sync-server')</th>
                         @if( request('show_deleted') == 1 )
                         <th>&nbsp;</th>
                         @else
@@ -211,6 +213,7 @@
                 <tr data-entry-id="{{ $cs_list_channel->id }}">
                     <td field-key='channel'>{{ $cs_list_channel->channel->channel_name or '' }}</td>
                                 <td field-key='channelserver'>{{ $cs_list_channel->channelserver->name or '' }}</td>
+                                <td field-key='sync_server'>{{ $cs_list_channel->sync_server->name or '' }}</td>
                                 @if( request('show_deleted') == 1 )
                                 <td>
                                     {!! Form::open(array(
@@ -251,7 +254,75 @@
             @endforeach
         @else
             <tr>
-                <td colspan="7">@lang('global.app_no_entries_in_table')</td>
+                <td colspan="8">@lang('global.app_no_entries_in_table')</td>
+            </tr>
+        @endif
+    </tbody>
+</table>
+</div>
+<div role="tabpanel" class="tab-pane " id="ss_list_channels">
+<table class="table table-bordered table-striped {{ count($ss_list_channels) > 0 ? 'datatable' : '' }}">
+    <thead>
+        <tr>
+            <th>@lang('global.ss-list-channels.fields.sync-server')</th>
+                        <th>@lang('global.ss-list-channels.fields.channel')</th>
+                        <th>@lang('global.ss-list-channels.fields.channel-server')</th>
+                        @if( request('show_deleted') == 1 )
+                        <th>&nbsp;</th>
+                        @else
+                        <th>&nbsp;</th>
+                        @endif
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (count($ss_list_channels) > 0)
+            @foreach ($ss_list_channels as $ss_list_channel)
+                <tr data-entry-id="{{ $ss_list_channel->id }}">
+                    <td field-key='sync_server'>{{ $ss_list_channel->sync_server->name or '' }}</td>
+                                <td field-key='channel'>{{ $ss_list_channel->channel->channel_name or '' }}</td>
+                                <td field-key='channel_server'>{{ $ss_list_channel->channel_server->name or '' }}</td>
+                                @if( request('show_deleted') == 1 )
+                                <td>
+                                    {!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'POST',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.ss_list_channels.restore', $ss_list_channel->id])) !!}
+                                    {!! Form::submit(trans('global.app_restore'), array('class' => 'btn btn-xs btn-success')) !!}
+                                    {!! Form::close() !!}
+                                                                    {!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'DELETE',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.ss_list_channels.perma_del', $ss_list_channel->id])) !!}
+                                    {!! Form::submit(trans('global.app_permadel'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                    {!! Form::close() !!}
+                                                                </td>
+                                @else
+                                <td>
+                                    @can('ss_list_channel_view')
+                                    <a href="{{ route('admin.ss_list_channels.show',[$ss_list_channel->id]) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
+                                    @endcan
+                                    @can('ss_list_channel_edit')
+                                    <a href="{{ route('admin.ss_list_channels.edit',[$ss_list_channel->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
+                                    @endcan
+                                    @can('ss_list_channel_delete')
+{!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'DELETE',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.ss_list_channels.destroy', $ss_list_channel->id])) !!}
+                                    {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                    {!! Form::close() !!}
+                                    @endcan
+                                </td>
+                                @endif
+                </tr>
+            @endforeach
+        @else
+            <tr>
+                <td colspan="8">@lang('global.app_no_entries_in_table')</td>
             </tr>
         @endif
     </tbody>

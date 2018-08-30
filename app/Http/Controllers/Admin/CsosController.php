@@ -40,11 +40,11 @@ class CsosController extends Controller
             $query->select([
                 'csos.id',
                 'csos.channel_server_id',
+                'csos.channel_id',
                 'csos.ocloud_a',
                 'csos.ocp_a',
                 'csos.ocloud_b',
                 'csos.ocp_b',
-                'csos.channel_id',
             ]);
             $table = Datatables::of($query);
 
@@ -62,6 +62,9 @@ class CsosController extends Controller
             $table->editColumn('channel_server.name', function ($row) {
                 return $row->channel_server ? $row->channel_server->name : '';
             });
+            $table->editColumn('channel.channel_name', function ($row) {
+                return $row->channel ? $row->channel->channel_name : '';
+            });
             $table->editColumn('ocloud_a', function ($row) {
                 return $row->ocloud_a ? $row->ocloud_a : '';
             });
@@ -73,9 +76,6 @@ class CsosController extends Controller
             });
             $table->editColumn('ocp_b', function ($row) {
                 return $row->ocp_b ? $row->ocp_b : '';
-            });
-            $table->editColumn('channel.channel_name', function ($row) {
-                return $row->channel ? $row->channel->channel_name : '';
             });
 
             $table->rawColumns(['actions', 'massDelete']);

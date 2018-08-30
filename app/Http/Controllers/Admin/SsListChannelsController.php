@@ -29,6 +29,7 @@ class SsListChannelsController extends Controller
             $query = SsListChannel::query();
             $query->with('sync_server');
             $query->with('channel');
+            $query->with('channel_server');
             $template = 'actionsTemplate';
             if (request('show_deleted') === 1) {
                 if (! Gate::allows('ss_list_channel_delete')) {
@@ -41,6 +42,7 @@ class SsListChannelsController extends Controller
                 'ss_list_channels.id',
                 'ss_list_channels.sync_server_id',
                 'ss_list_channels.channel_id',
+                'ss_list_channels.channel_server_id',
             ]);
             $table = Datatables::of($query);
 
@@ -60,6 +62,9 @@ class SsListChannelsController extends Controller
             });
             $table->editColumn('channel.channel_name', function ($row) {
                 return $row->channel ? $row->channel->channel_name : '';
+            });
+            $table->editColumn('channel_server.name', function ($row) {
+                return $row->channel_server ? $row->channel_server->name : '';
             });
 
             $table->rawColumns(['actions', 'massDelete']);
@@ -82,9 +87,11 @@ class SsListChannelsController extends Controller
         }
 
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
-        $channels = \App\ChannelsList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
+//        $channels = \App\ChannelsList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
+        $channels = \App\ChannelsList::selectRaw('id, CONCAT(channel_name," |   ", channel_type) as channel_name')->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
+        $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
-        return view('admin.ss_list_channels.create', compact('sync_servers', 'channels'));
+        return view('admin.ss_list_channels.create', compact('sync_servers', 'channels', 'channel_servers'));
     }
 
     /**
@@ -116,11 +123,13 @@ class SsListChannelsController extends Controller
         }
 
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
-        $channels = \App\ChannelsList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
+//        $channels = \App\ChannelsList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
+        $channels = \App\ChannelsList::selectRaw('id, CONCAT(channel_name," |   ", channel_type) as channel_name')->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
+        $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
         $ss_list_channel = SsListChannel::findOrFail($id);
 
-        return view('admin.ss_list_channels.edit', compact('ss_list_channel', 'sync_servers', 'channels'));
+        return view('admin.ss_list_channels.edit', compact('ss_list_channel', 'sync_servers', 'channels', 'channel_servers'));
     }
 
     /**

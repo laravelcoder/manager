@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
+    <title>Event | Configuration Manager Documentation</title>
+
+            <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="css/sami.css">
+        <script src="js/jquery-1.11.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/typeahead.min.js"></script>
+        <script src="sami.js"></script>
+        <meta name="MobileOptimized" content="width">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    
+    
+    </head>
+
+    <body id="class" data-name="class:Event" data-root-path="">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                <script>
+            $('option[data-version="'+window.projectVersion+'"]').prop('selected', true);
+        </script>
+        <form id="search-form" action="search.html" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
+        </form>
+    </div>
+
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Configuration Manager Documentation</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="classes.html">Classes</a></li>
+                                            <li><a href="namespaces.html">Namespaces</a></li>
+                                        <li><a href="interfaces.html">Interfaces</a></li>
+                    <li><a href="traits.html">Traits</a></li>
+                    <li><a href="doc-index.html">Index</a></li>
+                    <li><a href="search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                            <div id="page-content">
+                
+    <div class="page-header">
+        <h1>
+            Event
+                
+        </h1>
+    </div>
+
+    <p>    class
+    <strong>Event</strong>        extends <a href="Illuminate/Support/Facades/Event.html"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a>
+</p>
+
+        
+    
+
+    
+    
+    
+    
+            <h2>Methods</h2>
+
+            <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_listen">listen</a>(string|array $events, mixed $listener)
+        
+                                            <p>Register an event listener with the dispatcher.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Event.html#method_listen"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_hasListeners">hasListeners</a>(string $eventName)
+        
+                                            <p>Determine if a given event has listeners.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Event.html#method_hasListeners"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_push">push</a>(string $event, array $payload = [])
+        
+                                            <p>Register an event and payload to be fired later.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Event.html#method_push"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_flush">flush</a>(string $event)
+        
+                                            <p>Flush a set of pushed events.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Event.html#method_flush"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_subscribe">subscribe</a>(object|string $subscriber)
+        
+                                            <p>Register an event subscriber with the dispatcher.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Event.html#method_subscribe"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;array|null
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_until">until</a>(string|object $event, mixed $payload = [])
+        
+                                            <p>Fire an event until the first non-null response is returned.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Event.html#method_until"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;array|null
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_fire">fire</a>(string|object $event, mixed $payload = [], bool $halt = false)
+        
+                                            <p>Fire an event and call the listeners.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Event.html#method_fire"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;array|null
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_dispatch">dispatch</a>(string|object $event, mixed $payload = [], bool $halt = false)
+        
+                                            <p>Fire an event and call the listeners.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Event.html#method_dispatch"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getListeners">getListeners</a>(string $eventName)
+        
+                                            <p>Get all of the listeners for a given event name.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Event.html#method_getListeners"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;<a target="_blank" href="http://php.net/Closure">Closure</a>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_makeListener">makeListener</a>(<a target="_blank" href="http://php.net/Closure">Closure</a>|string $listener, bool $wildcard = false)
+        
+                                            <p>Register an event listener with the dispatcher.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Event.html#method_makeListener"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;<a target="_blank" href="http://php.net/Closure">Closure</a>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_createClassListener">createClassListener</a>(string $listener, bool $wildcard = false)
+        
+                                            <p>Create a class based listener using the IoC container.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Event.html#method_createClassListener"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_forget">forget</a>(string $event)
+        
+                                            <p>Remove a set of listeners from the dispatcher.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Event.html#method_forget"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_forgetPushed">forgetPushed</a>()
+        
+                                            <p>Forget all of the pushed listeners.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Event.html#method_forgetPushed"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;$this
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_setQueueResolver">setQueueResolver</a>(callable $resolver)
+        
+                                            <p>Set the queue resolver implementation.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="Illuminate/Support/Facades/Event.html#method_setQueueResolver"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a></small></div>
+            </div>
+            </div>
+
+
+        <h2>Details</h2>
+
+            <div id="method-details">
+                    <div class="method-item">
+                    <h3 id="method_listen">
+        <div class="location">in <a href="Illuminate/Support/Facades/Event.html#method_listen"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a> at         line 4297</div>
+        <code>        static            void
+    <strong>listen</strong>(string|array $events, mixed $listener)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Register an event listener with the dispatcher.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string|array</td>
+                <td>$events</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$listener</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_hasListeners">
+        <div class="location">in <a href="Illuminate/Support/Facades/Event.html#method_hasListeners"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a> at         line 4309</div>
+        <code>        static            bool
+    <strong>hasListeners</strong>(string $eventName)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Determine if a given event has listeners.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$eventName</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_push">
+        <div class="location">in <a href="Illuminate/Support/Facades/Event.html#method_push"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a> at         line 4322</div>
+        <code>        static            void
+    <strong>push</strong>(string $event, array $payload = [])
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Register an event and payload to be fired later.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$event</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$payload</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_flush">
+        <div class="location">in <a href="Illuminate/Support/Facades/Event.html#method_flush"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a> at         line 4334</div>
+        <code>        static            void
+    <strong>flush</strong>(string $event)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Flush a set of pushed events.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$event</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_subscribe">
+        <div class="location">in <a href="Illuminate/Support/Facades/Event.html#method_subscribe"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a> at         line 4346</div>
+        <code>        static            void
+    <strong>subscribe</strong>(object|string $subscriber)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Register an event subscriber with the dispatcher.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>object|string</td>
+                <td>$subscriber</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_until">
+        <div class="location">in <a href="Illuminate/Support/Facades/Event.html#method_until"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a> at         line 4359</div>
+        <code>        static            array|null
+    <strong>until</strong>(string|object $event, mixed $payload = [])
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Fire an event until the first non-null response is returned.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string|object</td>
+                <td>$event</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$payload</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array|null</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_fire">
+        <div class="location">in <a href="Illuminate/Support/Facades/Event.html#method_fire"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a> at         line 4373</div>
+        <code>        static            array|null
+    <strong>fire</strong>(string|object $event, mixed $payload = [], bool $halt = false)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Fire an event and call the listeners.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string|object</td>
+                <td>$event</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$payload</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$halt</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array|null</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_dispatch">
+        <div class="location">in <a href="Illuminate/Support/Facades/Event.html#method_dispatch"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a> at         line 4387</div>
+        <code>        static            array|null
+    <strong>dispatch</strong>(string|object $event, mixed $payload = [], bool $halt = false)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Fire an event and call the listeners.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string|object</td>
+                <td>$event</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$payload</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$halt</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array|null</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getListeners">
+        <div class="location">in <a href="Illuminate/Support/Facades/Event.html#method_getListeners"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a> at         line 4399</div>
+        <code>        static            array
+    <strong>getListeners</strong>(string $eventName)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get all of the listeners for a given event name.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$eventName</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_makeListener">
+        <div class="location">in <a href="Illuminate/Support/Facades/Event.html#method_makeListener"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a> at         line 4412</div>
+        <code>        static            <a target="_blank" href="http://php.net/Closure">Closure</a>
+    <strong>makeListener</strong>(<a target="_blank" href="http://php.net/Closure">Closure</a>|string $listener, bool $wildcard = false)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Register an event listener with the dispatcher.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a target="_blank" href="http://php.net/Closure">Closure</a>|string</td>
+                <td>$listener</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$wildcard</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a target="_blank" href="http://php.net/Closure">Closure</a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_createClassListener">
+        <div class="location">in <a href="Illuminate/Support/Facades/Event.html#method_createClassListener"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a> at         line 4425</div>
+        <code>        static            <a target="_blank" href="http://php.net/Closure">Closure</a>
+    <strong>createClassListener</strong>(string $listener, bool $wildcard = false)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Create a class based listener using the IoC container.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$listener</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$wildcard</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a target="_blank" href="http://php.net/Closure">Closure</a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_forget">
+        <div class="location">in <a href="Illuminate/Support/Facades/Event.html#method_forget"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a> at         line 4437</div>
+        <code>        static            void
+    <strong>forget</strong>(string $event)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Remove a set of listeners from the dispatcher.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$event</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_forgetPushed">
+        <div class="location">in <a href="Illuminate/Support/Facades/Event.html#method_forgetPushed"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a> at         line 4448</div>
+        <code>        static            void
+    <strong>forgetPushed</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Forget all of the pushed listeners.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setQueueResolver">
+        <div class="location">in <a href="Illuminate/Support/Facades/Event.html#method_setQueueResolver"><abbr title="Illuminate\Support\Facades\Event">Event</abbr></a> at         line 4460</div>
+        <code>        static            $this
+    <strong>setQueueResolver</strong>(callable $resolver)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Set the queue resolver implementation.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>callable</td>
+                <td>$resolver</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>$this</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+            </div>
+
+    
+            </div>
+                <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+    </div>
+
+        </div>
+    </div>
+    </body>
+
+</html>

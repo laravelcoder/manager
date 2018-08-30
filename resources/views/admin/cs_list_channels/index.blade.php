@@ -34,6 +34,7 @@
                         <th>@lang('global.cs-list-channels.fields.channel')</th>
                         <th>@lang('global.channels-list.fields.channel-type')</th>
                         <th>@lang('global.cs-list-channels.fields.channelserver')</th>
+                        <th>@lang('global.cs-list-channels.fields.sync-server')</th>
                         @if( request('show_deleted') == 1 )
                         <th>&nbsp;</th>
                         @else
@@ -60,6 +61,7 @@
                 @endcan{data: 'channel.channel_name', name: 'channel.channel_name'},
                 {data: 'channel.channel_type', name: 'channel.channel_type'},
                 {data: 'channelserver.name', name: 'channelserver.name'},
+                {data: 'sync_server.name', name: 'sync_server.name'},
                 
                 {data: 'actions', name: 'actions', searchable: false, sortable: false}
             ];

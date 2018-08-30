@@ -12,12 +12,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property string $channel
  * @property string $channelserver
+ * @property string $sync_server
  */
 class CsListChannel extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['channel_id', 'channelserver_id'];
+    protected $fillable = ['channel_id', 'channelserver_id', 'sync_server_id'];
     protected $hidden = [];
 
     /**
@@ -38,6 +39,15 @@ class CsListChannel extends Model
         $this->attributes['channelserver_id'] = $input ? $input : null;
     }
 
+    /**
+     * Set to null if empty.
+     * @param $input
+     */
+    public function setSyncServerIdAttribute($input): void
+    {
+        $this->attributes['sync_server_id'] = $input ? $input : null;
+    }
+
     public function channel()
     {
         return $this->belongsTo(ChannelsList::class, 'channel_id')->withTrashed();
@@ -46,5 +56,10 @@ class CsListChannel extends Model
     public function channelserver()
     {
         return $this->belongsTo(ChannelServer::class, 'channelserver_id')->withTrashed();
+    }
+
+    public function sync_server()
+    {
+        return $this->belongsTo(SyncServer::class, 'sync_server_id')->withTrashed();
     }
 }
