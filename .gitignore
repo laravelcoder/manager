@@ -30,3 +30,4 @@ resources/views/auth/login.blade.php
 /public/chartjs
 /public/adminlte/*
 /public/chartjs/*
+*/login.blade.php
