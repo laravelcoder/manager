@@ -33,3 +33,9 @@ resources/views/auth/login.blade.php
 */login.blade.php
 resources/views/auth/login.blade.php
 composer.lock
+.styleci.yml
+.env.example
+_ide_helper_models.php
+_ide_helper.php
+composer.lock
+public/adminlte/bootstrap/css/bootstrap-theme.css
