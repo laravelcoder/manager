@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-/**
+/*
  * Copyright (C) 2018 Dish Technologies
  * Dish Technologies LLC retains title to all software.
  */
