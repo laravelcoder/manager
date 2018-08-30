@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 // Route::middleware('auth')->group(function () {
     Route::get('/r', function () {
-        function philsroutes() {
+        function philsroutes(): void
+        {
             $routeCollection = Route::getRoutes();
             echo '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">';
             echo "<div class='container'><div class='col-md-12'><table class='table table-striped' style='width:100%'>";
@@ -17,10 +18,10 @@ declare(strict_types=1);
 
             foreach ($routeCollection as $value) {
                 echo '<tr>';
-                echo '<td>' . $value->methods()[0] . '</td>';
-                echo "<td><a href='" . $value->uri() . "' target='_blank'>" . $value->uri() . '</a> </td>';
-                echo '<td>' . $value->getName() . '</td>';
-                echo '<td>' . $value->getActionName() . '</td>';
+                echo '<td>'.$value->methods()[0].'</td>';
+                echo "<td><a href='".$value->uri()."' target='_blank'>".$value->uri().'</a> </td>';
+                echo '<td>'.$value->getName().'</td>';
+                echo '<td>'.$value->getActionName().'</td>';
                 echo '</tr>';
             }
 
@@ -31,11 +32,6 @@ declare(strict_types=1);
         return philsroutes();
     });
 // });
-
-
-
-
-
 
 Route::get('/', function () {
     return redirect('/admin/home');
@@ -59,8 +55,9 @@ $this->post('password/reset', 'Auth\ResetPasswordController@reset')->name('auth.
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function (): void {
     Route::get('/home', 'HomeController@index');
     Route::get('logs', ['uses' => '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index', 'as' => 'admin.logs']);
-    Route::get('docs', function () {    return redirect('/docs'); });
-    
+    Route::get('docs', function () {
+        return redirect('/docs');
+    });
 
     Route::resource('channel_servers', 'Admin\ChannelServersController');
     Route::post('channel_servers_mass_destroy', ['uses' => 'Admin\ChannelServersController@massDestroy', 'as' => 'channel_servers.mass_destroy']);
