@@ -1,7 +1,5 @@
 *.rar
 *.zip
-resources/views/auth/login.blade.php
-resources/views/extraTemplate.blade.php
 /composer.lock
 /.styleci.yml
 /.env.example
