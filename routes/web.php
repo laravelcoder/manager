@@ -37,6 +37,8 @@ Route::get('/', function () {
     return redirect('/admin/home');
 });
 
+Route::get('preview/cs/conf/{id}', ['uses' => 'Admin\CsConfController@create_conf', 'as' => 'preview.cs.conf']);
+
 // Authentication Routes...
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
 $this->post('login', 'Auth\LoginController@login')->name('auth.login');
@@ -58,6 +60,9 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::get('docs', function () {
         return redirect('/docs');
     });
+
+    
+
 
     Route::resource('channel_servers', 'Admin\ChannelServersController');
     Route::post('channel_servers_mass_destroy', ['uses' => 'Admin\ChannelServersController@massDestroy', 'as' => 'channel_servers.mass_destroy']);
