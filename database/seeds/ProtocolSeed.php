@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 use Illuminate\Database\Seeder;
 
 class ProtocolSeed extends Seeder
@@ -9,14 +10,14 @@ class ProtocolSeed extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $items = [
-            
-            ['id' => 1, 'protocol' => 'UDP', 'real_name' => 'User Datagram Protocol',],
-            ['id' => 2, 'protocol' => 'RTP', 'real_name' => 'Real-time Transport Protocol',],
-            ['id' => 3, 'protocol' => 'HLS', 'real_name' => 'HTTP Live Streaming',],
-            ['id' => 4, 'protocol' => 'MOVE', 'real_name' => null,],
+
+            ['id' => 1, 'protocol' => 'UDP', 'real_name' => 'User Datagram Protocol'],
+            ['id' => 2, 'protocol' => 'RTP', 'real_name' => 'Real-time Transport Protocol'],
+            ['id' => 3, 'protocol' => 'HLS', 'real_name' => 'HTTP Live Streaming'],
+            ['id' => 4, 'protocol' => 'MOVE', 'real_name' => null],
 
         ];
 
