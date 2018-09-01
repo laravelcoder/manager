@@ -25,4 +25,13 @@ class ChannelServer extends Model
         return $this->belongsToMany(ChannelsList::class, 'channel_server_channels_list')->withTrashed();
     }
     
+    public function default_cloud_as() {
+        return $this->hasMany(DefaultCloudA::class, 'channel_server_id');
+    }
+    public function default_cloud_bs() {
+        return $this->hasMany(DefaultCloudB::class, 'channel_server_id');
+    }
+    public function local_outputs() {
+        return $this->hasMany(LocalOutput::class, 'channel_server_id');
+    }
 }

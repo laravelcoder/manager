@@ -337,7 +337,6 @@
         <tr>
             <th>@lang('global.default-cloud-a.fields.address')</th>
                         <th>@lang('global.default-cloud-a.fields.port')</th>
-                        <th>@lang('global.default-cloud-a.fields.channel-server')</th>
                         @if( request('show_deleted') == 1 )
                         <th>&nbsp;</th>
                         @else
@@ -352,7 +351,6 @@
                 <tr data-entry-id="{{ $default_cloud_a->id }}">
                     <td field-key='address'>{{ $default_cloud_a->address }}</td>
                                 <td field-key='port'>{{ $default_cloud_a->port }}</td>
-                                <td field-key='channel_server'>{{ $default_cloud_a->channel_server->name or '' }}</td>
                                 @if( request('show_deleted') == 1 )
                                 <td>
                                     {!! Form::open(array(
@@ -405,7 +403,6 @@
         <tr>
             <th>@lang('global.default-cloud-b.fields.address')</th>
                         <th>@lang('global.default-cloud-b.fields.port')</th>
-                        <th>@lang('global.default-cloud-b.fields.channel-server')</th>
                         @if( request('show_deleted') == 1 )
                         <th>&nbsp;</th>
                         @else
@@ -420,7 +417,6 @@
                 <tr data-entry-id="{{ $default_cloud_b->id }}">
                     <td field-key='address'>{{ $default_cloud_b->address }}</td>
                                 <td field-key='port'>{{ $default_cloud_b->port }}</td>
-                                <td field-key='channel_server'>{{ $default_cloud_b->channel_server->name or '' }}</td>
                                 @if( request('show_deleted') == 1 )
                                 <td>
                                     {!! Form::open(array(
@@ -473,7 +469,6 @@
         <tr>
             <th>@lang('global.local-output.fields.address')</th>
                         <th>@lang('global.local-output.fields.port')</th>
-                        <th>@lang('global.local-output.fields.channel-server')</th>
                         @if( request('show_deleted') == 1 )
                         <th>&nbsp;</th>
                         @else
@@ -488,7 +483,6 @@
                 <tr data-entry-id="{{ $local_output->id }}">
                     <td field-key='address'>{{ $local_output->address }}</td>
                                 <td field-key='port'>{{ $local_output->port }}</td>
-                                <td field-key='channel_server'>{{ $local_output->channel_server->name or '' }}</td>
                                 @if( request('show_deleted') == 1 )
                                 <td>
                                     {!! Form::open(array(

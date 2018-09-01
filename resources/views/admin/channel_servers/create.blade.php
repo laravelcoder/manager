@@ -55,6 +55,81 @@
             
         </div>
     </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Default Cloud A
+        </div>
+        <div class="panel-body">
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>@lang('global.default-cloud-a.fields.address')</th>
+                        <th>@lang('global.default-cloud-a.fields.port')</th>
+                        
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody id="default-cloud-a">
+                    @foreach(old('default_cloud_as', []) as $index => $data)
+                        @include('admin.channel_servers.default_cloud_as_row', [
+                            'index' => $index
+                        ])
+                    @endforeach
+                </tbody>
+            </table>
+            <a href="#" class="btn btn-success pull-right add-new">@lang('global.app_add_new')</a>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Default Cloud B
+        </div>
+        <div class="panel-body">
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>@lang('global.default-cloud-b.fields.address')</th>
+                        <th>@lang('global.default-cloud-b.fields.port')</th>
+                        
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody id="default-cloud-b">
+                    @foreach(old('default_cloud_bs', []) as $index => $data)
+                        @include('admin.channel_servers.default_cloud_bs_row', [
+                            'index' => $index
+                        ])
+                    @endforeach
+                </tbody>
+            </table>
+            <a href="#" class="btn btn-success pull-right add-new">@lang('global.app_add_new')</a>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Local Output
+        </div>
+        <div class="panel-body">
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>@lang('global.local-output.fields.address')</th>
+                        <th>@lang('global.local-output.fields.port')</th>
+                        
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody id="local-output">
+                    @foreach(old('local_outputs', []) as $index => $data)
+                        @include('admin.channel_servers.local_outputs_row', [
+                            'index' => $index
+                        ])
+                    @endforeach
+                </tbody>
+            </table>
+            <a href="#" class="btn btn-success pull-right add-new">@lang('global.app_add_new')</a>
+        </div>
+    </div>
 
     {!! Form::submit(trans('global.app_save'), ['class' => 'btn btn-danger']) !!}
     {!! Form::close() !!}
@@ -63,6 +138,44 @@
 @section('javascript')
     @parent
 
+    <script type="text/html" id="default-cloud-a-template">
+        @include('admin.channel_servers.default_cloud_as_row',
+                [
+                    'index' => '_INDEX_',
+                ])
+               </script > 
+
+    <script type="text/html" id="default-cloud-b-template">
+        @include('admin.channel_servers.default_cloud_bs_row',
+                [
+                    'index' => '_INDEX_',
+                ])
+               </script > 
+
+    <script type="text/html" id="local-output-template">
+        @include('admin.channel_servers.local_outputs_row',
+                [
+                    'index' => '_INDEX_',
+                ])
+               </script > 
+
+            <script>
+        $('.add-new').click(function () {
+            var tableBody = $(this).parent().find('tbody');
+            var template = $('#' + tableBody.attr('id') + '-template').html();
+            var lastIndex = parseInt(tableBody.find('tr').last().data('index'));
+            if (isNaN(lastIndex)) {
+                lastIndex = 0;
+            }
+            tableBody.append(template.replace(/_INDEX_/g, lastIndex + 1));
+            return false;
+        });
+        $(document).on('click', '.remove', function () {
+            var row = $(this).parentsUntil('tr').parent();
+            row.remove();
+            return false;
+        });
+        </script>
     <script>
         $("#selectbtn-channel").click(function(){
             $("#selectall-channel > option").prop("selected","selected");
