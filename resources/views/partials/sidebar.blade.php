@@ -56,6 +56,30 @@
                         </a>
                     </li>@endcan
                     
+                   @can('default_cloud_a_access')
+                    <li>
+                        <a href="{{ route('admin.default_cloud_as.index') }}">
+                            <i class="fa fa-gears"></i>
+                            <span>@lang('global.default-cloud-a.title')</span>
+                        </a>
+                    </li>@endcan
+                    
+                    @can('default_cloud_b_access')
+                    <li>
+                        <a href="{{ route('admin.default_cloud_bs.index') }}">
+                            <i class="fa fa-gears"></i>
+                            <span>@lang('global.default-cloud-b.title')</span>
+                        </a>
+                    </li>@endcan
+                    
+                    @can('local_output_access')
+                    <li>
+                        <a href="{{ route('admin.local_outputs.index') }}">
+                            <i class="fa fa-gears"></i>
+                            <span>@lang('global.local-output.title')</span>
+                        </a>
+                    </li>@endcan
+                        
                 </ul>
             </li>@endcan
             
