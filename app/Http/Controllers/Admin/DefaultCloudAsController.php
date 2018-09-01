@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\DefaultCloudA;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
+use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Admin\StoreDefaultCloudAsRequest;
 use App\Http\Requests\Admin\UpdateDefaultCloudAsRequest;
-use Yajra\DataTables\DataTables;
 
 class DefaultCloudAsController extends Controller
 {
@@ -23,17 +25,14 @@ class DefaultCloudAsController extends Controller
             return abort(401);
         }
 
-
-        
         if (request()->ajax()) {
             $query = DefaultCloudA::query();
-            $query->with("channel_server");
+            $query->with('channel_server');
             $template = 'actionsTemplate';
-            if(request('show_deleted') == 1) {
-                
-        if (! Gate::allows('default_cloud_a_delete')) {
-            return abort(401);
-        }
+            if (request('show_deleted') === 1) {
+                if (! Gate::allows('default_cloud_a_delete')) {
+                    return abort(401);
+                }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -51,7 +50,7 @@ class DefaultCloudAsController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey  = 'default_cloud_a_';
+                $gateKey = 'default_cloud_a_';
                 $routeKey = 'admin.default_cloud_as';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -66,7 +65,7 @@ class DefaultCloudAsController extends Controller
                 return $row->channel_server ? $row->channel_server->name : '';
             });
 
-            $table->rawColumns(['actions','massDelete']);
+            $table->rawColumns(['actions', 'massDelete']);
 
             return $table->make(true);
         }
@@ -84,7 +83,7 @@ class DefaultCloudAsController extends Controller
         if (! Gate::allows('default_cloud_a_create')) {
             return abort(401);
         }
-        
+
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
         return view('admin.default_cloud_as.create', compact('channel_servers'));
@@ -103,11 +102,8 @@ class DefaultCloudAsController extends Controller
         }
         $default_cloud_a = DefaultCloudA::create($request->all());
 
-
-
         return redirect()->route('admin.default_cloud_as.index');
     }
-
 
     /**
      * Show the form for editing DefaultCloudA.
@@ -120,7 +116,7 @@ class DefaultCloudAsController extends Controller
         if (! Gate::allows('default_cloud_a_edit')) {
             return abort(401);
         }
-        
+
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
         $default_cloud_a = DefaultCloudA::findOrFail($id);
@@ -143,11 +139,8 @@ class DefaultCloudAsController extends Controller
         $default_cloud_a = DefaultCloudA::findOrFail($id);
         $default_cloud_a->update($request->all());
 
-
-
         return redirect()->route('admin.default_cloud_as.index');
     }
-
 
     /**
      * Display DefaultCloudA.
@@ -164,7 +157,6 @@ class DefaultCloudAsController extends Controller
 
         return view('admin.default_cloud_as.show', compact('default_cloud_a'));
     }
-
 
     /**
      * Remove DefaultCloudA from storage.
@@ -201,7 +193,6 @@ class DefaultCloudAsController extends Controller
             }
         }
     }
-
 
     /**
      * Restore DefaultCloudA from storage.

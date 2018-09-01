@@ -88,7 +88,7 @@ class ChannelServersController extends Controller
             return abort(401);
         }
 
-        $channels = \App\ChannelsList::get()->pluck('channel_name', 'id'); 
+        $channels = \App\ChannelsList::get()->pluck('channel_name', 'id');
 
         return view('admin.channel_servers.create', compact('channels'));
     }
