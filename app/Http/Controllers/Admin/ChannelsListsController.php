@@ -148,9 +148,9 @@ class ChannelsListsController extends Controller
         $csos = \App\Cso::where('channel_id', $id)->get();
         $ss_list_channels = \App\SsListChannel::where('channel_id', $id)->get();
         $channel_servers = \App\ChannelServer::whereHas('channel',
-                    function ($query) use ($id): void {
-                        $query->where('id', $id);
-                    })->get();
+            function ($query) use ($id): void {
+                $query->where('id', $id);
+            })->get();
 
         $channels_list = ChannelsList::findOrFail($id);
 
