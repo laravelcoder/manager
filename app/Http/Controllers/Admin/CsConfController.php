@@ -35,7 +35,7 @@ class CsConfController extends Controller
 		$channel_server = \App\ChannelServer::findOrFail($id);
         
         // $channelServerPath = config('confs.paths.cs_conf.'. $channel_server->name);
-$channelServerPath = config('confs.paths.cs_conf.');
+        $channelServerPath = config('confs.paths.cs_conf.');
         
 
         if (file_exists($channelServerPath)) {
