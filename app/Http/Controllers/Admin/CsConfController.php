@@ -3,16 +3,10 @@
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
- 
 
-use App\Http\Controllers\Controller;
-use App\ChannelsList;
-use App\ChannelServer;
-use App\Csi;
-use App\Cso;
-use App\CsListChannel;
-use App\SsListChannel;
 use App\Protocol;
+use App\ChannelServer;
+use App\Http\Controllers\Controller;
 
 class CsConfController extends Controller
 {
@@ -28,12 +22,12 @@ class CsConfController extends Controller
         $csos = \App\Cso::where('channel_server_id', $id)->get();
         $cs_list_channels = \App\CsListChannel::where('channelserver_id', $id)->get();
         $ss_list_channels = \App\SsListChannel::where('channel_server_id', $id)->get();
- 
+
         $protocols = \App\Protocol::get()->pluck('protocol', 'id');
 
-$dca = \App\DefaultCloudA::findOrFail($id);
-$dcb = \App\DefaultCloudB::findOrFail($id);
-$lo = \App\LocalOutput::findOrFail($id);
+        $dca = \App\DefaultCloudA::findOrFail($id);
+        $dcb = \App\DefaultCloudB::findOrFail($id);
+        $lo = \App\LocalOutput::findOrFail($id);
 
         // $channelServerPath = config('confs.paths.cs_conf.'. $channel_server->name);
         $channelServerPath = config('confs.paths.cs_conf');
@@ -101,6 +95,6 @@ $lo = \App\LocalOutput::findOrFail($id);
         // }
         }
 
-        return view('preview.cs.conf', compact('channel_server', 'csis', 'csos', 'cs_list_channels', 'ss_list_channels', 'channelServerPath', 'protocols', 'protocol','dca', 'dcb', 'lo'));
+        return view('preview.cs.conf', compact('channel_server', 'csis', 'csos', 'cs_list_channels', 'ss_list_channels', 'channelServerPath', 'protocols', 'protocol', 'dca', 'dcb', 'lo'));
     }
 }
