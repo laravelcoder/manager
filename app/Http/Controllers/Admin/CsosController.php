@@ -99,6 +99,7 @@ class CsosController extends Controller
         }
         
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
+        // $channels = \App\CsChannelList::selectRaw('id, CONCAT(channel_name," | ", channel_type) as channel_name')->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
         $channels = \App\ChannelsList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
 
         return view('admin.csos.create', compact('channel_servers', 'channels'));
@@ -137,6 +138,7 @@ class CsosController extends Controller
         
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
         $channels = \App\ChannelsList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
+        // $channels = \App\CsChannelList::selectRaw('id, CONCAT(channel_name," | ", channel_type) as channel_name')->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
 
         $cso = Cso::findOrFail($id);
 
