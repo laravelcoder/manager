@@ -1,4 +1,5 @@
 @inject('request', 'Illuminate\Http\Request')
+
 @extends('layouts.app')
 
 @section('content')
@@ -7,8 +8,8 @@
 
     <p>
         <ul class="list-inline">
-            <li>hi</li> |
-            <li>hi again</li>
+            <li>Channel Server</li> |
+            <li>Configuration File</li>
         </ul>
     </p>
     
@@ -19,24 +20,24 @@
 <br>
 [INPUT]<br>
 @foreach ($csis as $input)
-    @if($input->protocol->protocol == 'UDP')
+    @if($input->protocol == 'UDP')
     CID{!! $loop->iteration !!}={!! @$input->channel->id !!}
         &
-        PROTOCOL{!! $loop->iteration !!}={!! @$input->protocol->protocol !!}
+        PROTOCOL{!! $loop->iteration !!}={!! @$input->protocol !!}
         &
         URL{!! $loop->iteration !!}={!! @$input->url !!}
         <br>
-    @elseif($input->protocol->protocol == 'MOVE')
+    @elseif($input->protocol == 'MOVE')
     CID{!! $loop->iteration !!}={!! @$input->channel->id !!}
         &
-        PROTOCOL{!! $loop->iteration !!}={!! @$input->protocol->protocol !!}
+        PROTOCOL{!! $loop->iteration !!}={!! @$input->protocol !!}
         &
         URL{!! $loop->iteration !!}={!! @$input->url !!}
         <br>
     @else
     CID{!! $loop->iteration !!}={!! @$input->channel->id !!}
     &
-    PROTOCOL{!! $loop->iteration !!}={!! @$input->protocol->protocol !!}
+    PROTOCOL{!! $loop->iteration !!}={!! @$input->protocol !!}
     &
     SSM{!! $loop->iteration !!}={!! @$input->ssm !!}
     &
@@ -50,6 +51,11 @@
 @endforeach
 <br>
 [OUTPUT]<br>
+
+OMC1={!! @$lo->address  !!}&OP1={!! @$lo->port  !!}<br>
+OCLOUD1={!! @$dca->address  !!}&OCP1={!! @$dca->port  !!}<br>
+OCLOUD2={!! @$dcb->address  !!}&OCP2={!! @$dcb->port  !!}<br>
+
 @foreach ($csos as $output)
     
 {{--     CID{!! $loop->iteration !!}={!! @$output->channel->id !!}
@@ -65,18 +71,18 @@
  
 @endforeach
  
-{{-- CID0=0&PROTOCOL0=MOVE&URL0=/home/caipy/segments_in --}}
+<br style="clear:both" />
+[LICENSE]<br>
+LIC=ChannelServer-4.1-20991231-20180610-DISHCS!localhost!00000000000000000000000<br>
+
+<br style="clear:both" />
+[PARAMETERS]<br>
+WAVINPUT=0<br>
 
 
-
-{{-- // [OUTPUT]
-// OMC1=227.228.229.3&OP1=20003
-// OCLOUD1=127.0.0.1&OCP1=8080
-// OCLOUD2=&OCP2=
-// OCLOUD_A_0=&OCP_A_0=&OCLOUD_B_0=&OCP_B_0= --}}
-
-
-
+<br style="clear:both" />
+<br />
+<br />
 
     </div>
 @stop

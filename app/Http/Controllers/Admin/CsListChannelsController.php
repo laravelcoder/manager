@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
+use App\Csi;
+use App\Cso;
+use App\ChannelServer;
 use App\CsListChannel;
+use App\SsListChannel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Admin\StoreCsListChannelsRequest;
@@ -86,8 +91,7 @@ class CsListChannelsController extends Controller
             return abort(401);
         }
 
-        //$channels = \App\ChannelsList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
-        $channels = \App\CsChannelList::selectRaw('id, CONCAT(channel_name," | ", channel_type) as channel_name')->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
+        $channels = \App\ChannelsList::selectRaw('id, CONCAT(channel_name," |   ", channel_type) as channel_name')->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
         $channelservers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
@@ -107,6 +111,48 @@ class CsListChannelsController extends Controller
         }
         $cs_list_channel = CsListChannel::create($request->all());
 
+        if ($request->channelserver_id) {
+            try {
+                Csi::create([
+                    'channel_server_id' => $request->channelserver_id,
+                    'channel_id' => $request->channel_id,
+                    'protocol_id' => null,
+//                    'url' => null,
+//                    'ssm' => null,
+//                    'imc' => null,
+//                    'ip' => null,
+//                    'pid' => null
+                ]);
+            } catch (\Exception $e) {
+                Log::alert($e);
+            }
+
+            try {
+                Cso::create([
+                    'channel_server_id' => $request->channelserver_id,
+                    'channel_id' => $request->channel_id,
+//                    "ocloud_a" => null,
+//                    "ocp_a" => null,
+//                    "ocloud_b" => null,
+//                    "ocp_b" => null,
+                ]);
+            } catch (\Exception $e) {
+                Log::alert($e);
+            }
+        }
+
+        if ($request->sync_server_id) {
+            try {
+                SsListChannel::create([
+                    'channel_server_id' => $request->channelserver_id,
+                    'channel_id' => $request->channel_id,
+                    'sync_server_id' => $request->sync_server_id,
+                ]);
+            } catch (\Exception $e) {
+                Log::alert($e);
+            }
+        }
+
         return redirect()->route('admin.cs_list_channels.index');
     }
 
@@ -122,8 +168,8 @@ class CsListChannelsController extends Controller
             return abort(401);
         }
 
-        // $channels = \App\ChannelsList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
-        $channels = \App\CsChannelList::selectRaw('id, CONCAT(channel_name," | ", channel_type) as channel_name')->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
+//        $channels = \App\ChannelsList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
+        $channels = \App\ChannelsList::selectRaw('id, CONCAT(channel_name," |   ", channel_type) as channel_name')->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
         $channelservers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 

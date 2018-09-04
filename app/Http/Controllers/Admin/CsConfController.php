@@ -3,10 +3,16 @@
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
+ 
 
-use App\Protocol;
-use App\ChannelServer;
 use App\Http\Controllers\Controller;
+use App\ChannelsList;
+use App\ChannelServer;
+use App\Csi;
+use App\Cso;
+use App\CsListChannel;
+use App\SsListChannel;
+use App\Protocol;
 
 class CsConfController extends Controller
 {
@@ -16,21 +22,25 @@ class CsConfController extends Controller
         //     return abort(401);
         // }
 
+        $channel_server = \App\ChannelServer::findOrFail($id);
         $channels = \App\ChannelsList::get()->pluck('channel_name', 'id');
         $csis = \App\Csi::where('channel_server_id', $id)->get();
         $csos = \App\Cso::where('channel_server_id', $id)->get();
         $cs_list_channels = \App\CsListChannel::where('channelserver_id', $id)->get();
         $ss_list_channels = \App\SsListChannel::where('channel_server_id', $id)->get();
+ 
         $protocols = \App\Protocol::get()->pluck('protocol', 'id');
-        // $proto = \App\Protocol::where('channel_server_id', $id)->get();
-        $channel_server = \App\ChannelServer::findOrFail($id);
+
+$dca = \App\DefaultCloudA::findOrFail($id);
+$dcb = \App\DefaultCloudB::findOrFail($id);
+$lo = \App\LocalOutput::findOrFail($id);
 
         // $channelServerPath = config('confs.paths.cs_conf.'. $channel_server->name);
-        $channelServerPath = config('confs.paths.cs_conf.');
+        $channelServerPath = config('confs.paths.cs_conf');
 
         if (file_exists($channelServerPath)) {
-            $txt_file = file_get_contents($channelServerPath.'/ChannelServer.conf');
-            $rows = explode("\n", $txt_file);
+            //$txt_file = file_get_contents($channelServerPath.'/ChannelServer.conf');
+            //$rows = explode("\n", $txt_file);
 
             // CID0=0&PROTOCOL0=MOVE&URL0=/home/caipy/segments_in
             // CID7=20&PROTOCOL7=UDP&SSM7=172.31.1.21&IMC7=232.20.97.195&IP7=3101&PID7=
@@ -40,17 +50,17 @@ class CsConfController extends Controller
         //    $url = $input->url
         // }
 
-// [OUTPUT]
-// OMC1=227.228.229.3&OP1=20003
-// OCLOUD1=127.0.0.1&OCP1=8080
-// OCLOUD2=&OCP2=
-// OCLOUD_A_0=&OCP_A_0=&OCLOUD_B_0=&OCP_B_0=
+        // [OUTPUT]
+        // OMC1=227.228.229.3&OP1=20003
+        // OCLOUD1=127.0.0.1&OCP1=8080
+        // OCLOUD2=&OCP2=
+        // OCLOUD_A_0=&OCP_A_0=&OCLOUD_B_0=&OCP_B_0=
 
-// [LICENSE]
-// LIC=ChannelServer-4.1-20991231-20180610-DISHCS!localhost!00000000000000000000000
+        // [LICENSE]
+        // LIC=ChannelServer-4.1-20991231-20180610-DISHCS!localhost!00000000000000000000000
 
-// [PARAMETERS]
-// WAVINPUT=0
+        // [PARAMETERS]
+        // WAVINPUT=0
 
         // $inputcontent = "[INPUT]\n";
 
@@ -91,6 +101,6 @@ class CsConfController extends Controller
         // }
         }
 
-        return view('preview.cs.conf', compact('channel_server', 'csis', 'csos', 'cs_list_channels', 'ss_list_channels', 'channelServerPath', 'protocols', 'protocol'));
+        return view('preview.cs.conf', compact('channel_server', 'csis', 'csos', 'cs_list_channels', 'ss_list_channels', 'channelServerPath', 'protocols', 'protocol','dca', 'dcb', 'lo'));
     }
 }
