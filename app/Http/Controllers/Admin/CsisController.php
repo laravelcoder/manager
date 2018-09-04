@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Csi;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
+use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Admin\StoreCsisRequest;
 use App\Http\Requests\Admin\UpdateCsisRequest;
-use Yajra\DataTables\DataTables;
 
 class CsisController extends Controller
 {
@@ -23,19 +25,16 @@ class CsisController extends Controller
             return abort(401);
         }
 
-
-        
         if (request()->ajax()) {
             $query = Csi::query();
-            $query->with("channel_server");
-            $query->with("channel");
-            $query->with("protocol");
+            $query->with('channel_server');
+            $query->with('channel');
+            $query->with('protocol');
             $template = 'actionsTemplate';
-            if(request('show_deleted') == 1) {
-                
-        if (! Gate::allows('csi_delete')) {
-            return abort(401);
-        }
+            if (request('show_deleted') === 1) {
+                if (! Gate::allows('csi_delete')) {
+                    return abort(401);
+                }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -58,7 +57,7 @@ class CsisController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey  = 'csi_';
+                $gateKey = 'csi_';
                 $routeKey = 'admin.csis';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -88,7 +87,7 @@ class CsisController extends Controller
                 return $row->pid ? $row->pid : '';
             });
 
-            $table->rawColumns(['actions','massDelete']);
+            $table->rawColumns(['actions', 'massDelete']);
 
             return $table->make(true);
         }
@@ -106,7 +105,7 @@ class CsisController extends Controller
         if (! Gate::allows('csi_create')) {
             return abort(401);
         }
-        
+
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
         $channels = \App\CsChannelList::selectRaw('id, CONCAT(channel_name," | ", channel_type) as channel_name')->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
         $protocols = \App\Protocol::get()->pluck('protocol', 'id')->prepend(trans('global.app_please_select'), '');
@@ -127,11 +126,8 @@ class CsisController extends Controller
         }
         $csi = Csi::create($request->all());
 
-
-
         return redirect()->route('admin.csis.index');
     }
-
 
     /**
      * Show the form for editing Csi.
@@ -144,7 +140,7 @@ class CsisController extends Controller
         if (! Gate::allows('csi_edit')) {
             return abort(401);
         }
-        
+
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
         $channels = \App\CsChannelList::selectRaw('id, CONCAT(channel_name," | ", channel_type) as channel_name')->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
         $protocols = \App\Protocol::get()->pluck('protocol', 'id')->prepend(trans('global.app_please_select'), '');
@@ -169,11 +165,8 @@ class CsisController extends Controller
         $csi = Csi::findOrFail($id);
         $csi->update($request->all());
 
-
-
         return redirect()->route('admin.csis.index');
     }
-
 
     /**
      * Display Csi.
@@ -190,7 +183,6 @@ class CsisController extends Controller
 
         return view('admin.csis.show', compact('csi'));
     }
-
 
     /**
      * Remove Csi from storage.
@@ -227,7 +219,6 @@ class CsisController extends Controller
             }
         }
     }
-
 
     /**
      * Restore Csi from storage.
