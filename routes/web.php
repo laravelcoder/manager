@@ -61,9 +61,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
         return redirect('/docs');
     });
 
-    
-
-
     Route::resource('channel_servers', 'Admin\ChannelServersController');
     Route::post('channel_servers_mass_destroy', ['uses' => 'Admin\ChannelServersController@massDestroy', 'as' => 'channel_servers.mass_destroy']);
     Route::post('channel_servers_restore/{id}', ['uses' => 'Admin\ChannelServersController@restore', 'as' => 'channel_servers.restore']);
