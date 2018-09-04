@@ -17,10 +17,6 @@
                             <td field-key='channel'>{{ $csi->channel->channel_name or '' }}</td>
                         </tr>
                         <tr>
-                            <th>@lang('global.channels-list.fields.channel-type')</th>
-                            <td field-key='channel_type'>{{ isset($csi->channel) ? $csi->channel->channel_type : '' }}</td>
-                        </tr>
-                        <tr>
                             <th>@lang('global.csi.fields.protocol')</th>
                             <td field-key='protocol'>{{ $csi->protocol->protocol or '' }}</td>
                         </tr>

@@ -147,4 +147,17 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('ss_list_channels_mass_destroy', ['uses' => 'Admin\SsListChannelsController@massDestroy', 'as' => 'ss_list_channels.mass_destroy']);
     Route::post('ss_list_channels_restore/{id}', ['uses' => 'Admin\SsListChannelsController@restore', 'as' => 'ss_list_channels.restore']);
     Route::delete('ss_list_channels_perma_del/{id}', ['uses' => 'Admin\SsListChannelsController@perma_del', 'as' => 'ss_list_channels.perma_del']);
+
+    Route::resource('default_cloud_as', 'Admin\DefaultCloudAsController');
+    Route::post('default_cloud_as_mass_destroy', ['uses' => 'Admin\DefaultCloudAsController@massDestroy', 'as' => 'default_cloud_as.mass_destroy']);
+    Route::post('default_cloud_as_restore/{id}', ['uses' => 'Admin\DefaultCloudAsController@restore', 'as' => 'default_cloud_as.restore']);
+    Route::delete('default_cloud_as_perma_del/{id}', ['uses' => 'Admin\DefaultCloudAsController@perma_del', 'as' => 'default_cloud_as.perma_del']);
+    Route::resource('default_cloud_bs', 'Admin\DefaultCloudBsController');
+    Route::post('default_cloud_bs_mass_destroy', ['uses' => 'Admin\DefaultCloudBsController@massDestroy', 'as' => 'default_cloud_bs.mass_destroy']);
+    Route::post('default_cloud_bs_restore/{id}', ['uses' => 'Admin\DefaultCloudBsController@restore', 'as' => 'default_cloud_bs.restore']);
+    Route::delete('default_cloud_bs_perma_del/{id}', ['uses' => 'Admin\DefaultCloudBsController@perma_del', 'as' => 'default_cloud_bs.perma_del']);
+    Route::resource('local_outputs', 'Admin\LocalOutputsController');
+    Route::post('local_outputs_mass_destroy', ['uses' => 'Admin\LocalOutputsController@massDestroy', 'as' => 'local_outputs.mass_destroy']);
+    Route::post('local_outputs_restore/{id}', ['uses' => 'Admin\LocalOutputsController@restore', 'as' => 'local_outputs.restore']);
+    Route::delete('local_outputs_perma_del/{id}', ['uses' => 'Admin\LocalOutputsController@perma_del', 'as' => 'local_outputs.perma_del']);
 });

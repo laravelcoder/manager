@@ -12,8 +12,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(ChannelsListSeed::class);
         $this->call(ChannelServerSeed::class);
+        $this->call(ChannelsListSeed::class);
         $this->call(CountrySeed::class);
         $this->call(ProtocolSeed::class);
         $this->call(CsiSeed::class);

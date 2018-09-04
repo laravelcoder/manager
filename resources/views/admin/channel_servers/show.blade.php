@@ -20,14 +20,6 @@
                             <th>@lang('global.channel-server.fields.cs-host')</th>
                             <td field-key='cs_host'>{{ $channel_server->cs_host }}</td>
                         </tr>
-                        <tr>
-                            <th>@lang('global.channel-server.fields.channel')</th>
-                            <td field-key='channel'>
-                                @foreach ($channel_server->channel as $singleChannel)
-                                    <span class="label label-info label-many">{{ $singleChannel->channel_name }}</span>
-                                @endforeach
-                            </td>
-                        </tr>
                     </table>
                 </div>
             </div><!-- Nav tabs -->
@@ -37,6 +29,9 @@
 <li role="presentation" class=""><a href="#cso" aria-controls="cso" role="tab" data-toggle="tab">Channel Server Outputs</a></li>
 <li role="presentation" class=""><a href="#cs_list_channels" aria-controls="cs_list_channels" role="tab" data-toggle="tab">Cs list channels</a></li>
 <li role="presentation" class=""><a href="#ss_list_channels" aria-controls="ss_list_channels" role="tab" data-toggle="tab">SS list channels</a></li>
+<li role="presentation" class=""><a href="#default_cloud_a" aria-controls="default_cloud_a" role="tab" data-toggle="tab">Default Cloud A</a></li>
+<li role="presentation" class=""><a href="#default_cloud_b" aria-controls="default_cloud_b" role="tab" data-toggle="tab">Default Cloud B</a></li>
+<li role="presentation" class=""><a href="#local_output" aria-controls="local_output" role="tab" data-toggle="tab">Local Output</a></li>
 </ul>
 
 <!-- Tab panes -->
@@ -313,6 +308,204 @@
                                         'method' => 'DELETE',
                                         'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
                                         'route' => ['admin.ss_list_channels.destroy', $ss_list_channel->id])) !!}
+                                    {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                    {!! Form::close() !!}
+                                    @endcan
+                                </td>
+                                @endif
+                </tr>
+            @endforeach
+        @else
+            <tr>
+                <td colspan="8">@lang('global.app_no_entries_in_table')</td>
+            </tr>
+        @endif
+    </tbody>
+</table>
+</div>
+<div role="tabpanel" class="tab-pane " id="default_cloud_a">
+<table class="table table-bordered table-striped {{ count($default_cloud_as) > 0 ? 'datatable' : '' }}">
+    <thead>
+        <tr>
+            <th>@lang('global.default-cloud-a.fields.address')</th>
+                        <th>@lang('global.default-cloud-a.fields.port')</th>
+                        @if( request('show_deleted') == 1 )
+                        <th>&nbsp;</th>
+                        @else
+                        <th>&nbsp;</th>
+                        @endif
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (count($default_cloud_as) > 0)
+            @foreach ($default_cloud_as as $default_cloud_a)
+                <tr data-entry-id="{{ $default_cloud_a->id }}">
+                    <td field-key='address'>{{ $default_cloud_a->address }}</td>
+                                <td field-key='port'>{{ $default_cloud_a->port }}</td>
+                                @if( request('show_deleted') == 1 )
+                                <td>
+                                    {!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'POST',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.default_cloud_as.restore', $default_cloud_a->id])) !!}
+                                    {!! Form::submit(trans('global.app_restore'), array('class' => 'btn btn-xs btn-success')) !!}
+                                    {!! Form::close() !!}
+                                                                    {!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'DELETE',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.default_cloud_as.perma_del', $default_cloud_a->id])) !!}
+                                    {!! Form::submit(trans('global.app_permadel'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                    {!! Form::close() !!}
+                                                                </td>
+                                @else
+                                <td>
+                                    @can('default_cloud_a_view')
+                                    <a href="{{ route('admin.default_cloud_as.show',[$default_cloud_a->id]) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
+                                    @endcan
+                                    @can('default_cloud_a_edit')
+                                    <a href="{{ route('admin.default_cloud_as.edit',[$default_cloud_a->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
+                                    @endcan
+                                    @can('default_cloud_a_delete')
+{!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'DELETE',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.default_cloud_as.destroy', $default_cloud_a->id])) !!}
+                                    {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                    {!! Form::close() !!}
+                                    @endcan
+                                </td>
+                                @endif
+                </tr>
+            @endforeach
+        @else
+            <tr>
+                <td colspan="8">@lang('global.app_no_entries_in_table')</td>
+            </tr>
+        @endif
+    </tbody>
+</table>
+</div>
+<div role="tabpanel" class="tab-pane " id="default_cloud_b">
+<table class="table table-bordered table-striped {{ count($default_cloud_bs) > 0 ? 'datatable' : '' }}">
+    <thead>
+        <tr>
+            <th>@lang('global.default-cloud-b.fields.address')</th>
+                        <th>@lang('global.default-cloud-b.fields.port')</th>
+                        @if( request('show_deleted') == 1 )
+                        <th>&nbsp;</th>
+                        @else
+                        <th>&nbsp;</th>
+                        @endif
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (count($default_cloud_bs) > 0)
+            @foreach ($default_cloud_bs as $default_cloud_b)
+                <tr data-entry-id="{{ $default_cloud_b->id }}">
+                    <td field-key='address'>{{ $default_cloud_b->address }}</td>
+                                <td field-key='port'>{{ $default_cloud_b->port }}</td>
+                                @if( request('show_deleted') == 1 )
+                                <td>
+                                    {!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'POST',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.default_cloud_bs.restore', $default_cloud_b->id])) !!}
+                                    {!! Form::submit(trans('global.app_restore'), array('class' => 'btn btn-xs btn-success')) !!}
+                                    {!! Form::close() !!}
+                                                                    {!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'DELETE',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.default_cloud_bs.perma_del', $default_cloud_b->id])) !!}
+                                    {!! Form::submit(trans('global.app_permadel'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                    {!! Form::close() !!}
+                                                                </td>
+                                @else
+                                <td>
+                                    @can('default_cloud_b_view')
+                                    <a href="{{ route('admin.default_cloud_bs.show',[$default_cloud_b->id]) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
+                                    @endcan
+                                    @can('default_cloud_b_edit')
+                                    <a href="{{ route('admin.default_cloud_bs.edit',[$default_cloud_b->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
+                                    @endcan
+                                    @can('default_cloud_b_delete')
+{!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'DELETE',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.default_cloud_bs.destroy', $default_cloud_b->id])) !!}
+                                    {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                    {!! Form::close() !!}
+                                    @endcan
+                                </td>
+                                @endif
+                </tr>
+            @endforeach
+        @else
+            <tr>
+                <td colspan="8">@lang('global.app_no_entries_in_table')</td>
+            </tr>
+        @endif
+    </tbody>
+</table>
+</div>
+<div role="tabpanel" class="tab-pane " id="local_output">
+<table class="table table-bordered table-striped {{ count($local_outputs) > 0 ? 'datatable' : '' }}">
+    <thead>
+        <tr>
+            <th>@lang('global.local-output.fields.address')</th>
+                        <th>@lang('global.local-output.fields.port')</th>
+                        @if( request('show_deleted') == 1 )
+                        <th>&nbsp;</th>
+                        @else
+                        <th>&nbsp;</th>
+                        @endif
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (count($local_outputs) > 0)
+            @foreach ($local_outputs as $local_output)
+                <tr data-entry-id="{{ $local_output->id }}">
+                    <td field-key='address'>{{ $local_output->address }}</td>
+                                <td field-key='port'>{{ $local_output->port }}</td>
+                                @if( request('show_deleted') == 1 )
+                                <td>
+                                    {!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'POST',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.local_outputs.restore', $local_output->id])) !!}
+                                    {!! Form::submit(trans('global.app_restore'), array('class' => 'btn btn-xs btn-success')) !!}
+                                    {!! Form::close() !!}
+                                                                    {!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'DELETE',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.local_outputs.perma_del', $local_output->id])) !!}
+                                    {!! Form::submit(trans('global.app_permadel'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                    {!! Form::close() !!}
+                                                                </td>
+                                @else
+                                <td>
+                                    @can('local_output_view')
+                                    <a href="{{ route('admin.local_outputs.show',[$local_output->id]) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
+                                    @endcan
+                                    @can('local_output_edit')
+                                    <a href="{{ route('admin.local_outputs.edit',[$local_output->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
+                                    @endcan
+                                    @can('local_output_delete')
+{!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'DELETE',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.local_outputs.destroy', $local_output->id])) !!}
                                     {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
                                     {!! Form::close() !!}
                                     @endcan

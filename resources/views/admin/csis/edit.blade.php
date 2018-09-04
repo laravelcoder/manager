@@ -38,7 +38,7 @@
             <div class="row">
                 <div class="col-xs-12 form-group">
                     {!! Form::label('protocol_id', trans('global.csi.fields.protocol').'', ['class' => 'control-label']) !!}
-                    {!! Form::select('protocol_id', $protocols, old('protocol_id'), ['id' => 'protocal', 'class' => 'form-control select2']) !!}
+                    {!! Form::select('protocol_id', $protocols, old('protocol_id'), ['class' => 'form-control select2']) !!}
                     <p class="help-block"></p>
                     @if($errors->has('protocol_id'))
                         <p class="help-block">
@@ -47,7 +47,7 @@
                     @endif
                 </div>
             </div>
-            <div class="row"  id="url-field">
+            <div class="row">
                 <div class="col-xs-12 form-group">
                     {!! Form::label('url', trans('global.csi.fields.url').'', ['class' => 'control-label']) !!}
                     {!! Form::text('url', old('url'), ['class' => 'form-control', 'placeholder' => 'This is for Move and HLS']) !!}
@@ -59,7 +59,7 @@
                     @endif
                 </div>
             </div>
-            <div class="row not-url-field">
+            <div class="row">
                 <div class="col-xs-12 form-group">
                     {!! Form::label('ssm', trans('global.csi.fields.ssm').'', ['class' => 'control-label']) !!}
                     {!! Form::text('ssm', old('ssm'), ['class' => 'form-control', 'placeholder' => '']) !!}
@@ -71,7 +71,7 @@
                     @endif
                 </div>
             </div>
-            <div class="row not-url-field">
+            <div class="row">
                 <div class="col-xs-12 form-group">
                     {!! Form::label('imc', trans('global.csi.fields.imc').'', ['class' => 'control-label']) !!}
                     {!! Form::text('imc', old('imc'), ['class' => 'form-control', 'placeholder' => '']) !!}
@@ -83,7 +83,7 @@
                     @endif
                 </div>
             </div>
-            <div class="row not-url-field">
+            <div class="row">
                 <div class="col-xs-12 form-group">
                     {!! Form::label('ip', trans('global.csi.fields.ip').'', ['class' => 'control-label']) !!}
                     {!! Form::text('ip', old('ip'), ['class' => 'form-control', 'placeholder' => 'PORT']) !!}
@@ -95,7 +95,7 @@
                     @endif
                 </div>
             </div>
-            <div class="row not-url-field">
+            <div class="row">
                 <div class="col-xs-12 form-group">
                     {!! Form::label('pid', trans('global.csi.fields.pid').'', ['class' => 'control-label']) !!}
                     {!! Form::text('pid', old('pid'), ['class' => 'form-control', 'placeholder' => '']) !!}
@@ -115,34 +115,3 @@
     {!! Form::close() !!}
 @stop
 
-@push('topscripts')
-<script>
-
-</script>
-@endpush
-
-@push('scripts')
-<script>
-    $(".not-url-field").hide();
-    $("#url-field").hide();
-    $(function(){
-
-        $('#protocal').on('select2:select', function (e) {
-            var data = e.params.data;
-            console.log(data.text);
-            if(data.text === "HLS" ){
-                $("#url-field").show();
-                $(".not-url-field").hide();
-                console.log("value HLS");
-            }else if(data.text === "MOVE" ){
-                $("#url-field").show();
-                $(".not-url-field").hide();
-                console.log("value MOVE");
-            }else{
-                $(".not-url-field").show();
-                $("#url-field").hide();
-            }
-        });
-    });
-</script>
-@endpush

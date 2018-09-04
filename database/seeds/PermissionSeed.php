@@ -141,6 +141,21 @@ class PermissionSeed extends Seeder
             ['id' => 157, 'title' => 'ss_list_channel_edit'],
             ['id' => 158, 'title' => 'ss_list_channel_view'],
             ['id' => 159, 'title' => 'ss_list_channel_delete'],
+            ['id' => 160, 'title' => 'default_cloud_a_access'],
+            ['id' => 161, 'title' => 'default_cloud_a_create'],
+            ['id' => 162, 'title' => 'default_cloud_a_edit'],
+            ['id' => 163, 'title' => 'default_cloud_a_view'],
+            ['id' => 164, 'title' => 'default_cloud_a_delete'],
+            ['id' => 165, 'title' => 'default_cloud_b_access'],
+            ['id' => 166, 'title' => 'default_cloud_b_create'],
+            ['id' => 167, 'title' => 'default_cloud_b_edit'],
+            ['id' => 168, 'title' => 'default_cloud_b_view'],
+            ['id' => 169, 'title' => 'default_cloud_b_delete'],
+            ['id' => 170, 'title' => 'local_output_access'],
+            ['id' => 171, 'title' => 'local_output_create'],
+            ['id' => 172, 'title' => 'local_output_edit'],
+            ['id' => 173, 'title' => 'local_output_view'],
+            ['id' => 174, 'title' => 'local_output_delete'],
 
         ];
 
