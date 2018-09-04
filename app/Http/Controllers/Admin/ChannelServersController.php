@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\ChannelServer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
+use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Admin\StoreChannelServersRequest;
 use App\Http\Requests\Admin\UpdateChannelServersRequest;
-use Yajra\DataTables\DataTables;
 
 class ChannelServersController extends Controller
 {
@@ -23,16 +25,13 @@ class ChannelServersController extends Controller
             return abort(401);
         }
 
-
-        
         if (request()->ajax()) {
             $query = ChannelServer::query();
             $template = 'actionsTemplate';
-            if(request('show_deleted') == 1) {
-                
-        if (! Gate::allows('channel_server_delete')) {
-            return abort(401);
-        }
+            if (request('show_deleted') === 1) {
+                if (! Gate::allows('channel_server_delete')) {
+                    return abort(401);
+                }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -49,7 +48,7 @@ class ChannelServersController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey  = 'channel_server_';
+                $gateKey = 'channel_server_';
                 $routeKey = 'admin.channel_servers';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -61,7 +60,7 @@ class ChannelServersController extends Controller
                 return $row->cs_host ? $row->cs_host : '';
             });
 
-            $table->rawColumns(['actions','massDelete']);
+            $table->rawColumns(['actions', 'massDelete']);
 
             return $table->make(true);
         }
@@ -79,6 +78,7 @@ class ChannelServersController extends Controller
         if (! Gate::allows('channel_server_create')) {
             return abort(401);
         }
+
         return view('admin.channel_servers.create');
     }
 
@@ -105,10 +105,8 @@ class ChannelServersController extends Controller
             $channel_server->local_outputs()->create($data);
         }
 
-
         return redirect()->route('admin.channel_servers.index');
     }
-
 
     /**
      * Show the form for editing ChannelServer.
@@ -141,13 +139,13 @@ class ChannelServersController extends Controller
         $channel_server = ChannelServer::findOrFail($id);
         $channel_server->update($request->all());
 
-        $defaultCloudAs           = $channel_server->default_cloud_as;
+        $defaultCloudAs = $channel_server->default_cloud_as;
         $currentDefaultCloudAData = [];
         foreach ($request->input('default_cloud_as', []) as $index => $data) {
-            if (is_integer($index)) {
+            if (is_int($index)) {
                 $channel_server->default_cloud_as()->create($data);
             } else {
-                $id                          = explode('-', $index)[1];
+                $id = explode('-', $index)[1];
                 $currentDefaultCloudAData[$id] = $data;
             }
         }
@@ -158,13 +156,13 @@ class ChannelServersController extends Controller
                 $item->delete();
             }
         }
-        $defaultCloudBs           = $channel_server->default_cloud_bs;
+        $defaultCloudBs = $channel_server->default_cloud_bs;
         $currentDefaultCloudBData = [];
         foreach ($request->input('default_cloud_bs', []) as $index => $data) {
-            if (is_integer($index)) {
+            if (is_int($index)) {
                 $channel_server->default_cloud_bs()->create($data);
             } else {
-                $id                          = explode('-', $index)[1];
+                $id = explode('-', $index)[1];
                 $currentDefaultCloudBData[$id] = $data;
             }
         }
@@ -175,13 +173,13 @@ class ChannelServersController extends Controller
                 $item->delete();
             }
         }
-        $localOutputs           = $channel_server->local_outputs;
+        $localOutputs = $channel_server->local_outputs;
         $currentLocalOutputData = [];
         foreach ($request->input('local_outputs', []) as $index => $data) {
-            if (is_integer($index)) {
+            if (is_int($index)) {
                 $channel_server->local_outputs()->create($data);
             } else {
-                $id                          = explode('-', $index)[1];
+                $id = explode('-', $index)[1];
                 $currentLocalOutputData[$id] = $data;
             }
         }
@@ -193,10 +191,8 @@ class ChannelServersController extends Controller
             }
         }
 
-
         return redirect()->route('admin.channel_servers.index');
     }
-
 
     /**
      * Display ChannelServer.
@@ -209,13 +205,18 @@ class ChannelServersController extends Controller
         if (! Gate::allows('channel_server_view')) {
             return abort(401);
         }
-        $csis = \App\Csi::where('channel_server_id', $id)->get();$csos = \App\Cso::where('channel_server_id', $id)->get();$cs_list_channels = \App\CsListChannel::where('channelserver_id', $id)->get();$ss_list_channels = \App\SsListChannel::where('channel_server_id', $id)->get();$default_cloud_as = \App\DefaultCloudA::where('channel_server_id', $id)->get();$default_cloud_bs = \App\DefaultCloudB::where('channel_server_id', $id)->get();$local_outputs = \App\LocalOutput::where('channel_server_id', $id)->get();
+        $csis = \App\Csi::where('channel_server_id', $id)->get();
+        $csos = \App\Cso::where('channel_server_id', $id)->get();
+        $cs_list_channels = \App\CsListChannel::where('channelserver_id', $id)->get();
+        $ss_list_channels = \App\SsListChannel::where('channel_server_id', $id)->get();
+        $default_cloud_as = \App\DefaultCloudA::where('channel_server_id', $id)->get();
+        $default_cloud_bs = \App\DefaultCloudB::where('channel_server_id', $id)->get();
+        $local_outputs = \App\LocalOutput::where('channel_server_id', $id)->get();
 
         $channel_server = ChannelServer::findOrFail($id);
 
         return view('admin.channel_servers.show', compact('channel_server', 'csis', 'csos', 'cs_list_channels', 'ss_list_channels', 'default_cloud_as', 'default_cloud_bs', 'local_outputs'));
     }
-
 
     /**
      * Remove ChannelServer from storage.
@@ -252,7 +253,6 @@ class ChannelServersController extends Controller
             }
         }
     }
-
 
     /**
      * Restore ChannelServer from storage.

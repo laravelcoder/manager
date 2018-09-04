@@ -1,13 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api\V1;
 
 use App\LocalOutput;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreLocalOutputsRequest;
 use App\Http\Requests\Admin\UpdateLocalOutputsRequest;
-use Yajra\DataTables\DataTables;
 
 class LocalOutputsController extends Controller
 {
@@ -25,7 +25,6 @@ class LocalOutputsController extends Controller
     {
         $local_output = LocalOutput::findOrFail($id);
         $local_output->update($request->all());
-        
 
         return $local_output;
     }
@@ -33,7 +32,6 @@ class LocalOutputsController extends Controller
     public function store(StoreLocalOutputsRequest $request)
     {
         $local_output = LocalOutput::create($request->all());
-        
 
         return $local_output;
     }
@@ -42,6 +40,7 @@ class LocalOutputsController extends Controller
     {
         $local_output = LocalOutput::findOrFail($id);
         $local_output->delete();
+
         return '';
     }
 }
