@@ -20,10 +20,6 @@
                             <th>@lang('global.local-output.fields.port')</th>
                             <td field-key='port'>{{ $local_output->port }}</td>
                         </tr>
-                        <tr>
-                            <th>@lang('global.local-output.fields.channel-server')</th>
-                            <td field-key='channel_server'>{{ $local_output->channel_server->name or '' }}</td>
-                        </tr>
                     </table>
                 </div>
             </div>

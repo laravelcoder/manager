@@ -1,16 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers\Admin;
 
 use App\DefaultCloudB;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreDefaultCloudBsRequest;
 use App\Http\Requests\Admin\UpdateDefaultCloudBsRequest;
+use Yajra\DataTables\DataTables;
 
 class DefaultCloudBsController extends Controller
 {
@@ -25,14 +23,17 @@ class DefaultCloudBsController extends Controller
             return abort(401);
         }
 
+
+        
         if (request()->ajax()) {
             $query = DefaultCloudB::query();
-            $query->with('channel_server');
+            $query->with("channel_server");
             $template = 'actionsTemplate';
-            if (request('show_deleted') === 1) {
-                if (! Gate::allows('default_cloud_b_delete')) {
-                    return abort(401);
-                }
+            if(request('show_deleted') == 1) {
+                
+        if (! Gate::allows('default_cloud_b_delete')) {
+            return abort(401);
+        }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -50,7 +51,7 @@ class DefaultCloudBsController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey = 'default_cloud_b_';
+                $gateKey  = 'default_cloud_b_';
                 $routeKey = 'admin.default_cloud_bs';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -65,7 +66,7 @@ class DefaultCloudBsController extends Controller
                 return $row->channel_server ? $row->channel_server->name : '';
             });
 
-            $table->rawColumns(['actions', 'massDelete']);
+            $table->rawColumns(['actions','massDelete']);
 
             return $table->make(true);
         }
@@ -83,7 +84,7 @@ class DefaultCloudBsController extends Controller
         if (! Gate::allows('default_cloud_b_create')) {
             return abort(401);
         }
-
+        
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
         return view('admin.default_cloud_bs.create', compact('channel_servers'));
@@ -102,8 +103,11 @@ class DefaultCloudBsController extends Controller
         }
         $default_cloud_b = DefaultCloudB::create($request->all());
 
+
+
         return redirect()->route('admin.default_cloud_bs.index');
     }
+
 
     /**
      * Show the form for editing DefaultCloudB.
@@ -116,7 +120,7 @@ class DefaultCloudBsController extends Controller
         if (! Gate::allows('default_cloud_b_edit')) {
             return abort(401);
         }
-
+        
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
         $default_cloud_b = DefaultCloudB::findOrFail($id);
@@ -139,8 +143,11 @@ class DefaultCloudBsController extends Controller
         $default_cloud_b = DefaultCloudB::findOrFail($id);
         $default_cloud_b->update($request->all());
 
+
+
         return redirect()->route('admin.default_cloud_bs.index');
     }
+
 
     /**
      * Display DefaultCloudB.
@@ -157,6 +164,7 @@ class DefaultCloudBsController extends Controller
 
         return view('admin.default_cloud_bs.show', compact('default_cloud_b'));
     }
+
 
     /**
      * Remove DefaultCloudB from storage.
@@ -193,6 +201,7 @@ class DefaultCloudBsController extends Controller
             }
         }
     }
+
 
     /**
      * Restore DefaultCloudB from storage.

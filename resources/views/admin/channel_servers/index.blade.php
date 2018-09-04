@@ -33,7 +33,6 @@
 
                         <th>@lang('global.channel-server.fields.name')</th>
                         <th>@lang('global.channel-server.fields.cs-host')</th>
-                        <th>@lang('global.channel-server.fields.channel')</th>
                         @if( request('show_deleted') == 1 )
                         <th>&nbsp;</th>
                         @else
@@ -59,7 +58,6 @@
                 @endif
                 @endcan{data: 'name', name: 'name'},
                 {data: 'cs_host', name: 'cs_host'},
-                {data: 'channel.channel_name', name: 'channel.channel_name'},
                 
                 {data: 'actions', name: 'actions', searchable: false, sortable: false}
             ];

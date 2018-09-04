@@ -20,14 +20,6 @@
                             <th>@lang('global.channel-server.fields.cs-host')</th>
                             <td field-key='cs_host'>{{ $channel_server->cs_host }}</td>
                         </tr>
-                        <tr>
-                            <th>@lang('global.channel-server.fields.channel')</th>
-                            <td field-key='channel'>
-                                @foreach ($channel_server->channel as $singleChannel)
-                                    <span class="label label-info label-many">{{ $singleChannel->channel_name }}</span>
-                                @endforeach
-                            </td>
-                        </tr>
                     </table>
                 </div>
             </div><!-- Nav tabs -->

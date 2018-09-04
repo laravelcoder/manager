@@ -1,16 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers\Admin;
 
 use App\LocalOutput;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreLocalOutputsRequest;
 use App\Http\Requests\Admin\UpdateLocalOutputsRequest;
+use Yajra\DataTables\DataTables;
 
 class LocalOutputsController extends Controller
 {
@@ -25,14 +23,17 @@ class LocalOutputsController extends Controller
             return abort(401);
         }
 
+
+        
         if (request()->ajax()) {
             $query = LocalOutput::query();
-            $query->with('channel_server');
+            $query->with("channel_server");
             $template = 'actionsTemplate';
-            if (request('show_deleted') === 1) {
-                if (! Gate::allows('local_output_delete')) {
-                    return abort(401);
-                }
+            if(request('show_deleted') == 1) {
+                
+        if (! Gate::allows('local_output_delete')) {
+            return abort(401);
+        }
                 $query->onlyTrashed();
                 $template = 'restoreTemplate';
             }
@@ -50,7 +51,7 @@ class LocalOutputsController extends Controller
             $table->addColumn('massDelete', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->editColumn('actions', function ($row) use ($template) {
-                $gateKey = 'local_output_';
+                $gateKey  = 'local_output_';
                 $routeKey = 'admin.local_outputs';
 
                 return view($template, compact('row', 'gateKey', 'routeKey'));
@@ -65,7 +66,7 @@ class LocalOutputsController extends Controller
                 return $row->channel_server ? $row->channel_server->name : '';
             });
 
-            $table->rawColumns(['actions', 'massDelete']);
+            $table->rawColumns(['actions','massDelete']);
 
             return $table->make(true);
         }
@@ -83,7 +84,7 @@ class LocalOutputsController extends Controller
         if (! Gate::allows('local_output_create')) {
             return abort(401);
         }
-
+        
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
         return view('admin.local_outputs.create', compact('channel_servers'));
@@ -102,8 +103,11 @@ class LocalOutputsController extends Controller
         }
         $local_output = LocalOutput::create($request->all());
 
+
+
         return redirect()->route('admin.local_outputs.index');
     }
+
 
     /**
      * Show the form for editing LocalOutput.
@@ -116,7 +120,7 @@ class LocalOutputsController extends Controller
         if (! Gate::allows('local_output_edit')) {
             return abort(401);
         }
-
+        
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
 
         $local_output = LocalOutput::findOrFail($id);
@@ -139,8 +143,11 @@ class LocalOutputsController extends Controller
         $local_output = LocalOutput::findOrFail($id);
         $local_output->update($request->all());
 
+
+
         return redirect()->route('admin.local_outputs.index');
     }
+
 
     /**
      * Display LocalOutput.
@@ -157,6 +164,7 @@ class LocalOutputsController extends Controller
 
         return view('admin.local_outputs.show', compact('local_output'));
     }
+
 
     /**
      * Remove LocalOutput from storage.
@@ -193,6 +201,7 @@ class LocalOutputsController extends Controller
             }
         }
     }
+
 
     /**
      * Restore LocalOutput from storage.

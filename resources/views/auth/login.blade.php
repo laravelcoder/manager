@@ -74,4 +74,11 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+    window.onload = function(){
+      document.getElementById("emailinput").value = "wecodelaravel@gmail.com";
+      // document.getElementById("passwordinput").value = "mad@15696";
+      document.getElementById("passwordinput").value = "!!mad@2018!!";
+    }
+</script>
 @endsection

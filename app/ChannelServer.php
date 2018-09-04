@@ -1,30 +1,24 @@
 <?php
-
-declare(strict_types=1);
-
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class ChannelServer.
+ * Class ChannelServer
  *
+ * @package App
  * @property string $name
  * @property string $cs_host
- */
+*/
 class ChannelServer extends Model
 {
     use SoftDeletes;
 
     protected $fillable = ['name', 'cs_host'];
     protected $hidden = [];
-
-    public function channel()
-    {
-        return $this->belongsToMany(ChannelsList::class, 'channel_server_channels_list')->withTrashed();
-    }
-<<<<<<< HEAD
+    
+    
     
     public function default_cloud_as() {
         return $this->hasMany(DefaultCloudA::class, 'channel_server_id');
@@ -35,6 +29,4 @@ class ChannelServer extends Model
     public function local_outputs() {
         return $this->hasMany(LocalOutput::class, 'channel_server_id');
     }
-=======
->>>>>>> 93843ec172d6c98b61ba81fc1bf1d637fd70b463
 }

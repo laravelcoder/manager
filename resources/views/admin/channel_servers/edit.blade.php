@@ -35,24 +35,6 @@
                     @endif
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12 form-group">
-                    {!! Form::label('channel', trans('global.channel-server.fields.channel').'', ['class' => 'control-label']) !!}
-                    <button type="button" class="btn btn-primary btn-xs" id="selectbtn-channel">
-                        {{ trans('global.app_select_all') }}
-                    </button>
-                    <button type="button" class="btn btn-primary btn-xs" id="deselectbtn-channel">
-                        {{ trans('global.app_deselect_all') }}
-                    </button>
-                    {!! Form::select('channel[]', $channels, old('channel') ? old('channel') : $channel_server->channel->pluck('id')->toArray(), ['class' => 'form-control select2', 'multiple' => 'multiple', 'id' => 'selectall-channel' ]) !!}
-                    <p class="help-block"></p>
-                    @if($errors->has('channel'))
-                        <p class="help-block">
-                            {{ $errors->first('channel') }}
-                        </p>
-                    @endif
-                </div>
-            </div>
             
         </div>
     </div>
@@ -198,14 +180,4 @@
             return false;
         });
         </script>
-    <script>
-        $("#selectbtn-channel").click(function(){
-            $("#selectall-channel > option").prop("selected","selected");
-            $("#selectall-channel").trigger("change");
-        });
-        $("#deselectbtn-channel").click(function(){
-            $("#selectall-channel > option").prop("selected","");
-            $("#selectall-channel").trigger("change");
-        });
-    </script>
 @stop

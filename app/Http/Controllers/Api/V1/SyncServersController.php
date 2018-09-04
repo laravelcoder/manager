@@ -1,13 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers\Api\V1;
 
 use App\SyncServer;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreSyncServersRequest;
 use App\Http\Requests\Admin\UpdateSyncServersRequest;
+use Yajra\DataTables\DataTables;
 
 class SyncServersController extends Controller
 {
@@ -25,6 +25,7 @@ class SyncServersController extends Controller
     {
         $sync_server = SyncServer::findOrFail($id);
         $sync_server->update($request->all());
+        
 
         return $sync_server;
     }
@@ -32,6 +33,7 @@ class SyncServersController extends Controller
     public function store(StoreSyncServersRequest $request)
     {
         $sync_server = SyncServer::create($request->all());
+        
 
         return $sync_server;
     }
@@ -40,7 +42,6 @@ class SyncServersController extends Controller
     {
         $sync_server = SyncServer::findOrFail($id);
         $sync_server->delete();
-
         return '';
     }
 }

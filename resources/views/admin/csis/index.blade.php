@@ -33,7 +33,6 @@
 
                         <th>@lang('global.csi.fields.channel-server')</th>
                         <th>@lang('global.csi.fields.channel')</th>
-                        <th>@lang('global.channels-list.fields.channel-type')</th>
                         <th>@lang('global.csi.fields.protocol')</th>
                         <th>@lang('global.csi.fields.url')</th>
                         <th>@lang('global.csi.fields.ssm')</th>
@@ -65,7 +64,6 @@
                 @endif
                 @endcan{data: 'channel_server.name', name: 'channel_server.name'},
                 {data: 'channel.channel_name', name: 'channel.channel_name'},
-                {data: 'channel.channel_type', name: 'channel.channel_type'},
                 {data: 'protocol.protocol', name: 'protocol.protocol'},
                 {data: 'url', name: 'url'},
                 {data: 'ssm', name: 'ssm'},

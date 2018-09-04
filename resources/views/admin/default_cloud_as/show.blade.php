@@ -20,10 +20,6 @@
                             <th>@lang('global.default-cloud-a.fields.port')</th>
                             <td field-key='port'>{{ $default_cloud_a->port }}</td>
                         </tr>
-                        <tr>
-                            <th>@lang('global.default-cloud-a.fields.channel-server')</th>
-                            <td field-key='channel_server'>{{ $default_cloud_a->channel_server->name or '' }}</td>
-                        </tr>
                     </table>
                 </div>
             </div>
