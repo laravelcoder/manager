@@ -37,6 +37,8 @@ Route::get('/', function () {
     return redirect('/admin/home');
 });
 
+Route::get('preview/cs/conf/{id}', ['uses' => 'Admin\CsConfController@create_conf', 'as' => 'preview.cs.conf']);
+
 // Authentication Routes...
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
 $this->post('login', 'Auth\LoginController@login')->name('auth.login');
