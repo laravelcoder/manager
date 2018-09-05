@@ -19,7 +19,4 @@ class Protocol extends Model
 
     protected $fillable = ['protocol', 'real_name'];
     protected $hidden = [];
-
-
-
 }
