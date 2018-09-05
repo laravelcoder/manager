@@ -37,7 +37,10 @@ Route::get('/', function () {
     return redirect('/admin/home');
 });
 
-Route::get('preview/cs/conf/{id}', ['uses' => 'Admin\CsConfController@create_conf', 'as' => 'preview.cs.conf']);
+Route::get('preview/cs/cs_conf/{id}', ['uses' => 'Admin\CsConfController@create_cs_conf', 'as' => 'preview.cs.conf']);
+Route::get('preview/cs/channel_conf/{id}', ['uses' => 'Admin\CsConfController@preview_channels_conf', 'as' => 'preview.channel.conf']);
+Route::post('cs/channel_conf/{id}', ['uses' => 'Admin\CsConfController@make_channels_conf', 'as' => 'make.channel.conf']);
+Route::get('preview/cs/settings_conf/{id}', ['uses' => 'Admin\CsConfController@create_settings_conf', 'as' => 'preview.settings.conf']);
 
 // Authentication Routes...
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');

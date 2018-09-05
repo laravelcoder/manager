@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
- 
 
+use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Controllers\Controller;
 use App\ChannelsList;
 use App\ChannelServer;
@@ -13,10 +13,17 @@ use App\Cso;
 use App\CsListChannel;
 use App\SsListChannel;
 use App\Protocol;
+use File;
+use DB;
+use Illuminate\Support\Facades\Log;
+use Request;
+use App\Helpers\ChannelConf;
+use Illuminate\Support\Facades\Storage;
+
 
 class CsConfController extends Controller
 {
-    public function create_conf($id)
+    public function create_cs_conf($id, $contents = null)
     {
         // if (! Gate::allows('channel_server_view')) {
         //     return abort(401);
@@ -28,79 +35,201 @@ class CsConfController extends Controller
         $csos = \App\Cso::where('channel_server_id', $id)->get();
         $cs_list_channels = \App\CsListChannel::where('channelserver_id', $id)->get();
         $ss_list_channels = \App\SsListChannel::where('channel_server_id', $id)->get();
- 
+
         $protocols = \App\Protocol::get()->pluck('protocol', 'id');
+        // $protocols = \App\Protocol::findOrFail($id);
+//        $dca = $channel_server->default_cloud_as;
+//        $dcb = $channel_server->default_cloud_bs;
+//        $localdefault = $channel_server->local_outputs;
 
-$dca = \App\DefaultCloudA::findOrFail($id);
-$dcb = \App\DefaultCloudB::findOrFail($id);
-$lo = \App\LocalOutput::findOrFail($id);
+        $dca = \App\DefaultCloudA::findOrFail($id);
+        $dcb = \App\DefaultCloudB::findOrFail($id);
+        $localdefault = \App\LocalOutput::findOrFail($id);
 
-        // $channelServerPath = config('confs.paths.cs_conf.'. $channel_server->name);
-        $channelServerPath = config('confs.paths.cs_conf');
 
-        if (file_exists($channelServerPath)) {
-            //$txt_file = file_get_contents($channelServerPath.'/ChannelServer.conf');
-            //$rows = explode("\n", $txt_file);
+        $channelserverpath = config('confs.paths.cs_conf');
+        File::isDirectory($channelserverpath . $channel_server->name) or File::makeDirectory($channelserverpath . $channel_server->name, 0777, true, true);
 
-            // CID0=0&PROTOCOL0=MOVE&URL0=/home/caipy/segments_in
-            // CID7=20&PROTOCOL7=UDP&SSM7=172.31.1.21&IMC7=232.20.97.195&IP7=3101&PID7=
-            //
+        if (file_exists($channelserverpath . $channel_server->name)) {
 
-        // foreach($csis as $input) {
-        //    $url = $input->url
-        // }
+            $contents = [];
 
-        // [OUTPUT]
-        // OMC1=227.228.229.3&OP1=20003
-        // OCLOUD1=127.0.0.1&OCP1=8080
-        // OCLOUD2=&OCP2=
-        // OCLOUD_A_0=&OCP_A_0=&OCLOUD_B_0=&OCP_B_0=
+            $contents = "[INPUT]\n";
+            $csis_count = 0;
+            $dca_count = 0;
+            $lo_count = 0;
+            $dcb_count = 0;
+            $csos_count = 0;
 
-        // [LICENSE]
-        // LIC=ChannelServer-4.1-20991231-20180610-DISHCS!localhost!00000000000000000000000
+            if (count($csis) > 0) {
+                foreach ($csis as $csi) {
+                    $csis_count = $csis_count + 1;
+                    if ($csi->protocol == 'UDP') {
+                        $contents .= "CID" . $csis_count . "=" . $csi->channel->id . "&PROTOCOL" . $csis_count . "=" . $csi->protocol->id . "&URL" . $csis_count . "=" . $csi->url . "\n";
+                    } elseif ($csi->protocol == 'MOVE') {
+                        $contents .= "CID" . $csis_count . "=" . $csi->channel->id . "&PROTOCOL" . $csis_count . "=" . $csi->protocol . "&URL" . $csis_count . "=" . $csi->url . "\n";
+                    } else {
+                        $contents .= "CID" . $csis_count . "=" . $csi->channel->id . "&PROTOCOL" . $csis_count . "=" . $csi->protocol . "&SSM" . $csis_count . "=" . $csi->ssm . "&IMC" . $csis_count . "=" . $csi->imc . "&IP" . $csis_count . "=" . $csi->ip . "&PID" . $csis_count . "=" . $csi->pid . "\n";
+                    }
+                }
+            }
 
-        // [PARAMETERS]
-        // WAVINPUT=0
 
-        // $inputcontent = "[INPUT]\n";
+            $contents .= "\n";
+            $contents .= "[OUTPUT]\n";
+            if ($localdefault) {
+                    $lo_count = $lo_count + 1;
+                    $contents .= "OMC" . $lo_count . "=" . $localdefault['address'] . "&OP" . $lo_count . "=" . $localdefault['port'] . "\n";
+            }
+            if ($dca) {
+                    $contents .= "OCLOUD1=" . $dca['address'] . "&OCP1=" . $dca['port'] . "\n";
+            }
+            if ($dcb) { 
+                    $contents .= "OCLOUD2=" . $dcb['address'] . "&OCP2=" . $dcb['port'] . "\n";
+            }
+            if ($csos) {
+                foreach ($csos as $output) {
+                    $csos_count = $csos_count + 1;
+                    $contents .= "OCLOUD_A_" . $csos_count . "=" . $output['ocloud_a'] . "&OCP_A_" . $csos_count . "=" . $output['ocp_a'] . "&OCLOUD_B_" . $csos_count . "=" . $output['ocloud_b'] . "&OCP_B_" . $csos_count . "=" . $output['ocp_b'] . "\n";
+                }
+            }
 
-        // for ($i = 0; $i < count($this->input); $i++) {
-        // 	if ($this->input[$i]->protocol == "HLS") {
-        // 		$inputcontent .= "CID" . $i . "=" . $this->input[$i]->cid . "&PROTOCOL" . $i . "=" . $this->input[$i]->protocol . "&URL" . $i . "=" . $this->input[$i]->url . "\n";
-        // 	} else
-        // 	if ($this->input[$i]->protocol == "MOVE") {
-        // 		$inputcontent .= "CID" . $i . "=" . $this->input[$i]->cid . "&PROTOCOL" . $i . "=" . $this->input[$i]->protocol . "&URL" . $i . "=" . $this->input[$i]->url . "\n";
-        // 	} else {
-        // 		$inputcontent .= "CID" . $i . "=" . $this->input[$i]->cid . "&PROTOCOL" . $i . "=" . $this->input[$i]->protocol . "&SSM" . $i . "=" . $this->input[$i]->ssm . "&IMC" . $i . "=" . $this->input[$i]->ip . "&IP" . $i . "=" . $this->input[$i]->port . "&PID" . $i . "=" . $this->input[$i]->pid . "\n";
-        // 	}
-        // }
+            $contents .= "\n";
+            $contents .= "[LICENSE]\n";
+            $contents .= "LIC=ChannelServer-4.1-20991231-20180610-DISHCS!localhost!00000000000000000000000\n";
+            $contents .= "\n";
+            $contents .= "[PARAMETERS]\n";
+            $contents .= "\n";
 
-        // $outputcontent = "\n[OUTPUT]\n";
-        // // OMC1=224.0.0.2&OP1=10002
-        // $outputcontent .= "OMC1=" . $this->output->local->ip . "&OP1=" . $this->output->local->port . "\n";
-        // for ($i = 0; $i < count($this->output->cloud); $i++) {
-        // 	// OCLOUD1=tv.precisestatistics.com&OCP1=80
-        // 	$outputcontent .= "OCLOUD" . $alpha[($i)] . "=" . $this->output->cloud[$i]->ip . "&OCP" . $alpha[($i)] . "=" . $this->output->cloud[$i]->port . "\n";
-        // }
 
-        // for ($i = 0; $i < count($this->output->channelClouds); $i++) {
-        // 	// OCLOUD_A_0=tv.precisestatistics.com&OCP0_A=80&OCLOUD0_B=tv.caipy.com&OCP0_B=8080
-        // 	$outputcontent .= "OCLOUD_A_" . $i . "=" . $this->output->channelClouds[$i]->cloudA->ip . "&OCP_A_" . $i . "=" . $this->output->channelClouds[$i]->cloudA->port;
-        // 	$outputcontent .= "&OCLOUD_B_" . $i . "=" . $this->output->channelClouds[$i]->cloudB->ip . "&OCP_B_" . $i . "=" . $this->output->channelClouds[$i]->cloudB->port . "\n";
-        // }
+            File::put($channelserverpath . $channel_server->name . '/ChannelServer.conf', $contents);
 
-        // $licencecontent = "\n[LICENSE]\n";
-        // for ($i = 0; $i < count($this->licence); $i++) {
-        // 	// LIC=ChannelServer-2.0-20130531-20120315-406sfhk4fgk468kry46i460xbvx78s56rt45s3hs
-        // 	$licencecontent .= "LIC=" . $this->licence[$i]->type . "-" . $this->licence[$i]->version . "-" . $this->licence[$i]->stop . "-" . $this->licence[$i]->start . "-" . $this->licence[$i]->data . "\n";
-        // }
-        // $parameterscontent = "\n[PARAMETERS]\n";
 
-        // if (!empty($this->parameters)) {
-        // 	$parameterscontent .= "WAVINPUT=" . $this->parameters->wavinput . "\n";
-        // }
         }
 
-        return view('preview.cs.conf', compact('channel_server', 'csis', 'csos', 'cs_list_channels', 'ss_list_channels', 'channelServerPath', 'protocols', 'protocol','dca', 'dcb', 'lo'));
+
+
+        return view('preview.cs.conf', compact('channel_server', 'csis', 'csos', 'cs_list_channels', 'ss_list_channels', 'channelserverpath', 'protocols', 'protocol', 'dca', 'dcb', 'lo', 'contents'));
     }
+
+    public function preview_channels_conf($id, $contents = null)
+    {
+
+            
+        $channel_server = \App\ChannelServer::findOrFail($id);
+            // $cs_list_channels = \App\CsListChannel::where('channelserver_id', $id)->get();
+        // $cs_list_channels = \App\CsListChannel::where('channelserver_id', $id)->whereHas('channel_id', $id)->get();
+        // $cs_list_channels = \App\CsListChannel::where('channel_id', $id)->get();
+        $cs_list_channels = \App\CsListChannel::where('channelserver_id', $id)->get();
+
+        //dd($cs_list_channels);
+
+        $channelserverpath = config('confs.paths.cs_conf');
+
+        File::isDirectory($channelserverpath . $channel_server->name) or File::makeDirectory($channelserverpath . $channel_server->name, 0777, true, true);
+
+        if (file_exists($channelserverpath . $channel_server->name)) {
+
+            $contents = [];
+
+            $contents = "\n";
+            if($cs_list_channels){
+                foreach($cs_list_channels as $cs_list_channel){
+                  $contents .= "".$cs_list_channel->channel->channel_name ."," . $cs_list_channel->channel->channel_type . "\n";
+                }
+            }
+            $contents .= "\n";
+
+            //dd($contents);
+
+            File::put($channelserverpath . $channel_server->name . '/ChannelIDs.conf', $contents);
+
+            Storage::prepend('channelserver.log', 'Prepended Text');
+             Log::info('Created ChannelServer.conf File Successfully');
+            Storage::append('channelserver.log', 'Appended Text');
+            Log::debug('An informational message.');
+            Log::emergency('The system is down!');
+            Log::info('Created ChannelServer.conf: '.$id);
+        }
+
+        return view('preview.cs.channels_conf', compact('cs_list_channels', 'channel_server'));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    public function make_channels_conf($id)
+    {
+        $channel_server = \App\ChannelServer::findOrFail($id);
+        $cs_list_channels = \App\CsListChannel::where('channelserver_id', $id)->get();
+
+        return channelconf();
+    }
+
+
+
+
+
+
+
+
+
+// public function downloadTxt()
+// {
+//     $txt = "";
+//     $datas = User::select('id','name','lastname')
+//             ->orderBy('id','desc')
+//             ->take(100)
+//             ->get();
+
+//     foreach($datas as $data){
+//         $txt .= $data['id'].'|'.$data['name'].'|'.$data['lastname'].PHP_EOL;
+//     }
+//     $txtname = 'mytxt.txt';
+//     $headers = ['Content-type'=>'text/plain', 
+//                 'test'=>'YoYo', 
+//                 'Content-Disposition'=>sprintf('attachment; filename="%s"', $txtname),
+//                 'X-BooYAH'=>'WorkyWorky','Content-Length'=>sizeof($datas)
+//             ];
+    
+//     return \Response::make($txt , 200, $headers );
+
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+    public function create_settings_conf($id, $contents = null)
+    {
+         
+        $channelserverpath = config('confs.paths.cs_conf');
+
+        File::isDirectory($channelserverpath . $channel_server->name) or File::makeDirectory($channelserverpath . $channel_server->name, 0777, true, true);
+
+        if (file_exists($channelserverpath . $channel_server->name)) {
+
+            $contents = [];
+
+            File::put($channelserverpath . $channel_server->name . '/settings.conf', $contents);
+        }
+
+        return view('preview.cs.settings_conf', compact('cs_list_channel'));
+    }
+
 }

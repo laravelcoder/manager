@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\Csi;
+use App\CsListChannel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
@@ -107,7 +108,7 @@ class CsisController extends Controller
         }
 
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
-        $channels = \App\CsChannelList::selectRaw('id, CONCAT(channel_name," | ", channel_type) as channel_name')->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
+        $channels = \App\ChannelsList::selectRaw('id, CONCAT(channel_name," | ", channel_type) as channel_name')->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
         $protocols = \App\Protocol::get()->pluck('protocol', 'id')->prepend(trans('global.app_please_select'), '');
 
         return view('admin.csis.create', compact('channel_servers', 'channels', 'protocols'));
@@ -142,7 +143,7 @@ class CsisController extends Controller
         }
 
         $channel_servers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
-        $channels = \App\CsChannelList::selectRaw('id, CONCAT(channel_name," | ", channel_type) as channel_name')->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
+        $channels = \App\ChannelsList::selectRaw('id, CONCAT(channel_name," | ", channel_type) as channel_name')->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
         $protocols = \App\Protocol::get()->pluck('protocol', 'id')->prepend(trans('global.app_please_select'), '');
 
         $csi = Csi::findOrFail($id);

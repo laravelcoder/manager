@@ -14,72 +14,76 @@
     </p>
     
 
-    <div class="panel panel-default">
+    <div class="panel panel-default" style="font-family: impact;">
   
-{{-- <h1>{!! $channelServerPath !!}</h1> --}}
-<br>
-[INPUT]<br>
-@foreach ($csis as $input)
-    @if($input->protocol == 'UDP')
-    CID{!! $loop->iteration !!}={!! @$input->channel->id !!}
-        &
-        PROTOCOL{!! $loop->iteration !!}={!! @$input->protocol !!}
-        &
-        URL{!! $loop->iteration !!}={!! @$input->url !!}
+{{-- <h1>{!! $channelserverpath !!}{!! $channel_server->name !!}</h1> --}}
+{{-- <br> --}}
+
+ <div id="conf-preview" style="margin-left:20px;font-size: 1.5em;">
+        [INPUT]<br>
+        @if (count($csis) > 0)
+            @foreach ($csis as $csi)
+                @if($csi->protocol == 'UDP')
+                CID{!! $loop->iteration !!}=<strong>{!! $csi->channel->id or '' !!}</strong>
+                    &
+                    PROTOCOL{!! $loop->iteration !!}=<strong>{{ $csi->protocol->protocol or '' }}</strong>
+                    &
+                    URL{!! $loop->iteration !!}=<strong>{!! $csi->url or '' !!}</strong>
+                    <br>
+                @elseif($csi->protocol == 'MOVE')
+                CID{!! $loop->iteration !!}=<strong>{!! $csi->channel->id or '' !!}</strong>
+                    &
+                    PROTOCOL{!! $loop->iteration !!}=<strong>{{ $csi->protocol->protocol or '' }}</strong>
+                    &
+                    URL{!! $loop->iteration !!}=<strong>{!! $csi->url or '' !!}</strong>
+                    <br>
+                @else
+                CID{!! $loop->iteration !!}=<strong>{!! $csi->channel->id or '' !!}</strong>
+                &
+                PROTOCOL{!! $loop->iteration !!}=<strong>{{ $csi->protocol->protocol or '' }}</strong>
+                &
+                SSM{!! $loop->iteration !!}=<strong>{!! $csi->ssm or '' !!}</strong>
+                &
+                IMC{!! $loop->iteration !!}=<strong>{!! $csi->imc or '' !!}</strong>
+                &
+                IP{!! $loop->iteration !!}=<strong>{!! $csi->ip or '' !!}</strong>
+                &
+                PID{!! $loop->iteration !!}=<strong>{!! $csi->pid or '' !!}</strong>
+                <br>
+                @endif
+            @endforeach
+        @endif
         <br>
-    @elseif($input->protocol == 'MOVE')
-    CID{!! $loop->iteration !!}={!! @$input->channel->id !!}
-        &
-        PROTOCOL{!! $loop->iteration !!}={!! @$input->protocol !!}
-        &
-        URL{!! $loop->iteration !!}={!! @$input->url !!}
-        <br>
-    @else
-    CID{!! $loop->iteration !!}={!! @$input->channel->id !!}
-    &
-    PROTOCOL{!! $loop->iteration !!}={!! @$input->protocol !!}
-    &
-    SSM{!! $loop->iteration !!}={!! @$input->ssm !!}
-    &
-    IMC{!! $loop->iteration !!}={!! @$input->imc !!}
-    &
-    IP{!! $loop->iteration !!}={!! @$input->ip !!}
-    &
-    PID{!! $loop->iteration !!}={!! @$input->pid !!}
-    <br>
-    @endif
-@endforeach
-<br>
-[OUTPUT]<br>
+        [OUTPUT]<br>
 
-OMC1={!! @$lo->address  !!}&OP1={!! @$lo->port  !!}<br>
-OCLOUD1={!! @$dca->address  !!}&OCP1={!! @$dca->port  !!}<br>
-OCLOUD2={!! @$dcb->address  !!}&OCP2={!! @$dcb->port  !!}<br>
+        OMC1=<strong>{!! $lo->address or ''  !!}</strong>&OP1=<strong>{!! $lo->port or ''  !!}</strong><br>
+        OCLOUD1=<strong>{!! $dca->address or ''  !!}</strong>&OCP1=<strong>{!! $dca->port or ''  !!}</strong><br>
+        OCLOUD2=<strong>{!! $dcb->address or ''  !!}</strong>&OCP2=<strong>{!! $dcb->port or ''  !!}</strong><br>
 
-@foreach ($csos as $output)
-    
-{{--     CID{!! $loop->iteration !!}={!! @$output->channel->id !!}
-    & --}}
-    OCLOUD_A_{!! $loop->iteration !!}={!! @$output->ocloud_a !!}
-    &
-    OCP_A_{!! $loop->iteration !!}={!! @$output->ocp_a !!}
-    &
-    OCLOUD_B_{!! $loop->iteration !!}={!! @$output->ocloud_b !!}
-    &
-    OCP_B_{!! $loop->iteration !!}={!! @$output->ocp_b !!}
-    <br>
- 
-@endforeach
- 
-<br style="clear:both" />
-[LICENSE]<br>
-LIC=ChannelServer-4.1-20991231-20180610-DISHCS!localhost!00000000000000000000000<br>
+        @foreach ($csos as $output)
+            
+        {{--     CID{!! $loop->iteration !!}={!! @$output->channel->id !!}
+            & --}}
+            OCLOUD_A_{!! $loop->iteration !!}=<strong>{!! $output->ocloud_a or '' !!}</strong>
+            &
+            OCP_A_{!! $loop->iteration !!}=<strong>{!! $output->ocp_a or '' !!}</strong>
+            &
+            OCLOUD_B_{!! $loop->iteration !!}=<strong>{!! $output->ocloud_b or '' !!}</strong>
+            &
+            OCP_B_{!! $loop->iteration !!}=<strong>{!! $output->ocp_b or '' !!}</strong>
+            <br>
+         
+        @endforeach
+         
+        <br style="clear:both" />
+        [LICENSE]<br>
+        LIC=ChannelServer-4.1-20991231-20180610-DISHCS!localhost!00000000000000000000000<br>
 
-<br style="clear:both" />
-[PARAMETERS]<br>
-WAVINPUT=0<br>
+        <br style="clear:both" />
+        [PARAMETERS]<br>
+        WAVINPUT=0<br>
 
-
+</div>
 <br style="clear:both" />
 <br />
 <br />
@@ -92,3 +96,13 @@ WAVINPUT=0<br>
 
     </script>
 @endsection
+
+@push('pagestyle')
+<style>
+#conf-preview {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol";
+  }
+</style>
+@endpush

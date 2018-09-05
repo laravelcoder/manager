@@ -123,6 +123,7 @@ class CsListChannelsController extends Controller
 //                    'ip' => null,
 //                    'pid' => null
                 ]);
+                Log::info("Created Channel Input Entry");
             } catch (\Exception $e) {
                 Log::alert($e);
             }
@@ -136,6 +137,7 @@ class CsListChannelsController extends Controller
 //                    "ocloud_b" => null,
 //                    "ocp_b" => null,
                 ]);
+                Log::info("Created Channel Output Entry");
             } catch (\Exception $e) {
                 Log::alert($e);
             }
@@ -148,6 +150,8 @@ class CsListChannelsController extends Controller
                     'channel_id' => $request->channel_id,
                     'sync_server_id' => $request->sync_server_id,
                 ]);
+                Log::info("Created Sync Server List Entry");
+
             } catch (\Exception $e) {
                 Log::alert($e);
             }
