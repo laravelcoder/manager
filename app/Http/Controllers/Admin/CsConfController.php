@@ -117,9 +117,6 @@ class CsConfController extends Controller
 
             
         $channel_server = \App\ChannelServer::findOrFail($id);
-            // $cs_list_channels = \App\CsListChannel::where('channelserver_id', $id)->get();
-        // $cs_list_channels = \App\CsListChannel::where('channelserver_id', $id)->whereHas('channel_id', $id)->get();
-        // $cs_list_channels = \App\CsListChannel::where('channel_id', $id)->get();
         $cs_list_channels = \App\CsListChannel::where('channelserver_id', $id)->get();
 
         //dd($cs_list_channels);
@@ -132,24 +129,25 @@ class CsConfController extends Controller
 
             $contents = [];
 
-            $contents = "\n";
+            $contents = "";
             if($cs_list_channels){
                 foreach($cs_list_channels as $cs_list_channel){
                   $contents .= "".$cs_list_channel->channel->channel_name ."," . $cs_list_channel->channel->channel_type . "\n";
                 }
             }
-            $contents .= "\n";
+            // $contents .= "\n";
 
             //dd($contents);
 
             File::put($channelserverpath . $channel_server->name . '/ChannelIDs.conf', $contents);
 
-            Storage::prepend('channelserver.log', 'Prepended Text');
-             Log::info('Created ChannelServer.conf File Successfully');
-            Storage::append('channelserver.log', 'Appended Text');
-            Log::debug('An informational message.');
-            Log::emergency('The system is down!');
-            Log::info('Created ChannelServer.conf: '.$id);
+            Storage::prepend('channelserver.log', 'Created ChannelServer.conf File Successfully NAMED: ' . $channel_server->name . ' ID:' . $id . ' ON: '. date('Y-m-d H:i:s'));
+//            Log::info('Created ChannelServer.conf File Successfully');
+//
+//            Log::debug('An informational message.');
+//            Log::emergency('The system is down!');
+            Log::info('Created ChannelServer.conf NAMED: ' . $channel_server->name . ' ID:' . $id . ' ON: '. date('Y-m-d H:i:s'));
+            // Storage::append('channelserver.log', date('Y-m-d H:i:s'));
         }
 
         return view('preview.cs.channels_conf', compact('cs_list_channels', 'channel_server'));
@@ -171,7 +169,9 @@ class CsConfController extends Controller
         $channel_server = \App\ChannelServer::findOrFail($id);
         $cs_list_channels = \App\CsListChannel::where('channelserver_id', $id)->get();
 
-        return channelconf();
+        channelconf($id);
+
+        return redirect('preview.cs.channels_conf', ['user' => CsListChannel::where('channelserver_id', $id)->get()]);
     }
 
 
@@ -215,21 +215,21 @@ class CsConfController extends Controller
 
 
 
-    public function create_settings_conf($id, $contents = null)
-    {
-         
-        $channelserverpath = config('confs.paths.cs_conf');
-
-        File::isDirectory($channelserverpath . $channel_server->name) or File::makeDirectory($channelserverpath . $channel_server->name, 0777, true, true);
-
-        if (file_exists($channelserverpath . $channel_server->name)) {
-
-            $contents = [];
-
-            File::put($channelserverpath . $channel_server->name . '/settings.conf', $contents);
-        }
-
-        return view('preview.cs.settings_conf', compact('cs_list_channel'));
-    }
+//    public function create_settings_conf($id, $contents = null)
+//    {
+//
+//        $channelserverpath = config('confs.paths.cs_conf');
+//
+//        File::isDirectory($channelserverpath . $channel_server->name) or File::makeDirectory($channelserverpath . $channel_server->name, 0777, true, true);
+//
+//        if (file_exists($channelserverpath . $channel_server->name)) {
+//
+//            $contents = [];
+//
+//            File::put($channelserverpath . $channel_server->name . '/settings.conf', $contents);
+//        }
+//
+//        return view('preview.cs.settings_conf', compact('cs_list_channel'));
+//    }
 
 }
