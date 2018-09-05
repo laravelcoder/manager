@@ -34,5 +34,4 @@ class ChannelServer extends Model
     {
         return $this->hasOne(\App\LocalOutput::class, 'channel_server_id');
     }
-
 }
