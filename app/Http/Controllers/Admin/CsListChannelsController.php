@@ -159,7 +159,7 @@ class CsListChannelsController extends Controller
         return redirect()->route('admin.cs_list_channels.index');
     }
 
-    /**
+     /**
      * Show the form for editing CsListChannel.
      *
      * @param  int  $id
@@ -171,7 +171,7 @@ class CsListChannelsController extends Controller
             return abort(401);
         }
 
-//        $channels = \App\ChannelsList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
+        //        $channels = \App\ChannelsList::get()->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
         $channels = \App\ChannelsList::selectRaw('id, CONCAT(channel_name," |   ", channel_type) as channel_name')->pluck('channel_name', 'id')->prepend(trans('global.app_please_select'), '');
         $channelservers = \App\ChannelServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
         $sync_servers = \App\SyncServer::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');

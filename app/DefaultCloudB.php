@@ -30,6 +30,11 @@ class DefaultCloudB extends Model
         $this->attributes['channel_server_id'] = $input ? $input : null;
     }
 
+    /**
+     * Relationship with the ChannelServer model.
+     *
+     * @return  Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function channel_server()
     {
         return $this->belongsTo(ChannelServer::class, 'channel_server_id')->withTrashed();

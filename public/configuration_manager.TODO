@@ -1,0 +1,139 @@
+KATIE NEW TAKS FOR THE CONFIGURATION MANAGER 
+Configuration Manager:
+    ☐ ADD BABY SS SETUP 
+        FIELDS:
+            ☐ host parent select
+            ☐ host
+            ☐ name
+            ☐ tocai server url
+            ☐ video server url
+    ☐ ADD NEW BABY TO SYSTEM -> SEE RECONFIGURE BELOW
+    ☐ FIX MENU TO ALLOW FOR NEW
+    ☐ MAKE PARENT HOST SELECT FROM EXISTING AGGREGATE SS
+
+POSSIBLE NEW NEEDED FEATURE ADDITIONS
+    ☐ ADD AUTHENTICATION FOR ADVANCED CONFIG LOGIN TO SS
+    ☐ ADD ADVANCED CONFIGURATION TO CHANNEL SERVER
+         ☐ ADD AUTHENTICATION FOR LOGIN
+
+
+WHEN CODING REMEMBER TO DO THESE ITEMS:
+    ☐ REARRANGE TABS ON VIEW.BLADE.PHP FOR CHANNEL SERVER DETAILS
+    ☐ ADD SWITCH TO INPUT SECTION FOR PROTOCOL
+    ☐ PUT IF STATEMENT IN INDEX DATATABLE TO SHOW CURRENT INPUT DETAILS ACCORDING TO SWITCH
+    ☐ ADD FIELDS AUTOGENERATE FUNCTIONS FOR THE FOLLOWING ITEMS:
+        ☐ CHANNEL ID (CHANNEL + ENV)
+        ☐ CHANNEL SERVER GENERATE KEY TO USE FOR LICENSE ON CREATE (composer require webpatser/laravel-uuid)  https://packalyst.com/packages/package/webpatser/laravel-uuid https://github.com/webpatser/laravel-uuid
+        ☐ https://packalyst.com/packages/package/tiendanube/laravel-health-check
+        ☐ add channel server inputs resource to format data
+        ☐ add resouce for channels to get and format json for updated channels comming from each dyna link 
+            ☐ http://b-gp2-dynadm-1.imovetv.com/dyna_app/source
+            ☐ http://d-gp2-dynadm-1.imovetv.com/dyna_app/source
+            ☐ http://q-gp2-dynadm-1.imovetv.com/dyna_app/source
+        ☐ add each env to the new switch 
+        ☐ add new docs system replace old for technical docs and the new updated laravel 5.8 old docs wont work anymore.
+        ☐ CONFIGURE RESOURCE FOR CHANNELS TO FORMAT FIELDS FOR DB INSERSTION FROM THE JSON STRINGS
+
+
+Reconfigure Frame work as follow:
+    KATIE all these should be in one ticket with sub tasks
+ ✔ Channel Servers Area @done (03-20-19 01:17 PM)
+     ✔ Channel Servers @done (03-20-19 01:17 PM)  
+     ✔ Cs list channels @done (03-20-19 01:17 PM)  
+     ✔ Channel Server Inputs @done (03-20-19 01:17 PM)  
+     ✔ Channel Server Outputs @done (03-20-19 01:17 PM)  
+     ✔ Default Cloud A @done (03-20-19 01:12 PM)  
+     ✔ Default Cloud B @done (03-20-19 01:12 PM)  
+     ✔ Local Output @done (03-20-19 01:12 PM)  
+     ✔ CS Server Status @done (03-20-19 01:12 PM)
+ ✔ Sync Server Area @done (03-20-19 01:17 PM)  
+     ✔ Aggregate Sync Servers @done (03-20-19 01:17 PM)  
+     ✔ Aggregate Configurations @done (03-20-19 01:17 PM)  
+         ✔ FTP DETAILS @done (03-20-19 01:15 PM)  
+         ✔ General settings @done (03-20-19 01:15 PM)
+         ✔ Output Settings @done (03-20-19 01:15 PM)  
+         ✔ Real-time Notification @done (03-20-19 01:15 PM)  
+         ✔ Discovery Settings @done (03-20-19 01:15 PM)
+         ✔ Authentication @done (03-20-19 01:15 PM)
+             ✔ ADD ADVANCED_USERNAME & ADVANCED_PASSWORD FOR LOGIN TO ADVANCED SETTINGS SECTION TO AUTHENTICATION FOR LATER INCLUSION @done (03-20-19 01:26 PM)
+         ✔ Report settings @done (03-20-19 01:15 PM)  
+ 
+         ✔ Clip DB Settings @done (03-20-19 01:13 PM)  
+         ✔ Video Servers @done (03-20-19 01:13 PM)
+         ☐ AGSS Channels List    @delete
+         ✔ AGSS Server Status @done (03-20-19 01:12 PM)
+     ✔ Baby Sync Servers @done (03-20-19 01:17 PM)
+         FIELDS:
+            ✔ host_parent_select @done (03-20-19 01:17 PM)
+            ✔ host @done (03-20-19 01:17 PM)
+            ✔ name @done (03-20-19 01:17 PM)
+            ✔ tocai_server_url @done (03-20-19 01:17 PM)
+            ✔ video_server_url @done (03-20-19 01:17 PM)
+            ✔ username @done (03-20-19 01:17 PM)
+            ✔ password @done (03-20-19 01:17 PM)
+            ✔ advanced_username @done (03-20-19 02:15 PM)
+            ✔ advanced_password @done (03-20-19 02:15 PM)
+     ✔ Baby Server Status @done (03-20-19 01:14 PM)  
+ ✔ Config defaults @done (03-20-19 01:20 PM)
+     ✔ Protocols @done (03-20-19 01:14 PM)
+         ✔ create seed file with prefilled data @done (03-20-19 01:14 PM)
+     ✔ Country @done (03-20-19 01:14 PM)
+         ✔ create seed file with prefilled data @done (03-20-19 01:14 PM)
+     ✔ Timezone @done (03-20-19 01:14 PM)
+         ✔ create seed file with prefilled data @done (03-20-19 01:14 PM)
+     ✔ Channels lists @done (03-20-19 01:14 PM)
+             NEW FIELDS:
+                ✔ channel_name @done (03-20-19 01:20 PM)
+                ✔ channelid @done (03-20-19 01:20 PM)
+                ✔ env @done (03-20-19 01:20 PM)
+                ✔ ffmpegsource @done (03-20-19 01:20 PM)
+                ✔ ssm @done (03-20-19 01:20 PM)
+                ✔ imc @done (03-20-19 01:20 PM)
+                ✔ ip @done (03-20-19 01:20 PM)
+ 
+     ✔ Filters @done (03-20-19 01:14 PM)
+         ✔ create seed file with prefilled data @done (03-20-19 01:14 PM)
+ ✔ User management @done (03-20-19 01:14 PM)
+    ✔ Permissions @done (03-20-19 01:14 PM)  
+    ✔ Roles @done (03-20-19 01:14 PM)  
+    ✔ Users @done (03-20-19 01:14 PM)
+
+
+
+ 
+
+
+
+
+
+
+New setup flow
+
+Before you start you need to do these steps first
+
+First get hosts from ops setup. When you have them you can start this setup.
+create new channel server
+create the aggregate sync server you have a host for
+create each sync server you have a host for or if you are using local host you can select the parent aggregate
+Start new setup
+
+create channel server input
+select channel to use for input for each channel added to the channel server
+go to channel server output and click edit on each channel to configure the sync servers for each one.
+More steps explained still to come
+
+
+
+
+
+
+
+
+
+
+cso section
+    These are auto created by the channel server inputs all you need to do is click on each to configure them with the protocol and details each one should be using. these  also will automatically add the key given to it from the newly created channel server key genereated on creation. This will also be added to the sync servers configured on here to make sure they are all part of the matching system. (new license function).
+
+    in order to add outputs you must add the sync servers to the system first so they can be selected. 
+
+    To edit select the server a and server b to use with each channel. when this is done it auto configures the channel for the sync server accordingly.

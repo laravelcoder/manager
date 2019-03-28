@@ -32,18 +32,18 @@
 <br style="clear:both" />
 {{-- {{  Form::open(['url' => action('Admin\CsConfController@make_channels_conf'), 'files'=>true,'method'=>'post'])  }} --}}
 {{-- {!! Form::model($csi, ['method' => 'PUT', 'route' => ['make.channel.conf', $csi->id]]) !!} --}}
-{!! Form::open(['method' => 'POST', 'route' => ['make.channel.conf', $channel_server->id]]) !!}
-
-              <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Generate Conf</button>
-                {!! Form::submit("Generate Conf", ['class' => 'btn btn-danger']) !!}
-              </div>
-{{ Form::close() }}
 
 <br />
 <br />
 
     </div>
+{!! Form::open(['method' => 'POST', 'route' => ['make.channel.conf', $channel_server->id]]) !!}
+
+              <div class="box-footer">
+              {{--   <button type="submit" class="btn btn-primary">Generate Conf</button> --}}
+                {!! Form::submit("Generate Conf", ['class' => 'btn btn-danger']) !!}
+              </div>
+{{ Form::close() }}
 
 @stop
 

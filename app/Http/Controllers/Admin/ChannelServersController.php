@@ -12,12 +12,15 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Admin\StoreChannelServersRequest;
 use App\Http\Requests\Admin\UpdateChannelServersRequest;
 
+/**
+ * Controls the data flow into channel servers object and updates the view whenever data changes.
+ */
 class ChannelServersController extends Controller
 {
     /**
      * Display a listing of ChannelServer.
      *
-     * @return \Illuminate\Http\Response
+     * @return     \Illuminate\Http\Response
      */
     public function index()
     {
@@ -71,7 +74,7 @@ class ChannelServersController extends Controller
     /**
      * Show the form for creating new ChannelServer.
      *
-     * @return \Illuminate\Http\Response
+     * @return     \Illuminate\Http\Response
      */
     public function create()
     {
@@ -85,8 +88,8 @@ class ChannelServersController extends Controller
     /**
      * Store a newly created ChannelServer in storage.
      *
-     * @param  \App\Http\Requests\StoreChannelServersRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param      \App\Http\Requests\StoreChannelServersRequest  $request
+     * @return     \Illuminate\Http\Response
      */
     public function store(StoreChannelServersRequest $request)
     {
@@ -111,8 +114,8 @@ class ChannelServersController extends Controller
     /**
      * Show the form for editing ChannelServer.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param      int                        $id
+     * @return     \Illuminate\Http\Response
      */
     public function edit($id)
     {
@@ -127,9 +130,9 @@ class ChannelServersController extends Controller
     /**
      * Update ChannelServer in storage.
      *
-     * @param  \App\Http\Requests\UpdateChannelServersRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param      \App\Http\Requests\UpdateChannelServersRequest  $request
+     * @param      int                                             $id
+     * @return     \Illuminate\Http\Response
      */
     public function update(UpdateChannelServersRequest $request, $id)
     {
@@ -197,8 +200,8 @@ class ChannelServersController extends Controller
     /**
      * Display ChannelServer.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param      int                        $id
+     * @return     \Illuminate\Http\Response
      */
     public function show($id)
     {
@@ -221,8 +224,8 @@ class ChannelServersController extends Controller
     /**
      * Remove ChannelServer from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param      int                        $id
+     * @return     \Illuminate\Http\Response
      */
     public function destroy($id)
     {
@@ -238,7 +241,8 @@ class ChannelServersController extends Controller
     /**
      * Delete all selected ChannelServer at once.
      *
-     * @param Request $request
+     * @param      Request  $request
+     * @return     <type>   ( description_of_the_return_value )
      */
     public function massDestroy(Request $request)
     {
@@ -257,8 +261,8 @@ class ChannelServersController extends Controller
     /**
      * Restore ChannelServer from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param      int                        $id
+     * @return     \Illuminate\Http\Response
      */
     public function restore($id)
     {
@@ -274,8 +278,8 @@ class ChannelServersController extends Controller
     /**
      * Permanently delete ChannelServer from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param      int                        $id
+     * @return     \Illuminate\Http\Response
      */
     public function perma_del($id)
     {

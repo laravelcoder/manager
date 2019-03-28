@@ -23,16 +23,16 @@ if (! function_exists('channelconf')) {
         if (file_exists($channelserverpath.$channel_server->name)) {
             $contents = [];
 
-            $contents = "\n";
+            $contents = "";
             if ($cs_list_channels) {
                 foreach ($cs_list_channels as $cs_list_channel) {
-                    $contents .= "\n";
+                    // $contents .= "\n";
                     $contents .= ''.$cs_list_channel->channel->channel_name.','.$cs_list_channel->channel->channel_type."\n";
-                    $contents .= "\n";
+                    // $contents .= "\n";
                 }
             }
-            $contents .= "CREATED: " .date('m-d-Y H:i:s')."\n";
-            $contents .= "\n";
+            $contents .= "# CREATED: " .date('m-d-Y H:i:s')."\n";
+            // $contents .= "\n";
 
             //dd($contents);
 

@@ -12,10 +12,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 /**
  * Class User.
  *
- * @property string $name
- * @property string $email
- * @property string $password
- * @property string $remember_token
+ * @property   string  $name
+ * @property   string  $email
+ * @property   string  $password
+ * @property   string  $remember_token
  */
 class User extends Authenticatable
 {
@@ -25,7 +25,8 @@ class User extends Authenticatable
 
     /**
      * Hash password.
-     * @param $input
+     *
+     * @param      $input
      */
     public function setPasswordAttribute($input): void
     {
@@ -34,11 +35,21 @@ class User extends Authenticatable
         }
     }
 
+    /**
+     * Relationship with the Role model.
+     *
+     * @return     Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function role()
     {
         return $this->belongsToMany(Role::class, 'role_user');
     }
 
+    /**
+     * Sends a password reset notification.
+     *
+     * @param      <type>  $token  The token
+     */
     public function sendPasswordResetNotification($token): void
     {
         $this->notify(new ResetPassword($token));

@@ -10,9 +10,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class DefaultCloudA.
  *
- * @property string $address
- * @property string $port
- * @property string $channel_server
+ * @property   string  $address
+ * @property   string  $port
+ * @property   string  $channel_server
  */
 class DefaultCloudA extends Model
 {
@@ -23,13 +23,19 @@ class DefaultCloudA extends Model
 
     /**
      * Set to null if empty.
-     * @param $input
+     *
+     * @param      $input
      */
     public function setChannelServerIdAttribute($input): void
     {
         $this->attributes['channel_server_id'] = $input ? $input : null;
     }
 
+    /**
+     * Relationship with the ChannelServer model.
+     *
+     * @return     Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function channel_server()
     {
         return $this->belongsTo(ChannelServer::class, 'channel_server_id')->withTrashed();

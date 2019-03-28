@@ -10,14 +10,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class Csi.
  *
- * @property string $channel_server
- * @property string $channel
- * @property string $protocol
- * @property string $url
- * @property string $ssm
- * @property string $imc
- * @property string $ip
- * @property string $pid
+ * @property   string  $channel_server
+ * @property   string  $channel
+ * @property   string  $protocol
+ * @property   string  $url
+ * @property   string  $ssm
+ * @property   string  $imc
+ * @property   string  $ip
+ * @property   string  $pid
  */
 class Csi extends Model
 {
@@ -28,7 +28,9 @@ class Csi extends Model
 
     /**
      * Set to null if empty.
-     * @param $input
+     *
+     * @param      <type>  $input  The input
+     * @param      $input
      */
     public function setChannelServerIdAttribute($input): void
     {
@@ -37,7 +39,9 @@ class Csi extends Model
 
     /**
      * Set to null if empty.
-     * @param $input
+     *
+     * @param      <type>  $input  The input
+     * @param      $input
      */
     public function setChannelIdAttribute($input): void
     {
@@ -46,23 +50,40 @@ class Csi extends Model
 
     /**
      * Set to null if empty.
-     * @param $input
+     *
+     * @param      $input  The input
+     * @param      $input
      */
     public function setProtocolIdAttribute($input): void
     {
         $this->attributes['protocol_id'] = $input ? $input : null;
     }
 
+    /**
+     * Relationship with the ChannelServer model
+     *
+     * @return     Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function channel_server()
     {
         return $this->belongsTo(ChannelServer::class, 'channel_server_id')->withTrashed();
     }
 
+    /**
+     * Relationship with the ChannelsList model
+     *
+     * @return     Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function channel()
     {
         return $this->belongsTo(ChannelsList::class, 'channel_id')->withTrashed();
     }
 
+    /**
+     * Relationship with the Protocol model
+     *
+     * @return     Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function protocol()
     {
         return $this->belongsTo(Protocol::class, 'protocol_id')->withTrashed();

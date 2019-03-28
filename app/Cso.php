@@ -10,12 +10,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class Cso.
  *
- * @property string $channel_server
- * @property string $channel
- * @property string $ocloud_a
- * @property int $ocp_a
- * @property string $ocloud_b
- * @property string $ocp_b
+ * @property   string  $channel_server
+ * @property   string  $channel
+ * @property   string  $ocloud_a
+ * @property   int     $ocp_a
+ * @property   string  $ocloud_b
+ * @property   string  $ocp_b
  */
 class Cso extends Model
 {
@@ -26,7 +26,8 @@ class Cso extends Model
 
     /**
      * Set to null if empty.
-     * @param $input
+     *
+     * @param      $input
      */
     public function setChannelServerIdAttribute($input): void
     {
@@ -35,7 +36,9 @@ class Cso extends Model
 
     /**
      * Set to null if empty.
-     * @param $input
+     *
+     * @param      <type>  $input  The input
+     * @param      $input
      */
     public function setChannelIdAttribute($input): void
     {
@@ -44,18 +47,29 @@ class Cso extends Model
 
     /**
      * Set attribute to money format.
-     * @param $input
+     *
+     * @param      $input
      */
     public function setOcpAAttribute($input): void
     {
         $this->attributes['ocp_a'] = $input ? $input : null;
     }
 
+    /**
+     * Relationship with the ChannelServer model.
+     *
+     * @return     Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function channel_server()
     {
         return $this->belongsTo(ChannelServer::class, 'channel_server_id')->withTrashed();
     }
 
+    /**
+     * Relationship with the ChannelsList model.
+     *
+     * @return     Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function channel()
     {
         return $this->belongsTo(ChannelsList::class, 'channel_id')->withTrashed();

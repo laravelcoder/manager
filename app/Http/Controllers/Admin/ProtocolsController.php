@@ -12,12 +12,15 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Admin\StoreProtocolsRequest;
 use App\Http\Requests\Admin\UpdateProtocolsRequest;
 
+/**
+ * Controls the data flow into protocols object and updates the view whenever data changes.
+ */
 class ProtocolsController extends Controller
 {
     /**
      * Display a listing of Protocol.
      *
-     * @return \Illuminate\Http\Response
+     * @return     \Illuminate\Http\Response
      */
     public function index()
     {
@@ -71,7 +74,7 @@ class ProtocolsController extends Controller
     /**
      * Show the form for creating new Protocol.
      *
-     * @return \Illuminate\Http\Response
+     * @return     \Illuminate\Http\Response
      */
     public function create()
     {
@@ -85,8 +88,8 @@ class ProtocolsController extends Controller
     /**
      * Store a newly created Protocol in storage.
      *
-     * @param  \App\Http\Requests\StoreProtocolsRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param      \App\Http\Requests\StoreProtocolsRequest  $request
+     * @return     \Illuminate\Http\Response
      */
     public function store(StoreProtocolsRequest $request)
     {
@@ -101,8 +104,8 @@ class ProtocolsController extends Controller
     /**
      * Show the form for editing Protocol.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param      int                        $id
+     * @return     \Illuminate\Http\Response
      */
     public function edit($id)
     {
@@ -117,9 +120,9 @@ class ProtocolsController extends Controller
     /**
      * Update Protocol in storage.
      *
-     * @param  \App\Http\Requests\UpdateProtocolsRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param      \App\Http\Requests\UpdateProtocolsRequest  $request
+     * @param      int                                        $id
+     * @return     \Illuminate\Http\Response
      */
     public function update(UpdateProtocolsRequest $request, $id)
     {
@@ -135,8 +138,8 @@ class ProtocolsController extends Controller
     /**
      * Display Protocol.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param      int                        $id
+     * @return     \Illuminate\Http\Response
      */
     public function show($id)
     {
@@ -153,8 +156,8 @@ class ProtocolsController extends Controller
     /**
      * Remove Protocol from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param      int                        $id
+     * @return     \Illuminate\Http\Response
      */
     public function destroy($id)
     {
@@ -170,7 +173,8 @@ class ProtocolsController extends Controller
     /**
      * Delete all selected Protocol at once.
      *
-     * @param Request $request
+     * @param      Request  $request
+     * @return     <type>   ( description_of_the_return_value )
      */
     public function massDestroy(Request $request)
     {
@@ -189,8 +193,8 @@ class ProtocolsController extends Controller
     /**
      * Restore Protocol from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param      int                        $id
+     * @return     \Illuminate\Http\Response
      */
     public function restore($id)
     {
@@ -206,8 +210,8 @@ class ProtocolsController extends Controller
     /**
      * Permanently delete Protocol from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param      int                        $id
+     * @return     \Illuminate\Http\Response
      */
     public function perma_del($id)
     {

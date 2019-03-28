@@ -17,21 +17,22 @@ $iterator = Finder::create()
  ->exclude('.phpintel')
  ->exclude('nbproject')
  ->exclude('home')
- // ->exclude('config')
+ ->exclude('config')
+ ->exclude('database')
  ->exclude('cdb')
  ->exclude('resources')
  ->exclude('tests')
  ->exclude('vendor')
  ->exclude('public')
  ->exclude('bootstrap')
- ->exclude('storate')
+ ->exclude('storage')
  ->in(__DIR__.'/');
 
 return new Sami($iterator, [
  'theme' => 'default',
  'title' => 'Configuration Manager Documentation',
- 'build_dir' => __DIR__.'/public/docs',
- 'cache_dir' => __DIR__.'/public/docs/cache',
+ 'build_dir' => __DIR__.'/public/docs/technical',
+ 'cache_dir' => __DIR__.'/public/docs/technical/cache',
  'default_opened_level' => 2,
 ]);
 

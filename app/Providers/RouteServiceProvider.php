@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Route;
@@ -23,7 +21,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(): void
+    public function boot()
     {
         //
 
@@ -35,11 +33,14 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function map(): void
+    public function map()
     {
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
+
+        if (!$this->app->environment('production'))
+            $this->mapDevelopmentRoutes();
 
         //
     }
@@ -51,12 +52,31 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapWebRoutes(): void
+    protected function mapWebRoutes()
     {
         Route::middleware('web')
              ->namespace($this->namespace)
              ->group(base_path('routes/web.php'));
+
+
     }
+
+
+    /**
+     * Define the "development" routes for the application.
+     *
+     * These routes all receive "web" middleware.
+     *
+     * @return void
+     */
+    protected function mapDevelopmentRoutes() {
+        Route::middleware(['web', 'auth'])
+//            ->namespace($this->namespace . '\Development')
+            ->as('development.')
+//            ->prefix('development')
+            ->group(base_path('routes/development.php'));
+    }
+
 
     /**
      * Define the "api" routes for the application.
@@ -65,7 +85,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapApiRoutes(): void
+    protected function mapApiRoutes()
     {
         Route::prefix('api')
              ->middleware('api')

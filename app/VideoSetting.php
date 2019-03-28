@@ -47,11 +47,21 @@ class VideoSetting extends Model
         $this->attributes['video_server_type_id'] = $input ? $input : null;
     }
 
+    /**
+     * Relationship with the SyncServer model.
+     *
+     * @return  Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function sync_server()
     {
         return $this->belongsTo(SyncServer::class, 'sync_server_id')->withTrashed();
     }
 
+    /**
+     * Relationship with the VideoServerType model.
+     *
+     * @return  Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function video_server_type()
     {
         return $this->belongsTo(VideoServerType::class, 'video_server_type_id')->withTrashed();
