@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
- 
-
 if (! function_exists('channelconf')) {
     /**
      * Access the escapeSlashes helper.
@@ -31,14 +29,14 @@ if (! function_exists('channelconf')) {
                     $contents .= "\n";
                 }
             }
-            $contents .= "CREATED: " .date('m-d-Y H:i:s')."\n";
+            $contents .= 'CREATED: '.date('m-d-Y H:i:s')."\n";
             $contents .= "\n";
 
             //dd($contents);
 
             File::put($channelserverpath.$channel_server->name.'/ChannelIDs.conf', $contents);
 
-            Log::info('BOTTON: Created ChannelServer.conf NAMED: ' . $channel_server->name . ' ID:' . $id . ' ON: '. date('Y-m-d H:i:s'));
+            Log::info('BOTTON: Created ChannelServer.conf NAMED: '.$channel_server->name.' ID:'.$id.' ON: '.date('Y-m-d H:i:s'));
         }
     }
 }
