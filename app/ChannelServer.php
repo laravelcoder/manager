@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
-  * Class for channel server.
-  */
+ * Class for channel server.
+ */
 class ChannelServer extends Model
 {
     use SoftDeletes;
