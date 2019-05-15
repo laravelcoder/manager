@@ -6,10 +6,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
- 
+
 /**
- * Class for channel server.
- */
+  * Class for channel server.
+  */
 class ChannelServer extends Model
 {
     use SoftDeletes;
@@ -19,7 +19,7 @@ class ChannelServer extends Model
 
     /**
      * Relationship with the DefaultCloudA model.
-     * 
+     *
      * @return    Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function default_cloud_as()
@@ -29,7 +29,7 @@ class ChannelServer extends Model
 
     /**
      * Relationship with the DefaultCloudB model.
-     * 
+     *
      * @return    Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function default_cloud_bs()
@@ -39,12 +39,11 @@ class ChannelServer extends Model
 
     /**
      * Relationship with the LocalOutput model.
-     * 
+     *
      * @return    Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function local_outputs()
     {
         return $this->hasOne(\App\LocalOutput::class, 'channel_server_id');
     }
- 
 }

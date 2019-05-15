@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Route;
@@ -21,7 +23,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         //
 
@@ -33,14 +35,15 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function map()
+    public function map(): void
     {
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
 
-        if (!$this->app->environment('production'))
+        if (! $this->app->environment('production')) {
             $this->mapDevelopmentRoutes();
+        }
 
         //
     }
@@ -52,15 +55,12 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapWebRoutes()
+    protected function mapWebRoutes(): void
     {
         Route::middleware('web')
              ->namespace($this->namespace)
              ->group(base_path('routes/web.php'));
-
-
     }
-
 
     /**
      * Define the "development" routes for the application.
@@ -69,14 +69,14 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapDevelopmentRoutes() {
+    protected function mapDevelopmentRoutes(): void
+    {
         Route::middleware(['web', 'auth'])
 //            ->namespace($this->namespace . '\Development')
             ->as('development.')
 //            ->prefix('development')
             ->group(base_path('routes/development.php'));
     }
-
 
     /**
      * Define the "api" routes for the application.
@@ -85,7 +85,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapApiRoutes()
+    protected function mapApiRoutes(): void
     {
         Route::prefix('api')
              ->middleware('api')

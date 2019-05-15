@@ -159,7 +159,7 @@ class CsListChannelsController extends Controller
         return redirect()->route('admin.cs_list_channels.index');
     }
 
-     /**
+    /**
      * Show the form for editing CsListChannel.
      *
      * @param  int  $id

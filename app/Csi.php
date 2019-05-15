@@ -60,7 +60,7 @@ class Csi extends Model
     }
 
     /**
-     * Relationship with the ChannelServer model
+     * Relationship with the ChannelServer model.
      *
      * @return     Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -70,7 +70,7 @@ class Csi extends Model
     }
 
     /**
-     * Relationship with the ChannelsList model
+     * Relationship with the ChannelsList model.
      *
      * @return     Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -80,7 +80,7 @@ class Csi extends Model
     }
 
     /**
-     * Relationship with the Protocol model
+     * Relationship with the Protocol model.
      *
      * @return     Illuminate\Database\Eloquent\Relations\BelongsTo
      */

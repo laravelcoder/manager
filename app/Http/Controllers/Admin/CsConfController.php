@@ -21,37 +21,34 @@ class CsConfController extends Controller
         //     return abort(401);
         // }
 
-        $channel_server   = \App\ChannelServer::findOrFail($id);
-        $channels         = \App\ChannelsList::get()->pluck('channel_name', 'id');
-        $csis             = \App\Csi::where('channel_server_id', $id)->get();
-        $csos             = \App\Cso::where('channel_server_id', $id)->get();
+        $channel_server = \App\ChannelServer::findOrFail($id);
+        $channels = \App\ChannelsList::get()->pluck('channel_name', 'id');
+        $csis = \App\Csi::where('channel_server_id', $id)->get();
+        $csos = \App\Cso::where('channel_server_id', $id)->get();
         $cs_list_channels = \App\CsListChannel::where('channelserver_id', $id)->get();
         $ss_list_channels = \App\SsListChannel::where('channel_server_id', $id)->get();
 
-        $protocols        = \App\Protocol::get()->pluck('protocol', 'id');
+        $protocols = \App\Protocol::get()->pluck('protocol', 'id');
         // $protocols     = \App\Protocol::findOrFail($id);
         // $dca           = $channel_server->default_cloud_as;
         // $dcb           = $channel_server->default_cloud_bs;
         // $localdefault  = $channel_server->local_outputs;
 
-        $dca              = \App\DefaultCloudA::findOrFail($id);
-        $dcb              = \App\DefaultCloudB::findOrFail($id);
-        $localdefault     = \App\LocalOutput::findOrFail($id);
+        $dca = \App\DefaultCloudA::findOrFail($id);
+        $dcb = \App\DefaultCloudB::findOrFail($id);
+        $localdefault = \App\LocalOutput::findOrFail($id);
 
         $channelserverpath = config('confs.paths.cs_conf');
         File::isDirectory($channelserverpath.$channel_server->name) or File::makeDirectory($channelserverpath.$channel_server->name, 0777, true, true);
 
- 
-            $contents   = [];
- 
-        if (file_exists($channelserverpath.$channel_server->name)) {
- 
+        $contents = [];
 
-            $contents   = "[INPUT]\n";
+        if (file_exists($channelserverpath.$channel_server->name)) {
+            $contents = "[INPUT]\n";
             $csis_count = 0;
-            $dca_count  = 0;
-            $lo_count   = 0;
-            $dcb_count  = 0;
+            $dca_count = 0;
+            $lo_count = 0;
+            $dcb_count = 0;
             $csos_count = 0;
 
             if (count($csis) > 0) {
@@ -126,22 +123,20 @@ class CsConfController extends Controller
 
         //             File::put($channelserverpath . $channel_server->name . '/ChannelIDs.conf', $contents);
 
- 
         //             Storage::prepend('channelserver.log', 'Created ChannelServer.conf File Successfully NAMED: ' . $channel_server->name . ' ID:' . $id . ' ON: '. date('Y-m-d H:i:s'));
- 
+
         // //            Log::info('Created ChannelServer.conf File Successfully');
         // //
         // //            Log::debug('An informational message.');
         // //            Log::emergency('The system is down!');
- 
+
         //             Log::info('Created ChannelServer.conf NAMED: ' . $channel_server->name . ' ID:' . $id . ' ON: '. date('Y-m-d H:i:s'));
-                 
+
         //         }
- 
+
 //             Log::info('Created ChannelServer.conf NAMED: ' . $channel_server->name . ' ID:' . $id . ' ON: '. date('Y-m-d H:i:s'));
 
 //         }
- 
 
         return view('preview.cs.channels_conf', compact('cs_list_channels', 'channel_server'));
     }

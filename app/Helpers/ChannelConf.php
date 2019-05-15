@@ -21,7 +21,7 @@ if (! function_exists('channelconf')) {
         if (file_exists($channelserverpath.$channel_server->name)) {
             $contents = [];
 
-            $contents = "";
+            $contents = '';
             if ($cs_list_channels) {
                 foreach ($cs_list_channels as $cs_list_channel) {
                     // $contents .= "\n";
@@ -30,9 +30,8 @@ if (! function_exists('channelconf')) {
                 }
             }
 
-            $contents .= "# CREATED: " .date('m-d-Y H:i:s')."\n";
+            $contents .= '# CREATED: '.date('m-d-Y H:i:s')."\n";
             // $contents .= "\n";
-
 
             //dd($contents);
 
