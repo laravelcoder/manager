@@ -1,7 +1,8 @@
 <?php
 
+declare(strict_types=1);
 Route::get('/r', function () {
-    function philsroutes()
+    function philsroutes(): void
     {
         $routeCollection = Route::getRoutes();
         echo '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">';
@@ -17,10 +18,10 @@ Route::get('/r', function () {
         foreach ($routeCollection as $value) {
             echo '<tr>';
             //    echo '<td>lcadashboard.com</td>';
-            echo '<td>' . $value->methods()[0] . '</td>';
-            echo "<td><a href='" . $value->uri() . "' target='_blank'>" . $value->uri() . '</a> </td>';
-            echo '<td>' . $value->getName() . '</td>';
-            echo '<td>' . $value->getActionName() . '</td>';
+            echo '<td>'.$value->methods()[0].'</td>';
+            echo "<td><a href='".$value->uri()."' target='_blank'>".$value->uri().'</a> </td>';
+            echo '<td>'.$value->getName().'</td>';
+            echo '<td>'.$value->getActionName().'</td>';
             echo '</tr>';
         }
 
@@ -30,7 +31,5 @@ Route::get('/r', function () {
 
     return philsroutes();
 })->name('assigned-routes');
- 
-
 
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');

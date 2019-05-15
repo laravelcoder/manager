@@ -198,7 +198,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        /**
+        /*
          * Added by phillip
          */
         Jlapp\Swaggervel\SwaggervelServiceProvider::class,
